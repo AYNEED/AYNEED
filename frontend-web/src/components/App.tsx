@@ -1,19 +1,11 @@
 import React from 'react';
 
-const App: React.FC = () => (
+import { Router } from 'src/components/wrappers/Router';
+
+export const App: React.FC = () => (
   <div className="App">
-    <p>
-      Edit <code>src/App.tsx</code> and save to reload.
-    </p>
-    <a
-      className="App-link"
-      href="https://reactjs.org"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Learn React
-    </a>
+    <h1>AYneed</h1>
+
+    <Router />
   </div>
 );
-
-export default App;
