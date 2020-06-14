@@ -18,8 +18,7 @@ export const Page: React.FC<Props> = ({ children, title }) => {
   const msgProps = id ? { id } : undefined;
 
   useEffect(() => {
-    const title = msgProps ? msg(intl, msgProps) : undefined;
-    document.title = title || 'AYneed';
+    document.title = msgProps ? msg(intl, msgProps) : 'AYneed';
   }, [msgProps, intl]);
 
   return (
