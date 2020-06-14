@@ -12,6 +12,7 @@
   },
   "husky": {
     "hooks": {
+      "post-merge": "yarn install",
       "pre-commit": "pretty-quick --staged"
     }
   },
