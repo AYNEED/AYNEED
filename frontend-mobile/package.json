@@ -1,0 +1,9 @@
+{
+  "name": "frontend-mobile",
+  "version": "2.0.0",
+  "private": true,
+  "dependencies": {
+    "frontend-shared": "2.0.0",
+    "shared": "2.0.0"
+  }
+}

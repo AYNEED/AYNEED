@@ -4,7 +4,7 @@
 
 ### 1. Общие положения
 
-1. Monorepo (`yarn workspaces`)
+1. ~~Monorepo (`yarn workspaces`)~~
 2. ~~`TypeScript`~~
 3. Глобальный `eslint` на весь репозиторий
 4. ~~Глобальный `prettier` на весь репозиторий~~

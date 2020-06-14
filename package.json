@@ -11,6 +11,16 @@
     "pretty-quick": "^2.0.1",
     "typescript": "^3.9.5"
   },
+  "workspaces": {
+    "packages": [
+      "backend-api",
+      "backend-static",
+      "frontend-mobile",
+      "frontend-shared",
+      "frontend-web",
+      "shared"
+    ]
+  },
   "husky": {
     "hooks": {
       "post-merge": "yarn install",
