@@ -1,5 +1,7 @@
 import React from 'react';
 
-const SignInEmail: React.FC = () => <h1>SignInEmail</h1>;
+import { Page } from 'src/components/wrappers/Page';
+
+const SignInEmail: React.FC = () => <Page title />;
 
 export default SignInEmail;

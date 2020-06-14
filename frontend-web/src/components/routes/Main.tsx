@@ -1,5 +1,7 @@
 import React from 'react';
 
-const Main: React.FC = () => <h1>Main</h1>;
+import { Page } from 'src/components/wrappers/Page';
+
+const Main: React.FC = () => <Page title />;
 
 export default Main;
