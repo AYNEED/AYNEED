@@ -3,12 +3,9 @@ import { persistCache } from 'apollo-cache-persist';
 import { ApolloProvider as Provider } from '@apollo/react-hooks';
 
 import { cache, client, storage } from 'src/utils/graphql';
+import { fallback } from 'src/components/wrappers/Router';
 
-type Props = {
-  fallback: JSX.Element;
-};
-
-export const ApolloProvider: React.FC<Props> = ({ children, fallback }) => {
+export const ApolloProvider: React.FC = ({ children }) => {
   const [initialized, setInitialized] = useState(false);
 
   const fetchCache = useCallback(async () => {
