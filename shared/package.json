@@ -1,0 +1,15 @@
+{
+  "name": "shared",
+  "version": "2.0.0",
+  "private": true,
+  "main": "./build",
+  "types": "./src",
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "postinstall": "tsc -b",
+    "build": "tsc -b",
+    "watch": "tsc -b -w"
+  }
+}

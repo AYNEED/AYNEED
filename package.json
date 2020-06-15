@@ -1,0 +1,34 @@
+{
+  "name": "ayneed",
+  "version": "2.0.0",
+  "description": "People search and collaboration platform",
+  "repository": "git@github.com:AYneed/ayneed.git",
+  "author": "AYneed Team <offers@aynd.ru>",
+  "private": true,
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "typescript": "^3.9.5"
+  },
+  "workspaces": {
+    "packages": [
+      "backend-api",
+      "backend-static",
+      "frontend-mobile",
+      "frontend-shared",
+      "frontend-web",
+      "shared"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "post-merge": "yarn install",
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "engines": {
+    "node": "12.*",
+    "yarn": "1.22.*"
+  }
+}
