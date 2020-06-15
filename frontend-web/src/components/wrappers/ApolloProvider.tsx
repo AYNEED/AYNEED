@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { persistCache } from 'apollo-cache-persist';
+import { ApolloProvider as Provider } from '@apollo/react-hooks';
 
-import { cache, storage } from 'src/utils/graphql';
+import { cache, client, storage } from 'src/utils/graphql';
 
 type Props = {
   fallback: JSX.Element;
 };
 
-export const PersistGate: React.FC<Props> = ({ children, fallback }) => {
+export const ApolloProvider: React.FC<Props> = ({ children, fallback }) => {
   const [initialized, setInitialized] = useState(false);
 
   const fetchCache = useCallback(async () => {
@@ -26,5 +27,5 @@ export const PersistGate: React.FC<Props> = ({ children, fallback }) => {
     return fallback;
   }
 
-  return <>{children}</>;
+  return <Provider client={client}>{children}</Provider>;
 };
