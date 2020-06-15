@@ -9,6 +9,11 @@
 1. `cd frontend-web`
 2. `yarn run start`
 
+### Backend
+
+1. `cd backend-api`
+2. `yarn run start`
+
 ## Требования к архитектуре
 
 ### 1. Общие положения

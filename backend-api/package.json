@@ -2,7 +2,19 @@
   "name": "backend-api",
   "version": "2.0.0",
   "private": true,
+  "main": "./src",
   "dependencies": {
+    "apollo-server": "^2.14.4",
+    "graphql": "^15.1.0",
     "shared": "2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "postinstall": "tsc -b",
+    "build": "tsc -b",
+    "watch": "tsc -b -w",
+    "start": "NODE_PATH=build/ node ./build"
   }
 }
