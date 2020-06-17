@@ -13,20 +13,24 @@ const EXCHANGE_RATES = gql`
   }
 `;
 
+type Rates = {
+  rates: { currency: string; rate: string }[];
+};
+
 const Main: React.FC = () => {
-  const { loading, error, data } = useQuery(EXCHANGE_RATES);
+  const { loading, error, data } = useQuery<Rates>(EXCHANGE_RATES);
 
   if (loading) {
     return <p>Loading...</p>;
   }
 
-  if (error) {
+  if (error || !data) {
     return <p>Error</p>;
   }
 
   return (
     <Page title>
-      {data.rates.map(({ currency, rate }: any) => (
+      {data.rates.map(({ currency, rate }) => (
         <p key={currency}>
           {currency}: {rate}
         </p>
