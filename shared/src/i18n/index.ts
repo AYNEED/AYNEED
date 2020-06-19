@@ -15,3 +15,10 @@ const defaultDictionary = locales[defaultLocale].dictionary;
 export type Locales = keyof typeof locales;
 export type Dictionary = typeof defaultDictionary;
 export type DictionaryKey = keyof Dictionary;
+
+export type TimeZone = string;
+
+export type Dates = {
+  ISO: string;
+  timestamp: number;
+};
