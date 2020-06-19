@@ -8,7 +8,7 @@ export const locales = {
   },
 } as const;
 
-export const LOCALES: Locales[] = Object.keys(locales) as any[];
+export const LOCALES: Locales[] = Object.keys(locales) as never[];
 export const defaultLocale = 'rus';
 const defaultDictionary = locales[defaultLocale].dictionary;
 
