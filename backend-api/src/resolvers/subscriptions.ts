@@ -1,6 +1,6 @@
 import { PubSub } from 'apollo-server';
 
-import { Resolvers } from 'src/_generated';
+import { Resolvers, User } from 'src/_generated';
 
 export const pubsub = new PubSub();
 
@@ -13,9 +13,11 @@ export const events = {
 
 export const subscription: Resolvers['Subscription'] = {
   userAdded: {
-    subscribe: () => pubsub.asyncIterator([events.user.added]),
+    resolve: (payload: User) => payload,
+    subscribe: () => pubsub.asyncIterator(events.user.added),
   },
   userUpdated: {
-    subscribe: () => pubsub.asyncIterator([events.user.updated]),
+    resolve: (payload: User) => payload,
+    subscribe: () => pubsub.asyncIterator(events.user.updated),
   },
 };
