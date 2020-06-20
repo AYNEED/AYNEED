@@ -19,6 +19,9 @@ const server = new ApolloServer({
   },
 });
 
-server.listen({ port: process.env.AYNEED_BACKEND_API_PORT }).then(({ url }) => {
-  console.log(`🚀 Server ${version} ready at ${url}`);
-});
+server
+  .listen({ port: process.env.AYNEED_BACKEND_API_PORT })
+  .then(({ url, subscriptionsUrl }) => {
+    console.log(`🚀 Server ${version} ready at ${url}`);
+    console.log(`Subscriptions ready at ${subscriptionsUrl}`);
+  });
