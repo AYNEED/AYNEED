@@ -1,12 +1,7 @@
+import { readFileSync } from 'fs';
 import { gql } from 'apollo-server';
 
-export const typeDefs = gql`
-  type Book {
-    title: String
-    author: String
-  }
+const schemaPath = process.cwd().concat('/schema.graphql');
+const schemaText = readFileSync(schemaPath, 'utf8');
 
-  type Query {
-    books: [Book]
-  }
-`;
+export const typeDefs = gql(schemaText);
