@@ -18,12 +18,18 @@ export type Mutation = {
 
 
 export type MutationSignInEmailArgs = {
-  login: Scalars['String'];
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 
 export type MutationSignUpEmailArgs = {
-  login: Scalars['String'];
+  email: Scalars['String'];
+  password: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  locale: Locale;
+  userAgreement: Scalars['Boolean'];
 };
 
 export type Query = {
@@ -40,6 +46,10 @@ export type Subscription = {
   userAdded: User;
   userUpdated: User;
 };
+
+export enum Locale {
+  Rus = 'rus'
+}
 
 export enum Gender {
   Male = 'male',
@@ -139,12 +149,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Subscription: ResolverTypeWrapper<{}>;
+  LOCALE: Locale;
   GENDER: Gender;
   User: ResolverTypeWrapper<User>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
 };
 
@@ -152,17 +163,17 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Mutation: {};
   String: Scalars['String'];
+  Boolean: Scalars['Boolean'];
   Query: {};
   ID: Scalars['ID'];
   Subscription: {};
   User: User;
-  Boolean: Scalars['Boolean'];
   UserPersonalData: UserPersonalData;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  signInEmail: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationSignInEmailArgs, 'login'>>;
-  signUpEmail: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationSignUpEmailArgs, 'login'>>;
+  signInEmail: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationSignInEmailArgs, 'email' | 'password'>>;
+  signUpEmail: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationSignUpEmailArgs, 'email' | 'password' | 'firstName' | 'lastName' | 'locale' | 'userAgreement'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

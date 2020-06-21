@@ -5,8 +5,16 @@ schema {
 }
 
 type Mutation {
-  signInEmail(login: String!): User
-  signUpEmail(login: String!): User
+  signInEmail(email: String!, password: String!): User
+
+  signUpEmail(
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    locale: LOCALE!
+    userAgreement: Boolean!
+  ): User
 }
 
 type Query {
@@ -17,6 +25,10 @@ type Query {
 type Subscription {
   userAdded: User!
   userUpdated: User!
+}
+
+enum LOCALE {
+  rus
 }
 
 enum GENDER {
