@@ -7,7 +7,7 @@ import { typeDefs } from 'src/typeDefs';
 import { resolvers } from 'src/resolvers';
 import { version } from 'package.json';
 
-const theme = process.env.AYNEED_APOLLO_SERVER_PLAYGROUND_THEME as Theme;
+const theme = process.env.AYNEED_BACKEND_PLAYGROUND_THEME as Theme;
 const port = process.env.AYNEED_BACKEND_API_PORT;
 
 const server = new ApolloServer({
