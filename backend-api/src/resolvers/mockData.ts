@@ -1,4 +1,4 @@
-import { User, Gender } from 'src/_generated';
+import { User, Gender } from 'src/__generated__';
 
 // TODO: use mongoDB (ch274)
 export const users: User[] = [

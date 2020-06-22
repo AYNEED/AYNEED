@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/_generated';
+import { Resolvers } from 'src/__generated__';
 import { subscription } from 'src/resolvers/subscriptions';
 import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';

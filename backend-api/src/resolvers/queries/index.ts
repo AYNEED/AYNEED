@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/_generated';
+import { Resolvers } from 'src/__generated__';
 import { getUserById, getUsers } from 'src/resolvers/queries/users';
 
 export const query: Resolvers['Query'] = {

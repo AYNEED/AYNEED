@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/_generated';
+import { Resolvers } from 'src/__generated__';
 
 export const resolveUser: Resolvers['User'] = {
   id: (parent) => parent.id,

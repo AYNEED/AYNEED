@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/_generated';
+import { Resolvers } from 'src/__generated__';
 import { users } from 'src/resolvers/mockData';
 
 // TODO: use mongoDB (ch274)

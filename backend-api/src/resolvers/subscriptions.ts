@@ -1,6 +1,6 @@
 import { PubSub } from 'apollo-server';
 
-import { Resolvers, User } from 'src/_generated';
+import { Resolvers, User } from 'src/__generated__';
 
 export const pubsub = new PubSub();
 

@@ -1,4 +1,4 @@
-import { Resolvers, User } from 'src/_generated';
+import { Resolvers, User } from 'src/__generated__';
 import { users } from 'src/resolvers/mockData';
 import { events, pubsub } from 'src/resolvers/subscriptions';
 
