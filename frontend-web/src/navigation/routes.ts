@@ -12,18 +12,18 @@ export const config: { [TKey in ROUTES]: Route } = {
   [ROUTES.MAIN]: {
     access: 'all',
     title: 'web.components.routes.Main.title',
-    component: () => import('src/components/routes/Main'),
+    component: () => import('src/routes/Main'),
   },
 
   [ROUTES.SIGN_IN_EMAIL]: {
     access: 'unauthorized',
     title: 'web.components.routes.SignInEmail.title',
-    component: () => import('src/components/routes/SignInEmail'),
+    component: () => import('src/routes/SignInEmail'),
   },
 
   [ROUTES.SIGN_UP_EMAIL]: {
     access: 'unauthorized',
     title: 'web.components.routes.SignUpEmail.title',
-    component: () => import('src/components/routes/SignUpEmail'),
+    component: () => import('src/routes/SignUpEmail'),
   },
 };
