@@ -35,7 +35,7 @@ export type MutationSignUpEmailArgs = {
 
 export type Query = {
   user: Maybe<User>;
-  users: Array<Maybe<User>>;
+  users: Array<User>;
 };
 
 export type QueryUserArgs = {
@@ -244,11 +244,7 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryUserArgs, 'id'>
   >;
-  users: Resolver<
-    Array<Maybe<ResolversTypes['User']>>,
-    ParentType,
-    ContextType
-  >;
+  users: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
 export type SubscriptionResolvers<
