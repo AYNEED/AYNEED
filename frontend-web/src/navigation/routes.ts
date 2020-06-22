@@ -26,4 +26,10 @@ export const config: { [TKey in ROUTES]: Route } = {
     title: 'web.components.routes.SignUpEmail.title',
     component: () => import('src/routes/SignUpEmail'),
   },
+
+  [ROUTES.FEED]: {
+    access: 'all',
+    title: 'web.components.routes.Feed.title',
+    component: () => import('src/routes/Feed'),
+  },
 };
