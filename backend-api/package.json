@@ -10,17 +10,13 @@
     "shared": "2.0.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.15.4",
-    "@graphql-codegen/typescript": "^1.15.4",
-    "@graphql-codegen/typescript-resolvers": "^1.15.4",
     "@types/dotenv-flow": "^3.0.0",
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "postinstall": "tsc -b",
+    "postinstall": "yarn run build",
     "build": "tsc -b",
-    "watch": "tsc -b -w",
-    "watch:gql": "graphql-codegen",
+    "watch": "yarn run build -w",
     "start": "NODE_PATH=build/ node ./build"
   }
 }
