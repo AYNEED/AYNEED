@@ -14,9 +14,9 @@
         "reactApolloVersion": 2,
         "withComponent": false,
         "withHOC": false,
-        "withHooks": false
+        "withHooks": true
       },
-      "documents": ["../frontend-web/src/**/*.tsx"]
+      "documents": ["../frontend-web/client.graphql"]
     }
   },
   "config": {

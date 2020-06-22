@@ -1,0 +1,12 @@
+query GetUsers {
+  users {
+    id
+    isOnline
+    personal {
+      login
+      firstName
+      lastName
+      gender
+    }
+  }
+}
