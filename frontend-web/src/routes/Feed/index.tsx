@@ -31,8 +31,6 @@ const Feed: React.FC = () => {
     return <p>Error</p>;
   }
 
-  console.log(data);
-
   return (
     <Page title>
       {data.users.map(({ id, personal }) => (
