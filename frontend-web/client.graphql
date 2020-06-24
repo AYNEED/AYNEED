@@ -10,3 +10,16 @@ query GetUsers {
     }
   }
 }
+
+subscription onUserAdded {
+  userAdded {
+    id
+    isOnline
+    personal {
+      login
+      firstName
+      lastName
+      gender
+    }
+  }
+}

@@ -80,6 +80,17 @@ export type GetUsersQuery = {
   >;
 };
 
+export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type OnUserAddedSubscription = {
+  userAdded: Pick<User, 'id' | 'isOnline'> & {
+    personal: Pick<
+      UserPersonalData,
+      'login' | 'firstName' | 'lastName' | 'gender'
+    >;
+  };
+};
+
 export const GetUsersDocument = gql`
   query GetUsers {
     users {
@@ -139,4 +150,51 @@ export type GetUsersLazyQueryHookResult = ReturnType<
 export type GetUsersQueryResult = ApolloReactCommon.QueryResult<
   GetUsersQuery,
   GetUsersQueryVariables
+>;
+export const OnUserAddedDocument = gql`
+  subscription onUserAdded {
+    userAdded {
+      id
+      isOnline
+      personal {
+        login
+        firstName
+        lastName
+        gender
+      }
+    }
+  }
+`;
+
+/**
+ * __useOnUserAddedSubscription__
+ *
+ * To run a query within a React component, call `useOnUserAddedSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useOnUserAddedSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOnUserAddedSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useOnUserAddedSubscription(
+  baseOptions?: ApolloReactHooks.SubscriptionHookOptions<
+    OnUserAddedSubscription,
+    OnUserAddedSubscriptionVariables
+  >
+) {
+  return ApolloReactHooks.useSubscription<
+    OnUserAddedSubscription,
+    OnUserAddedSubscriptionVariables
+  >(OnUserAddedDocument, baseOptions);
+}
+export type OnUserAddedSubscriptionHookResult = ReturnType<
+  typeof useOnUserAddedSubscription
+>;
+export type OnUserAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
+  OnUserAddedSubscription
 >;
