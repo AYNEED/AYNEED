@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 
 import { Page } from 'src/components/wrappers/Page';
 import {
-  useGetUsersQuery,
+  GetUsersDocument,
+  GetUsersQuery,
   OnUserAddedDocument,
   OnUserAddedSubscription,
 } from 'src/__generated__';
 
 const Feed: React.FC = () => {
-  const { loading, error, data, subscribeToMore } = useGetUsersQuery();
+  const { loading, error, data, subscribeToMore } = useQuery<GetUsersQuery>(
+    GetUsersDocument
+  );
 
   useEffect(() => {
     subscribeToMore<OnUserAddedSubscription>({
