@@ -4,14 +4,22 @@
 
 1. Выполнить `yarn install` в корне репозитория.
 
-### Web-версия
+### Development
 
-1. `cd frontend-web`
-2. `yarn run start`
+#### Shared
 
-### Backend
+1. `cd shared`
+2. `yarn run watch`
+
+#### Backend
 
 1. `cd backend-api`
+2. `yarn run watch`
+3. `yarn run start`
+
+#### Frontend
+
+1. `cd frontend-web`
 2. `yarn run start`
 
 ## Требования к архитектуре
