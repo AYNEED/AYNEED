@@ -1,5 +1,23 @@
 # AYneed v2
 
+## Workflow
+
+1. "1 карточка в `clubhouse`" === "1 pull request"
+2. Ветвимся только от ветки [develop](https://github.com/AYneed/ayneed/tree/develop)
+3. PR мержим только после аппрува
+4. В [master](https://github.com/AYneed/ayneed/tree/master) ничего не коммитим, ветка резервируется для релизов
+5. Любые коммиты, выходящие за рамки предыдущих 4х пунктов, будут ревертнуты
+
+### Именование PR'ов
+
+- Заголовок PR'а формируем по маске
+
+```
+[ch${НОМЕР_ЗАДАЧИ_В_CLUBHOUSE}] ${ЗАГОЛОВОК}
+```
+
+Например: `[ch264] Eslint integration`
+
 ## Установка
 
 1. Выполнить `yarn install` в корне репозитория.
