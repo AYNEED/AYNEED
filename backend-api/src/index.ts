@@ -13,6 +13,9 @@ const port = process.env.AYNEED_BACKEND_API_PORT;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  subscriptions: {
+    path: '/',
+  },
   playground: {
     settings: {
       'editor.theme': theme,
