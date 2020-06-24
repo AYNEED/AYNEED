@@ -7,10 +7,12 @@
     "apollo-server": "^2.14.4",
     "dotenv-flow": "^3.1.0",
     "graphql": "^15.1.0",
+    "mongoose": "^5.9.20",
     "shared": "2.0.0"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.0.0",
+    "@types/mongoose": "^5.7.27",
     "typescript": "^3.9.5"
   },
   "scripts": {

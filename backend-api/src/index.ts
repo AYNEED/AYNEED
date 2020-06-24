@@ -5,6 +5,7 @@ import { Theme } from '@apollographql/graphql-playground-html/dist/render-playgr
 
 import { typeDefs } from 'src/typeDefs';
 import { resolvers } from 'src/resolvers';
+import { connect } from 'src/utils/mongodb';
 import { version } from 'package.json';
 
 const theme = process.env.AYNEED_BACKEND_PLAYGROUND_THEME as Theme;
@@ -24,7 +25,9 @@ const server = new ApolloServer({
   },
 });
 
-server.listen({ port }).then(({ url, subscriptionsUrl }) => {
+server.listen({ port }).then(async ({ url, subscriptionsUrl }) => {
+  await connect();
+
   console.log(`🚀 Server ${version} ready at ${url}`);
   console.log(`Subscriptions ready at ${subscriptionsUrl}`);
 });
