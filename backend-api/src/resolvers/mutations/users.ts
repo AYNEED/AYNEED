@@ -28,7 +28,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   parent,
   { email, password, firstName, lastName, locale, userAgreement }
 ) => {
-  const { id, personal } = await UserModel.create({
+  const { id, personal, createdAt } = await UserModel.create({
     personal: {
       firstName,
       lastName,
@@ -39,7 +39,8 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
     id,
     isOnline: true,
     personal,
-  }
+    createdAt,
+  };
 
   users.push(user);
   pubsub.publish(events.user.added, user);

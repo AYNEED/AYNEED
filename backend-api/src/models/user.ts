@@ -1,10 +1,11 @@
 import { Schema, model, Document } from 'mongoose';
 
-import { User as GUser } from 'src/__generated__';
+import { User } from 'src/__generated__';
 
-type User = Document & Omit<GUser, 'isOnline'>;
+type UserRes = Document & Omit<User, 'isOnline'>;
+type UserReq = Omit<UserRes, 'createdAt'>;
 
-const UserSchema = new Schema<User>(
+const UserSchema = new Schema<UserReq>(
   {
     personal: {
       firstName: {
@@ -19,9 +20,9 @@ const UserSchema = new Schema<User>(
   },
   {
     id: true,
-    versionKey: false,
+    versionKey: true,
     timestamps: true,
   }
 );
 
-export const UserModel = model<User>('User', UserSchema);
+export const UserModel = model<UserReq, UserRes>('User', UserSchema);

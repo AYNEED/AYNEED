@@ -52,6 +52,7 @@ export type User = {
   id: Scalars['ID'];
   isOnline: Scalars['Boolean'];
   personal: UserPersonalData;
+  createdAt: Scalars['String'];
 };
 
 export type UserPersonalData = {

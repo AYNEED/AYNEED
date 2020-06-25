@@ -35,6 +35,7 @@ type User {
   id: ID!
   isOnline: Boolean!
   personal: UserPersonalData!
+  createdAt: String!
 }
 
 type UserPersonalData {

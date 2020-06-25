@@ -55,6 +55,7 @@ export type User = {
   id: Scalars['ID'];
   isOnline: Scalars['Boolean'];
   personal: UserPersonalData;
+  createdAt: Scalars['String'];
 };
 
 export type UserPersonalData = {
@@ -268,6 +269,7 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
+  createdAt: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
