@@ -31,11 +31,6 @@ enum LOCALE {
   rus
 }
 
-enum GENDER {
-  male
-  female
-}
-
 type User {
   id: ID!
   isOnline: Boolean!
@@ -43,8 +38,6 @@ type User {
 }
 
 type UserPersonalData {
-  login: String!
   firstName: String!
   lastName: String!
-  gender: GENDER
 }

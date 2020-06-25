@@ -51,11 +51,6 @@ export enum Locale {
   Rus = 'rus',
 }
 
-export enum Gender {
-  Male = 'male',
-  Female = 'female',
-}
-
 export type User = {
   id: Scalars['ID'];
   isOnline: Scalars['Boolean'];
@@ -63,10 +58,8 @@ export type User = {
 };
 
 export type UserPersonalData = {
-  login: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
-  gender: Maybe<Gender>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -191,7 +184,6 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Subscription: ResolverTypeWrapper<{}>;
   LOCALE: Locale;
-  GENDER: Gender;
   User: ResolverTypeWrapper<User>;
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
 };
@@ -283,10 +275,8 @@ export type UserPersonalDataResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['UserPersonalData'] = ResolversParentTypes['UserPersonalData']
 > = {
-  login: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   firstName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  gender: Resolver<Maybe<ResolversTypes['GENDER']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 

@@ -3,10 +3,8 @@ query GetUsers {
     id
     isOnline
     personal {
-      login
       firstName
       lastName
-      gender
     }
   }
 }
@@ -16,10 +14,8 @@ subscription onUserAdded {
     id
     isOnline
     personal {
-      login
       firstName
       lastName
-      gender
     }
   }
 }

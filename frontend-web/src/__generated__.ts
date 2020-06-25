@@ -48,11 +48,6 @@ export enum Locale {
   Rus = 'rus',
 }
 
-export enum Gender {
-  Male = 'male',
-  Female = 'female',
-}
-
 export type User = {
   id: Scalars['ID'];
   isOnline: Scalars['Boolean'];
@@ -60,10 +55,8 @@ export type User = {
 };
 
 export type UserPersonalData = {
-  login: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
-  gender: Maybe<Gender>;
 };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never }>;
@@ -71,10 +64,7 @@ export type GetUsersQueryVariables = Exact<{ [key: string]: never }>;
 export type GetUsersQuery = {
   users: Array<
     Pick<User, 'id' | 'isOnline'> & {
-      personal: Pick<
-        UserPersonalData,
-        'login' | 'firstName' | 'lastName' | 'gender'
-      >;
+      personal: Pick<UserPersonalData, 'firstName' | 'lastName'>;
     }
   >;
 };
@@ -83,10 +73,7 @@ export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type OnUserAddedSubscription = {
   userAdded: Pick<User, 'id' | 'isOnline'> & {
-    personal: Pick<
-      UserPersonalData,
-      'login' | 'firstName' | 'lastName' | 'gender'
-    >;
+    personal: Pick<UserPersonalData, 'firstName' | 'lastName'>;
   };
 };
 
@@ -96,10 +83,8 @@ export const GetUsersDocument = gql`
       id
       isOnline
       personal {
-        login
         firstName
         lastName
-        gender
       }
     }
   }
@@ -114,10 +99,8 @@ export const OnUserAddedDocument = gql`
       id
       isOnline
       personal {
-        login
         firstName
         lastName
-        gender
       }
     }
   }

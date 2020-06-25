@@ -7,8 +7,6 @@ export const resolveUser: Resolvers['User'] = {
 };
 
 export const resolveUserPersonalData: Resolvers['UserPersonalData'] = {
-  login: (parent) => parent.login,
   firstName: (parent) => parent.firstName,
   lastName: (parent) => parent.lastName,
-  gender: (parent) => parent.gender,
 };
