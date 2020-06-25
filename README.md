@@ -32,8 +32,9 @@
 #### Backend
 
 1. `cd backend-api`
-2. `yarn run watch`
-3. `yarn run start`
+2. `yarn run db`
+3. `yarn run watch`
+4. `yarn run start`
 
 #### Frontend
 
