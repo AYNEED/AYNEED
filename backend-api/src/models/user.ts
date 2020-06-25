@@ -10,17 +10,17 @@ const UserSchema = new Schema<UserReq>(
     personal: {
       firstName: {
         type: String,
-        default: '',
+        required: true,
       },
       lastName: {
         type: String,
-        default: '',
+        required: true,
       },
     },
   },
   {
     id: true,
-    versionKey: true,
+    versionKey: false,
     timestamps: true,
   }
 );

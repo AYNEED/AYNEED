@@ -6,7 +6,8 @@ declare module 'mongoose' {
    * http://mongoosejs.com/docs/api.html#model-js
    */
   export const Model: UModel<any, any>;
-  interface UModel<Req extends m.Document, Res extends m.Document> {
+  interface UModel<Req extends m.Document, Res extends m.Document>
+    extends m.Model<Res> {
     create<TCreate = Req>(
       doc: m.CreateQuery<TCreate>,
       options?: m.SaveOptions
