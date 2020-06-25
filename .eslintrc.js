@@ -10,4 +10,10 @@ module.exports = {
     'react-app',
     'prettier',
   ],
+  rules: {
+    '@typescript-eslint/explicit-function-return-type': [
+      'warn',
+      { allowExpressions: true },
+    ],
+  },
 };

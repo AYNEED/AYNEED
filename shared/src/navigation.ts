@@ -8,4 +8,6 @@ export enum ROUTES {
   // SIGN_IN_PHONE = '/sign-in/phone',
   SIGN_UP_EMAIL = '/sign-up',
   // SIGN_UP_PHONE = '/sign-up/email',
+
+  FEED = '/feed',
 }

@@ -1,0 +1,25 @@
+query GetUsers {
+  users {
+    id
+    isOnline
+    personal {
+      login
+      firstName
+      lastName
+      gender
+    }
+  }
+}
+
+subscription onUserAdded {
+  userAdded {
+    id
+    isOnline
+    personal {
+      login
+      firstName
+      lastName
+      gender
+    }
+  }
+}

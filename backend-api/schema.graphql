@@ -1,0 +1,50 @@
+schema {
+  mutation: Mutation
+  query: Query
+  subscription: Subscription
+}
+
+type Mutation {
+  signInEmail(email: String!, password: String!): User
+
+  signUpEmail(
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    locale: LOCALE!
+    userAgreement: Boolean!
+  ): User
+}
+
+type Query {
+  user(id: ID!): User
+  users: [User!]!
+}
+
+type Subscription {
+  userAdded: User!
+  userUpdated: User!
+}
+
+enum LOCALE {
+  rus
+}
+
+enum GENDER {
+  male
+  female
+}
+
+type User {
+  id: ID!
+  isOnline: Boolean!
+  personal: UserPersonalData!
+}
+
+type UserPersonalData {
+  login: String!
+  firstName: String!
+  lastName: String!
+  gender: GENDER
+}
