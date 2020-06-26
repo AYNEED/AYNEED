@@ -41,6 +41,10 @@
 1. `cd frontend-web`
 2. `yarn run start`
 
+## Макеты
+
+Лежат [здесь](https://www.figma.com/file/fLwqztpbSxl0h2a9kHFFBw/AYneed-07.06.2020).
+
 ## Требования к архитектуре
 
 ### 1. Общие положения
