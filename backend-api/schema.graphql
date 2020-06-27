@@ -1,3 +1,5 @@
+scalar DateTime
+
 schema {
   mutation: Mutation
   query: Query
@@ -35,7 +37,7 @@ type User {
   id: ID!
   isOnline: Boolean!
   personal: UserPersonalData!
-  createdAt: String!
+  createdAt: DateTime!
 }
 
 type UserPersonalData {

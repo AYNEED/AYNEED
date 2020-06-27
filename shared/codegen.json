@@ -21,7 +21,10 @@
   },
   "config": {
     "avoidOptionals": true,
-    "skipTypename": true
+    "skipTypename": true,
+    "scalars": {
+      "DateTime": "string"
+    }
   },
   "hooks": {
     "afterOneFileWrite": "prettier --write"

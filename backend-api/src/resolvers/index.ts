@@ -6,11 +6,15 @@ import {
   resolveUser,
   resolveUserPersonalData,
 } from 'src/resolvers/customResolvers';
+import { scalarDateTime } from 'src/resolvers/customScalars';
 
 export const resolvers: Resolvers = {
   Mutation: mutation,
   Query: query,
   Subscription: subscription,
+
+  // Custom scalars:
+  DateTime: scalarDateTime,
 
   // Custom resolvers:
   User: resolveUser,

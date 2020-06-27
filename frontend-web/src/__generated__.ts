@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: string;
 };
 
 export type Mutation = {
@@ -52,7 +53,7 @@ export type User = {
   id: Scalars['ID'];
   isOnline: Scalars['Boolean'];
   personal: UserPersonalData;
-  createdAt: Scalars['String'];
+  createdAt: Scalars['DateTime'];
 };
 
 export type UserPersonalData = {
