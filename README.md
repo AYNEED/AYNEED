@@ -46,6 +46,12 @@ ch${НОМЕР_ЗАДАЧИ_В_CLUBHOUSE}_${КОТОРОТКОЕ_ПОЯСНЕН�
 3. `yarn run watch`
 4. `yarn run start`
 
+##### Миграции
+
+`yarn run migrations <команда>`
+
+Список команд см. в документации к [migrate-mongo](https://www.npmjs.com/package/migrate-mongo).
+
 #### Frontend
 
 1. `cd frontend-web`
