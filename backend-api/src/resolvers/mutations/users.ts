@@ -1,21 +1,25 @@
 import { Resolvers, User } from 'src/__generated__';
-import { users } from 'src/resolvers/mockData';
 import { events, pubsub } from 'src/resolvers/subscriptions';
 import { UserModel } from 'src/models/user';
 
-// TODO: use mongoDB (ch274)
-export const signInEmail: Resolvers['Mutation']['signInEmail'] = (
+export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
   { email, password }
 ) => {
-  const data = users.find((user) => user.personal.firstName === email);
+  const data = await UserModel.findOne({
+    'personal.firstName': email,
+  });
 
   if (!data) {
     return null;
   }
 
+  const { id, personal, createdAt } = data;
+
   const user: User = {
-    ...data,
+    id,
+    personal,
+    createdAt,
     isOnline: true,
   };
 
@@ -42,7 +46,6 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
     createdAt,
   };
 
-  users.push(user);
   pubsub.publish(events.user.added, user);
 
   return user;
