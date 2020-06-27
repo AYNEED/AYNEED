@@ -43,8 +43,9 @@ ch${НОМЕР_ЗАДАЧИ_В_CLUBHOUSE}_${КОТОРОТКОЕ_ПОЯСНЕН�
 
 1. `cd backend-api`
 2. `yarn run db`
-3. `yarn run watch`
-4. `yarn run start`
+3. `yarn run migrations up`
+4. `yarn run watch`
+5. `yarn run start`
 
 ##### Миграции
 
