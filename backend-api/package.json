@@ -20,6 +20,6 @@
     "build": "tsc -b",
     "watch": "yarn run build -w",
     "start": "NODE_PATH=build/ node ./build",
-    "db": "mongod --dbpath ../../ayneed2"
+    "db": "mongod --dbpath ../db"
   }
 }
