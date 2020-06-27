@@ -1,4 +1,8 @@
-import { GraphQLResolveInfo } from 'graphql';
+import {
+  GraphQLResolveInfo,
+  GraphQLScalarType,
+  GraphQLScalarTypeConfig,
+} from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 export type RequireFields<T, K extends keyof T> = {
@@ -12,6 +16,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: string;
 };
 
 export type Mutation = {
@@ -51,22 +56,16 @@ export enum Locale {
   Rus = 'rus',
 }
 
-export enum Gender {
-  Male = 'male',
-  Female = 'female',
-}
-
 export type User = {
   id: Scalars['ID'];
   isOnline: Scalars['Boolean'];
   personal: UserPersonalData;
+  createdAt: Scalars['DateTime'];
 };
 
 export type UserPersonalData = {
-  login: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
-  gender: Maybe<Gender>;
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -184,6 +183,7 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Mutation: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -191,13 +191,13 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Subscription: ResolverTypeWrapper<{}>;
   LOCALE: Locale;
-  GENDER: Gender;
   User: ResolverTypeWrapper<User>;
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  DateTime: Scalars['DateTime'];
   Mutation: {};
   String: Scalars['String'];
   Boolean: Scalars['Boolean'];
@@ -207,6 +207,11 @@ export type ResolversParentTypes = {
   User: User;
   UserPersonalData: UserPersonalData;
 };
+
+export interface DateTimeScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
 
 export type MutationResolvers<
   ContextType = any,
@@ -276,6 +281,7 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -283,14 +289,13 @@ export type UserPersonalDataResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['UserPersonalData'] = ResolversParentTypes['UserPersonalData']
 > = {
-  login: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   firstName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  gender: Resolver<Maybe<ResolversTypes['GENDER']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type Resolvers<ContextType = any> = {
+  DateTime: GraphQLScalarType;
   Mutation: MutationResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;

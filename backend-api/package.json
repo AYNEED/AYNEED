@@ -7,16 +7,21 @@
     "apollo-server": "^2.14.4",
     "dotenv-flow": "^3.1.0",
     "graphql": "^15.1.0",
+    "migrate-mongo": "^7.2.1",
+    "mongoose": "^5.9.20",
     "shared": "2.0.0"
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.0.0",
+    "@types/mongoose": "^5.7.27",
     "typescript": "^3.9.5"
   },
   "scripts": {
     "postinstall": "yarn run build",
     "build": "tsc -b",
     "watch": "yarn run build -w",
-    "start": "NODE_PATH=build/ node ./build"
+    "start": "NODE_PATH=build/ node ./build",
+    "db": "mongod --dbpath ../db",
+    "migrations": "migrate-mongo"
   }
 }

@@ -1,3 +1,5 @@
+scalar DateTime
+
 schema {
   mutation: Mutation
   query: Query
@@ -31,20 +33,14 @@ enum LOCALE {
   rus
 }
 
-enum GENDER {
-  male
-  female
-}
-
 type User {
   id: ID!
   isOnline: Boolean!
   personal: UserPersonalData!
+  createdAt: DateTime!
 }
 
 type UserPersonalData {
-  login: String!
   firstName: String!
   lastName: String!
-  gender: GENDER
 }

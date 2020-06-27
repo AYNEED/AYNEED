@@ -1,8 +1,33 @@
 import { Resolvers } from 'src/__generated__';
-import { users } from 'src/resolvers/mockData';
+import { UserModel } from 'src/models/user';
 
-// TODO: use mongoDB (ch274)
-export const getUserById: Resolvers['Query']['user'] = (parent, { id }) =>
-  users.find((user) => user.id === id) || null;
+export const getUserById: Resolvers['Query']['user'] = async (
+  parent,
+  query
+) => {
+  const user = await UserModel.findById(query.id);
 
-export const getUsers: Resolvers['Query']['users'] = () => users;
+  if (!user) {
+    return null;
+  }
+
+  const { id, personal, createdAt } = user;
+
+  return {
+    id,
+    personal,
+    createdAt,
+    isOnline: false,
+  };
+};
+
+export const getUsers: Resolvers['Query']['users'] = async () => {
+  const users = await UserModel.find();
+
+  return users.map(({ id, personal, createdAt }) => ({
+    id,
+    personal,
+    createdAt,
+    isOnline: false,
+  }));
+};
