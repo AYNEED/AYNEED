@@ -1,13 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose, { ConnectionOptions } from 'mongoose';
 
-const name = process.env.AYNEED_BACKEND_MONGO_DB_NAME || '';
-const host = process.env.AYNEED_BACKEND_MONGO_DB_HOST || '';
+export const name = process.env.AYNEED_BACKEND_MONGO_DB_NAME || '';
+export const host = process.env.AYNEED_BACKEND_MONGO_DB_HOST || '';
 
-const url = `mongodb://${host}/${name}`;
+export const options: ConnectionOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
 export const connect = async (): Promise<void> => {
-  await mongoose.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(`mongodb://${host}/${name}`, options);
 };
