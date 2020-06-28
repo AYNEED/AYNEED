@@ -3,6 +3,7 @@
   "compilerOptions": {
     "allowJs": false,
     "baseUrl": ".",
+    "incremental": true,
     "module": "commonjs",
     "noImplicitAny": true,
     "noImplicitThis": true,
