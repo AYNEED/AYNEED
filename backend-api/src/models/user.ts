@@ -81,6 +81,8 @@ const UserLanguageSchema = new Schema<UserLanguageRecord>({
 const UserContactSchema = new Schema<UserContactRecord>({
   value: {
     type: String,
+    unique: true,
+    sparse: true,
     required: true,
   },
   isVisible: {
@@ -100,6 +102,8 @@ const UserRecoverySchema = new Schema<UserContactRecord>({
   },
   code: {
     type: String,
+    unique: true,
+    sparse: true,
     required: true,
   },
 });
