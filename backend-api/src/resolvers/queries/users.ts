@@ -1,6 +1,7 @@
 import { Resolvers } from 'src/__generated__';
 import { UserModel } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
+import { FEED_LIMIT } from 'src/constants';
 
 export const getUserById: Resolvers['Query']['user'] = async (
   parent,
@@ -21,7 +22,7 @@ export const getUsers: Resolvers['Query']['users'] = async (parent, query) => {
   const data = await UserModel.find(
     query.cursor ? { _id: { $lt: query.cursor } } : {},
     null,
-    { sort: { createdAt: 'desc' }, limit: 20 }
+    { sort: { createdAt: 'desc' }, limit: FEED_LIMIT }
   );
 
   const last = data[data.length - 1];
