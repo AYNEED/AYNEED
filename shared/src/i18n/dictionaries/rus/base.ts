@@ -6,4 +6,6 @@ export const base = {
   'web.components.routes.SignInEmail.title': 'Вход',
 
   'web.components.routes.SignUpEmail.title': 'Регистрация',
+
+  'web.components.routes.User.title': 'Профиль',
 };

@@ -10,4 +10,5 @@ export enum ROUTES {
   // SIGN_UP_PHONE = '/sign-up/email',
 
   FEED = '/feed',
+  USER = '/u/:id([a-z0-9-]+)'
 }
