@@ -33,11 +33,15 @@ export type MutationSignUpEmailArgs = {
 
 export type Query = {
   user: Maybe<User>;
-  users: Array<User>;
+  users: UserFeed;
 };
 
 export type QueryUserArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryUsersArgs = {
+  cursor: Maybe<Scalars['String']>;
 };
 
 export type Subscription = {
@@ -67,6 +71,11 @@ export type User = {
   contacts: UserContactsData;
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
+};
+
+export type UserFeed = {
+  items: Array<User>;
+  hasMore: Scalars['Boolean'];
 };
 
 export type UserAboutData = {
@@ -132,35 +141,50 @@ export type UserContactRecord = {
   isVerified: Scalars['Boolean'];
 };
 
-export type GetUsersQueryVariables = Exact<{ [key: string]: never }>;
+export type CommouUserFieldsFragment = Pick<User, 'id' | 'isOnline'> & {
+  about: { skills: Array<Pick<UserSkillRecord, 'title' | 'primary'>> };
+  personal: Pick<UserPersonalData, 'firstName' | 'lastName' | 'photo'>;
+};
+
+export type GetUsersQueryVariables = Exact<{
+  cursor: Maybe<Scalars['String']>;
+}>;
 
 export type GetUsersQuery = {
-  users: Array<
-    Pick<User, 'id' | 'isOnline'> & {
-      personal: Pick<UserPersonalData, 'firstName' | 'lastName'>;
-    }
-  >;
+  users: Pick<UserFeed, 'hasMore'> & { items: Array<CommouUserFieldsFragment> };
 };
 
 export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
-export type OnUserAddedSubscription = {
-  userAdded: Pick<User, 'id' | 'isOnline'> & {
-    personal: Pick<UserPersonalData, 'firstName' | 'lastName'>;
-  };
-};
+export type OnUserAddedSubscription = { userAdded: CommouUserFieldsFragment };
 
-export const GetUsersDocument = gql`
-  query GetUsers {
-    users {
-      id
-      isOnline
-      personal {
-        firstName
-        lastName
+export const CommouUserFieldsFragmentDoc = gql`
+  fragment commouUserFields on User {
+    id
+    isOnline
+    about {
+      skills {
+        title
+        primary
       }
     }
+    personal {
+      firstName
+      lastName
+      photo
+    }
   }
+`;
+export const GetUsersDocument = gql`
+  query GetUsers($cursor: String) {
+    users(cursor: $cursor) {
+      items {
+        ...commouUserFields
+      }
+      hasMore
+    }
+  }
+  ${CommouUserFieldsFragmentDoc}
 `;
 export type GetUsersQueryResult = ApolloReactCommon.QueryResult<
   GetUsersQuery,
@@ -169,14 +193,10 @@ export type GetUsersQueryResult = ApolloReactCommon.QueryResult<
 export const OnUserAddedDocument = gql`
   subscription onUserAdded {
     userAdded {
-      id
-      isOnline
-      personal {
-        firstName
-        lastName
-      }
+      ...commouUserFields
     }
   }
+  ${CommouUserFieldsFragmentDoc}
 `;
 export type OnUserAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
   OnUserAddedSubscription

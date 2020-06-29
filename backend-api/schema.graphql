@@ -21,7 +21,7 @@ type Mutation {
 
 type Query {
   user(id: ID!): User
-  users: [User!]!
+  users(cursor: String): UserFeed!
 }
 
 type Subscription {
@@ -51,6 +51,11 @@ type User {
   contacts: UserContactsData!
   statistics: UserStatisticsData!
   createdAt: DateTime!
+}
+
+type UserFeed {
+  items: [User!]!
+  hasMore: Boolean!
 }
 
 type UserAboutData {
