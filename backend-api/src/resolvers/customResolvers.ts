@@ -11,6 +11,11 @@ export const resolveUser: Resolvers['User'] = {
   createdAt: (parent) => parent.createdAt,
 };
 
+export const resolveUserFeed: Resolvers['UserFeed'] = {
+  items: (parent) => parent.items,
+  hasMore: (parent) => parent.hasMore,
+};
+
 export const resolveUserAboutData: Resolvers['UserAboutData'] = {
   bio: (parent) => parent.bio,
   career: (parent) => parent.career,
