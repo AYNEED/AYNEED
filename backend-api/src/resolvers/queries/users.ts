@@ -1,5 +1,6 @@
 import { Resolvers } from 'src/__generated__';
 import { UserModel } from 'src/models/user';
+import { userDriver } from 'src/resolvers/drivers';
 
 export const getUserById: Resolvers['Query']['user'] = async (
   parent,
@@ -11,23 +12,17 @@ export const getUserById: Resolvers['Query']['user'] = async (
     return null;
   }
 
-  const { id, personal, createdAt } = user;
-
-  return {
-    id,
-    personal,
-    createdAt,
+  return userDriver(user, {
     isOnline: false,
-  };
+  });
 };
 
 export const getUsers: Resolvers['Query']['users'] = async () => {
-  const users = await UserModel.find();
+  const users = await UserModel.find({}, null, { sort: { createdAt: 'desc' } });
 
-  return users.map(({ id, personal, createdAt }) => ({
-    id,
-    personal,
-    createdAt,
-    isOnline: false,
-  }));
+  return users.map((user) =>
+    userDriver(user, {
+      isOnline: false,
+    })
+  );
 };

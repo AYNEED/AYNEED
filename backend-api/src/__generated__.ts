@@ -35,7 +35,7 @@ export type MutationSignUpEmailArgs = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   locale: Locale;
-  userAgreement: Scalars['Boolean'];
+  isAgree: Scalars['Boolean'];
 };
 
 export type Query = {
@@ -56,16 +56,87 @@ export enum Locale {
   Rus = 'rus',
 }
 
+export enum LanguageLevel {
+  Beginner = 'beginner',
+  Elementary = 'elementary',
+  Intermediate = 'intermediate',
+  UpperIntermediate = 'upper_intermediate',
+  Advanced = 'advanced',
+  Proficiency = 'proficiency',
+}
+
 export type User = {
   id: Scalars['ID'];
   isOnline: Scalars['Boolean'];
+  about: UserAboutData;
   personal: UserPersonalData;
+  regional: UserRegionalData;
+  contacts: UserContactsData;
+  statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
+};
+
+export type UserAboutData = {
+  bio: Maybe<Scalars['String']>;
+  skills: Array<UserSkillRecord>;
+  career: Array<UserCareerRecord>;
+  education: Array<UserEducationRecord>;
 };
 
 export type UserPersonalData = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
+  isAgree: Scalars['Boolean'];
+  bornAt: Maybe<Scalars['DateTime']>;
+  photo: Array<Scalars['String']>;
+};
+
+export type UserRegionalData = {
+  city: Maybe<Scalars['String']>;
+  state: Maybe<Scalars['String']>;
+  country: Maybe<Scalars['String']>;
+  locale: Locale;
+  languages: Array<UserLanguageRecord>;
+};
+
+export type UserContactsData = {
+  email: UserContactRecord;
+  phone: Maybe<UserContactRecord>;
+  vkontakte: Maybe<UserContactRecord>;
+  facebook: Maybe<UserContactRecord>;
+  instagram: Maybe<UserContactRecord>;
+  telegram: Maybe<UserContactRecord>;
+  linkedin: Maybe<UserContactRecord>;
+};
+
+export type UserStatisticsData = {
+  completeness: Scalars['Int'];
+};
+
+export type UserSkillRecord = {
+  title: Scalars['String'];
+  primary: Scalars['Boolean'];
+};
+
+export type UserCareerRecord = {
+  title: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type UserEducationRecord = {
+  title: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type UserLanguageRecord = {
+  code: Scalars['String'];
+  level: LanguageLevel;
+};
+
+export type UserContactRecord = {
+  value: Scalars['String'];
+  isVisible: Scalars['Boolean'];
+  isVerified: Scalars['Boolean'];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -191,8 +262,19 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Subscription: ResolverTypeWrapper<{}>;
   LOCALE: Locale;
+  LANGUAGE_LEVEL: LanguageLevel;
   User: ResolverTypeWrapper<User>;
+  UserAboutData: ResolverTypeWrapper<UserAboutData>;
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
+  UserRegionalData: ResolverTypeWrapper<UserRegionalData>;
+  UserContactsData: ResolverTypeWrapper<UserContactsData>;
+  UserStatisticsData: ResolverTypeWrapper<UserStatisticsData>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  UserSkillRecord: ResolverTypeWrapper<UserSkillRecord>;
+  UserCareerRecord: ResolverTypeWrapper<UserCareerRecord>;
+  UserEducationRecord: ResolverTypeWrapper<UserEducationRecord>;
+  UserLanguageRecord: ResolverTypeWrapper<UserLanguageRecord>;
+  UserContactRecord: ResolverTypeWrapper<UserContactRecord>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -205,7 +287,17 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Subscription: {};
   User: User;
+  UserAboutData: UserAboutData;
   UserPersonalData: UserPersonalData;
+  UserRegionalData: UserRegionalData;
+  UserContactsData: UserContactsData;
+  UserStatisticsData: UserStatisticsData;
+  Int: Scalars['Int'];
+  UserSkillRecord: UserSkillRecord;
+  UserCareerRecord: UserCareerRecord;
+  UserEducationRecord: UserEducationRecord;
+  UserLanguageRecord: UserLanguageRecord;
+  UserContactRecord: UserContactRecord;
 };
 
 export interface DateTimeScalarConfig
@@ -229,12 +321,7 @@ export type MutationResolvers<
     ContextType,
     RequireFields<
       MutationSignUpEmailArgs,
-      | 'email'
-      | 'password'
-      | 'firstName'
-      | 'lastName'
-      | 'locale'
-      | 'userAgreement'
+      'email' | 'password' | 'firstName' | 'lastName' | 'locale' | 'isAgree'
     >
   >;
 };
@@ -276,12 +363,51 @@ export type UserResolvers<
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isOnline: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  about: Resolver<ResolversTypes['UserAboutData'], ParentType, ContextType>;
   personal: Resolver<
     ResolversTypes['UserPersonalData'],
     ParentType,
     ContextType
   >;
+  regional: Resolver<
+    ResolversTypes['UserRegionalData'],
+    ParentType,
+    ContextType
+  >;
+  contacts: Resolver<
+    ResolversTypes['UserContactsData'],
+    ParentType,
+    ContextType
+  >;
+  statistics: Resolver<
+    ResolversTypes['UserStatisticsData'],
+    ParentType,
+    ContextType
+  >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserAboutDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserAboutData'] = ResolversParentTypes['UserAboutData']
+> = {
+  bio: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  skills: Resolver<
+    Array<ResolversTypes['UserSkillRecord']>,
+    ParentType,
+    ContextType
+  >;
+  career: Resolver<
+    Array<ResolversTypes['UserCareerRecord']>,
+    ParentType,
+    ContextType
+  >;
+  education: Resolver<
+    Array<ResolversTypes['UserEducationRecord']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -291,6 +417,117 @@ export type UserPersonalDataResolvers<
 > = {
   firstName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   lastName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isAgree: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  bornAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  photo: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserRegionalDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserRegionalData'] = ResolversParentTypes['UserRegionalData']
+> = {
+  city: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  state: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  country: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  locale: Resolver<ResolversTypes['LOCALE'], ParentType, ContextType>;
+  languages: Resolver<
+    Array<ResolversTypes['UserLanguageRecord']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserContactsDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserContactsData'] = ResolversParentTypes['UserContactsData']
+> = {
+  email: Resolver<ResolversTypes['UserContactRecord'], ParentType, ContextType>;
+  phone: Resolver<
+    Maybe<ResolversTypes['UserContactRecord']>,
+    ParentType,
+    ContextType
+  >;
+  vkontakte: Resolver<
+    Maybe<ResolversTypes['UserContactRecord']>,
+    ParentType,
+    ContextType
+  >;
+  facebook: Resolver<
+    Maybe<ResolversTypes['UserContactRecord']>,
+    ParentType,
+    ContextType
+  >;
+  instagram: Resolver<
+    Maybe<ResolversTypes['UserContactRecord']>,
+    ParentType,
+    ContextType
+  >;
+  telegram: Resolver<
+    Maybe<ResolversTypes['UserContactRecord']>,
+    ParentType,
+    ContextType
+  >;
+  linkedin: Resolver<
+    Maybe<ResolversTypes['UserContactRecord']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserStatisticsDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserStatisticsData'] = ResolversParentTypes['UserStatisticsData']
+> = {
+  completeness: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserSkillRecordResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserSkillRecord'] = ResolversParentTypes['UserSkillRecord']
+> = {
+  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  primary: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserCareerRecordResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserCareerRecord'] = ResolversParentTypes['UserCareerRecord']
+> = {
+  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserEducationRecordResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserEducationRecord'] = ResolversParentTypes['UserEducationRecord']
+> = {
+  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserLanguageRecordResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserLanguageRecord'] = ResolversParentTypes['UserLanguageRecord']
+> = {
+  code: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  level: Resolver<ResolversTypes['LANGUAGE_LEVEL'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserContactRecordResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserContactRecord'] = ResolversParentTypes['UserContactRecord']
+> = {
+  value: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isVisible: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isVerified: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -300,7 +537,16 @@ export type Resolvers<ContextType = any> = {
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
   User: UserResolvers<ContextType>;
+  UserAboutData: UserAboutDataResolvers<ContextType>;
   UserPersonalData: UserPersonalDataResolvers<ContextType>;
+  UserRegionalData: UserRegionalDataResolvers<ContextType>;
+  UserContactsData: UserContactsDataResolvers<ContextType>;
+  UserStatisticsData: UserStatisticsDataResolvers<ContextType>;
+  UserSkillRecord: UserSkillRecordResolvers<ContextType>;
+  UserCareerRecord: UserCareerRecordResolvers<ContextType>;
+  UserEducationRecord: UserEducationRecordResolvers<ContextType>;
+  UserLanguageRecord: UserLanguageRecordResolvers<ContextType>;
+  UserContactRecord: UserContactRecordResolvers<ContextType>;
 };
 
 /**

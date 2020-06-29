@@ -4,6 +4,7 @@
     "allowJs": false,
     "baseUrl": ".",
     "declaration": false,
+    "incremental": true,
     "isolatedModules": false,
     "module": "commonjs",
     "noImplicitAny": true,

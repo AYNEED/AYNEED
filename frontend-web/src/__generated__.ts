@@ -28,7 +28,7 @@ export type MutationSignUpEmailArgs = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   locale: Locale;
-  userAgreement: Scalars['Boolean'];
+  isAgree: Scalars['Boolean'];
 };
 
 export type Query = {
@@ -49,16 +49,87 @@ export enum Locale {
   Rus = 'rus',
 }
 
+export enum LanguageLevel {
+  Beginner = 'beginner',
+  Elementary = 'elementary',
+  Intermediate = 'intermediate',
+  UpperIntermediate = 'upper_intermediate',
+  Advanced = 'advanced',
+  Proficiency = 'proficiency',
+}
+
 export type User = {
   id: Scalars['ID'];
   isOnline: Scalars['Boolean'];
+  about: UserAboutData;
   personal: UserPersonalData;
+  regional: UserRegionalData;
+  contacts: UserContactsData;
+  statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
+};
+
+export type UserAboutData = {
+  bio: Maybe<Scalars['String']>;
+  skills: Array<UserSkillRecord>;
+  career: Array<UserCareerRecord>;
+  education: Array<UserEducationRecord>;
 };
 
 export type UserPersonalData = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
+  isAgree: Scalars['Boolean'];
+  bornAt: Maybe<Scalars['DateTime']>;
+  photo: Array<Scalars['String']>;
+};
+
+export type UserRegionalData = {
+  city: Maybe<Scalars['String']>;
+  state: Maybe<Scalars['String']>;
+  country: Maybe<Scalars['String']>;
+  locale: Locale;
+  languages: Array<UserLanguageRecord>;
+};
+
+export type UserContactsData = {
+  email: UserContactRecord;
+  phone: Maybe<UserContactRecord>;
+  vkontakte: Maybe<UserContactRecord>;
+  facebook: Maybe<UserContactRecord>;
+  instagram: Maybe<UserContactRecord>;
+  telegram: Maybe<UserContactRecord>;
+  linkedin: Maybe<UserContactRecord>;
+};
+
+export type UserStatisticsData = {
+  completeness: Scalars['Int'];
+};
+
+export type UserSkillRecord = {
+  title: Scalars['String'];
+  primary: Scalars['Boolean'];
+};
+
+export type UserCareerRecord = {
+  title: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type UserEducationRecord = {
+  title: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type UserLanguageRecord = {
+  code: Scalars['String'];
+  level: LanguageLevel;
+};
+
+export type UserContactRecord = {
+  value: Scalars['String'];
+  isVisible: Scalars['Boolean'];
+  isVerified: Scalars['Boolean'];
 };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never }>;

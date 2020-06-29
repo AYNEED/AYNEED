@@ -4,7 +4,16 @@ import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
   resolveUser,
+  resolveUserAboutData,
   resolveUserPersonalData,
+  resolveUserRegionalData,
+  resolveUserContactsData,
+  resolveUserStatisticsData,
+  resolveUserCareerRecord,
+  resolveUserSkillRecord,
+  resolveUserEducationRecord,
+  resolveUserLanguageRecord,
+  resolveUserContactRecord,
 } from 'src/resolvers/customResolvers';
 import { scalarDateTime } from 'src/resolvers/customScalars';
 
@@ -18,5 +27,14 @@ export const resolvers: Resolvers = {
 
   // Custom resolvers:
   User: resolveUser,
+  UserAboutData: resolveUserAboutData,
   UserPersonalData: resolveUserPersonalData,
+  UserRegionalData: resolveUserRegionalData,
+  UserContactsData: resolveUserContactsData,
+  UserStatisticsData: resolveUserStatisticsData,
+  UserCareerRecord: resolveUserCareerRecord,
+  UserSkillRecord: resolveUserSkillRecord,
+  UserEducationRecord: resolveUserEducationRecord,
+  UserLanguageRecord: resolveUserLanguageRecord,
+  UserContactRecord: resolveUserContactRecord,
 };

@@ -22,6 +22,9 @@
   "config": {
     "avoidOptionals": true,
     "skipTypename": true,
+    "namingConvention": {
+      "typeNames": "pascal-case#pascalCase"
+    },
     "scalars": {
       "DateTime": "string"
     }

@@ -1,27 +1,28 @@
-import { Resolvers, User } from 'src/__generated__';
+import { Resolvers } from 'src/__generated__';
 import { events, pubsub } from 'src/resolvers/subscriptions';
 import { UserModel } from 'src/models/user';
+import { userDriver } from 'src/resolvers/drivers';
+import {
+  createPasswordHash,
+  createRandomString,
+  verifyPassword,
+} from 'src/utils/password';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
   { email, password }
 ) => {
   const data = await UserModel.findOne({
-    'personal.firstName': email,
+    'contacts.email.value': email,
   });
 
-  if (!data) {
+  if (!data || !verifyPassword(password, data.private.password)) {
     return null;
   }
 
-  const { id, personal, createdAt } = data;
-
-  const user: User = {
-    id,
-    personal,
-    createdAt,
+  const user = userDriver(data, {
     isOnline: true,
-  };
+  });
 
   pubsub.publish(events.user.updated, user);
 
@@ -30,21 +31,59 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
 export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   parent,
-  { email, password, firstName, lastName, locale, userAgreement }
+  { email, password, firstName, lastName, locale, isAgree }
 ) => {
-  const { id, personal, createdAt } = await UserModel.create({
+  const salt = createRandomString();
+  const hash = createPasswordHash(password, salt);
+  const data = await UserModel.create({
+    about: {
+      bio: null,
+      skills: [],
+      career: [],
+      education: [],
+    },
     personal: {
       firstName,
       lastName,
+      isAgree,
+      bornAt: null,
+      photo: [],
+    },
+    regional: {
+      city: null,
+      state: null,
+      country: null,
+      locale,
+      languages: [],
+    },
+    contacts: {
+      email: {
+        value: email,
+        isVisible: false,
+        isVerified: false,
+      },
+      phone: null,
+      vkontakte: null,
+      facebook: null,
+      instagram: null,
+      telegram: null,
+      linkedin: null,
+    },
+    statistics: {
+      completeness: 0,
+    },
+    private: {
+      password: {
+        hash,
+        salt,
+      },
+      recovery: null,
     },
   });
 
-  const user: User = {
-    id,
+  const user = userDriver(data, {
     isOnline: true,
-    personal,
-    createdAt,
-  };
+  });
 
   pubsub.publish(events.user.added, user);
 
