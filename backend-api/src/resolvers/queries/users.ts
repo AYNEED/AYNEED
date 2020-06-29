@@ -35,10 +35,8 @@ export const getUsers: Resolvers['Query']['users'] = async (parent, query) => {
     });
   }
 
-  const items = data.map((user) => userDriver(user, { isOnline: false }));
-
   return {
-    items,
+    items: data.map((user) => userDriver(user, { isOnline: false })),
     hasMore: !!count,
   };
 };
