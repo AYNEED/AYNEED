@@ -21,7 +21,7 @@ export const getUsers: Resolvers['Query']['users'] = async (parent, query) => {
   const data = await UserModel.find(
     query.cursor ? { _id: { $lt: query.cursor } } : {},
     null,
-    { sort: { createdAt: 'desc' }, limit: 2 }
+    { sort: { createdAt: 'desc' }, limit: 20 }
   );
 
   const last = data[data.length - 1];
