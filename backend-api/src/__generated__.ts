@@ -40,11 +40,15 @@ export type MutationSignUpEmailArgs = {
 
 export type Query = {
   user: Maybe<User>;
-  users: Array<User>;
+  users: UserFeed;
 };
 
 export type QueryUserArgs = {
   id: Scalars['ID'];
+};
+
+export type QueryUsersArgs = {
+  cursor: Maybe<Scalars['String']>;
 };
 
 export type Subscription = {
@@ -74,6 +78,11 @@ export type User = {
   contacts: UserContactsData;
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
+};
+
+export type UserFeed = {
+  items: Array<User>;
+  hasMore: Scalars['Boolean'];
 };
 
 export type UserAboutData = {
@@ -264,6 +273,7 @@ export type ResolversTypes = {
   LOCALE: Locale;
   LANGUAGE_LEVEL: LanguageLevel;
   User: ResolverTypeWrapper<User>;
+  UserFeed: ResolverTypeWrapper<UserFeed>;
   UserAboutData: ResolverTypeWrapper<UserAboutData>;
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
   UserRegionalData: ResolverTypeWrapper<UserRegionalData>;
@@ -287,6 +297,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Subscription: {};
   User: User;
+  UserFeed: UserFeed;
   UserAboutData: UserAboutData;
   UserPersonalData: UserPersonalData;
   UserRegionalData: UserRegionalData;
@@ -336,7 +347,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryUserArgs, 'id'>
   >;
-  users: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  users: Resolver<
+    ResolversTypes['UserFeed'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryUsersArgs, never>
+  >;
 };
 
 export type SubscriptionResolvers<
@@ -385,6 +401,15 @@ export type UserResolvers<
     ContextType
   >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserFeedResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserFeed'] = ResolversParentTypes['UserFeed']
+> = {
+  items: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -537,6 +562,7 @@ export type Resolvers<ContextType = any> = {
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
   User: UserResolvers<ContextType>;
+  UserFeed: UserFeedResolvers<ContextType>;
   UserAboutData: UserAboutDataResolvers<ContextType>;
   UserPersonalData: UserPersonalDataResolvers<ContextType>;
   UserRegionalData: UserRegionalDataResolvers<ContextType>;

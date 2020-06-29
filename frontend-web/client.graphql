@@ -1,21 +1,30 @@
-query GetUsers {
-  users {
-    id
-    isOnline
-    personal {
-      firstName
-      lastName
+fragment commouUserFields on User {
+  id
+  isOnline
+  about {
+    skills {
+      title
+      primary
     }
+  }
+  personal {
+    firstName
+    lastName
+    photo
+  }
+}
+
+query GetUsers($cursor: String) {
+  users(cursor: $cursor) {
+    items {
+      ...commouUserFields
+    }
+    hasMore
   }
 }
 
 subscription onUserAdded {
   userAdded {
-    id
-    isOnline
-    personal {
-      firstName
-      lastName
-    }
+    ...commouUserFields
   }
 }
