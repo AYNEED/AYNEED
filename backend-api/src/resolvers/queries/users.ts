@@ -17,12 +17,27 @@ export const getUserById: Resolvers['Query']['user'] = async (
   });
 };
 
-export const getUsers: Resolvers['Query']['users'] = async () => {
-  const users = await UserModel.find({}, null, { sort: { createdAt: 'desc' } });
-
-  return users.map((user) =>
-    userDriver(user, {
-      isOnline: false,
-    })
+export const getUsers: Resolvers['Query']['users'] = async (parent, query) => {
+  const data = await UserModel.find(
+    query.cursor ? { _id: { $lt: query.cursor } } : {},
+    null,
+    { sort: { createdAt: 'desc' }, limit: 2 }
   );
+
+  const last = data[data.length - 1];
+
+  let count = 0;
+
+  if (last) {
+    count = await UserModel.count({
+      _id: { $lt: last.id },
+    });
+  }
+
+  const items = data.map((user) => userDriver(user, { isOnline: false }));
+
+  return {
+    items,
+    hasMore: !!count,
+  };
 };
