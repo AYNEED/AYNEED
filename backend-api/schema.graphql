@@ -21,7 +21,7 @@ type Mutation {
 
 type Query {
   user(id: ID!): User
-  users(cursor: String): UserFeed!
+  users(cursor: ID): UserFeed!
 }
 
 type Subscription {
