@@ -32,4 +32,10 @@ export const config: { [TKey in ROUTES]: Route } = {
     title: 'web.components.routes.Feed.title',
     component: () => import('src/routes/Feed'),
   },
+
+  [ROUTES.USER]: {
+    access: 'all',
+    title: 'web.components.routes.User.title',
+    component: () => import('src/routes/User'),
+  },
 };

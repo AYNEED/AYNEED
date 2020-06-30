@@ -2,6 +2,8 @@ import React, { useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { Page } from 'src/components/wrappers/Page';
+import { Link } from 'src/components/ui/Link';
+import { ROUTES } from 'shared';
 import {
   GetUsersDocument,
   GetUsersQuery,
@@ -63,7 +65,7 @@ const Feed: React.FC = () => {
   return (
     <Page title>
       {data.users.items.map(({ id, isOnline, about, personal }) => (
-        <div key={id}>
+        <Link url={{ scheme: ROUTES.USER, params: { id } }} key={id}>
           <span>{personal.photo[0] || 'no photo'}</span>
           {' | '}
           <span>{isOnline ? 'online' : 'offline'}</span>
@@ -78,7 +80,7 @@ const Feed: React.FC = () => {
             ))}
           </ul>
           <hr />
-        </div>
+        </Link>
       ))}
       <div onClick={loadMore}>load mode</div>
     </Page>

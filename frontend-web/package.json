@@ -16,6 +16,7 @@
     "history": "^4.10.1",
     "intl": "^1.2.5",
     "localforage": "^1.7.4",
+    "path-to-regexp": "^6.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-intl": "^4.6.9",

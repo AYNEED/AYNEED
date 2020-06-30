@@ -41,7 +41,7 @@ export type QueryUserArgs = {
 };
 
 export type QueryUsersArgs = {
-  cursor: Maybe<Scalars['String']>;
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type Subscription = {
@@ -147,7 +147,7 @@ export type CommouUserFieldsFragment = Pick<User, 'id' | 'isOnline'> & {
 };
 
 export type GetUsersQueryVariables = Exact<{
-  cursor: Maybe<Scalars['String']>;
+  cursor: Maybe<Scalars['ID']>;
 }>;
 
 export type GetUsersQuery = {
@@ -176,7 +176,7 @@ export const CommouUserFieldsFragmentDoc = gql`
   }
 `;
 export const GetUsersDocument = gql`
-  query GetUsers($cursor: String) {
+  query GetUsers($cursor: ID) {
     users(cursor: $cursor) {
       items {
         ...commouUserFields

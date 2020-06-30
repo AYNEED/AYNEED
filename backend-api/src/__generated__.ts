@@ -48,7 +48,7 @@ export type QueryUserArgs = {
 };
 
 export type QueryUsersArgs = {
-  cursor: Maybe<Scalars['String']>;
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type Subscription = {

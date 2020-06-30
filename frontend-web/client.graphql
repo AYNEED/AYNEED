@@ -14,7 +14,7 @@ fragment commouUserFields on User {
   }
 }
 
-query GetUsers($cursor: String) {
+query GetUsers($cursor: ID) {
   users(cursor: $cursor) {
     items {
       ...commouUserFields
