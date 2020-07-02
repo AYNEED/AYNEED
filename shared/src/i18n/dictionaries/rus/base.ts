@@ -1,5 +1,6 @@
 export const base = {
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
+  'web.components.ui.Logo.title': 'AY Need',
 
   'web.routes.Feed.title': 'Лента активности',
   'web.routes.Feed.users': 'Люди',
