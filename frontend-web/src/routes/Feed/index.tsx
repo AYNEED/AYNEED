@@ -2,14 +2,14 @@ import React, { useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
 import { Page } from 'src/components/wrappers/Page';
-import { Link } from 'src/components/ui/Link';
-import { ROUTES } from 'shared';
 import {
   GetUsersDocument,
   GetUsersQuery,
   OnUserAddedDocument,
   OnUserAddedSubscription,
 } from 'src/__generated__';
+
+const CardUser = React.lazy(() => import('src/components/ui/CardUser'));
 
 const Feed: React.FC = () => {
   const { error, data, fetchMore, subscribeToMore } = useQuery<GetUsersQuery>(
@@ -64,23 +64,12 @@ const Feed: React.FC = () => {
 
   return (
     <Page title>
-      {data.users.items.map(({ id, isOnline, about, personal }) => (
-        <Link url={{ scheme: ROUTES.USER, params: { id } }} key={id}>
-          <span>{personal.photo[0] || 'no photo'}</span>
-          {' | '}
-          <span>{isOnline ? 'online' : 'offline'}</span>
+      {data.users.items.map((user) => (
+        <div key={user.id}>
+          <CardUser {...user} />
 
-          <h3>
-            {personal.firstName} {personal.lastName}
-          </h3>
-
-          <ul>
-            {about.skills.map(({ title, primary }) => (
-              <li key={title}>{primary ? title : <strong>{title}</strong>}</li>
-            ))}
-          </ul>
           <hr />
-        </Link>
+        </div>
       ))}
       <div onClick={loadMore}>load mode</div>
     </Page>
