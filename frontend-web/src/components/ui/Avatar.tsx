@@ -68,8 +68,6 @@ const Badged: React.FC<{ client: Props['client']; withBadge: boolean }> = ({
 const Linked: React.FC<{ id: Props['id'] }> = ({ id, children }) => {
   const { path, params } = useRouteMatch<{ id?: string }>();
 
-  console.log({ path, params });
-
   if (path === ROUTES.USER && id === params.id) {
     return <>{children}</>;
   }
