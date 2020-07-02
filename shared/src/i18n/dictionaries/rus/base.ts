@@ -5,7 +5,11 @@ export const base = {
   'web.routes.Feed.title': 'Лента активности',
   'web.routes.Feed.users': 'Люди',
 
-  'web.routes.Main.title': 'AYneed',
+  'web.routes.Main.title': 'AY Need',
+  'web.routes.Main.button_start': 'Start',
+  'web.routes.Main.ball_idea': 'Идея',
+  'web.routes.Main.ball_command': 'Команда',
+  'web.routes.Main.ball_investments': 'Инвестиции',
 
   'web.routes.SignInEmail.title': 'Вход',
 
