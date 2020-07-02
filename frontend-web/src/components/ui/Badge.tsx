@@ -3,7 +3,7 @@ import React from 'react';
 import { COLOR } from 'src/constants/colors';
 
 type Props = {
-  value: React.FC | number;
+  value: JSX.Element | number;
   borderColor: COLOR.WHITE | COLOR.TRANSPARENT;
   backgroundColor: COLOR.PRIMARY_500 | COLOR.RED | COLOR.TRANSPARENT;
   position: 'leftCenter' | 'rightCenter' | 'rightBottom';

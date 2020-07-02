@@ -51,9 +51,11 @@ const Badged: React.FC<{ client: Props['client']; withBadge: boolean }> = ({
     return <>{children}</>;
   }
 
+  const Icon = clientToIcon[client];
+
   return (
     <Badge
-      value={clientToIcon[client]}
+      value={<Icon />}
       borderColor={COLOR.WHITE}
       backgroundColor={COLOR.PRIMARY_500}
       position="rightBottom"
