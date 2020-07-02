@@ -1,11 +1,13 @@
 export const base = {
-  'web.components.routes.Feed.title': 'Лента активности',
+  'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
 
-  'web.components.routes.Main.title': 'AYneed',
+  'web.routes.Feed.title': 'Лента активности',
 
-  'web.components.routes.SignInEmail.title': 'Вход',
+  'web.routes.Main.title': 'AYneed',
 
-  'web.components.routes.SignUpEmail.title': 'Регистрация',
+  'web.routes.SignInEmail.title': 'Вход',
 
-  'web.components.routes.User.title': 'Профиль',
+  'web.routes.SignUpEmail.title': 'Регистрация',
+
+  'web.routes.User.title': 'Профиль',
 };
