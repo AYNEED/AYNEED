@@ -8,6 +8,7 @@ import {
   OnUserAddedDocument,
   OnUserAddedSubscription,
 } from 'src/__generated__';
+import { Msg } from 'src/i18n/Msg';
 
 const CardUser = React.lazy(() => import('src/components/ui/CardUser'));
 
@@ -63,7 +64,11 @@ const Feed: React.FC = () => {
   }
 
   return (
-    <Page title>
+    <Page>
+      <h2>
+        <Msg id="web.routes.Feed.users" />
+      </h2>
+
       {data.users.items.map((user) => (
         <div key={user.id}>
           <CardUser {...user} />
@@ -71,6 +76,8 @@ const Feed: React.FC = () => {
           <hr />
         </div>
       ))}
+
+      {/* TODO: use auto-loading */}
       <div onClick={loadMore}>load mode</div>
     </Page>
   );
