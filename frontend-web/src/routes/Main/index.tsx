@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Page } from 'src/components/wrappers/Page';
-import Logo from 'src/components/ui/Logo';
+
+const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
 const Main: React.FC = () => (
   <Page>
