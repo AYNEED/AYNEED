@@ -1,7 +1,7 @@
 import React from 'react';
+import { connect, FelaWithStylesProps, Rules } from 'react-fela';
 
 import { Page } from 'src/components/wrappers/Page';
-import { connect, FelaWithStylesProps, Rules } from 'react-fela';
 
 interface Styles {
   container: any;
