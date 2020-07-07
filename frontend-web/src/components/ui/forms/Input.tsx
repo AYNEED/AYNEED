@@ -10,9 +10,7 @@ type Props = {
   value: string;
   error?: string;
   required?: boolean;
-  onChange: (
-    eventOrPath: string | React.ChangeEvent<any>
-  ) => void | ((eventOrTextValue: string | React.ChangeEvent<any>) => void);
+  onChange: React.ChangeEventHandler;
   placeholder: MsgProps;
 };
 
