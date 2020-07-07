@@ -9,6 +9,7 @@ import { Idea } from 'src/components/icons/Idea';
 import { Command } from 'src/components/icons/Command';
 import { Investments } from 'src/components/icons/Investments';
 import { Rocket } from 'src/components/icons/Rocket';
+import { Link } from 'src/components/ui/Link';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
@@ -35,6 +36,10 @@ const Main: React.FC = () => (
     </Ball>
 
     <Rocket />
+
+    <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }}>
+      <Msg id="web.routes.Main.button_sign_in" />
+    </Link>
   </Page>
 );
 
