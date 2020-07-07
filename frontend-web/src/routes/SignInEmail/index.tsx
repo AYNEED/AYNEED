@@ -16,7 +16,7 @@ const SignInEmail: React.FC = () => {
       email: '',
       password: '',
     },
-    onSubmit: console.log,
+    onSubmit: console.log, // TODO: use validation
   });
 
   return (
