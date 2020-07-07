@@ -1,4 +1,5 @@
 import { createRenderer } from 'fela';
+import { CssFelaStyle } from 'react-fela';
 import typescript from 'fela-plugin-typescript';
 import fallbackValue from 'fela-plugin-fallback-value';
 import namedKeys from 'fela-plugin-named-keys';
@@ -15,3 +16,7 @@ const namedKeysPlugin = namedKeys({
 export const renderer = createRenderer({
   plugins: [typescript(), fallbackValue(), prefixer(), unit(), namedKeysPlugin],
 });
+
+export type Styles<K extends string, T = {}, P = {}> = {
+  [key in K]: CssFelaStyle<T, P>;
+};
