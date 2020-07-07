@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 
 import { MsgProps, msg } from 'src/i18n/Msg';
 import { Tooltip } from 'src/components/ui/Tooltip';
+import { ExclamationPoint } from 'src/components/icons/ExclamationPoint';
 
 type Props = {
   name: string;
@@ -38,7 +39,7 @@ export const Input: React.FC<Props> = ({
 
       {!!error && (
         <Tooltip text={error}>
-          <div />
+          <ExclamationPoint />
         </Tooltip>
       )}
     </>
