@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect, FelaWithStylesProps, Rules } from 'react-fela';
 
 import { Page } from 'src/components/wrappers/Page';
 import { ButtonLink } from 'src/components/ui/forms/Button';
@@ -11,36 +12,70 @@ import { Investments } from 'src/components/icons/Investments';
 import { Rocket } from 'src/components/icons/Rocket';
 import { Link } from 'src/components/ui/Link';
 
+interface IStyles {
+  container: any;
+  greetingRow: any;
+}
+
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
-const Main: React.FC = () => (
-  <Page>
-    <Logo />
+type PropsType = FelaWithStylesProps<null, IStyles, null>;
 
-    <p>Объединяет людей для создания бизнеса</p>
+const Main: React.FC<PropsType> = (props) => {
+  const { styles } = props;
 
-    <ButtonLink url={{ scheme: ROUTES.FEED }}>
-      <Msg id="web.routes.Main.button_start" />
-    </ButtonLink>
+  return (
+    <div>
+      <Page>
+        <Logo />
 
-    <Ball id="web.routes.Main.ball_idea">
-      <Idea />
-    </Ball>
+        <p>Объединяет людей для создания бизнеса</p>
 
-    <Ball id="web.routes.Main.ball_command">
-      <Command />
-    </Ball>
+        <ButtonLink url={{ scheme: ROUTES.FEED }}>
+          <Msg id="web.routes.Main.button_start" />
+        </ButtonLink>
 
-    <Ball id="web.routes.Main.ball_investments">
-      <Investments />
-    </Ball>
+        <Ball id="web.routes.Main.ball_idea">
+          <Idea />
+        </Ball>
 
-    <Rocket />
+        <Ball id="web.routes.Main.ball_command">
+          <Command />
+        </Ball>
 
-    <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }}>
-      <Msg id="web.routes.Main.button_sign_in" />
-    </Link>
-  </Page>
-);
+        <Ball id="web.routes.Main.ball_investments">
+          <Investments />
+        </Ball>
 
-export default Main;
+        <Rocket />
+
+        <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }}>
+          <Msg id="web.routes.Main.button_sign_in" />
+        </Link>
+      </Page>
+      <div className={styles.container}>
+        <div className={styles.greetingRow}>Hola :)</div>
+      </div>
+    </div>
+  );
+};
+
+const complexMainStyle: Rules<null, IStyles, null> = () => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'lightblue',
+    borderRadius: '18px',
+    minHeight: '500px',
+  },
+  greetingRow: {
+    fontSize: '6rem',
+    textAlign: 'center',
+    padding: '2rem',
+    margin: '2rem',
+  },
+});
+
+export default connect(complexMainStyle)(Main);
