@@ -15,6 +15,12 @@ export const config: { [TKey in ROUTES]: Route } = {
     component: () => import('src/routes/Main'),
   },
 
+  [ROUTES.FORGOT_PASSWORD]: {
+    access: 'unauthorized',
+    title: 'web.routes.ForgotPassword.title',
+    component: () => import('src/routes/ForgotPassword'),
+  },
+
   [ROUTES.SIGN_IN_EMAIL]: {
     access: 'unauthorized',
     title: 'web.routes.SignInEmail.title',

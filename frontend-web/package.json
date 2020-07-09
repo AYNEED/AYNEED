@@ -17,6 +17,7 @@
     "fela-plugin-prefixer": "^11.3.0",
     "fela-plugin-typescript": "^11.3.0",
     "fela-plugin-unit": "^11.3.0",
+    "formik": "^2.1.4",
     "frontend-shared": "2.0.0",
     "graphql": "^15.1.0",
     "history": "^4.10.1",

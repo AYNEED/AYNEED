@@ -1,7 +1,7 @@
 export enum ROUTES {
   MAIN = '/',
 
-  // FORGOT_PASSWORD = '/forgot-password',
+  FORGOT_PASSWORD = '/forgot-password',
   // FORGOT_PASSWORD_SUCCESS = '/forgot-password/success',
 
   SIGN_IN_EMAIL = '/sign-in',
