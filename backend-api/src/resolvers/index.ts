@@ -4,6 +4,7 @@ import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
   resolveUser,
+  resolveUserNetwork,
   resolveUserFeed,
   resolveUserAboutData,
   resolveUserPersonalData,
@@ -28,6 +29,7 @@ export const resolvers: Resolvers = {
 
   // Custom resolvers:
   User: resolveUser,
+  UserNetwotk: resolveUserNetwork,
   UserFeed: resolveUserFeed,
   UserAboutData: resolveUserAboutData,
   UserPersonalData: resolveUserPersonalData,
