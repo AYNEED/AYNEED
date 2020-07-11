@@ -11,7 +11,7 @@ export const base = {
   'web.routes.Main.ball_command': 'Команда',
   'web.routes.Main.ball_idea': 'Идея',
   'web.routes.Main.ball_investments': 'Инвестиции',
-  'web.routes.Main.button_sign_in': 'Войти',
+  'web.routes.Main.social_media': 'Мы в социальных сетях',
   'web.routes.Main.button_start': 'Start',
   'web.routes.Main.title': 'AY Need',
 
