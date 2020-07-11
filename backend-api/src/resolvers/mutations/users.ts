@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers, Client } from 'src/__generated__';
 import { events, pubsub } from 'src/resolvers/subscriptions';
 import { UserModel } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
@@ -21,7 +21,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   }
 
   const user = userDriver(data, {
-    isOnline: true,
+    network: { isOnline: false, client: Client.Desktop },
   });
 
   pubsub.publish(events.user.updated, user);
@@ -36,6 +36,10 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   const salt = createRandomString();
   const hash = createPasswordHash(password, salt);
   const data = await UserModel.create({
+    network: {
+      isOnline: false,
+      client: Client.Desktop,
+    },
     about: {
       bio: null,
       skills: [],
@@ -82,7 +86,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   });
 
   const user = userDriver(data, {
-    isOnline: true,
+    network: { isOnline: false, client: Client.Desktop },
   });
 
   pubsub.publish(events.user.added, user);

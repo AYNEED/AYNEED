@@ -7,7 +7,7 @@ schema {
 }
 
 type Mutation {
-  signInEmail(email: String!, password: String!): User
+  signInEmail(email: String!, password: String!, client: CLIENT!): User
 
   signUpEmail(
     email: String!
@@ -16,6 +16,7 @@ type Mutation {
     lastName: String!
     locale: LOCALE!
     isAgree: Boolean!
+    client: CLIENT!
   ): User
 }
 
@@ -42,15 +43,25 @@ enum LANGUAGE_LEVEL {
   proficiency
 }
 
+enum CLIENT {
+  mobile
+  desktop
+}
+
 type User {
   id: ID!
-  isOnline: Boolean!
+  network: UserNetwotk!
   about: UserAboutData!
   personal: UserPersonalData!
   regional: UserRegionalData!
   contacts: UserContactsData!
   statistics: UserStatisticsData!
   createdAt: DateTime!
+}
+
+type UserNetwotk {
+  isOnline: Boolean!
+  client: CLIENT!
 }
 
 type UserFeed {
