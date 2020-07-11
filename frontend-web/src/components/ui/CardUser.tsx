@@ -5,17 +5,12 @@ import { CommouUserFieldsFragment } from 'src/__generated__';
 
 type Props = CommouUserFieldsFragment;
 
-const CardUser: React.FC<Props> = ({
-  id,
-  isOnline,
-  about,
-  personal,
-}) => (
+const CardUser: React.FC<Props> = ({ id, network, about, personal }) => (
   <>
     <Avatar
       id={id}
       photo={personal.photo[0]}
-      isOnline={isOnline}
+      isOnline={network.isOnline}
       isCurrent={false}
       client="desktop"
       size="76px"

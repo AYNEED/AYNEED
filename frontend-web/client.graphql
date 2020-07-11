@@ -1,6 +1,9 @@
 fragment commouUserFields on User {
   id
-  isOnline
+  network {
+    isOnline
+    client
+  }
   about {
     skills {
       title
