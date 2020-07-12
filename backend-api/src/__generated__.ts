@@ -27,6 +27,7 @@ export type Mutation = {
 export type MutationSignInEmailArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
+  client: Client;
 };
 
 export type MutationSignUpEmailArgs = {
@@ -36,6 +37,7 @@ export type MutationSignUpEmailArgs = {
   lastName: Scalars['String'];
   locale: Locale;
   isAgree: Scalars['Boolean'];
+  client: Client;
 };
 
 export type Query = {
@@ -69,15 +71,25 @@ export enum LanguageLevel {
   Proficiency = 'proficiency',
 }
 
+export enum Client {
+  Mobile = 'mobile',
+  Desktop = 'desktop',
+}
+
 export type User = {
   id: Scalars['ID'];
-  isOnline: Scalars['Boolean'];
+  network: UserNetwotk;
   about: UserAboutData;
   personal: UserPersonalData;
   regional: UserRegionalData;
   contacts: UserContactsData;
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
+};
+
+export type UserNetwotk = {
+  isOnline: Scalars['Boolean'];
+  client: Client;
 };
 
 export type UserFeed = {
@@ -272,7 +284,9 @@ export type ResolversTypes = {
   Subscription: ResolverTypeWrapper<{}>;
   LOCALE: Locale;
   LANGUAGE_LEVEL: LanguageLevel;
+  CLIENT: Client;
   User: ResolverTypeWrapper<User>;
+  UserNetwotk: ResolverTypeWrapper<UserNetwotk>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
   UserAboutData: ResolverTypeWrapper<UserAboutData>;
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
@@ -297,6 +311,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Subscription: {};
   User: User;
+  UserNetwotk: UserNetwotk;
   UserFeed: UserFeed;
   UserAboutData: UserAboutData;
   UserPersonalData: UserPersonalData;
@@ -324,7 +339,7 @@ export type MutationResolvers<
     Maybe<ResolversTypes['User']>,
     ParentType,
     ContextType,
-    RequireFields<MutationSignInEmailArgs, 'email' | 'password'>
+    RequireFields<MutationSignInEmailArgs, 'email' | 'password' | 'client'>
   >;
   signUpEmail: Resolver<
     Maybe<ResolversTypes['User']>,
@@ -332,7 +347,13 @@ export type MutationResolvers<
     ContextType,
     RequireFields<
       MutationSignUpEmailArgs,
-      'email' | 'password' | 'firstName' | 'lastName' | 'locale' | 'isAgree'
+      | 'email'
+      | 'password'
+      | 'firstName'
+      | 'lastName'
+      | 'locale'
+      | 'isAgree'
+      | 'client'
     >
   >;
 };
@@ -378,7 +399,7 @@ export type UserResolvers<
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  isOnline: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  network: Resolver<ResolversTypes['UserNetwotk'], ParentType, ContextType>;
   about: Resolver<ResolversTypes['UserAboutData'], ParentType, ContextType>;
   personal: Resolver<
     ResolversTypes['UserPersonalData'],
@@ -401,6 +422,15 @@ export type UserResolvers<
     ContextType
   >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserNetwotkResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserNetwotk'] = ResolversParentTypes['UserNetwotk']
+> = {
+  isOnline: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  client: Resolver<ResolversTypes['CLIENT'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -562,6 +592,7 @@ export type Resolvers<ContextType = any> = {
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
   User: UserResolvers<ContextType>;
+  UserNetwotk: UserNetwotkResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
   UserAboutData: UserAboutDataResolvers<ContextType>;
   UserPersonalData: UserPersonalDataResolvers<ContextType>;
