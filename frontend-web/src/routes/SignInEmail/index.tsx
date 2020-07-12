@@ -5,7 +5,7 @@ import { Msg } from 'src/i18n/Msg';
 import { Page } from 'src/components/wrappers/Page';
 import { Input } from 'src/components/ui/forms/Input';
 import { ButtonSubmit } from 'src/components/ui/forms/Button';
-import { ROUTES } from 'shared';
+import { ROUTES, createSchema, rules } from 'shared';
 import { Link } from 'src/components/ui/Link';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
@@ -16,7 +16,9 @@ const SignInEmail: React.FC = () => {
       email: '',
       password: '',
     },
-    onSubmit: console.log, // TODO: use validation
+    validateOnChange: false,
+    validationSchema: createSchema(rules),
+    onSubmit: console.log,
   });
 
   return (
@@ -29,7 +31,6 @@ const SignInEmail: React.FC = () => {
           type="email"
           value={formik.values.email}
           error={formik.errors.email}
-          required
           onChange={formik.handleChange}
           placeholder={{ id: 'web.routes.SignInEmail.form_email' }}
         />
@@ -39,7 +40,6 @@ const SignInEmail: React.FC = () => {
           type="password"
           value={formik.values.password}
           error={formik.errors.password}
-          required
           onChange={formik.handleChange}
           placeholder={{ id: 'web.routes.SignInEmail.form_password' }}
         />
