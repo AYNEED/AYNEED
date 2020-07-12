@@ -31,3 +31,9 @@ subscription onUserAdded {
     ...commouUserFields
   }
 }
+
+mutation SignInEmail($email: String!, $password: String!, $client: CLIENT!) {
+  signInEmail(email: $email, password: $password, client: $client) {
+    ...commouUserFields
+  }
+}

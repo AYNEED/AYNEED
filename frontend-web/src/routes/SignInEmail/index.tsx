@@ -1,16 +1,30 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
+import { useMutation } from '@apollo/react-hooks';
 
 import { Page } from 'src/components/wrappers/Page';
 import { Input } from 'src/components/ui/forms/Input';
 import { ButtonSubmit } from 'src/components/ui/forms/Button';
 import { ROUTES, createSchema, rules } from 'shared';
 import { Link } from 'src/components/ui/Link';
+import {
+  Client,
+  SignInEmailDocument,
+  SignInEmailMutationResult,
+  SignInEmailMutationVariables,
+} from 'src/__generated__';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
 const SignInEmail: React.FC = () => {
+  const [signInEmail, result] = useMutation<
+    SignInEmailMutationResult,
+    SignInEmailMutationVariables
+  >(SignInEmailDocument);
+
+  console.log(result); // TODO: remove me
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -18,7 +32,14 @@ const SignInEmail: React.FC = () => {
     },
     validateOnChange: false,
     validationSchema: createSchema(rules),
-    onSubmit: console.log,
+    onSubmit: ({ email, password }) =>
+      signInEmail({
+        variables: {
+          email,
+          password,
+          client: Client.Desktop, // TODO: auto detect
+        },
+      }),
   });
 
   return (
