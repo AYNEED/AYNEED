@@ -7,25 +7,35 @@ import { COLOR } from 'src/constants/colors';
 
 type Props = MsgProps;
 
-const styles: Styles<'icon' | 'text'> = {
+const styles: Styles<'ball' | 'icon' | 'text'> = {
+  ball: {
+    display: 'flex !important',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   icon: {
-    width: 70,
-    height: 70,
+    width: '71px',
+    height: '71px',
     borderRadius: '50%',
     backgroundColor: COLOR.WHITE,
+    display: 'flex !important',
+    alignItems: 'center',
+    justifyContent: 'center',
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.15)',
   },
   text: {
     color: COLOR.PRIMARY_500,
+    marginTop: '15px', 
   },
 };
 
 export const Ball: React.FC<Props> = ({ id, values, children }) => (
-  <>
+  <FelaComponent style={styles.ball}>
     <FelaComponent style={styles.icon}>{children}</FelaComponent>
 
     <FelaComponent as="p" style={styles.text}>
       <Msg id={id} values={values} />
     </FelaComponent>
-  </>
+  </FelaComponent>
 );
