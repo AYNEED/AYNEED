@@ -5,6 +5,7 @@ export type Access = 'all' | 'authorized' | 'unauthorized';
 export type Route = {
   access: Access;
   title: DictionaryKey;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: () => Promise<any>;
 };
 
