@@ -14,13 +14,14 @@ export type Scheme = {
 };
 
 const allRoutes: RouteWithScheme[] = Object.keys(routesConfig).map(
-  (scheme: any) => ({
-    scheme,
-    ...routesConfig[scheme as ROUTES],
-  })
+  (scheme: string) =>
+    ({
+      scheme,
+      ...routesConfig[scheme as ROUTES],
+    } as never)
 );
 
-const filterConfig = (access: AccessWithoutAll) =>
+const filterConfig = (access: AccessWithoutAll): RouteWithScheme[] =>
   allRoutes.filter((item) => item.access === access || item.access === 'all');
 
 export const routes: Routes = {
@@ -30,7 +31,7 @@ export const routes: Routes = {
 
 export const config = routesConfig;
 
-export const makeURL = (options: Scheme) => {
+export const makeURL = (options: Scheme): string | null => {
   const { scheme, params } = options;
 
   try {
