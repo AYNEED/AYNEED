@@ -3,10 +3,11 @@ import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
 import { useMutation } from '@apollo/react-hooks';
 
+import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import { Input } from 'src/components/ui/forms/Input';
 import { ButtonSubmit } from 'src/components/ui/forms/Button';
-import { ROUTES, createSchema, rules } from 'shared';
+import { ROUTES, validation } from 'shared';
 import { Link } from 'src/components/ui/Link';
 import {
   Client,
@@ -23,20 +24,17 @@ const SignInEmail: React.FC = () => {
     SignInEmailMutationVariables
   >(SignInEmailDocument);
 
-  console.log(result); // TODO: remove me
-
   const formik = useFormik({
     initialValues: {
       email: '',
       password: '',
     },
     validateOnChange: false,
-    validationSchema: createSchema(rules),
-    onSubmit: ({ email, password }) =>
+    validationSchema: validation.signInEmail,
+    onSubmit: (variables) =>
       signInEmail({
         variables: {
-          email,
-          password,
+          ...variables,
           client: Client.Desktop, // TODO: auto detect
         },
       }),
@@ -47,6 +45,8 @@ const SignInEmail: React.FC = () => {
       <Logo />
 
       <form onSubmit={formik.handleSubmit}>
+        <Notification error={result.error} />
+
         <Input
           name="email"
           type="email"
