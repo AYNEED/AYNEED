@@ -7,13 +7,13 @@ import {
   createRandomString,
   verifyPassword,
 } from 'src/utils/password';
-import { validation, ValidationError } from 'shared';
+import { validators, ValidationError } from 'shared';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
   { email, password }
 ) => {
-  await validation.signInEmail.validate({ email, password });
+  await validators.signInEmail.validate({ email, password });
 
   const data = await UserModel.findOne({
     'contacts.email.value': email,

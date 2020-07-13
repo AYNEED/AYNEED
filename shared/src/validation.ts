@@ -24,7 +24,7 @@ const rules = {
     .min(8, _msg('error.password.min')),
 };
 
-export const validation = {
+export const validators = {
   signInEmail: yup.object().shape({
     email: rules.email,
     password: rules.password,

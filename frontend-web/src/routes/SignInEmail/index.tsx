@@ -7,7 +7,7 @@ import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import { Input } from 'src/components/ui/forms/Input';
 import { ButtonSubmit } from 'src/components/ui/forms/Button';
-import { ROUTES, validation } from 'shared';
+import { ROUTES, validators } from 'shared';
 import { Link } from 'src/components/ui/Link';
 import {
   Client,
@@ -30,7 +30,7 @@ const SignInEmail: React.FC = () => {
       password: '',
     },
     validateOnChange: false,
-    validationSchema: validation.signInEmail,
+    validationSchema: validators.signInEmail,
     onSubmit: (variables) =>
       signInEmail({
         variables: {
