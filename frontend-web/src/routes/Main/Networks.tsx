@@ -17,7 +17,7 @@ export const Networks: React.FC = () => {
         <li>
           <a
             href="https://vk.com/ayneed"
-            title={msg(intl, { id: 'web.routes.Main.Networks.vk' })}
+            title={msg(intl, { id: 'networks.vk' })}
           >
             <VK />
           </a>
@@ -25,7 +25,7 @@ export const Networks: React.FC = () => {
         <li>
           <a
             href="https://t.me/ayndme"
-            title={msg(intl, { id: 'web.routes.Main.Networks.telegram' })}
+            title={msg(intl, { id: 'networks.telegram' })}
           >
             <Telegram />
           </a>
@@ -33,7 +33,7 @@ export const Networks: React.FC = () => {
         <li>
           <a
             href="https://www.instagram.com/aynd.ru/"
-            title={msg(intl, { id: 'web.routes.Main.Networks.instagram' })}
+            title={msg(intl, { id: 'networks.instagram' })}
           >
             <Instagram />
           </a>

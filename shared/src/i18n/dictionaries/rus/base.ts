@@ -1,4 +1,8 @@
 export const base = {
+  'networks.instagram': 'Instagram',
+  'networks.telegram': 'Telegram',
+  'networks.vk': 'VK',
+
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
 
   'web.components.ui.Logo.title': 'AY Need',
@@ -13,10 +17,7 @@ export const base = {
   'web.routes.Main.ball_investments': 'Инвестиции',
   'web.routes.Main.button_start': 'Start',
   'web.routes.Main.description': 'Объединяет людей для создания IT-продуктов',
-  'web.routes.Main.Networks.instagram': 'Instagram',
-  'web.routes.Main.Networks.telegram': 'Telegram',
   'web.routes.Main.Networks.title': 'Мы в социальных сетях',
-  'web.routes.Main.Networks.vk': 'VK',
   'web.routes.Main.title': 'AY Need',
 
   'web.routes.SignInEmail.form_email': 'E-mail',
