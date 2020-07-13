@@ -7,7 +7,7 @@ import {
   createRandomString,
   verifyPassword,
 } from 'src/utils/password';
-import { validation } from 'shared';
+import { validation, ValidationError } from 'shared';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
@@ -20,7 +20,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   });
 
   if (!data || !verifyPassword(password, data.private.password)) {
-    throw new Error('error.emailOrPassword.incorrect');
+    throw new ValidationError('error.emailOrPassword.incorrect');
   }
 
   const user = userDriver(data, {

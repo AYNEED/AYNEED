@@ -3,7 +3,14 @@ import * as yup from 'yup';
 import { events } from './i18n/dictionaries/rus/events';
 
 type Events = keyof typeof events;
-const _msg = (name: Events): Events => name;
+const _msg = (message: Events): Events => message;
+
+export class ValidationError extends Error {
+  constructor(message: Events) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
 
 const rules = {
   email: yup
