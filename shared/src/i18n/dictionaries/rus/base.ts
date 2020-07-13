@@ -1,7 +1,11 @@
 export const base = {
+  'networks.facebook': 'Facebook',
+  'networks.google': 'Google',
   'networks.instagram': 'Instagram',
   'networks.telegram': 'Telegram',
-  'networks.vk': 'VK',
+  'networks.vk': 'Вконтакте',
+
+  'web.components.blocks.EnterThrough.title': 'Войти с помощью',
 
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
 
@@ -23,7 +27,7 @@ export const base = {
   'web.routes.SignInEmail.form_email': 'E-mail',
   'web.routes.SignInEmail.form_password': 'Пароль',
   'web.routes.SignInEmail.form_submit': 'Войти',
-  'web.routes.SignInEmail.link_forgot_password': 'Забыли пароль',
+  'web.routes.SignInEmail.link_forgot_password': 'Забыли пароль?',
   'web.routes.SignInEmail.link_sign_up': 'Зарегистрироваться',
   'web.routes.SignInEmail.title': 'Вход',
 
