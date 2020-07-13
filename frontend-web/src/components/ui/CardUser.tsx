@@ -12,7 +12,7 @@ const CardUser: React.FC<Props> = ({ id, network, about, personal }) => (
       photo={personal.photo[0]}
       isOnline={network.isOnline}
       isCurrent={false}
-      client="desktop"
+      client={network.client}
       size="76px"
     />
 

@@ -10,7 +10,6 @@ type Props = {
   type: 'email' | 'password' | 'text';
   value: string;
   error?: string;
-  required?: boolean;
   onChange: React.ChangeEventHandler;
   placeholder: MsgProps;
 };
@@ -20,7 +19,6 @@ export const Input: React.FC<Props> = ({
   type,
   value,
   error,
-  required,
   onChange,
   placeholder,
 }) => {
@@ -32,13 +30,12 @@ export const Input: React.FC<Props> = ({
         name={name}
         type={type}
         value={value}
-        required={required}
         onChange={onChange}
         placeholder={msg(intl, placeholder)}
       />
 
       {!!error && (
-        <Tooltip text={error}>
+        <Tooltip text={msg(intl, { id: error as MsgProps['id'] })}>
           <ExclamationPoint />
         </Tooltip>
       )}

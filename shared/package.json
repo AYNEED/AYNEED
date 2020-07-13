@@ -4,12 +4,16 @@
   "private": true,
   "main": "./build",
   "types": "./src",
+  "dependencies": {
+    "yup": "^0.29.1"
+  },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.15.4",
     "@graphql-codegen/typescript": "^1.15.4",
     "@graphql-codegen/typescript-operations": "^1.15.4",
     "@graphql-codegen/typescript-react-apollo": "^1.15.4",
     "@graphql-codegen/typescript-resolvers": "^1.15.4",
+    "@types/yup": "^0.29.3",
     "typescript": "^3.9.5"
   },
   "scripts": {

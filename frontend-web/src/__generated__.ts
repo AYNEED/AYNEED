@@ -171,6 +171,16 @@ export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type OnUserAddedSubscription = { userAdded: CommouUserFieldsFragment };
 
+export type SignInEmailMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+  client: Client;
+}>;
+
+export type SignInEmailMutation = {
+  signInEmail: Maybe<CommouUserFieldsFragment>;
+};
+
 export const CommouUserFieldsFragmentDoc = gql`
   fragment commouUserFields on User {
     id
@@ -216,4 +226,23 @@ export const OnUserAddedDocument = gql`
 `;
 export type OnUserAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
   OnUserAddedSubscription
+>;
+export const SignInEmailDocument = gql`
+  mutation SignInEmail($email: String!, $password: String!, $client: CLIENT!) {
+    signInEmail(email: $email, password: $password, client: $client) {
+      ...commouUserFields
+    }
+  }
+  ${CommouUserFieldsFragmentDoc}
+`;
+export type SignInEmailMutationFn = ApolloReactCommon.MutationFunction<
+  SignInEmailMutation,
+  SignInEmailMutationVariables
+>;
+export type SignInEmailMutationResult = ApolloReactCommon.MutationResult<
+  SignInEmailMutation
+>;
+export type SignInEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SignInEmailMutation,
+  SignInEmailMutationVariables
 >;
