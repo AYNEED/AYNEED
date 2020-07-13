@@ -5,11 +5,11 @@ import { ButtonLink } from 'src/components/ui/forms/Button';
 import { Msg } from 'src/i18n/Msg';
 import { ROUTES } from 'shared';
 import { Ball } from 'src/routes/Main/Ball';
+import { Networks } from 'src/routes/Main/Networks';
 import { Idea } from 'src/components/icons/Idea';
 import { Command } from 'src/components/icons/Command';
 import { Investments } from 'src/components/icons/Investments';
 import { Rocket } from 'src/components/icons/Rocket';
-import { Link } from 'src/components/ui/Link';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
@@ -17,7 +17,9 @@ const Main: React.FC = () => (
   <Page>
     <Logo />
 
-    <p>Объединяет людей для создания бизнеса</p>
+    <p>
+      <Msg id="web.routes.Main.description" />
+    </p>
 
     <ButtonLink url={{ scheme: ROUTES.FEED }}>
       <Msg id="web.routes.Main.button_start" />
@@ -37,9 +39,7 @@ const Main: React.FC = () => (
 
     <Rocket />
 
-    <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }}>
-      <Msg id="web.routes.Main.button_sign_in" />
-    </Link>
+    <Networks />
   </Page>
 );
 
