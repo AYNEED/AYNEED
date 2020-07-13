@@ -43,7 +43,7 @@ ch${НОМЕР_ЗАДАЧИ_В_CLUBHOUSE}_${КОТОРОТКОЕ_ПОЯСНЕН�
 #### Backend
 
 1. `cd backend-api`
-2. `yarn run db` -- пропустить если сервер mongod выключен
+2. `yarn run db` -- пропустить, если сервер mongod включен
 3. `yarn run migrations up`
 4. `yarn run watch`
 5. `yarn run start`
