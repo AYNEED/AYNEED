@@ -4,4 +4,6 @@ export const events = {
 
   'error.password.required': 'Необходимо указать ваш пароль',
   'error.password.min': 'Пароль не может быть короче 8 символов',
+
+  'error.emailOrPassword.incorrect': 'Неверный логин или пароль',
 };
