@@ -9,8 +9,8 @@ import { Input } from 'src/components/ui/forms/Input';
 import { ButtonSubmit } from 'src/components/ui/forms/Button';
 import { ROUTES, validators } from 'shared';
 import { Link } from 'src/components/ui/Link';
+import { client } from 'src/utils/fela';
 import {
-  Client,
   SignInEmailDocument,
   SignInEmailMutationResult,
   SignInEmailMutationVariables,
@@ -32,12 +32,7 @@ const SignInEmail: React.FC = () => {
     validateOnChange: false,
     validationSchema: validators.signInEmail,
     onSubmit: (variables) =>
-      signInEmail({
-        variables: {
-          ...variables,
-          client: Client.Desktop, // TODO: auto detect
-        },
-      }),
+      signInEmail({ variables: { ...variables, client } }),
   });
 
   return (
