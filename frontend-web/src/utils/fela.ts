@@ -6,15 +6,29 @@ import namedKeys from 'fela-plugin-named-keys';
 import prefixer from 'fela-plugin-prefixer';
 import unit from 'fela-plugin-unit';
 
-const namedKeysPlugin = namedKeys({
+import { Client } from 'src/__generated__';
+
+const mediaQueries = {
   desktop: '@media (min-width: 1024px)',
   tablet: '@media (min-width: 768px)',
   supportsFlex: '@supports (display: flex)',
   supportsGrid: '@supports (display: grid)',
-});
+};
+
+export const client = window.matchMedia(
+  mediaQueries.desktop.replace('@media ', '')
+).matches
+  ? Client.Desktop
+  : Client.Mobile;
 
 export const renderer = createRenderer({
-  plugins: [typescript(), fallbackValue(), prefixer(), unit(), namedKeysPlugin],
+  plugins: [
+    typescript(),
+    fallbackValue(),
+    prefixer(),
+    unit(),
+    namedKeys(mediaQueries),
+  ],
 });
 
 export type Styles<K extends string, T = {}, P = {}> = {
