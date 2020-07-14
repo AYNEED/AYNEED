@@ -37,10 +37,10 @@ const buttonRule: object = () => ({
   justifyContent: 'center',
   alignItems: 'center',
   cursor: 'pointer',
-  overflow: 'hidden',
+  // overflow: 'hidden',
 })
 
-const rippleHover: string = ("position: absolute; width: 100px; height: 100px; borderRadius: 10px; background: linear-gradient(0deg, #D4EFDF 28.02%, rgba(212, 239, 223, 0) 100%); animation: .5s rippleExpand ease-out; zIndex: 5;")
+const rippleHover: string = ("position: absolute; width: 50px; height: 50px; borderRadius: 10px; background: linear-gradient(0deg, #D4EFDF 28.02%, rgba(212, 239, 223, 0) 100%); animation: .5s rippleExpand ease-out; zIndex: 5;")
 
 // const keyframe: string = (`
 //   @keyframes rippleExpand{
@@ -53,7 +53,11 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
   const { css } = useFela()
 
   const buttonLink: React.RefObject<HTMLDivElement> = React.createRef()
-
+   
+  let stylesheet = window.document.styleSheets
+  console.log(stylesheet)
+  // stylesheet.insertRule(keyframe)
+  
   const onMouseOverHandler = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
 
     if (buttonLink.current !== null) {
@@ -62,6 +66,8 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
       const w: any = buttonLink.current.offsetWidth / 2
       
       const ripple: HTMLElement = document.createElement('span')
+      // document.body.setAttribute('style', keyframe)
+        
       ripple.setAttribute('style', rippleHover)
       ripple.style.top = y + "px"
       ripple.style.left = x + "px"
