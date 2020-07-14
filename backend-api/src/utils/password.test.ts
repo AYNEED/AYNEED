@@ -34,7 +34,7 @@ describe('Create password hash', () => {
 });
 
 describe('Verify password', () => {
-  test('if the password is correct', () => {
+  test('true if the password is correct', () => {
     expect(
       verifyPassword('password', {
         salt: 'testSalt',
@@ -43,7 +43,7 @@ describe('Verify password', () => {
     ).toBe(true);
   });
 
-  test('if the password is incorrect', () => {
+  test('false if the password is incorrect', () => {
     expect(
       verifyPassword('incorrectPassword', {
         salt: 'testSalt',
