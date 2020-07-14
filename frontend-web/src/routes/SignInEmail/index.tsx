@@ -17,6 +17,9 @@ import {
 } from 'src/__generated__';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
+const EnterThrough = React.lazy(() =>
+  import('src/components/blocks/EnterThrough')
+);
 
 const SignInEmail: React.FC = () => {
   const [signInEmail, result] = useMutation<
@@ -38,6 +41,7 @@ const SignInEmail: React.FC = () => {
   return (
     <Page>
       <Logo />
+      <EnterThrough />
 
       <form onSubmit={formik.handleSubmit}>
         <Notification error={result.error} />
