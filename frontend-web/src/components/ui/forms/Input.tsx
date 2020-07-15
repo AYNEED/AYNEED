@@ -1,20 +1,28 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
-import { MsgProps, msg } from 'src/i18n/Msg';
+import { MsgProps, Msg, msg } from 'src/i18n/Msg';
 import { Tooltip } from 'src/components/ui/Tooltip';
 import { ExclamationPoint } from 'src/components/icons/ExclamationPoint';
 
-type Props = {
+interface CommonProps {
   name: string;
+  onChange: React.ChangeEventHandler;
+}
+
+interface InputProps extends CommonProps {
   type: 'email' | 'password' | 'text';
   value: string;
   error?: string;
-  onChange: React.ChangeEventHandler;
   placeholder: MsgProps;
-};
+}
 
-export const Input: React.FC<Props> = ({
+interface InputCheckboxProps extends CommonProps {
+  value: boolean;
+  label: MsgProps;
+}
+
+export const Input: React.FC<InputProps> = ({
   name,
   type,
   value,
@@ -42,3 +50,16 @@ export const Input: React.FC<Props> = ({
     </>
   );
 };
+
+export const InputCheckbox: React.FC<InputCheckboxProps> = ({
+  name,
+  value,
+  label,
+  onChange,
+}) => (
+  <label>
+    <input name={name} type="checkbox" checked={value} onChange={onChange} />
+
+    <Msg id={label.id} values={label.values} />
+  </label>
+);
