@@ -37,3 +37,25 @@ mutation SignInEmail($email: String!, $password: String!, $client: CLIENT!) {
     ...commouUserFields
   }
 }
+
+mutation SignUpEmail(
+  $email: String!
+  $password: String!
+  $firstName: String!
+  $lastName: String!
+  $locale: LOCALE!
+  $isAgree: Boolean!
+  $client: CLIENT!
+) {
+  signUpEmail(
+    email: $email
+    password: $password
+    firstName: $firstName
+    lastName: $lastName
+    locale: $locale
+    isAgree: $isAgree
+    client: $client
+  ) {
+    ...commouUserFields
+  }
+}

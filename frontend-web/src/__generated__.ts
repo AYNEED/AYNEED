@@ -181,6 +181,20 @@ export type SignInEmailMutation = {
   signInEmail: Maybe<CommouUserFieldsFragment>;
 };
 
+export type SignUpEmailMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  locale: Locale;
+  isAgree: Scalars['Boolean'];
+  client: Client;
+}>;
+
+export type SignUpEmailMutation = {
+  signUpEmail: Maybe<CommouUserFieldsFragment>;
+};
+
 export const CommouUserFieldsFragmentDoc = gql`
   fragment commouUserFields on User {
     id
@@ -245,4 +259,39 @@ export type SignInEmailMutationResult = ApolloReactCommon.MutationResult<
 export type SignInEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<
   SignInEmailMutation,
   SignInEmailMutationVariables
+>;
+export const SignUpEmailDocument = gql`
+  mutation SignUpEmail(
+    $email: String!
+    $password: String!
+    $firstName: String!
+    $lastName: String!
+    $locale: LOCALE!
+    $isAgree: Boolean!
+    $client: CLIENT!
+  ) {
+    signUpEmail(
+      email: $email
+      password: $password
+      firstName: $firstName
+      lastName: $lastName
+      locale: $locale
+      isAgree: $isAgree
+      client: $client
+    ) {
+      ...commouUserFields
+    }
+  }
+  ${CommouUserFieldsFragmentDoc}
+`;
+export type SignUpEmailMutationFn = ApolloReactCommon.MutationFunction<
+  SignUpEmailMutation,
+  SignUpEmailMutationVariables
+>;
+export type SignUpEmailMutationResult = ApolloReactCommon.MutationResult<
+  SignUpEmailMutation
+>;
+export type SignUpEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SignUpEmailMutation,
+  SignUpEmailMutationVariables
 >;
