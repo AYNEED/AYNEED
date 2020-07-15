@@ -10,6 +10,10 @@ type Props = {
 export const Notification: React.FC<Props> = ({ error }) =>
   error ? (
     <div>
+      {!error.graphQLErrors.length && error.networkError && (
+        <Msg id="error.system.network" />
+      )}
+
       {error.graphQLErrors.map(({ message }, i) => (
         <Msg key={i + message} id={message as never} />
       ))}
