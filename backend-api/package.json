@@ -13,7 +13,10 @@
   },
   "devDependencies": {
     "@types/dotenv-flow": "^3.0.0",
+    "@types/jest": "^24.0.0",
     "@types/mongoose": "^5.7.27",
+    "jest": "^24.9.0",
+    "ts-jest": "^26.1.2",
     "typescript": "^3.9.5"
   },
   "scripts": {
@@ -21,6 +24,7 @@
     "build": "tsc -b",
     "watch": "yarn run build -w",
     "start": "NODE_PATH=build/ node ./build",
+    "test": "NODE_ENV=test jest",
     "db": "mongod --dbpath ../db",
     "migrations": "migrate-mongo"
   }
