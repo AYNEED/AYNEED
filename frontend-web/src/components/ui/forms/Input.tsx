@@ -11,7 +11,6 @@ interface CommonProps {
 }
 
 interface InputProps extends CommonProps {
-  type: 'email' | 'password' | 'text';
   value: string;
   error?: string;
   placeholder: MsgProps;
@@ -22,14 +21,11 @@ interface InputCheckboxProps extends CommonProps {
   label: MsgProps;
 }
 
-export const Input: React.FC<InputProps> = ({
-  name,
-  type,
-  value,
-  error,
-  onChange,
-  placeholder,
-}) => {
+const Input: React.FC<
+  InputProps & {
+    type: 'password' | 'text';
+  }
+> = ({ name, type, value, error, onChange, placeholder }) => {
   const intl = useIntl();
 
   return (
@@ -62,4 +58,14 @@ export const InputCheckbox: React.FC<InputCheckboxProps> = ({
 
     <Msg id={label.id} values={label.values} />
   </label>
+);
+
+export const InputText: React.FC<InputProps> = (props) => (
+  <Input {...props} type="text" />
+);
+
+export const InputEmail: React.FC<InputProps> = InputText;
+
+export const InputPassword: React.FC<InputProps> = (props) => (
+  <Input {...props} type="password" />
 );

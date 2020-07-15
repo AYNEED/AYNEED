@@ -5,7 +5,12 @@ import { useMutation } from '@apollo/react-hooks';
 
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
-import { Input, InputCheckbox } from 'src/components/ui/forms/Input';
+import {
+  InputText,
+  InputEmail,
+  InputPassword,
+  InputCheckbox,
+} from 'src/components/ui/forms/Input';
 import { ButtonSubmit } from 'src/components/ui/forms/Button';
 import { ROUTES, validators } from 'shared';
 import { Link } from 'src/components/ui/Link';
@@ -56,36 +61,32 @@ const SignUpEmail: React.FC = () => {
       <form onSubmit={formik.handleSubmit}>
         <Notification error={result.error} />
 
-        <Input
+        <InputText
           name="firstName"
-          type="text"
           value={formik.values.firstName}
           error={formik.errors.firstName}
           onChange={formik.handleChange}
           placeholder={{ id: 'web.routes.SignUpEmail.form_first_name' }}
         />
 
-        <Input
+        <InputText
           name="lastName"
-          type="text"
           value={formik.values.lastName}
           error={formik.errors.lastName}
           onChange={formik.handleChange}
           placeholder={{ id: 'web.routes.SignUpEmail.form_last_name' }}
         />
 
-        <Input
+        <InputEmail
           name="email"
-          type="email"
           value={formik.values.email}
           error={formik.errors.email}
           onChange={formik.handleChange}
           placeholder={{ id: 'web.routes.SignUpEmail.form_email' }}
         />
 
-        <Input
+        <InputPassword
           name="password"
-          type="password"
           value={formik.values.password}
           error={formik.errors.password}
           onChange={formik.handleChange}
