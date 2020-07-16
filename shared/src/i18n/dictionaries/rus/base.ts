@@ -11,9 +11,9 @@ export const base = {
 
   'web.components.ui.Logo.title': 'AY Need',
 
-  'web.routes.ForgotPassword.title': 'Восстановление доступа',
+  'web.routes.ForgotPassword.title': 'Восстановление пароля',
 
-  'web.routes.ForgotPasswordSuccess.title': 'Восстановление доступа',
+  'web.routes.ForgotPasswordChange.title': 'Смена пароля',
 
   'web.routes.Feed.title': 'Лента активности',
   'web.routes.Feed.users': 'Люди',

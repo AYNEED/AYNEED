@@ -22,10 +22,10 @@ export const config: { [TKey in ROUTES]: Route } = {
     component: () => import('src/routes/ForgotPassword'),
   },
 
-  [ROUTES.FORGOT_PASSWORD_SUCCESS]: {
+  [ROUTES.FORGOT_PASSWORD_CHANGE]: {
     access: 'authorized',
-    title: 'web.routes.ForgotPasswordSuccess.title',
-    component: () => import('src/routes/ForgotPasswordSuccess'),
+    title: 'web.routes.ForgotPasswordChange.title',
+    component: () => import('src/routes/ForgotPasswordChange'),
   },
 
   [ROUTES.SIGN_IN_EMAIL]: {
