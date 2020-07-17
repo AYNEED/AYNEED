@@ -61,27 +61,26 @@ const Line: React.FC = () => (
   <FelaComponent style={styles.line}></FelaComponent>
 )
 
-const circles: Array<{id: DictionaryKey, circleStyle: object, icon: React.FC}> = [
+const circles: Array<{ id: DictionaryKey, circleStyle: object, childNode: React.FC }> = [
   {
     id: 'web.routes.Main.ball_idea',
     circleStyle: styles.idea,
-    icon: Idea,
+    childNode: Idea,
   },
   {
     id: 'web.routes.Main.ball_command',
     circleStyle: styles.command,
-    icon: Command
+    childNode: Command
   },
   {
     id: 'web.routes.Main.ball_investments',
     circleStyle: styles.investments,
-    icon: Investments
+    childNode: Investments
   },
 ] 
 
 
-
-const MainPageChain: React.FC = () => (
+export const MainPageChain: React.FC = () => (
   <FelaComponent style={styles.componentWrapper}>
     { circles.map(circle => (
       <MainPageCircle 
@@ -89,7 +88,7 @@ const MainPageChain: React.FC = () => (
         id={circle.id}
         style={circle.circleStyle}
       >
-        { React.createElement(circle.icon) }
+        { React.createElement(circle.childNode) }
       </MainPageCircle>
     ))}
 
@@ -98,5 +97,3 @@ const MainPageChain: React.FC = () => (
     <Line />
   </FelaComponent>
 );
-
-export default MainPageChain;
