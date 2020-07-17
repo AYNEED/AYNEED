@@ -1,11 +1,12 @@
 import React from 'react';
 import { FelaComponent } from 'react-fela';
 
+import { propsStyle } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
 
 type Props = {
   fill?: COLOR;
-  style?: object
+  style?: propsStyle
 };
 
 export const Rocket: React.FC<Props> = ({ fill = COLOR.PRIMARY_500, style = {} }) => (

@@ -1,34 +1,31 @@
 import React from 'react';
 import { FelaComponent } from 'react-fela';
-import { Styles } from 'src/utils/fela';
 
+import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
 
 import { ButtonLink } from 'src/components/ui/forms/Button';
 import { Msg } from 'src/i18n/Msg';
 import { ROUTES } from 'shared';
 import { Networks } from 'src/routes/Main/Networks';
+import MainPageChain from './MainPageChain';
 
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
-const MainChain = React.lazy(() =>
-  import('src/components/blocks/MainChain')
-);
 
 const styles: Styles<
   'pageWrapper' | 
   'title' | 
   'content' | 
-  'leftContant' |
+  'leftContent' |
   'network'
 > = {
   pageWrapper: {
     width: '100%',
     height: '100%',
-    backgroundColor: COLOR.BACKGROUND_GRAY,
     padding: '308px 419px 277px 350px',
-    paddingLeft: '350px',
+    backgroundColor: COLOR.BACKGROUND_GRAY,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -41,16 +38,16 @@ const styles: Styles<
     wordSpacing: '35px',
   },
   content: {
+    width: '100%',
+    height: '216px',
     marginTop: '60px',
     display: 'flex',
     alignItems: 'flex-start',
-    width: '100%',
-    height: '216px',
   },
-  leftContant: {
-    display: 'flex',
+  leftContent: {
     height: '100%',
     width: '206px',
+    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -71,8 +68,8 @@ const StartButton: React.FC = () => (
   </ButtonLink>
 )
 
-const LeftContant: React.FC = () => (
-  <FelaComponent style={styles.leftContant}>
+const LeftContent: React.FC = () => (
+  <FelaComponent style={styles.leftContent}>
     <Title />
     <StartButton />
   </FelaComponent>
@@ -84,8 +81,8 @@ const Main: React.FC = () => (
     <Logo />
 
       <FelaComponent style={styles.content}>
-        <LeftContant />
-        <MainChain />
+        <LeftContent />
+        <MainPageChain />
       </FelaComponent>
 
     <Networks style={styles.network}/>

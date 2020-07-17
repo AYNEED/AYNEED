@@ -1,15 +1,17 @@
 import React from 'react';
 import { FormattedMessage, IntlShape as IIntlShape } from 'react-intl';
 import { FelaComponent } from 'react-fela';
-
 import { DictionaryKey } from 'shared';
+
+import { propsStyle } from 'src/utils/fela';
+
 
 export type IntlShape = IIntlShape;
 
 export interface MsgProps {
   id: DictionaryKey;
   values?: Record<string, React.ReactNode>;
-  style?: object
+  style?: propsStyle
 }
 
 export const msg = (intl: IntlShape, { id, values }: MsgProps): string =>

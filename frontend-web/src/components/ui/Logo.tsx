@@ -6,6 +6,7 @@ import { Link } from 'src/components/ui/Link';
 import { ROUTES } from 'shared';
 import { msg } from 'src/i18n/Msg';
 
+
 const Logo: React.FC = () => {
   const intl = useIntl();
 

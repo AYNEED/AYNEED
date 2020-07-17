@@ -1,17 +1,17 @@
 import React from 'react';
 import { FelaComponent } from 'react-fela';
 
-import { Styles } from 'src/utils/fela';
+import { Styles, propsStyle } from 'src/utils/fela';
 import { MsgProps, Msg } from 'src/i18n/Msg';
 import { COLOR } from 'src/constants/colors';
 
 
 interface Props extends MsgProps {
-  style?: object;
+  style?: propsStyle;
 }
 
-const styles: Styles<'ball' | 'icon' | 'text'> = {
-  ball: {
+const styles: Styles<'circle' | 'icon' | 'text'> = {
+  circle: {
     position: 'absolute',
     display: 'flex !important',
     flexDirection: 'column',
@@ -30,17 +30,19 @@ const styles: Styles<'ball' | 'icon' | 'text'> = {
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.15)',
   },
   text: {
-    color: COLOR.PRIMARY_500,
     marginTop: '15px', 
+    color: COLOR.PRIMARY_500,
   },
 };
 
-export const Ball: React.FC<Props> = ({ id, values, children, style = {}}) => (
-  <FelaComponent style={[styles.ball, style]}>
+
+export const MainPageCircle: React.FC<Props> = ({ id, values, children, style = {}}) => (
+  <FelaComponent style={[styles.circle, style]}>
     <FelaComponent style={styles.icon}>{children}</FelaComponent>
 
     <FelaComponent as="p" style={styles.text}>
       <Msg id={id} values={values} />
     </FelaComponent>
+
   </FelaComponent>
 );

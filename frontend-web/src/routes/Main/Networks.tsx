@@ -15,19 +15,19 @@ type Props = {
   style?: object
 };
 
-const styles: Styles<'msg' | 'links_wrapper'> = {
+const styles: Styles<'msg' | 'linksWrapper'> = {
   msg: {
     fontSize: '16px',
     lineHeight: '20px',
     letterSpacing: '0.005em',
     color: COLOR.PRIMARY_500,
   },
-  links_wrapper: {
-    display: 'flex',
+  linksWrapper: {
     width: '90px',
     height: '18px',
-    justifyContent: 'space-between',
     marginTop: '13px',
+    display: 'flex',
+    justifyContent: 'space-between',
   }
 }
 
@@ -38,7 +38,7 @@ export const Networks: React.FC<Props> = ({ style = {} }) => {
   return (
     <FelaComponent style={style}>
       <Msg id="web.routes.Main.Networks.title" style={styles.msg}/>
-      <FelaComponent style={styles.links_wrapper}>
+      <FelaComponent style={styles.linksWrapper}>
         <a
           href="https://vk.com/ayneed"
           title={msg(intl, { id: 'networks.vk' })}

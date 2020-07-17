@@ -1,12 +1,13 @@
 import React from 'react';
 import { FelaComponent } from 'react-fela';
+
 import { Styles } from 'src/utils/fela';
 
-import { Ball } from 'src/routes/Main/Ball';
 import { Idea } from 'src/components/icons/Idea';
 import { Command } from 'src/components/icons/Command';
 import { Investments } from 'src/components/icons/Investments';
 import { Rocket } from 'src/components/icons/Rocket';
+import { MainPageCircle } from './MainPageCircle';
 
 
 const styles: Styles<
@@ -19,9 +20,9 @@ const styles: Styles<
 > = {
   componentWrapper: {
     position: 'relative',
-    marginLeft: '27px',
     width: '827px',
     height: '184px',
+    marginLeft: '27px',
   },
   rocket: {
     position: 'absolute',
@@ -60,19 +61,19 @@ const Line: React.FC = () => (
 )
 
 
-const MainChain: React.FC = () => (
+const MainPageChain: React.FC = () => (
   <FelaComponent style={styles.componentWrapper}>
-    <Ball id="web.routes.Main.ball_idea" style={styles.idea}>
+    <MainPageCircle id="web.routes.Main.ball_idea" style={styles.idea}>
       <Idea />
-    </Ball>
+    </MainPageCircle>
 
-    <Ball id="web.routes.Main.ball_command" style={styles.command}>
+    <MainPageCircle id="web.routes.Main.ball_command" style={styles.command}>
       <Command />
-    </Ball>
+    </MainPageCircle>
 
-    <Ball id="web.routes.Main.ball_investments" style={styles.investments}>
+    <MainPageCircle id="web.routes.Main.ball_investments" style={styles.investments}>
       <Investments />
-    </Ball>
+    </MainPageCircle>
 
     <Rocket style={styles.rocket}/>
 
@@ -80,4 +81,4 @@ const MainChain: React.FC = () => (
   </FelaComponent>
 );
 
-export default MainChain;
+export default MainPageChain;

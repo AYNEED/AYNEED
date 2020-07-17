@@ -6,6 +6,7 @@ import { Router } from 'src/components/wrappers/Router';
 import { IntlProvider } from 'src/i18n/IntlProvider';
 import { ApolloProvider } from 'src/components/wrappers/ApolloProvider';
 
+
 export const App: React.FC = () => {
   const renderer = createRenderer()
   renderer.renderStatic(`
@@ -27,7 +28,7 @@ export const App: React.FC = () => {
     }
   `)
 
-  
+
   return(
     <ApolloProvider>
       <IntlProvider>

@@ -34,3 +34,5 @@ export const renderer = createRenderer({
 export type Styles<K extends string, T = {}, P = {}> = {
   [key in K]: CssFelaStyle<T, P>;
 };
+
+export type propsStyle = object
