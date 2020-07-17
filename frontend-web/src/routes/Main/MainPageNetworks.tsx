@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-
 import { FelaComponent } from 'react-fela';
+
 import { Styles, propsStyle } from 'src/utils/fela';
 import { DictionaryKey } from 'shared';
 
@@ -16,8 +16,8 @@ type Props = {
   style?: propsStyle
 };
 
-const styles: Styles<'msg' | 'linksWrapper'> = {
-  msg: {
+const styles: Styles<'title' | 'linksWrapper'> = {
+  title: {
     fontSize: '16px',
     lineHeight: '20px',
     color: COLOR.PRIMARY_500,
@@ -26,7 +26,7 @@ const styles: Styles<'msg' | 'linksWrapper'> = {
     width: '90px',
     height: '18px',
     marginTop: '13px',
-    display: 'flex',
+    display: 'flex !important',
     justifyContent: 'space-between',
   }
 }
@@ -49,13 +49,19 @@ const networks: Array<{ id: DictionaryKey, href: string, childNode: React.FC }> 
   },
 ] 
 
+const Title: React.FC = () => (
+  <FelaComponent style={styles.title}>
+    <Msg id="web.routes.Main.Networks.title"/>
+  </FelaComponent>
+)
+
 
 export const Networks: React.FC<Props> = ({ style = {} }) => {
   const intl = useIntl();
 
   return (
     <FelaComponent style={style}>
-      <Msg id="web.routes.Main.Networks.title" style={styles.msg}/>
+      <Title />
       <FelaComponent style={styles.linksWrapper}>
         {networks.map(network => (
           <a 
