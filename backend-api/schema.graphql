@@ -9,7 +9,11 @@ schema {
 type Mutation {
   forgotPassword(email: String!): Boolean!
 
-  forgotPasswordChange(password: String!, recoveryCode: String!): User!
+  forgotPasswordChange(
+    password: String!
+    recoveryCode: String!
+    client: CLIENT!
+  ): User!
 
   signInEmail(email: String!, password: String!, client: CLIENT!): User!
 

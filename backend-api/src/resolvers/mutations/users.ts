@@ -129,7 +129,7 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
 
 export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange'] = async (
   parent,
-  { password, recoveryCode }
+  { password, recoveryCode, client }
 ) => {
   await validators.forgotPasswordChange.validate({ password });
 
@@ -164,7 +164,7 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
   }
 
   const user = userDriver(updated, {
-    network: { isOnline: false, client: Client.Desktop },
+    network: { isOnline: false, client },
   });
 
   // TODO: create session

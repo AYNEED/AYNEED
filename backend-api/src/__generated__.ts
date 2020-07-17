@@ -33,6 +33,7 @@ export type MutationForgotPasswordArgs = {
 export type MutationForgotPasswordChangeArgs = {
   password: Scalars['String'];
   recoveryCode: Scalars['String'];
+  client: Client;
 };
 
 export type MutationSignInEmailArgs = {
@@ -356,7 +357,10 @@ export type MutationResolvers<
     ResolversTypes['User'],
     ParentType,
     ContextType,
-    RequireFields<MutationForgotPasswordChangeArgs, 'password' | 'recoveryCode'>
+    RequireFields<
+      MutationForgotPasswordChangeArgs,
+      'password' | 'recoveryCode' | 'client'
+    >
   >;
   signInEmail: Resolver<
     ResolversTypes['User'],

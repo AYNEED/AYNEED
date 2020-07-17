@@ -26,6 +26,7 @@ export type MutationForgotPasswordArgs = {
 export type MutationForgotPasswordChangeArgs = {
   password: Scalars['String'];
   recoveryCode: Scalars['String'];
+  client: Client;
 };
 
 export type MutationSignInEmailArgs = {
