@@ -8,6 +8,7 @@ import { Idea } from 'src/components/icons/Idea';
 import { Command } from 'src/components/icons/Command';
 import { Investments } from 'src/components/icons/Investments';
 import { Rocket } from 'src/components/icons/Rocket';
+import { RocketPlume } from 'src/components/icons/RocketPlume';
 import { MainPageCircle } from './MainPageCircle';
 
 
@@ -21,45 +22,43 @@ const styles: Styles<
 > = {
   componentWrapper: {
     position: 'relative',
-    width: '827px',
+    width: '43vw',
     height: '184px',
     marginLeft: '27px',
   },
   rocket: {
     position: 'absolute',
-    right: '-60px',
-    top: '-65px',
-    transform: 'rotateZ(45deg)',
+    right: '-67px',
+    top: '-75px',
+    width: '63px',
+    height: '64px',
+    display: 'flex !important',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    transform: 'rotateZ(42deg)',
   },
   line: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '827px',
-    height: '184px',
-    zIndex: 2,
+    width: '100%',
+    height: '100%',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: '50% 50%',
     backgroundImage: ('url("data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iODI4IiBoZWlnaHQ9IjE4NiIgdmlld0JveD0iMCAwIDgyOCAxODYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wLjUgMTg1QzE5NCAxODUgNjQzLjUgMTg1IDgyNyAxLjUiIHN0cm9rZT0iIzI3QUU2MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtZGFzaGFycmF5PSIzMCAzMCIvPgo8L3N2Zz4K")')
   },
   idea: {
-    bottom: '-65px',
-    left: '160px',
+    bottom: '-35%',
+    left: '19.5%',
   },
   command: {
-    bottom: '-40px',
-    left: '400px',
+    bottom: '-22%',
+    left: '48%',
   },
   investments: {
-    bottom: '15px',
-    left: '620px',
+    bottom: '8%',
+    left: '75.5%',
   }
 }
-
-const Line: React.FC = () => (
-  <FelaComponent style={styles.line}></FelaComponent>
-)
 
 const circles: Array<{ id: DictionaryKey, circleStyle: object, childNode: React.FC }> = [
   {
@@ -79,6 +78,17 @@ const circles: Array<{ id: DictionaryKey, circleStyle: object, childNode: React.
   },
 ] 
 
+const Line: React.FC = () => (
+  <FelaComponent style={styles.line}></FelaComponent>
+)
+
+const RocketWithPlume: React.FC = () => (
+  <FelaComponent style={styles.rocket}>
+    <Rocket />
+    <RocketPlume />
+  </FelaComponent>
+)
+
 
 export const MainPageChain: React.FC = () => (
   <FelaComponent style={styles.componentWrapper}>
@@ -92,7 +102,7 @@ export const MainPageChain: React.FC = () => (
       </MainPageCircle>
     ))}
 
-    <Rocket style={styles.rocket}/>
+    <RocketWithPlume/>
 
     <Line />
   </FelaComponent>
