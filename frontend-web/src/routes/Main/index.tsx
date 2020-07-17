@@ -9,6 +9,7 @@ import { Msg } from 'src/i18n/Msg';
 import { ROUTES } from 'shared';
 import { Networks } from 'src/routes/Main/Networks';
 
+
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
 const MainChain = React.lazy(() =>
@@ -58,22 +59,32 @@ const styles: Styles<
   }
 }
 
+const Title: React.FC = () => (
+  <FelaComponent style={styles.title}>
+    <Msg id="web.routes.Main.description" />
+  </FelaComponent>
+)
+
+const StartButton: React.FC = () => (
+  <ButtonLink url={{ scheme: ROUTES.FEED }}>
+    <Msg id="web.routes.Main.button_start" />
+  </ButtonLink>
+)
+
+const LeftContant: React.FC = () => (
+  <FelaComponent style={styles.leftContant}>
+    <Title />
+    <StartButton />
+  </FelaComponent>
+)
+
+
 const Main: React.FC = () => (
   <FelaComponent style={styles.pageWrapper}>
     <Logo />
 
       <FelaComponent style={styles.content}>
-        <FelaComponent style={styles.leftContant}>
-
-          <FelaComponent style={styles.title}>
-              <Msg id="web.routes.Main.description" />
-            </FelaComponent>
-
-            <ButtonLink url={{ scheme: ROUTES.FEED }}>
-              <Msg id="web.routes.Main.button_start" />
-            </ButtonLink>
-        </FelaComponent>
-
+        <LeftContant />
         <MainChain />
       </FelaComponent>
 

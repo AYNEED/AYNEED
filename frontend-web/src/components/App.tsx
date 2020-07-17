@@ -27,6 +27,7 @@ export const App: React.FC = () => {
     }
   `)
 
+  
   return(
     <ApolloProvider>
       <IntlProvider>

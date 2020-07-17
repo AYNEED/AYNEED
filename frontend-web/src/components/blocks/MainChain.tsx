@@ -39,7 +39,7 @@ const styles: Styles<
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: '50% 50%',
-    backgroundImage: 'url("data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iODI4IiBoZWlnaHQ9IjE4NiIgdmlld0JveD0iMCAwIDgyOCAxODYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wLjUgMTg1QzE5NCAxODUgNjQzLjUgMTg1IDgyNyAxLjUiIHN0cm9rZT0iIzI3QUU2MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtZGFzaGFycmF5PSIzMCAzMCIvPgo8L3N2Zz4K")'
+    backgroundImage: ('url("data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iODI4IiBoZWlnaHQ9IjE4NiIgdmlld0JveD0iMCAwIDgyOCAxODYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wLjUgMTg1QzE5NCAxODUgNjQzLjUgMTg1IDgyNyAxLjUiIHN0cm9rZT0iIzI3QUU2MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtZGFzaGFycmF5PSIzMCAzMCIvPgo8L3N2Zz4K")')
   },
   idea: {
     bottom: '-65px',
@@ -54,6 +54,11 @@ const styles: Styles<
     left: '620px',
   }
 }
+
+const Line: React.FC = () => (
+  <FelaComponent style={styles.line}></FelaComponent>
+)
+
 
 const MainChain: React.FC = () => (
   <FelaComponent style={styles.componentWrapper}>
@@ -71,7 +76,7 @@ const MainChain: React.FC = () => (
 
     <Rocket style={styles.rocket}/>
 
-    <FelaComponent style={styles.line}></FelaComponent>
+    <Line />
   </FelaComponent>
 );
 

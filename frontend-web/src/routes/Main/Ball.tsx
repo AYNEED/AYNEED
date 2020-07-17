@@ -6,11 +6,9 @@ import { MsgProps, Msg } from 'src/i18n/Msg';
 import { COLOR } from 'src/constants/colors';
 
 
-// type Props = MsgProps, 'style'
 interface Props extends MsgProps {
   style?: object;
 }
-
 
 const styles: Styles<'ball' | 'icon' | 'text'> = {
   ball: {
