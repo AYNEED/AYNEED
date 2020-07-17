@@ -29,10 +29,19 @@ const rules = {
 };
 
 export const validators = {
+  forgotPassword: yup.object().shape({
+    email: rules.email,
+  }),
+
+  forgotPasswordChange: yup.object().shape({
+    password: rules.password,
+  }),
+
   signInEmail: yup.object().shape({
     email: rules.email,
     password: rules.password,
   }),
+
   signUpEmail: yup.object().shape({
     firstName: rules.firstName,
     lastName: rules.lastName,

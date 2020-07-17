@@ -7,7 +7,11 @@ schema {
 }
 
 type Mutation {
-  signInEmail(email: String!, password: String!, client: CLIENT!): User
+  forgotPassword(email: String!): Boolean!
+
+  forgotPasswordChange(password: String!, recoveryCode: String!): User!
+
+  signInEmail(email: String!, password: String!, client: CLIENT!): User!
 
   signUpEmail(
     email: String!
@@ -17,7 +21,7 @@ type Mutation {
     locale: LOCALE!
     isAgree: Boolean!
     client: CLIENT!
-  ): User
+  ): User!
 }
 
 type Query {

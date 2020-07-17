@@ -10,6 +10,9 @@ export const events = {
 
   'error.emailOrPassword.incorrect': 'Неверный логин или пароль',
 
+  'error.recoveryCode.notFound':
+    'Некорректная ссылка из письма, попробуйте еще раз',
+
   'error.firstName.required': 'Укажите ваше имя',
 
   'error.lastName.required': 'Укажите вашу фамилию',

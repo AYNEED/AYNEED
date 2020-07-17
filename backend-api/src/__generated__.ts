@@ -20,8 +20,19 @@ export type Scalars = {
 };
 
 export type Mutation = {
-  signInEmail: Maybe<User>;
-  signUpEmail: Maybe<User>;
+  forgotPassword: Scalars['Boolean'];
+  forgotPasswordChange: User;
+  signInEmail: User;
+  signUpEmail: User;
+};
+
+export type MutationForgotPasswordArgs = {
+  email: Scalars['String'];
+};
+
+export type MutationForgotPasswordChangeArgs = {
+  password: Scalars['String'];
+  recoveryCode: Scalars['String'];
 };
 
 export type MutationSignInEmailArgs = {
@@ -277,8 +288,8 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Mutation: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Subscription: ResolverTypeWrapper<{}>;
@@ -305,8 +316,8 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   DateTime: Scalars['DateTime'];
   Mutation: {};
-  String: Scalars['String'];
   Boolean: Scalars['Boolean'];
+  String: Scalars['String'];
   Query: {};
   ID: Scalars['ID'];
   Subscription: {};
@@ -335,14 +346,26 @@ export type MutationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
+  forgotPassword: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationForgotPasswordArgs, 'email'>
+  >;
+  forgotPasswordChange: Resolver<
+    ResolversTypes['User'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationForgotPasswordChangeArgs, 'password' | 'recoveryCode'>
+  >;
   signInEmail: Resolver<
-    Maybe<ResolversTypes['User']>,
+    ResolversTypes['User'],
     ParentType,
     ContextType,
     RequireFields<MutationSignInEmailArgs, 'email' | 'password' | 'client'>
   >;
   signUpEmail: Resolver<
-    Maybe<ResolversTypes['User']>,
+    ResolversTypes['User'],
     ParentType,
     ContextType,
     RequireFields<

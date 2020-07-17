@@ -13,8 +13,19 @@ export type Scalars = {
 };
 
 export type Mutation = {
-  signInEmail: Maybe<User>;
-  signUpEmail: Maybe<User>;
+  forgotPassword: Scalars['Boolean'];
+  forgotPasswordChange: User;
+  signInEmail: User;
+  signUpEmail: User;
+};
+
+export type MutationForgotPasswordArgs = {
+  email: Scalars['String'];
+};
+
+export type MutationForgotPasswordChangeArgs = {
+  password: Scalars['String'];
+  recoveryCode: Scalars['String'];
 };
 
 export type MutationSignInEmailArgs = {
@@ -177,9 +188,7 @@ export type SignInEmailMutationVariables = Exact<{
   client: Client;
 }>;
 
-export type SignInEmailMutation = {
-  signInEmail: Maybe<CommouUserFieldsFragment>;
-};
+export type SignInEmailMutation = { signInEmail: CommouUserFieldsFragment };
 
 export type SignUpEmailMutationVariables = Exact<{
   email: Scalars['String'];
@@ -191,9 +200,7 @@ export type SignUpEmailMutationVariables = Exact<{
   client: Client;
 }>;
 
-export type SignUpEmailMutation = {
-  signUpEmail: Maybe<CommouUserFieldsFragment>;
-};
+export type SignUpEmailMutation = { signUpEmail: CommouUserFieldsFragment };
 
 export const CommouUserFieldsFragmentDoc = gql`
   fragment commouUserFields on User {
