@@ -58,6 +58,10 @@ const SignUpEmail: React.FC = () => {
       <Logo />
       <EnterThrough />
 
+      <h1>
+        <Msg id="web.routes.SignUpEmail.title" />
+      </h1>
+
       <form onSubmit={formik.handleSubmit}>
         <Notification error={result.error} />
 

@@ -183,6 +183,12 @@ export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type OnUserAddedSubscription = { userAdded: CommouUserFieldsFragment };
 
+export type ForgotPasswordMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+export type ForgotPasswordMutation = Pick<Mutation, 'forgotPassword'>;
+
 export type SignInEmailMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -248,6 +254,22 @@ export const OnUserAddedDocument = gql`
 `;
 export type OnUserAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
   OnUserAddedSubscription
+>;
+export const ForgotPasswordDocument = gql`
+  mutation ForgotPassword($email: String!) {
+    forgotPassword(email: $email)
+  }
+`;
+export type ForgotPasswordMutationFn = ApolloReactCommon.MutationFunction<
+  ForgotPasswordMutation,
+  ForgotPasswordMutationVariables
+>;
+export type ForgotPasswordMutationResult = ApolloReactCommon.MutationResult<
+  ForgotPasswordMutation
+>;
+export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ForgotPasswordMutation,
+  ForgotPasswordMutationVariables
 >;
 export const SignInEmailDocument = gql`
   mutation SignInEmail($email: String!, $password: String!, $client: CLIENT!) {

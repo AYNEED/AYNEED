@@ -11,7 +11,13 @@ export const base = {
 
   'web.components.ui.Logo.title': 'AY Need',
 
+  'web.routes.ForgotPassword.form_email': 'E-mail',
+  'web.routes.ForgotPassword.form_submit': 'Сменить пароль',
+  'web.routes.ForgotPassword.link_sign_in': 'Войти',
+  'web.routes.ForgotPassword.link_sign_up': 'Зарегистрироваться',
   'web.routes.ForgotPassword.title': 'Восстановление пароля',
+  'web.routes.ForgotPassword.description':
+    'На ваш e-mail будет отправленна ссылка для смены пароля',
 
   'web.routes.ForgotPasswordChange.title': 'Смена пароля',
 
