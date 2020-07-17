@@ -2,13 +2,18 @@ import { Resolvers } from 'src/__generated__';
 
 export const resolveUser: Resolvers['User'] = {
   id: (parent) => parent.id,
-  isOnline: (parent) => parent.isOnline,
+  network: (parent) => parent.network,
   about: (parent) => parent.about,
   personal: (parent) => parent.personal,
   regional: (parent) => parent.regional,
   contacts: (parent) => parent.contacts,
   statistics: (parent) => parent.statistics,
   createdAt: (parent) => parent.createdAt,
+};
+
+export const resolveUserNetwork: Resolvers['UserNetwotk'] = {
+  isOnline: (parent) => parent.isOnline,
+  client: (parent) => parent.client,
 };
 
 export const resolveUserFeed: Resolvers['UserFeed'] = {

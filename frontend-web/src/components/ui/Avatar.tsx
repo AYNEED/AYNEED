@@ -7,7 +7,7 @@ import { Mobile } from 'src/components/icons/Mobile';
 import { NoPhoto } from 'src/components/icons/NoPhoto';
 import { Msg } from 'src/i18n/Msg';
 import { COLOR } from 'src/constants/colors';
-import { User } from 'src/__generated__';
+import { User, Client } from 'src/__generated__';
 import { Link } from 'src/components/ui/Link';
 import { ROUTES } from 'shared';
 
@@ -16,7 +16,7 @@ type Props = {
   photo?: string;
   isOnline: boolean;
   isCurrent: boolean;
-  client: 'mobile' | 'desktop';
+  client: Client;
   size: '36px' | '50px' | '76px' | '100px' | '262px' | '100%';
 };
 

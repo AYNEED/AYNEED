@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers, Client } from 'src/__generated__';
 import { UserModel } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import { FEED_LIMIT } from 'src/constants';
@@ -14,7 +14,7 @@ export const getUserById: Resolvers['Query']['user'] = async (
   }
 
   return userDriver(user, {
-    isOnline: false,
+    network: { isOnline: false, client: Client.Desktop },
   });
 };
 
@@ -36,7 +36,9 @@ export const getUsers: Resolvers['Query']['users'] = async (parent, query) => {
   }
 
   return {
-    items: data.map((user) => userDriver(user, { isOnline: false })),
+    items: data.map((user) =>
+      userDriver(user, { network: { isOnline: false, client: Client.Desktop } })
+    ),
     hasMore: !!count,
   };
 };

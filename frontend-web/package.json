@@ -51,9 +51,6 @@
     "build": "react-scripts build",
     "test": "NODE_ICU_DATA=../node_modules/full-icu react-scripts test"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",

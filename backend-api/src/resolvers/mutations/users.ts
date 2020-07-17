@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers, Client } from 'src/__generated__';
 import { events, pubsub } from 'src/resolvers/subscriptions';
 import { UserModel } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
@@ -7,21 +7,24 @@ import {
   createRandomString,
   verifyPassword,
 } from 'src/utils/password';
+import { validators, ValidationError } from 'shared';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
   { email, password }
 ) => {
+  await validators.signInEmail.validate({ email, password });
+
   const data = await UserModel.findOne({
     'contacts.email.value': email,
   });
 
   if (!data || !verifyPassword(password, data.private.password)) {
-    return null;
+    throw new ValidationError('error.emailOrPassword.incorrect');
   }
 
   const user = userDriver(data, {
-    isOnline: true,
+    network: { isOnline: false, client: Client.Desktop },
   });
 
   pubsub.publish(events.user.updated, user);
@@ -36,6 +39,10 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   const salt = createRandomString();
   const hash = createPasswordHash(password, salt);
   const data = await UserModel.create({
+    network: {
+      isOnline: false,
+      client: Client.Desktop,
+    },
     about: {
       bio: null,
       skills: [],
@@ -82,7 +89,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   });
 
   const user = userDriver(data, {
-    isOnline: true,
+    network: { isOnline: false, client: Client.Desktop },
   });
 
   pubsub.publish(events.user.added, user);

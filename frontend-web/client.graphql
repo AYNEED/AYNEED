@@ -1,6 +1,9 @@
 fragment commouUserFields on User {
   id
-  isOnline
+  network {
+    isOnline
+    client
+  }
   about {
     skills {
       title
@@ -25,6 +28,12 @@ query GetUsers($cursor: ID) {
 
 subscription onUserAdded {
   userAdded {
+    ...commouUserFields
+  }
+}
+
+mutation SignInEmail($email: String!, $password: String!, $client: CLIENT!) {
+  signInEmail(email: $email, password: $password, client: $client) {
     ...commouUserFields
   }
 }

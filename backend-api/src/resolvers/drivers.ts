@@ -2,7 +2,7 @@ import { UserRes } from 'src/models/user';
 import { User } from 'src/__generated__';
 
 type UserDriverAdditional = {
-  isOnline: User['isOnline'];
+  network: User['network'];
 };
 
 export const userDriver = (

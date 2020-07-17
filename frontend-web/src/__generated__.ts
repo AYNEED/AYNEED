@@ -20,6 +20,7 @@ export type Mutation = {
 export type MutationSignInEmailArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
+  client: Client;
 };
 
 export type MutationSignUpEmailArgs = {
@@ -29,6 +30,7 @@ export type MutationSignUpEmailArgs = {
   lastName: Scalars['String'];
   locale: Locale;
   isAgree: Scalars['Boolean'];
+  client: Client;
 };
 
 export type Query = {
@@ -62,15 +64,25 @@ export enum LanguageLevel {
   Proficiency = 'proficiency',
 }
 
+export enum Client {
+  Mobile = 'mobile',
+  Desktop = 'desktop',
+}
+
 export type User = {
   id: Scalars['ID'];
-  isOnline: Scalars['Boolean'];
+  network: UserNetwotk;
   about: UserAboutData;
   personal: UserPersonalData;
   regional: UserRegionalData;
   contacts: UserContactsData;
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
+};
+
+export type UserNetwotk = {
+  isOnline: Scalars['Boolean'];
+  client: Client;
 };
 
 export type UserFeed = {
@@ -141,7 +153,8 @@ export type UserContactRecord = {
   isVerified: Scalars['Boolean'];
 };
 
-export type CommouUserFieldsFragment = Pick<User, 'id' | 'isOnline'> & {
+export type CommouUserFieldsFragment = Pick<User, 'id'> & {
+  network: Pick<UserNetwotk, 'isOnline' | 'client'>;
   about: { skills: Array<Pick<UserSkillRecord, 'title' | 'primary'>> };
   personal: Pick<UserPersonalData, 'firstName' | 'lastName' | 'photo'>;
 };
@@ -158,10 +171,23 @@ export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 export type OnUserAddedSubscription = { userAdded: CommouUserFieldsFragment };
 
+export type SignInEmailMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+  client: Client;
+}>;
+
+export type SignInEmailMutation = {
+  signInEmail: Maybe<CommouUserFieldsFragment>;
+};
+
 export const CommouUserFieldsFragmentDoc = gql`
   fragment commouUserFields on User {
     id
-    isOnline
+    network {
+      isOnline
+      client
+    }
     about {
       skills {
         title
@@ -200,4 +226,23 @@ export const OnUserAddedDocument = gql`
 `;
 export type OnUserAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
   OnUserAddedSubscription
+>;
+export const SignInEmailDocument = gql`
+  mutation SignInEmail($email: String!, $password: String!, $client: CLIENT!) {
+    signInEmail(email: $email, password: $password, client: $client) {
+      ...commouUserFields
+    }
+  }
+  ${CommouUserFieldsFragmentDoc}
+`;
+export type SignInEmailMutationFn = ApolloReactCommon.MutationFunction<
+  SignInEmailMutation,
+  SignInEmailMutationVariables
+>;
+export type SignInEmailMutationResult = ApolloReactCommon.MutationResult<
+  SignInEmailMutation
+>;
+export type SignInEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  SignInEmailMutation,
+  SignInEmailMutationVariables
 >;
