@@ -1,24 +1,27 @@
 import React from 'react';
 import { FelaComponent } from 'react-fela';
 import { Styles } from 'src/utils/fela';
-// import { useFela } from 'react-fela'
 
 import { COLOR } from 'src/constants/colors';
 
 import { ButtonLink } from 'src/components/ui/forms/Button';
 import { Msg } from 'src/i18n/Msg';
 import { ROUTES } from 'shared';
-import { Ball } from 'src/routes/Main/Ball';
 import { Networks } from 'src/routes/Main/Networks';
-import { Idea } from 'src/components/icons/Idea';
-import { Command } from 'src/components/icons/Command';
-import { Investments } from 'src/components/icons/Investments';
-import { Rocket } from 'src/components/icons/Rocket';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
+const MainChain = React.lazy(() =>
+  import('src/components/blocks/MainChain')
+);
 
-const styles: Styles<'pageWrapper' | 'title' | 'content'> = {
+const styles: Styles<
+  'pageWrapper' | 
+  'title' | 
+  'content' | 
+  'leftContant' |
+  'network'
+> = {
   pageWrapper: {
     width: '100%',
     height: '100%',
@@ -32,44 +35,49 @@ const styles: Styles<'pageWrapper' | 'title' | 'content'> = {
   title: {
     width: '95px',
     color: COLOR.GRAY,
-    marginTop: '42px',
+    lineHeight: '17px',
+    fontSize: '14px',
+    wordSpacing: '35px',
   },
   content: {
-    position: 'relative',
     marginTop: '60px',
     display: 'flex',
     alignItems: 'flex-start',
+    width: '100%',
+    height: '216px',
+  },
+  leftContant: {
+    display: 'flex',
+    height: '100%',
+    width: '206px',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  network: {
+    marginTop: '23px',
   }
 }
 
 const Main: React.FC = () => (
   <FelaComponent style={styles.pageWrapper}>
     <Logo />
-    <p>
-      <Msg id="web.routes.Main.description" />
-    </p>
-
-      <FelaComponent style={styles.title}>Объединяет людей для создания бизнеса</FelaComponent>
 
       <FelaComponent style={styles.content}>
-        <ButtonLink url={{ scheme: ROUTES.FEED }}>
-          <Msg id="web.routes.Main.button_start" />
-        </ButtonLink>
+        <FelaComponent style={styles.leftContant}>
 
-        <Ball id="web.routes.Main.ball_idea">
-          <Idea />
-        </Ball>
+          <FelaComponent style={styles.title}>
+              <Msg id="web.routes.Main.description" />
+            </FelaComponent>
 
-        <Ball id="web.routes.Main.ball_command">
-          <Command />
-        </Ball>
+            <ButtonLink url={{ scheme: ROUTES.FEED }}>
+              <Msg id="web.routes.Main.button_start" />
+            </ButtonLink>
+        </FelaComponent>
 
-        <Ball id="web.routes.Main.ball_investments">
-          <Investments />
-        </Ball>
-        <Rocket />
+        <MainChain />
       </FelaComponent>
-    <Networks />
+
+    <Networks style={styles.network}/>
   </FelaComponent>
 );
 

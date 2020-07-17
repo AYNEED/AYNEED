@@ -5,14 +5,21 @@ import { Styles } from 'src/utils/fela';
 import { MsgProps, Msg } from 'src/i18n/Msg';
 import { COLOR } from 'src/constants/colors';
 
-type Props = MsgProps;
+
+// type Props = MsgProps, 'style'
+interface Props extends MsgProps {
+  style?: object;
+}
+
 
 const styles: Styles<'ball' | 'icon' | 'text'> = {
   ball: {
+    position: 'absolute',
     display: 'flex !important',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 10,
   },
   icon: {
     width: '71px',
@@ -30,8 +37,8 @@ const styles: Styles<'ball' | 'icon' | 'text'> = {
   },
 };
 
-export const Ball: React.FC<Props> = ({ id, values, children }) => (
-  <FelaComponent style={styles.ball}>
+export const Ball: React.FC<Props> = ({ id, values, children, style = {}}) => (
+  <FelaComponent style={[styles.ball, style]}>
     <FelaComponent style={styles.icon}>{children}</FelaComponent>
 
     <FelaComponent as="p" style={styles.text}>
