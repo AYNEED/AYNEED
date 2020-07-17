@@ -2,6 +2,7 @@ import React from 'react';
 import { FelaComponent } from 'react-fela';
 
 import { Styles } from 'src/utils/fela';
+import { DictionaryKey } from 'shared';
 
 import { Idea } from 'src/components/icons/Idea';
 import { Command } from 'src/components/icons/Command';
@@ -60,20 +61,37 @@ const Line: React.FC = () => (
   <FelaComponent style={styles.line}></FelaComponent>
 )
 
+const circles: Array<{id: DictionaryKey, circleStyle: object, icon: React.FC}> = [
+  {
+    id: 'web.routes.Main.ball_idea',
+    circleStyle: styles.idea,
+    icon: Idea,
+  },
+  {
+    id: 'web.routes.Main.ball_command',
+    circleStyle: styles.command,
+    icon: Command
+  },
+  {
+    id: 'web.routes.Main.ball_investments',
+    circleStyle: styles.investments,
+    icon: Investments
+  },
+] 
+
+
 
 const MainPageChain: React.FC = () => (
   <FelaComponent style={styles.componentWrapper}>
-    <MainPageCircle id="web.routes.Main.ball_idea" style={styles.idea}>
-      <Idea />
-    </MainPageCircle>
-
-    <MainPageCircle id="web.routes.Main.ball_command" style={styles.command}>
-      <Command />
-    </MainPageCircle>
-
-    <MainPageCircle id="web.routes.Main.ball_investments" style={styles.investments}>
-      <Investments />
-    </MainPageCircle>
+    { circles.map(circle => (
+      <MainPageCircle 
+        key={circle.id} 
+        id={circle.id}
+        style={circle.circleStyle}
+      >
+        { React.createElement(circle.icon) }
+      </MainPageCircle>
+    ))}
 
     <Rocket style={styles.rocket}/>
 
