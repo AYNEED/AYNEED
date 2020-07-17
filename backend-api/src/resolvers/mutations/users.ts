@@ -51,10 +51,6 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   const hash = createPasswordHash(password, salt);
 
   const data = await UserModel.create({
-    network: {
-      isOnline: false,
-      client: Client.Desktop,
-    },
     about: {
       bio: null,
       skills: [],

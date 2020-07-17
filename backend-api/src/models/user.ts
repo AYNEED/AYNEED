@@ -31,7 +31,7 @@ export type UserRes = Document &
     };
   };
 
-type UserReq = Omit<UserRes, 'createdAt'>;
+type UserReq = Omit<UserRes, 'createdAt' | 'network'>;
 
 const UserSkillSchema = new Schema<UserSkillRecord>({
   title: {
