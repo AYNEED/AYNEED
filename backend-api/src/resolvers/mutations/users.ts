@@ -7,17 +7,20 @@ import {
   createRandomString,
   verifyPassword,
 } from 'src/utils/password';
+import { validators, ValidationError } from 'shared';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
   { email, password }
 ) => {
+  await validators.signInEmail.validate({ email, password });
+
   const data = await UserModel.findOne({
     'contacts.email.value': email,
   });
 
   if (!data || !verifyPassword(password, data.private.password)) {
-    return null;
+    throw new ValidationError('error.emailOrPassword.incorrect');
   }
 
   const user = userDriver(data, {

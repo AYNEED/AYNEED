@@ -10,8 +10,8 @@ export interface MsgProps {
   values?: Record<string, React.ReactNode>;
 }
 
-export const msg = (intl: IntlShape, { id, values }: MsgProps) =>
-  intl.formatMessage({ id }, values as any);
+export const msg = (intl: IntlShape, { id, values }: MsgProps): string =>
+  intl.formatMessage({ id }, values as never);
 
 export const Msg: React.FC<MsgProps> = ({ id, values }) => (
   <FormattedMessage id={id} values={values} />

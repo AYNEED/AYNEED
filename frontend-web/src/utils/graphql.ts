@@ -24,6 +24,7 @@ localForage.config({
 });
 
 export const cache = new InMemoryCache({});
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const storage = localForage as PersistentStorage<PersistedData<any>>;
 
 const httpLink = new HttpLink({
@@ -53,7 +54,7 @@ const link = split(
 const defaultOptions: DefaultOptions = {
   watchQuery: {
     fetchPolicy: 'cache-and-network',
-  }
+  },
 };
 
 export const client = new ApolloClient({

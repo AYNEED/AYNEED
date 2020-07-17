@@ -40,8 +40,8 @@
   },
   "husky": {
     "hooks": {
-      "post-merge": "yarn install",
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "pretty-quick --staged",
+      "post-merge": "yarn install"
     }
   },
   "engines": {

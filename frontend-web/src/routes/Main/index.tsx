@@ -5,16 +5,15 @@ import { Styles } from 'src/utils/fela';
 
 import { COLOR } from 'src/constants/colors';
 
-import { Page } from 'src/components/wrappers/Page';
 import { ButtonLink } from 'src/components/ui/forms/Button';
 import { Msg } from 'src/i18n/Msg';
 import { ROUTES } from 'shared';
 import { Ball } from 'src/routes/Main/Ball';
+import { Networks } from 'src/routes/Main/Networks';
 import { Idea } from 'src/components/icons/Idea';
 import { Command } from 'src/components/icons/Command';
 import { Investments } from 'src/components/icons/Investments';
 import { Rocket } from 'src/components/icons/Rocket';
-import { Link } from 'src/components/ui/Link';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
@@ -44,9 +43,11 @@ const styles: Styles<'pageWrapper' | 'title' | 'content'> = {
 }
 
 const Main: React.FC = () => (
-  <Page>
-    <FelaComponent style={styles.pageWrapper}>
-      <Logo />
+  <FelaComponent style={styles.pageWrapper}>
+    <Logo />
+    <p>
+      <Msg id="web.routes.Main.description" />
+    </p>
 
       <FelaComponent style={styles.title}>Объединяет людей для создания бизнеса</FelaComponent>
 
@@ -66,14 +67,10 @@ const Main: React.FC = () => (
         <Ball id="web.routes.Main.ball_investments">
           <Investments />
         </Ball>
-
         <Rocket />
       </FelaComponent>
-      <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }}>
-        <Msg id="web.routes.Main.social_media" />
-      </Link>
-    </FelaComponent>
-  </Page>
+    <Networks />
+  </FelaComponent>
 );
 
 export default Main;
