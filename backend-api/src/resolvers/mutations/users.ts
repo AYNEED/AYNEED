@@ -1,12 +1,13 @@
 import { Resolvers, Client } from 'src/__generated__';
 import { events, pubsub } from 'src/resolvers/subscriptions';
-import { UserModel } from 'src/models/user';
+import { UserModel, UserComplete } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import {
   createPasswordHash,
   createRandomString,
   verifyPassword,
 } from 'src/utils/password';
+import { profileCompleteness } from 'src/utils/profileCompleteness';
 import { validators, ValidationError } from 'shared';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
@@ -49,8 +50,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
 
   const salt = createRandomString();
   const hash = createPasswordHash(password, salt);
-
-  const data = await UserModel.create({
+  const userComplete: UserComplete = {
     about: {
       bio: null,
       skills: [],
@@ -60,7 +60,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
     personal: {
       firstName,
       lastName,
-      isAgree,
+      isAgree: true,
       bornAt: null,
       photo: [],
     },
@@ -84,8 +84,14 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
       telegram: null,
       linkedin: null,
     },
+  };
+
+  const completeness: number = profileCompleteness(userComplete);
+
+  const data = await UserModel.create({
+    ...userComplete,
     statistics: {
-      completeness: 0,
+      completeness,
     },
     private: {
       password: {

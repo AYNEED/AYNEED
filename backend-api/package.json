@@ -31,7 +31,7 @@
     "build": "tsc -b",
     "watch": "yarn run build -w",
     "start": "NODE_PATH=build/ node ./build",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --verbose",
     "db": "mongod --dbpath ../db",
     "migrations": "migrate-mongo"
   }

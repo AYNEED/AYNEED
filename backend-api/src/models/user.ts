@@ -23,6 +23,11 @@ type UserRecovery = {
   code: string;
 };
 
+export type UserComplete = Omit<
+  User,
+  'id' | 'network' | 'statistics' | 'createdAt'
+>;
+
 export type UserRes = Document &
   Omit<User, 'isOnline'> & {
     private: {
