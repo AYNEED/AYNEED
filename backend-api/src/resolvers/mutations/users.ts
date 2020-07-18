@@ -1,12 +1,13 @@
 import { Resolvers, Client } from 'src/__generated__';
 import { events, pubsub } from 'src/resolvers/subscriptions';
-import { UserModel } from 'src/models/user';
+import { UserModel, UserComplete } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import {
   createPasswordHash,
   createRandomString,
   verifyPassword,
 } from 'src/utils/password';
+import { profileCompleteness } from 'src/utils/profileCompleteness';
 import { validators, ValidationError } from 'shared';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
@@ -38,6 +39,44 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
 ) => {
   const salt = createRandomString();
   const hash = createPasswordHash(password, salt);
+  const userComplete: UserComplete = {
+    about: {
+      bio: null,
+      skills: [],
+      career: [],
+      education: [],
+    },
+    personal: {
+      firstName,
+      lastName,
+      isAgree: true,
+      bornAt: null,
+      photo: [],
+    },
+    regional: {
+      city: null,
+      state: null,
+      country: null,
+      locale,
+      languages: [],
+    },
+    contacts: {
+      email: {
+        value: email,
+        isVisible: false,
+        isVerified: false,
+      },
+      phone: null,
+      vkontakte: null,
+      facebook: null,
+      instagram: null,
+      telegram: null,
+      linkedin: null,
+    },
+  };
+
+  const completeness: number = profileCompleteness(userComplete);
+
   const data = await UserModel.create({
     network: {
       isOnline: false,
@@ -77,7 +116,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
       linkedin: null,
     },
     statistics: {
-      completeness: 0,
+      completeness,
     },
     private: {
       password: {

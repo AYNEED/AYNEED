@@ -1,8 +1,10 @@
 import { UserComplete } from 'src/models/user';
 
-export const profileCompleteness = (User: UserComplete): number => {
-  const { personal, regional, contacts } = User;
-
+export const profileCompleteness = ({
+  personal,
+  regional,
+  contacts,
+}: UserComplete): number => {
   const total = 4;
   let current = 0;
 

@@ -18,7 +18,7 @@ export type UserPassword = {
   salt: string;
 };
 
-export type UserRecovery = {
+type UserRecovery = {
   date: string;
   code: string;
 };
