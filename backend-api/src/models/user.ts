@@ -18,7 +18,7 @@ export type UserPassword = {
   salt: string;
 };
 
-type UserRecovery = {
+export type UserRecovery = {
   date: string;
   code: string;
 };
@@ -30,6 +30,11 @@ export type UserRes = Document &
       recovery: Maybe<UserRecovery>;
     };
   };
+
+export type UserComplete = Omit<
+  User,
+  'id' | 'network' | 'statistics' | 'createdAt'
+>;
 
 type UserReq = Omit<UserRes, 'createdAt'>;
 
