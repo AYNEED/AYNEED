@@ -78,42 +78,10 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   const completeness: number = profileCompleteness(userComplete);
 
   const data = await UserModel.create({
+    ...userComplete,
     network: {
       isOnline: false,
       client: Client.Desktop,
-    },
-    about: {
-      bio: null,
-      skills: [],
-      career: [],
-      education: [],
-    },
-    personal: {
-      firstName,
-      lastName,
-      isAgree,
-      bornAt: null,
-      photo: [],
-    },
-    regional: {
-      city: null,
-      state: null,
-      country: null,
-      locale,
-      languages: [],
-    },
-    contacts: {
-      email: {
-        value: email,
-        isVisible: false,
-        isVerified: false,
-      },
-      phone: null,
-      vkontakte: null,
-      facebook: null,
-      instagram: null,
-      telegram: null,
-      linkedin: null,
     },
     statistics: {
       completeness,

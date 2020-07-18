@@ -44,52 +44,84 @@ describe('Use profile completeness function', () => {
   });
 
   test('check 1/4 completeness - 25%', () => {
-    exUser.contacts.phone = {
-      isVisible: false,
-      isVerified: true,
-      value: '+79001112233',
+    const user = {
+      ...exUser,
+      contacts: {
+        ...exUser.contacts,
+        phone: {
+          isVisible: false,
+          isVerified: true,
+          value: '+79001112233',
+        },
+      },
     };
 
-    expect(profileCompleteness(exUser)).toEqual(25);
+    expect(profileCompleteness(user)).toEqual(25);
   });
 
   test('check 2/4 completeness - 50%', () => {
-    exUser.contacts.phone = {
-      isVisible: false,
-      isVerified: true,
-      value: '+79001112233',
+    const user = {
+      ...exUser,
+      contacts: {
+        ...exUser.contacts,
+        phone: {
+          isVisible: false,
+          isVerified: true,
+          value: '+79001112233',
+        },
+      },
+      regional: {
+        ...exUser.regional,
+        country: 'Russia',
+      },
     };
 
-    exUser.regional.country = 'Russia';
-
-    expect(profileCompleteness(exUser)).toEqual(50);
+    expect(profileCompleteness(user)).toEqual(50);
   });
 
   test('check 3/4 completeness - 75%', () => {
-    exUser.contacts.phone = {
-      isVisible: false,
-      isVerified: true,
-      value: '+79001112233',
+    const user = {
+      ...exUser,
+      contacts: {
+        ...exUser.contacts,
+        phone: {
+          isVisible: false,
+          isVerified: true,
+          value: '+79001112233',
+        },
+      },
+      regional: {
+        ...exUser.regional,
+        country: 'Russia',
+        city: 'Novosibirsk',
+      },
     };
 
-    exUser.regional.country = 'Russia';
-    exUser.regional.city = 'Novosibirsk';
-
-    expect(profileCompleteness(exUser)).toEqual(75);
+    expect(profileCompleteness(user)).toEqual(75);
   });
 
   test('check 4/4 completeness - 100%', () => {
-    exUser.contacts.phone = {
-      isVisible: false,
-      isVerified: true,
-      value: '+79001112233',
+    const user = {
+      ...exUser,
+      contacts: {
+        ...exUser.contacts,
+        phone: {
+          isVisible: false,
+          isVerified: true,
+          value: '+79001112233',
+        },
+      },
+      regional: {
+        ...exUser.regional,
+        country: 'Russia',
+        city: 'Novosibirsk',
+      },
+      personal: {
+        ...exUser.personal,
+        bornAt: '16.05.1994',
+      },
     };
 
-    exUser.regional.country = 'Russia';
-    exUser.regional.city = 'Novosibirsk';
-
-    exUser.personal.bornAt = '16.05.1994';
-
-    expect(profileCompleteness(exUser)).toEqual(100);
+    expect(profileCompleteness(user)).toEqual(100);
   });
 });
