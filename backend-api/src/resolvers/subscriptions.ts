@@ -1,4 +1,4 @@
-import { PubSub } from 'apollo-server';
+import { PubSub } from 'apollo-server-express';
 
 import { Resolvers, User } from 'src/__generated__';
 
