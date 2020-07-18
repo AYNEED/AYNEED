@@ -31,6 +31,11 @@ export type UserRes = Document &
     };
   };
 
+export type UserComplete = Omit<
+  User,
+  'id' | 'network' | 'statistics' | 'createdAt'
+>;
+
 type UserReq = Omit<UserRes, 'createdAt'>;
 
 const UserSkillSchema = new Schema<UserSkillRecord>({
