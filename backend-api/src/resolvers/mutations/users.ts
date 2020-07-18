@@ -1,4 +1,4 @@
-import { Resolvers, Client } from 'src/__generated__';
+import { Resolvers } from 'src/__generated__';
 import { events, pubsub } from 'src/resolvers/subscriptions';
 import { UserModel, UserComplete } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
@@ -12,7 +12,7 @@ import { validators, ValidationError } from 'shared';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
-  { email, password }
+  { email, password, client }
 ) => {
   await validators.signInEmail.validate({ email, password });
 
@@ -25,7 +25,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   }
 
   const user = userDriver(data, {
-    network: { isOnline: false, client: Client.Desktop },
+    network: { isOnline: false, client },
   });
 
   pubsub.publish(events.user.updated, user);
@@ -35,7 +35,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
 export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   parent,
-  { email, password, firstName, lastName, locale, isAgree }
+  { email, password, firstName, lastName, locale, client }
 ) => {
   const salt = createRandomString();
   const hash = createPasswordHash(password, salt);
@@ -81,7 +81,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
     ...userComplete,
     network: {
       isOnline: false,
-      client: Client.Desktop,
+      client,
     },
     statistics: {
       completeness,
@@ -96,7 +96,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   });
 
   const user = userDriver(data, {
-    network: { isOnline: false, client: Client.Desktop },
+    network: { isOnline: false, client },
   });
 
   pubsub.publish(events.user.added, user);
