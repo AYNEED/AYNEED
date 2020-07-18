@@ -35,7 +35,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
 export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   parent,
-  { email, password, firstName, lastName, locale, client }
+  { email, password, firstName, lastName, locale, isAgree, client }
 ) => {
   const salt = createRandomString();
   const hash = createPasswordHash(password, salt);
