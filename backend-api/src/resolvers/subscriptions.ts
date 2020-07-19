@@ -1,23 +1,17 @@
 import { PubSub } from 'apollo-server-express';
 
 import { Resolvers, User } from 'src/__generated__';
+import { EVENTS } from 'src/notifications/events';
 
 export const pubsub = new PubSub();
-
-export const events = {
-  user: {
-    added: 'EVENTS_USER_ADDED',
-    updated: 'EVENTS_USER_UPDATED',
-  },
-};
 
 export const subscription: Resolvers['Subscription'] = {
   userAdded: {
     resolve: (payload: User) => payload,
-    subscribe: () => pubsub.asyncIterator(events.user.added),
+    subscribe: () => pubsub.asyncIterator(EVENTS.USER_ADDED),
   },
   userUpdated: {
     resolve: (payload: User) => payload,
-    subscribe: () => pubsub.asyncIterator(events.user.updated),
+    subscribe: () => pubsub.asyncIterator(EVENTS.USER_UPDATED),
   },
 };

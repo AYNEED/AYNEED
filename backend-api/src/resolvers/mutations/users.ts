@@ -1,5 +1,4 @@
 import { Resolvers, Client } from 'src/__generated__';
-import { events, pubsub } from 'src/resolvers/subscriptions';
 import { UserModel, UserComplete } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import {
@@ -8,6 +7,8 @@ import {
   verifyPassword,
 } from 'src/utils/password';
 import { profileCompleteness } from 'src/utils/profileCompleteness';
+import { EVENTS } from 'src/notifications/events';
+import { send } from 'src/notifications';
 import { validators, ValidationError } from 'shared';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
@@ -30,7 +31,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
   // TODO: create session
 
-  pubsub.publish(events.user.updated, user);
+  send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
 
   return user;
 };
@@ -108,7 +109,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
 
   // TODO: create session
 
-  pubsub.publish(events.user.added, user);
+  send({ type: 'ws', event: EVENTS.USER_ADDED }, user);
 
   return user;
 };
@@ -175,7 +176,7 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
 
   // TODO: create session
 
-  pubsub.publish(events.user.added, user);
+  send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
 
   return user;
 };
