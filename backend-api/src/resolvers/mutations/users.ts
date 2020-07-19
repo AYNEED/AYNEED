@@ -31,7 +31,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
   // TODO: create session
 
-  send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
+  await send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
 
   return user;
 };
@@ -109,7 +109,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
 
   // TODO: create session
 
-  send({ type: 'ws', event: EVENTS.USER_ADDED }, user);
+  await send({ type: 'ws', event: EVENTS.USER_ADDED }, user);
 
   return user;
 };
@@ -125,7 +125,26 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
   });
 
   if (data) {
-    // TODO: send email
+    const code = createRandomString() + data.id;
+
+    const updated = await UserModel.findOneAndUpdate(
+      { _id: data.id },
+      {
+        private: {
+          ...data.private,
+          recovery: {
+            date: '', // TODO: add mongodb date
+            code,
+          },
+        },
+      }
+    );
+
+    if (!updated) {
+      throw new ValidationError('error.email.format');
+    }
+
+    await send({ type: 'email', event: EVENTS.USER_FORGOT_PASSWORD }, updated);
   }
 
   // This is the correct logic: we don’t want to show
@@ -176,7 +195,7 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
 
   // TODO: create session
 
-  send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
+  await send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
 
   return user;
 };
