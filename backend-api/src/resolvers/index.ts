@@ -1,3 +1,6 @@
+import { readFileSync } from 'fs';
+import { gql } from 'apollo-server-express';
+
 import { Resolvers } from 'src/__generated__';
 import { subscription } from 'src/resolvers/subscriptions';
 import { mutation } from 'src/resolvers/mutations';
@@ -18,6 +21,11 @@ import {
   resolveUserContactRecord,
 } from 'src/resolvers/customResolvers';
 import { scalarDateTime } from 'src/resolvers/customScalars';
+
+const schemaPath = process.cwd().concat('/schema.graphql');
+const schemaText = readFileSync(schemaPath, 'utf8');
+
+export const typeDefs = gql(schemaText);
 
 export const resolvers: Resolvers = {
   Mutation: mutation,
