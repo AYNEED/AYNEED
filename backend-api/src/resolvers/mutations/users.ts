@@ -1,4 +1,4 @@
-import { Resolvers, Client } from 'src/__generated__';
+import { Resolvers } from 'src/__generated__';
 import { UserModel, UserComplete } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import {
@@ -13,7 +13,7 @@ import { validators, ValidationError } from 'shared';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
-  { email, password }
+  { email, password, client }
 ) => {
   await validators.signInEmail.validate({ email, password });
 
@@ -26,7 +26,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   }
 
   const user = userDriver(data, {
-    network: { isOnline: false, client: Client.Desktop },
+    network: { isOnline: false, client },
   });
 
   // TODO: create session
@@ -38,7 +38,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
 export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   parent,
-  { email, password, firstName, lastName, locale, isAgree }
+  { email, password, firstName, lastName, locale, isAgree, client }
 ) => {
   await validators.signUpEmail.validate({
     firstName,
@@ -104,7 +104,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   });
 
   const user = userDriver(data, {
-    network: { isOnline: false, client: Client.Desktop },
+    network: { isOnline: false, client },
   });
 
   // TODO: create session
