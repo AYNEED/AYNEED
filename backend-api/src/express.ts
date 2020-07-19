@@ -8,7 +8,6 @@ import { User } from 'src/__generated__';
 export const app = express();
 
 const sessionParser = session({
-  // store: new SessionStore(),
   cookie: {
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
@@ -21,16 +20,6 @@ const sessionParser = session({
 
 passport.use(
   new GraphQLLocalStrategy((email, password, cb) => {
-    // const user = getUserByEMail(email);
-
-    // if (!user) {
-    //   return cb(events.system_error_wrongEmailOrPassword);
-    // }
-
-    // if (!verifyPassword(password, user)) {
-    //   return cb(events.system_error_wrongEmailOrPassword);
-    // }
-
     return cb(null, {});
   })
 );
