@@ -55,10 +55,6 @@ const Feed: React.FC = () => {
     }
   }, [fetchMore, data]);
 
-  if (error) {
-    return <p>Error</p>;
-  }
-
   if (!data) {
     return <p>Loading...</p>;
   }
@@ -68,6 +64,8 @@ const Feed: React.FC = () => {
       <h2>
         <Msg id="web.routes.Feed.users" />
       </h2>
+
+      {error && <p>Error</p>}
 
       {data.users.items.map((user) => (
         <div key={user.id}>
