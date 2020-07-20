@@ -12,7 +12,7 @@ import { Instagram } from 'src/components/icons/networks/Instagram';
 
 
 type Props = {
-  style?: PropsStyle
+  style: PropsStyle
 };
 
 const styles: Styles<'title' | 'linksWrapper'> = {
@@ -56,6 +56,7 @@ const Title: React.FC = () => (
 
 const Links: React.FC = () => {
   const intl = useIntl();
+  
   return (
     <FelaComponent style={styles.linksWrapper}>
     {networks.map(network => (
@@ -71,7 +72,7 @@ const Links: React.FC = () => {
 )}
 
 
-export const Networks: React.FC<Props> = ({ style = {} }) => (
+export const Networks: React.FC<Props> = ({ style }) => (
   <FelaComponent style={style}>
     <Title />
     <Links />
