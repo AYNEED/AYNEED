@@ -27,10 +27,10 @@ const styles: Styles<'text'> = {
   },
 };
 
-const buttonRule: object = () => ({
+const buttonRule: {} = () => ({
   position: 'relative',
   height: 50,
-  width: '100%',
+  width: '200px',
   backgroundColor: COLOR.TRANSPARENT,
   border: `2px solid ${COLOR.PRIMARY_500}`,
   display: 'flex !important',
@@ -40,8 +40,24 @@ const buttonRule: object = () => ({
   // overflow: 'hidden',
 })
 
-const rippleHover: string = ("position: absolute; width: 50px; height: 50px; borderRadius: 10px; background: linear-gradient(0deg, #D4EFDF 28.02%, rgba(212, 239, 223, 0) 100%); animation: .5s rippleExpand ease-out; zIndex: 5;")
+const rippleHover: string = (`
+  position: absolute; 
+  width: 50px; 
+  height: 50px; 
+  borderRadius: 10px; 
+  background: linear-gradient(0deg, #D4EFDF 28.02%, rgba(212, 239, 223, 0) 100%); animation: .5s rippleExpand ease-out; zIndex: 5;
+`)
 
+// const keyframe: TKeyFrame = {
+//   from: {
+//     transform: 'scale(0)',
+//     opacity: 1
+//   },
+//   to: {
+//     transform: 'scale(var(--scale))',
+//     opacity: 0,
+//   }
+// }
 // const keyframe: string = (`
 //   @keyframes rippleExpand{
 //     0% { transform: scale(0); opacity: 1; }
