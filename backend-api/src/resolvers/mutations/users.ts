@@ -141,7 +141,7 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
     );
 
     if (!updated) {
-      throw new ValidationError('error.email.format');
+      throw new ValidationError('error.user.notFound');
     }
 
     await send({ type: 'email', event: EVENTS.USER_FORGOT_PASSWORD }, updated);
@@ -186,7 +186,7 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
   );
 
   if (!updated) {
-    throw new ValidationError('error.recoveryCode.notFound');
+    throw new ValidationError('error.user.notFound');
   }
 
   const user = userDriver(updated, {
