@@ -54,24 +54,26 @@ const Title: React.FC = () => (
   </FelaComponent>
 )
 
-
-export const Networks: React.FC<Props> = ({ style = {} }) => {
+const Links: React.FC = () => {
   const intl = useIntl();
-
   return (
-    <FelaComponent style={style}>
-      <Title />
-      <FelaComponent style={styles.linksWrapper}>
-        {networks.map(network => (
-          <a 
-            key={network.id}
-            href={network.href}
-            title={msg(intl, { id: network.id })}
-          >
-            { React.createElement(network.childNode) }
-          </a>
-        ))}
-      </FelaComponent>
-    </FelaComponent>
-  );
-};
+    <FelaComponent style={styles.linksWrapper}>
+    {networks.map(network => (
+      <a 
+        key={network.id}
+        href={network.href}
+        title={msg(intl, { id: network.id })}
+      >
+        { React.createElement(network.childNode) }
+      </a>
+    ))}
+  </FelaComponent>
+)}
+
+
+export const Networks: React.FC<Props> = ({ style = {} }) => (
+  <FelaComponent style={style}>
+    <Title />
+    <Links />
+  </FelaComponent>
+);
