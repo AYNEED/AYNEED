@@ -16,4 +16,6 @@ export const events = {
   'error.firstName.required': 'Укажите ваше имя',
 
   'error.lastName.required': 'Укажите вашу фамилию',
+
+  'error.user.notFound': 'Пользователь не найден',
 };
