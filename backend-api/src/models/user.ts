@@ -23,6 +23,11 @@ type UserRecovery = {
   code: string;
 };
 
+export type UserComplete = Omit<
+  User,
+  'id' | 'network' | 'statistics' | 'createdAt'
+>;
+
 export type UserRes = Document &
   Omit<User, 'isOnline'> & {
     private: {
@@ -31,7 +36,7 @@ export type UserRes = Document &
     };
   };
 
-type UserReq = Omit<UserRes, 'createdAt'>;
+type UserReq = Omit<UserRes, 'createdAt' | 'network'>;
 
 const UserSkillSchema = new Schema<UserSkillRecord>({
   title: {

@@ -11,7 +11,15 @@ export const base = {
 
   'web.components.ui.Logo.title': 'AY Need',
 
-  'web.routes.ForgotPassword.title': 'Восстановление доступа',
+  'web.routes.ForgotPassword.form_email': 'E-mail',
+  'web.routes.ForgotPassword.form_submit': 'Сменить пароль',
+  'web.routes.ForgotPassword.link_sign_in': 'Войти',
+  'web.routes.ForgotPassword.link_sign_up': 'Зарегистрироваться',
+  'web.routes.ForgotPassword.title': 'Восстановление пароля',
+  'web.routes.ForgotPassword.description':
+    'На ваш e-mail будет отправленна ссылка для смены пароля',
+
+  'web.routes.ForgotPasswordChange.title': 'Смена пароля',
 
   'web.routes.Feed.title': 'Лента активности',
   'web.routes.Feed.users': 'Люди',
@@ -31,6 +39,14 @@ export const base = {
   'web.routes.SignInEmail.link_sign_up': 'Зарегистрироваться',
   'web.routes.SignInEmail.title': 'Вход',
 
+  'web.routes.SignUpEmail.form_email': 'E-mail',
+  'web.routes.SignUpEmail.form_first_name': 'Имя',
+  'web.routes.SignUpEmail.form_is_agree':
+    'Нажимая кнопку "Зарегистрироваться" я принимаю условия пользовательского соглашения',
+  'web.routes.SignUpEmail.form_last_name': 'Фамилия',
+  'web.routes.SignUpEmail.form_password': 'Пароль',
+  'web.routes.SignUpEmail.form_submit': 'Зарегистрироваться',
+  'web.routes.SignUpEmail.link_sign_in': 'Войти',
   'web.routes.SignUpEmail.title': 'Регистрация',
 
   'web.routes.User.title': 'Профиль',

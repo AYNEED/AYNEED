@@ -1,15 +1,18 @@
 import 'src/utils/env';
 
-import { ApolloServer } from 'apollo-server';
+import http from 'http';
+import { ApolloServer } from 'apollo-server-express';
 import { Theme } from '@apollographql/graphql-playground-html/dist/render-playground-page';
 
-import { typeDefs } from 'src/typeDefs';
-import { resolvers } from 'src/resolvers';
+import { resolvers, typeDefs } from 'src/resolvers';
+import { expressServer } from 'src/express';
 import { connect } from 'src/utils/mongodb';
 import { version } from 'package.json';
 
 const theme = process.env.AYNEED_BACKEND_PLAYGROUND_THEME as Theme;
 const port = process.env.AYNEED_BACKEND_API_PORT;
+
+const httpServer = http.createServer(expressServer);
 
 const server = new ApolloServer({
   typeDefs,
@@ -25,9 +28,19 @@ const server = new ApolloServer({
   },
 });
 
-server.listen({ port }).then(async ({ url, subscriptionsUrl }) => {
+server.applyMiddleware({
+  app: expressServer,
+  path: server.subscriptionsPath,
+  cors: {
+    origin: process.env.AYNEED_BACKEND_CORS_ORIGIN,
+    credentials: true,
+  },
+});
+
+server.installSubscriptionHandlers(httpServer);
+
+httpServer.listen({ port }, async () => {
   await connect();
 
-  console.log(`🚀 Server ${version} ready at ${url}`);
-  console.log(`Subscriptions ready at ${subscriptionsUrl}`);
+  console.log(`🚀 Server ${version} ready at port ${port}`);
 });
