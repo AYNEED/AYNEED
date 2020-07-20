@@ -2,19 +2,18 @@ import React from 'react';
 import { FelaComponent } from 'react-fela';
 
 import { Styles } from 'src/utils/fela';
-import { DictionaryKey } from 'shared';
-
+import { MsgProps } from 'src/i18n/Msg';
 import { Idea } from 'src/components/icons/Idea';
 import { Command } from 'src/components/icons/Command';
 import { Investments } from 'src/components/icons/Investments';
 import { Rocket } from 'src/components/icons/Rocket';
 import { RocketPlume } from 'src/components/icons/RocketPlume';
-import { MainPageCircle } from './MainPageCircle';
+import { DashedLine } from 'src/components/icons/DashedLine';
+import { MainPageCircle } from 'src/routes/Main/MainPageCircle';
 
 
 const styles: Styles<
   'componentWrapper' |
-  'line' | 
   'rocket' |
   'idea' |
   'command' |
@@ -22,8 +21,8 @@ const styles: Styles<
 > = {
   componentWrapper: {
     position: 'relative',
-    width: '43vw',
-    height: '184px',
+    width: '827px',
+    height: '185px',
     marginLeft: '27px',
   },
   rocket: {
@@ -36,31 +35,23 @@ const styles: Styles<
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    transform: 'rotateZ(42deg)',
-  },
-  line: {
-    width: '100%',
-    height: '100%',
-    backgroundSize: 'contain',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: '50% 50%',
-    backgroundImage: ('url("data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iODI4IiBoZWlnaHQ9IjE4NiIgdmlld0JveD0iMCAwIDgyOCAxODYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0wLjUgMTg1QzE5NCAxODUgNjQzLjUgMTg1IDgyNyAxLjUiIHN0cm9rZT0iIzI3QUU2MCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtZGFzaGFycmF5PSIzMCAzMCIvPgo8L3N2Zz4K")')
+    transform: 'rotateZ(40deg)',
   },
   idea: {
-    bottom: '-35%',
-    left: '19.5%',
+    bottom: '-65px',
+    left: '150px',
   },
   command: {
-    bottom: '-22%',
-    left: '48%',
+    bottom: '-40px',
+    left: '397px',
   },
   investments: {
-    bottom: '8%',
-    left: '75.5%',
+    bottom: '15px',
+    left: '630px',
   }
 }
 
-const circles: Array<{ id: DictionaryKey, circleStyle: object, childNode: React.FC }> = [
+const circles: Array<{ id:  MsgProps['id'], circleStyle: {}, childNode: React.FC }> = [
   {
     id: 'web.routes.Main.ball_idea',
     circleStyle: styles.idea,
@@ -78,9 +69,6 @@ const circles: Array<{ id: DictionaryKey, circleStyle: object, childNode: React.
   },
 ] 
 
-const Line: React.FC = () => (
-  <FelaComponent style={styles.line}></FelaComponent>
-)
 
 const RocketWithPlume: React.FC = () => (
   <FelaComponent style={styles.rocket}>
@@ -104,6 +92,6 @@ export const MainPageChain: React.FC = () => (
 
     <RocketWithPlume/>
 
-    <Line />
+    <DashedLine />
   </FelaComponent>
 );

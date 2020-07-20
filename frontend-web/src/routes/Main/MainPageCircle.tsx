@@ -1,13 +1,15 @@
 import React from 'react';
 import { FelaComponent } from 'react-fela';
 
-import { Styles, propsStyle } from 'src/utils/fela';
+import { Styles, PropsStyle } from 'src/utils/fela';
 import { MsgProps, Msg } from 'src/i18n/Msg';
 import { COLOR } from 'src/constants/colors';
 
 
-interface Props extends MsgProps {
-  style?: propsStyle;
+type Props = {
+  id: MsgProps['id'];
+  values?: Record<string, React.ReactNode>;
+  style: PropsStyle;
 }
 
 const styles: Styles<'circle' | 'icon' | 'text'> = {

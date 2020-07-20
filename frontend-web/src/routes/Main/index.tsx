@@ -3,16 +3,15 @@ import { FelaComponent } from 'react-fela';
 
 import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
-
+import { Page } from 'src/components/wrappers/Page';
 import { ButtonLink } from 'src/components/ui/forms/Button';
 import { Msg } from 'src/i18n/Msg';
 import { ROUTES } from 'shared';
 import { Networks } from 'src/routes/Main/MainPageNetworks';
-import { MainPageChain } from './MainPageChain';
+import { MainPageChain } from 'src/routes/Main/MainPageChain';
 
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
-
 
 const styles: Styles<
   'pageWrapper' | 
@@ -75,18 +74,24 @@ const LeftContent: React.FC = () => (
   </FelaComponent>
 )
 
+const Content: React.FC = () => (
+  <FelaComponent style={styles.content}>
+    <LeftContent />
+    <MainPageChain />
+  </FelaComponent>
+)
+
 
 const Main: React.FC = () => (
-  <FelaComponent style={styles.pageWrapper}>
-    <Logo />
+  <Page>
+    <FelaComponent style={styles.pageWrapper}>
+      <Logo />
 
-      <FelaComponent style={styles.content}>
-        <LeftContent />
-        <MainPageChain />
-      </FelaComponent>
+      <Content />
 
-    <Networks style={styles.network}/>
-  </FelaComponent>
+      <Networks style={styles.network}/>
+    </FelaComponent>
+  </Page>
 );
 
 export default Main;

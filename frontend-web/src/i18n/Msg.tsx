@@ -1,6 +1,8 @@
 import React from 'react';
 import { FormattedMessage, IntlShape as IIntlShape } from 'react-intl';
+
 import { DictionaryKey } from 'shared';
+
 
 export type IntlShape = IIntlShape;
 

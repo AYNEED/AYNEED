@@ -2,9 +2,11 @@ import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
 
+
 type Props = {
   fill?: COLOR;
 };
+
 
 export const Mobile: React.FC<Props> = ({ fill = COLOR.WHITE }) => (
   <svg width="4" height="8" viewBox="0 0 4 8" fill="none">

@@ -2,9 +2,8 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { FelaComponent } from 'react-fela';
 
-import { Styles, propsStyle } from 'src/utils/fela';
-import { DictionaryKey } from 'shared';
-
+import { Styles, PropsStyle } from 'src/utils/fela';
+import { MsgProps } from 'src/i18n/Msg';
 import { COLOR } from 'src/constants/colors';
 import { Msg, msg } from 'src/i18n/Msg';
 import { VK } from 'src/components/icons/networks/VK';
@@ -13,7 +12,7 @@ import { Instagram } from 'src/components/icons/networks/Instagram';
 
 
 type Props = {
-  style?: propsStyle
+  style?: PropsStyle
 };
 
 const styles: Styles<'title' | 'linksWrapper'> = {
@@ -31,7 +30,7 @@ const styles: Styles<'title' | 'linksWrapper'> = {
   }
 }
 
-const networks: Array<{ id: DictionaryKey, href: string, childNode: React.FC }> = [
+const networks: Array<{ id: MsgProps['id'], href: string, childNode: React.FC }> = [
   {
     id: "networks.vk",
     href: "https://vk.com/ayneed",

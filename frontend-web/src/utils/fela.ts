@@ -55,4 +55,5 @@ export type Styles<K extends string, T = {}, P = {}> = {
 };
 
 // TODO: производную от CssFelaStyle 
-export type propsStyle = {}
+// export type PropsStyle<T = {}, P = {}> = CssFelaStyle<T, P>
+export type PropsStyle = {}
