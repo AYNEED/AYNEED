@@ -1,0 +1,21 @@
+name: AYNEED
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  test:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Backend api testing
+        working-directory: backend-api
+        run: |
+          yarn run build
+          yarn run test
