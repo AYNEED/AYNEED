@@ -14,6 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Installation dependencies
+        run: yarn install
+
       - name: Backend api testing
         working-directory: backend-api
         run: |
