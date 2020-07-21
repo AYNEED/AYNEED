@@ -17,8 +17,15 @@ jobs:
       - name: Installation dependencies
         run: yarn install
 
-      - name: Backend api testing
+      - name: Run eslint
+        run: yarn run lint
+
+      - name: Backend api - testing
         working-directory: backend-api
         run: |
           yarn run build
           yarn run test
+
+      - name: Frontend web - testing
+        working-directory: frontend-web
+        run: yarn run test
