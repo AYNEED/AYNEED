@@ -7,8 +7,8 @@ on:
     branches: [develop]
 
 jobs:
-  test:
-    name: Run unit tests
+  install-build-eslint-test:
+    name: Run unit tests and eslint
     runs-on: ubuntu-latest
 
     steps:
