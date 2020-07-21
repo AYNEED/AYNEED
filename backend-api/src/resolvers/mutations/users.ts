@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers, Role } from 'src/__generated__';
 import { UserModel, UserComplete } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import {
@@ -101,6 +101,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
       },
       recovery: null,
     },
+    role: Role['User'],
   });
 
   const user = userDriver(data, {
