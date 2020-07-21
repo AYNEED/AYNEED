@@ -7,9 +7,21 @@ export const base = {
 
   'web.components.blocks.EnterThrough.title': 'Войти с помощью',
 
+  'web.components.blocks.SearchForm.form_search': 'Поиск',
+  'web.components.blocks.SearchForm.mode_candidates': 'Нужны в команду',
+  'web.components.blocks.SearchForm.mode_concepts': 'Концепты',
+  'web.components.blocks.SearchForm.mode_ideas': 'Идеи',
+  'web.components.blocks.SearchForm.mode_mvps': 'MVP',
+  'web.components.blocks.SearchForm.mode_users': 'Люди',
+
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
 
   'web.components.ui.Logo.title': 'AY Need',
+
+  'web.routes.Error404.title': '404 Не найдено',
+
+  'web.routes.Feed.title': 'Лента активности',
+  'web.routes.Feed.users': 'Люди',
 
   'web.routes.ForgotPassword.form_email': 'E-mail',
   'web.routes.ForgotPassword.form_submit': 'Сменить пароль',
@@ -20,9 +32,6 @@ export const base = {
     'На ваш e-mail будет отправленна ссылка для смены пароля',
 
   'web.routes.ForgotPasswordChange.title': 'Смена пароля',
-
-  'web.routes.Feed.title': 'Лента активности',
-  'web.routes.Feed.users': 'Люди',
 
   'web.routes.Main.ball_command': 'Команда',
   'web.routes.Main.ball_idea': 'Идея',

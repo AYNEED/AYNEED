@@ -53,8 +53,9 @@ export type MutationSignUpEmailArgs = {
 };
 
 export type Query = {
-  user: Maybe<User>;
+  user: User;
   users: UserFeed;
+  search: UserFeed;
 };
 
 export type QueryUserArgs = {
@@ -63,6 +64,11 @@ export type QueryUserArgs = {
 
 export type QueryUsersArgs = {
   cursor: Maybe<Scalars['ID']>;
+};
+
+export type QuerySearchArgs = {
+  query: Scalars['String'];
+  mode: SearchMode;
 };
 
 export type Subscription = {
@@ -86,6 +92,14 @@ export enum LanguageLevel {
 export enum Client {
   Mobile = 'mobile',
   Desktop = 'desktop',
+}
+
+export enum SearchMode {
+  Candidates = 'candidates',
+  Users = 'users',
+  Ideas = 'ideas',
+  Concepts = 'concepts',
+  Mvps = 'mvps',
 }
 
 export type User = {
@@ -297,6 +311,7 @@ export type ResolversTypes = {
   LOCALE: Locale;
   LANGUAGE_LEVEL: LanguageLevel;
   CLIENT: Client;
+  SEARCH_MODE: SearchMode;
   User: ResolverTypeWrapper<User>;
   UserNetwotk: ResolverTypeWrapper<UserNetwotk>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
@@ -390,7 +405,7 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
   user: Resolver<
-    Maybe<ResolversTypes['User']>,
+    ResolversTypes['User'],
     ParentType,
     ContextType,
     RequireFields<QueryUserArgs, 'id'>
@@ -400,6 +415,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QueryUsersArgs, never>
+  >;
+  search: Resolver<
+    ResolversTypes['UserFeed'],
+    ParentType,
+    ContextType,
+    RequireFields<QuerySearchArgs, 'query' | 'mode'>
   >;
 };
 

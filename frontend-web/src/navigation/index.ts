@@ -1,3 +1,4 @@
+import { History } from 'history';
 import { compile } from 'path-to-regexp';
 
 import { Access, Route, config as routesConfig } from 'src/navigation/routes';
@@ -40,4 +41,14 @@ export const makeURL = (options: Scheme): string | null => {
     console.error('makeURL', options, error);
     return null;
   }
+};
+
+export const updateHistory = <T extends {} = {}>(
+  history: History<History.PoorMansUnknown>,
+  route: ROUTES,
+  payload: T
+): void => {
+  const searchParams = new URLSearchParams(payload);
+
+  history.push(`${route}?${searchParams.toString()}`);
 };

@@ -51,4 +51,11 @@ export const config: { [TKey in ROUTES]: Route } = {
     title: 'web.routes.User.title',
     component: () => import('src/routes/User'),
   },
+
+  // This item must be the last in the list
+  [ROUTES.ERROR_404]: {
+    access: 'all',
+    title: 'web.routes.Error404.title',
+    component: () => import('src/routes/Error404'),
+  },
 };
