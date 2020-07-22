@@ -101,7 +101,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
       },
       recovery: null,
     },
-    role: Role['User'],
+    role: Role.User,
   });
 
   const user = userDriver(data, {

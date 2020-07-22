@@ -15,12 +15,7 @@ type Mutation {
     client: CLIENT!
   ): User!
 
-  signInEmail(
-    email: String!
-    password: String!
-    client: CLIENT!
-    role: ROLE
-  ): User!
+  signInEmail(email: String!, password: String!, client: CLIENT!): User!
 
   signUpEmail(
     email: String!
@@ -30,7 +25,6 @@ type Mutation {
     locale: LOCALE!
     isAgree: Boolean!
     client: CLIENT!
-    role: ROLE
   ): User!
 }
 
@@ -78,13 +72,13 @@ enum ROLE {
 
 type User {
   id: ID!
+  role: ROLE!
   network: UserNetwotk!
   about: UserAboutData!
   personal: UserPersonalData!
   regional: UserRegionalData!
   contacts: UserContactsData!
   statistics: UserStatisticsData!
-  role: ROLE!
   createdAt: DateTime!
 }
 
