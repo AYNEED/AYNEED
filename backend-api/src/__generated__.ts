@@ -40,6 +40,7 @@ export type MutationSignInEmailArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
   client: Client;
+  role: Role;
 };
 
 export type MutationSignUpEmailArgs = {
@@ -50,6 +51,7 @@ export type MutationSignUpEmailArgs = {
   locale: Locale;
   isAgree: Scalars['Boolean'];
   client: Client;
+  role: Role;
 };
 
 export type Query = {
@@ -102,6 +104,10 @@ export enum SearchMode {
   Mvps = 'mvps',
 }
 
+export enum Role {
+  User = 'user',
+}
+
 export type User = {
   id: Scalars['ID'];
   network: UserNetwotk;
@@ -110,6 +116,7 @@ export type User = {
   regional: UserRegionalData;
   contacts: UserContactsData;
   statistics: UserStatisticsData;
+  role: Role;
   createdAt: Scalars['DateTime'];
 };
 
@@ -312,6 +319,7 @@ export type ResolversTypes = {
   LANGUAGE_LEVEL: LanguageLevel;
   CLIENT: Client;
   SEARCH_MODE: SearchMode;
+  ROLE: Role;
   User: ResolverTypeWrapper<User>;
   UserNetwotk: ResolverTypeWrapper<UserNetwotk>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
@@ -469,6 +477,7 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
+  role: Resolver<ResolversTypes['ROLE'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };

@@ -5,6 +5,7 @@ import {
   Maybe,
   Locale,
   LanguageLevel,
+  Role,
   User,
   UserSkillRecord,
   UserCareerRecord,
@@ -25,7 +26,7 @@ type UserRecovery = {
 
 export type UserComplete = Omit<
   User,
-  'id' | 'network' | 'statistics' | 'createdAt'
+  'id' | 'network' | 'statistics' | 'role' | 'createdAt'
 >;
 
 export type UserRes = Document &
@@ -197,6 +198,11 @@ const UserSchema = new Schema<UserReq>(
         type: Number,
         required: true,
       },
+    },
+    role: {
+      type: String,
+      enum: Object.values(Role),
+      required: true,
     },
     private: {
       password: {

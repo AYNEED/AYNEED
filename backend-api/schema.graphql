@@ -66,8 +66,13 @@ enum SEARCH_MODE {
   mvps
 }
 
+enum ROLE {
+  user
+}
+
 type User {
   id: ID!
+  role: ROLE!
   network: UserNetwotk!
   about: UserAboutData!
   personal: UserPersonalData!
