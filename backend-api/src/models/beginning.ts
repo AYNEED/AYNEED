@@ -4,6 +4,10 @@ import { schemaOptions } from 'src/utils/mongodb';
 
 const BeginningSchema = new Schema(
   {
+    author: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
