@@ -17,12 +17,12 @@ const mediaQueries = {
 };
 
 const files = [
-  'src/assets/fonts/Montserrat-Regular.ttf',
-  'src/assets/fonts/Montserrat-Regular.woff',
-  'src/assets/fonts/Montserrat-Regular.woff2',
-  'src/assets/fonts/Montserrat-Medium.ttf',
-  'src/assets/fonts/Montserrat-Bold.ttf',
-  'src/assets/fonts/Montserrat-ExtraBold.ttf'
+  '/fonts/Montserrat-Regular.ttf',
+  '/fonts/Montserrat-Regular.woff',
+  '/fonts/Montserrat-Regular.woff2',
+  '/fonts/Montserrat-Medium.ttf',
+  '/fonts/Montserrat-Bold.ttf',
+  '/fonts/Montserrat-ExtraBold.ttf'
 ]
 
 export const client = window.matchMedia(
@@ -41,7 +41,6 @@ export const renderer = createRenderer({
   ],
 });
 
-renderer.renderFont('Montserrat', files, {})
 
 renderer.renderFont('Montserrat-Regular', files, { 
   fontStyle: 'normal',
