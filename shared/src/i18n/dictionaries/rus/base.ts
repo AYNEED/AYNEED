@@ -33,13 +33,13 @@ export const base = {
 
   'web.routes.ForgotPasswordChange.title': 'Смена пароля',
 
-  'web.routes.Main.ball_command': 'Команда',
-  'web.routes.Main.ball_idea': 'Идея',
-  'web.routes.Main.ball_investments': 'Инвестиции',
   'web.routes.Main.button_start': 'Start',
   'web.routes.Main.description': 'Объединяет людей для создания IT-продуктов',
-  'web.routes.Main.Networks.title': 'Мы в социальных сетях',
   'web.routes.Main.title': 'AY Need',
+  'web.routes.Main.MainPageChain.command': 'Команда',
+  'web.routes.Main.MainPageChain.idea': 'Идея',
+  'web.routes.Main.MainPageChain.investments': 'Инвестиции',
+  'web.routes.Main.MainPageNetworks.title': 'Мы в социальных сетях',
 
   'web.routes.SignInEmail.form_email': 'E-mail',
   'web.routes.SignInEmail.form_password': 'Пароль',
