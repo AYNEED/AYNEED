@@ -7,6 +7,7 @@ const BeginningSchema = new Schema(
     author: {
       type: Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
     title: {
       type: String,
