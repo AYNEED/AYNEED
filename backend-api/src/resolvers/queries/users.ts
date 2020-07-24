@@ -2,17 +2,13 @@ import { Resolvers, Client } from 'src/__generated__';
 import { UserModel } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import { FEED_LIMIT } from 'src/constants';
-import { ValidationError } from 'shared';
+import { findUserById } from 'src/helpers/users';
 
 export const getUserById: Resolvers['Query']['user'] = async (
   parent,
   query
 ) => {
-  const user = await UserModel.findById(query.id);
-
-  if (!user) {
-    throw new ValidationError('error.user.notFound');
-  }
+  const user = await findUserById(query.id);
 
   return userDriver(user, {
     network: { isOnline: false, client: Client.Desktop },

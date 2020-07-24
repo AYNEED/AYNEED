@@ -1,15 +1,15 @@
-import { Resolvers, Role } from 'src/__generated__';
-import { UserModel, UserComplete } from 'src/models/user';
+import { Resolvers } from 'src/__generated__';
+import { UserModel } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import {
   createPasswordHash,
   createRandomString,
   verifyPassword,
 } from 'src/utils/password';
-import { profileCompleteness } from 'src/utils/profileCompleteness';
 import { EVENTS } from 'src/notifications/events';
 import { send } from 'src/notifications';
 import { validators, ValidationError } from 'shared';
+import { createUser, updateUser } from 'src/helpers/users';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
@@ -49,59 +49,13 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
 
   // TODO: check: if the user exists -> authorize
 
-  const salt = createRandomString();
-  const hash = createPasswordHash(password, salt);
-  const userComplete: UserComplete = {
-    about: {
-      bio: null,
-      skills: [],
-      career: [],
-      education: [],
-    },
-    personal: {
-      firstName,
-      lastName,
-      isAgree: true,
-      bornAt: null,
-      photo: [],
-    },
-    regional: {
-      city: null,
-      state: null,
-      country: null,
-      locale,
-      languages: [],
-    },
-    contacts: {
-      email: {
-        value: email,
-        isVisible: false,
-        isVerified: false,
-      },
-      phone: null,
-      vkontakte: null,
-      facebook: null,
-      instagram: null,
-      telegram: null,
-      linkedin: null,
-    },
-  };
-
-  const completeness: number = profileCompleteness(userComplete);
-
-  const data = await UserModel.create({
-    ...userComplete,
-    statistics: {
-      completeness,
-    },
-    private: {
-      password: {
-        hash,
-        salt,
-      },
-      recovery: null,
-    },
-    role: Role.User,
+  const data = await createUser({
+    email,
+    password,
+    firstName,
+    lastName,
+    locale,
+    isAgree,
   });
 
   const user = userDriver(data, {
@@ -126,24 +80,15 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
   });
 
   if (data) {
-    const code = createRandomString() + data.id;
-
-    const updated = await UserModel.findOneAndUpdate(
-      { _id: data.id },
-      {
-        private: {
-          ...data.private,
-          recovery: {
-            date: Date(),
-            code,
-          },
+    const updated = await updateUser(data.id, {
+      private: {
+        ...data.private,
+        recovery: {
+          date: Date(),
+          code: createRandomString() + data.id,
         },
-      }
-    );
-
-    if (!updated) {
-      throw new ValidationError('error.user.notFound');
-    }
+      },
+    });
 
     await send({ type: 'email', event: EVENTS.USER_FORGOT_PASSWORD }, updated);
   }
@@ -173,22 +118,15 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
   const salt = createRandomString();
   const hash = createPasswordHash(password, salt);
 
-  const updated = await UserModel.findOneAndUpdate(
-    { _id: data.id },
-    {
-      private: {
-        password: {
-          hash,
-          salt,
-        },
-        recovery: null,
+  const updated = await updateUser(data.id, {
+    private: {
+      password: {
+        hash,
+        salt,
       },
-    }
-  );
-
-  if (!updated) {
-    throw new ValidationError('error.user.notFound');
-  }
+      recovery: null,
+    },
+  });
 
   const user = userDriver(updated, {
     network: { isOnline: false, client },

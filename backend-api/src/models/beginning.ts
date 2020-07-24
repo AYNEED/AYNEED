@@ -4,7 +4,7 @@ import { schemaOptions } from 'src/utils/mongodb';
 
 const BeginningSchema = new Schema(
   {
-    author: {
+    authorId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
@@ -13,11 +13,11 @@ const BeginningSchema = new Schema(
       type: String,
       required: true,
     },
-    theProblem: {
+    problem: {
       type: String,
       required: true,
     },
-    theSolution: {
+    solution: {
       type: String,
       required: true,
     },
