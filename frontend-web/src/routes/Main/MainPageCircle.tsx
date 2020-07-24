@@ -39,7 +39,7 @@ const styles: Styles<'circle' | 'icon' | 'text'> = {
 
 
 export const MainPageCircle: React.FC<Props> = ({ id, values, children, style }) => (
-  <FelaComponent style={[styles.circle, style]}>
+  <FelaComponent style={{...styles.circle, ...style}}>
     <FelaComponent style={styles.icon}>{children}</FelaComponent>
 
     <FelaComponent as="p" style={styles.text}>
