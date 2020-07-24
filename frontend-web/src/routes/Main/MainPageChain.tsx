@@ -12,6 +12,12 @@ import { DashedLine } from 'src/components/icons/DashedLine';
 import { MainPageCircle } from 'src/routes/Main/MainPageCircle';
 
 
+interface CircleProps {
+  id: MsgProps['id'];
+  circleStyle: {};
+  childNode: React.FC ;
+}
+
 const styles: Styles<
   'componentWrapper' |
   'rocket' |
@@ -51,7 +57,7 @@ const styles: Styles<
   }
 }
 
-const circles: Array<{ id:  MsgProps['id'], circleStyle: {}, childNode: React.FC }> = [
+const circles: Array<CircleProps> = [
   {
     id: 'web.routes.Main.ball_idea',
     circleStyle: styles.idea,
@@ -77,10 +83,9 @@ const RocketWithPlume: React.FC = () => (
   </FelaComponent>
 )
 
-
-export const MainPageChain: React.FC = () => (
-  <FelaComponent style={styles.componentWrapper}>
-    { circles.map(circle => (
+const Circles: React.FC = () => (
+  <>
+    {circles.map(circle => (
       <MainPageCircle 
         key={circle.id} 
         id={circle.id}
@@ -89,6 +94,13 @@ export const MainPageChain: React.FC = () => (
         { React.createElement(circle.childNode) }
       </MainPageCircle>
     ))}
+  </>
+)
+
+
+export const MainPageChain: React.FC = () => (
+  <FelaComponent style={styles.componentWrapper}>
+    <Circles />
 
     <RocketWithPlume/>
 

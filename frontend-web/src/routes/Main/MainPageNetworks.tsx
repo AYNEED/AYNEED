@@ -15,6 +15,12 @@ type Props = {
   style: PropsStyle
 };
 
+interface NetworkProps {
+  id: MsgProps['id'];
+  href: string;
+  childNode: React.FC;
+}
+
 const styles: Styles<'title' | 'linksWrapper'> = {
   title: {
     fontSize: '16px',
@@ -30,7 +36,7 @@ const styles: Styles<'title' | 'linksWrapper'> = {
   }
 }
 
-const networks: Array<{ id: MsgProps['id'], href: string, childNode: React.FC }> = [
+const networks: Array<NetworkProps> = [
   {
     id: "networks.vk",
     href: "https://vk.com/ayneed",
