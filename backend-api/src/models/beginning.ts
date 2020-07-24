@@ -5,8 +5,8 @@ import { schemaOptions } from 'src/utils/mongodb';
 const BeginningSchema = new Schema(
   {
     author: {
-      type: String,
-      required: true,
+      type: Schema.Types.ObjectId,
+      ref: 'User',
     },
     title: {
       type: String,
