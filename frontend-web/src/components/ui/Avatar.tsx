@@ -28,8 +28,8 @@ const clientToIcon: { [TKey in Props['client']]: React.FC } = {
 const EmptyPhoto: React.FC<{ withText: boolean }> = ({ withText }) => (
   <div
     style={{
-      backgroundColor: COLOR.GRAY_LIGHT,
-      color: COLOR.GRAY,
+      backgroundColor: COLOR.SECONDARY_200,
+      color: COLOR.SECONDARY_400,
     }}
   >
     <NoPhoto />

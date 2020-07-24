@@ -5,6 +5,7 @@ import {
   Maybe,
   Locale,
   LanguageLevel,
+  Role,
   User,
   UserSkillRecord,
   UserCareerRecord,
@@ -23,6 +24,11 @@ type UserRecovery = {
   code: string;
 };
 
+export type UserComplete = Omit<
+  User,
+  'id' | 'network' | 'statistics' | 'role' | 'createdAt'
+>;
+
 export type UserRes = Document &
   Omit<User, 'isOnline'> & {
     private: {
@@ -31,7 +37,7 @@ export type UserRes = Document &
     };
   };
 
-type UserReq = Omit<UserRes, 'createdAt'>;
+type UserReq = Omit<UserRes, 'createdAt' | 'network'>;
 
 const UserSkillSchema = new Schema<UserSkillRecord>({
   title: {
@@ -192,6 +198,11 @@ const UserSchema = new Schema<UserReq>(
         type: Number,
         required: true,
       },
+    },
+    role: {
+      type: String,
+      enum: Object.values(Role),
+      required: true,
     },
     private: {
       password: {

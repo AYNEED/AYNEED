@@ -8,6 +8,7 @@ export const resolveUser: Resolvers['User'] = {
   regional: (parent) => parent.regional,
   contacts: (parent) => parent.contacts,
   statistics: (parent) => parent.statistics,
+  role: (parent) => parent.role,
   createdAt: (parent) => parent.createdAt,
 };
 

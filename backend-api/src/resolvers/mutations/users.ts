@@ -1,17 +1,19 @@
-import { Resolvers, Client } from 'src/__generated__';
-import { events, pubsub } from 'src/resolvers/subscriptions';
-import { UserModel } from 'src/models/user';
+import { Resolvers, Role } from 'src/__generated__';
+import { UserModel, UserComplete } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import {
   createPasswordHash,
   createRandomString,
   verifyPassword,
 } from 'src/utils/password';
+import { profileCompleteness } from 'src/utils/profileCompleteness';
+import { EVENTS } from 'src/notifications/events';
+import { send } from 'src/notifications';
 import { validators, ValidationError } from 'shared';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
-  { email, password }
+  { email, password, client }
 ) => {
   await validators.signInEmail.validate({ email, password });
 
@@ -24,25 +26,32 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   }
 
   const user = userDriver(data, {
-    network: { isOnline: false, client: Client.Desktop },
+    network: { isOnline: false, client },
   });
 
-  pubsub.publish(events.user.updated, user);
+  // TODO: create session
+
+  await send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
 
   return user;
 };
 
 export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   parent,
-  { email, password, firstName, lastName, locale, isAgree }
+  { email, password, firstName, lastName, locale, isAgree, client }
 ) => {
+  await validators.signUpEmail.validate({
+    firstName,
+    lastName,
+    email,
+    password,
+  });
+
+  // TODO: check: if the user exists -> authorize
+
   const salt = createRandomString();
   const hash = createPasswordHash(password, salt);
-  const data = await UserModel.create({
-    network: {
-      isOnline: false,
-      client: Client.Desktop,
-    },
+  const userComplete: UserComplete = {
     about: {
       bio: null,
       skills: [],
@@ -52,7 +61,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
     personal: {
       firstName,
       lastName,
-      isAgree,
+      isAgree: true,
       bornAt: null,
       photo: [],
     },
@@ -76,8 +85,14 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
       telegram: null,
       linkedin: null,
     },
+  };
+
+  const completeness: number = profileCompleteness(userComplete);
+
+  const data = await UserModel.create({
+    ...userComplete,
     statistics: {
-      completeness: 0,
+      completeness,
     },
     private: {
       password: {
@@ -86,13 +101,102 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
       },
       recovery: null,
     },
+    role: Role.User,
   });
 
   const user = userDriver(data, {
-    network: { isOnline: false, client: Client.Desktop },
+    network: { isOnline: false, client },
   });
 
-  pubsub.publish(events.user.added, user);
+  // TODO: create session
+
+  await send({ type: 'ws', event: EVENTS.USER_ADDED }, user);
+
+  return user;
+};
+
+export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
+  parent,
+  { email }
+) => {
+  await validators.forgotPassword.validate({ email });
+
+  const data = await UserModel.findOne({
+    'contacts.email.value': email,
+  });
+
+  if (data) {
+    const code = createRandomString() + data.id;
+
+    const updated = await UserModel.findOneAndUpdate(
+      { _id: data.id },
+      {
+        private: {
+          ...data.private,
+          recovery: {
+            date: Date(),
+            code,
+          },
+        },
+      }
+    );
+
+    if (!updated) {
+      throw new ValidationError('error.user.notFound');
+    }
+
+    await send({ type: 'email', event: EVENTS.USER_FORGOT_PASSWORD }, updated);
+  }
+
+  // This is the correct logic: we don’t want to show
+  // the frontend that the user is not in the DB,
+  // therefore we always say that the email has been sent.
+  return true;
+};
+
+export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange'] = async (
+  parent,
+  { password, recoveryCode, client }
+) => {
+  await validators.forgotPasswordChange.validate({ password });
+
+  const data = await UserModel.findOne({
+    'private.recovery.code': recoveryCode,
+  });
+
+  if (!data) {
+    throw new ValidationError('error.recoveryCode.notFound');
+  }
+
+  // TODO: check code expiration date
+
+  const salt = createRandomString();
+  const hash = createPasswordHash(password, salt);
+
+  const updated = await UserModel.findOneAndUpdate(
+    { _id: data.id },
+    {
+      private: {
+        password: {
+          hash,
+          salt,
+        },
+        recovery: null,
+      },
+    }
+  );
+
+  if (!updated) {
+    throw new ValidationError('error.user.notFound');
+  }
+
+  const user = userDriver(updated, {
+    network: { isOnline: false, client },
+  });
+
+  // TODO: create session
+
+  await send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
 
   return user;
 };

@@ -22,6 +22,12 @@ export const config: { [TKey in ROUTES]: Route } = {
     component: () => import('src/routes/ForgotPassword'),
   },
 
+  [ROUTES.FORGOT_PASSWORD_CHANGE]: {
+    access: 'authorized',
+    title: 'web.routes.ForgotPasswordChange.title',
+    component: () => import('src/routes/ForgotPasswordChange'),
+  },
+
   [ROUTES.SIGN_IN_EMAIL]: {
     access: 'unauthorized',
     title: 'web.routes.SignInEmail.title',
@@ -44,5 +50,12 @@ export const config: { [TKey in ROUTES]: Route } = {
     access: 'all',
     title: 'web.routes.User.title',
     component: () => import('src/routes/User'),
+  },
+
+  // This item must be the last in the list
+  [ROUTES.ERROR_404]: {
+    access: 'all',
+    title: 'web.routes.Error404.title',
+    component: () => import('src/routes/Error404'),
   },
 };

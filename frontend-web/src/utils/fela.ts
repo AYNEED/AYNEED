@@ -8,7 +8,6 @@ import unit from 'fela-plugin-unit';
 
 import { Client } from 'src/__generated__';
 
-
 const mediaQueries = {
   desktop: '@media (min-width: 1024px)',
   tablet: '@media (min-width: 768px)',
@@ -22,8 +21,8 @@ const files = [
   '/fonts/Montserrat-Regular.woff2',
   '/fonts/Montserrat-Medium.ttf',
   '/fonts/Montserrat-Bold.ttf',
-  '/fonts/Montserrat-ExtraBold.ttf'
-]
+  '/fonts/Montserrat-ExtraBold.ttf',
+];
 
 export const client = window.matchMedia(
   mediaQueries.desktop.replace('@media ', '')
@@ -41,26 +40,25 @@ export const renderer = createRenderer({
   ],
 });
 
-
-renderer.renderFont('Montserrat-Regular', files, { 
+renderer.renderFont('Montserrat-Regular', files, {
   fontStyle: 'normal',
   fontWeight: 400,
-})
+});
 
-renderer.renderFont('Montserrat-Medium', files, { 
+renderer.renderFont('Montserrat-Medium', files, {
   fontStyle: 'normal',
   fontWeight: 500,
-})
+});
 
-renderer.renderFont('Montserrat-Bold', files, { 
+renderer.renderFont('Montserrat-Bold', files, {
   fontStyle: 'normal',
   fontWeight: 700,
-})
+});
 
-renderer.renderFont('Montserrat-ExtraBold', files, { 
+renderer.renderFont('Montserrat-ExtraBold', files, {
   fontStyle: 'normal',
   fontWeight: 800,
-})
+});
 
 renderer.renderStatic(`
   * {
@@ -70,10 +68,29 @@ renderer.renderStatic(`
   #root {
     font-family: "Montserrat"
   }
-`)
+`);
 
+renderer.renderStatic(`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
+  body, html {
+    width: 100%;
+    height: 100%;
+  }
+
+  #root{
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+`);
 
 export type Styles<K extends string, T = {}, P = {}> = {
   [key in K]: CssFelaStyle<T, P>;
 };
+
+export type PropsStyle<T = {}, P = {}> = CssFelaStyle<T, P>;

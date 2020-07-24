@@ -7,7 +7,15 @@ schema {
 }
 
 type Mutation {
-  signInEmail(email: String!, password: String!, client: CLIENT!): User
+  forgotPassword(email: String!): Boolean!
+
+  forgotPasswordChange(
+    password: String!
+    recoveryCode: String!
+    client: CLIENT!
+  ): User!
+
+  signInEmail(email: String!, password: String!, client: CLIENT!): User!
 
   signUpEmail(
     email: String!
@@ -17,12 +25,14 @@ type Mutation {
     locale: LOCALE!
     isAgree: Boolean!
     client: CLIENT!
-  ): User
+  ): User!
 }
 
 type Query {
-  user(id: ID!): User
+  user(id: ID!): User!
   users(cursor: ID): UserFeed!
+
+  search(query: String!, mode: SEARCH_MODE!): UserFeed!
 }
 
 type Subscription {
@@ -48,8 +58,21 @@ enum CLIENT {
   desktop
 }
 
+enum SEARCH_MODE {
+  candidates
+  users
+  ideas
+  concepts
+  mvps
+}
+
+enum ROLE {
+  user
+}
+
 type User {
   id: ID!
+  role: ROLE!
   network: UserNetwotk!
   about: UserAboutData!
   personal: UserPersonalData!

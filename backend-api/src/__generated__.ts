@@ -20,8 +20,20 @@ export type Scalars = {
 };
 
 export type Mutation = {
-  signInEmail: Maybe<User>;
-  signUpEmail: Maybe<User>;
+  forgotPassword: Scalars['Boolean'];
+  forgotPasswordChange: User;
+  signInEmail: User;
+  signUpEmail: User;
+};
+
+export type MutationForgotPasswordArgs = {
+  email: Scalars['String'];
+};
+
+export type MutationForgotPasswordChangeArgs = {
+  password: Scalars['String'];
+  recoveryCode: Scalars['String'];
+  client: Client;
 };
 
 export type MutationSignInEmailArgs = {
@@ -41,8 +53,9 @@ export type MutationSignUpEmailArgs = {
 };
 
 export type Query = {
-  user: Maybe<User>;
+  user: User;
   users: UserFeed;
+  search: UserFeed;
 };
 
 export type QueryUserArgs = {
@@ -51,6 +64,11 @@ export type QueryUserArgs = {
 
 export type QueryUsersArgs = {
   cursor: Maybe<Scalars['ID']>;
+};
+
+export type QuerySearchArgs = {
+  query: Scalars['String'];
+  mode: SearchMode;
 };
 
 export type Subscription = {
@@ -76,8 +94,21 @@ export enum Client {
   Desktop = 'desktop',
 }
 
+export enum SearchMode {
+  Candidates = 'candidates',
+  Users = 'users',
+  Ideas = 'ideas',
+  Concepts = 'concepts',
+  Mvps = 'mvps',
+}
+
+export enum Role {
+  User = 'user',
+}
+
 export type User = {
   id: Scalars['ID'];
+  role: Role;
   network: UserNetwotk;
   about: UserAboutData;
   personal: UserPersonalData;
@@ -277,14 +308,16 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Mutation: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Subscription: ResolverTypeWrapper<{}>;
   LOCALE: Locale;
   LANGUAGE_LEVEL: LanguageLevel;
   CLIENT: Client;
+  SEARCH_MODE: SearchMode;
+  ROLE: Role;
   User: ResolverTypeWrapper<User>;
   UserNetwotk: ResolverTypeWrapper<UserNetwotk>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
@@ -305,8 +338,8 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   DateTime: Scalars['DateTime'];
   Mutation: {};
-  String: Scalars['String'];
   Boolean: Scalars['Boolean'];
+  String: Scalars['String'];
   Query: {};
   ID: Scalars['ID'];
   Subscription: {};
@@ -335,14 +368,29 @@ export type MutationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
+  forgotPassword: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationForgotPasswordArgs, 'email'>
+  >;
+  forgotPasswordChange: Resolver<
+    ResolversTypes['User'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationForgotPasswordChangeArgs,
+      'password' | 'recoveryCode' | 'client'
+    >
+  >;
   signInEmail: Resolver<
-    Maybe<ResolversTypes['User']>,
+    ResolversTypes['User'],
     ParentType,
     ContextType,
     RequireFields<MutationSignInEmailArgs, 'email' | 'password' | 'client'>
   >;
   signUpEmail: Resolver<
-    Maybe<ResolversTypes['User']>,
+    ResolversTypes['User'],
     ParentType,
     ContextType,
     RequireFields<
@@ -363,7 +411,7 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
   user: Resolver<
-    Maybe<ResolversTypes['User']>,
+    ResolversTypes['User'],
     ParentType,
     ContextType,
     RequireFields<QueryUserArgs, 'id'>
@@ -373,6 +421,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QueryUsersArgs, never>
+  >;
+  search: Resolver<
+    ResolversTypes['UserFeed'],
+    ParentType,
+    ContextType,
+    RequireFields<QuerySearchArgs, 'query' | 'mode'>
   >;
 };
 
@@ -399,6 +453,7 @@ export type UserResolvers<
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  role: Resolver<ResolversTypes['ROLE'], ParentType, ContextType>;
   network: Resolver<ResolversTypes['UserNetwotk'], ParentType, ContextType>;
   about: Resolver<ResolversTypes['UserAboutData'], ParentType, ContextType>;
   personal: Resolver<

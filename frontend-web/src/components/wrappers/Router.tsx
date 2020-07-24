@@ -1,12 +1,6 @@
 import React, { Suspense } from 'react';
-import {
-  Router as ReactRouter,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { Router as ReactRouter, Route, Switch } from 'react-router-dom';
 
-import { ROUTES } from 'shared';
 import { history } from 'src/navigation/store';
 import { routes } from 'src/navigation';
 
@@ -28,8 +22,6 @@ export const Router: React.FC = () => {
               component={React.lazy(config.component)}
             />
           ))}
-
-          <Route path="*" render={() => <Redirect to={ROUTES.MAIN} />} />
         </Switch>
       </ReactRouter>
     </Suspense>

@@ -10,7 +10,7 @@ export const locales = {
 
 export const LOCALES: Locales[] = Object.keys(locales) as never[];
 export const defaultLocale = 'rus';
-const defaultDictionary = locales[defaultLocale].dictionary;
+export const defaultDictionary = locales[defaultLocale].dictionary;
 
 export type Locales = keyof typeof locales;
 export type Dictionary = typeof defaultDictionary;
