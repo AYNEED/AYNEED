@@ -15,7 +15,7 @@ import { MainPageCircle } from 'src/routes/Main/MainPageCircle';
 interface CircleProps {
   id: MsgProps['id'];
   circleStyle: {};
-  childNode: React.FC ;
+  childNode: React.FC;
 }
 
 const styles: Styles<

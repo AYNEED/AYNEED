@@ -12,8 +12,8 @@ import { Instagram } from 'src/components/icons/networks/Instagram';
 
 
 type Props = {
-  style: PropsStyle
-};
+  style: PropsStyle;
+}
 
 interface NetworkProps {
   id: MsgProps['id'];
