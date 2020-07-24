@@ -15,15 +15,6 @@ const mediaQueries = {
   supportsGrid: '@supports (display: grid)',
 };
 
-const files = [
-  '/fonts/Montserrat-Regular.ttf',
-  '/fonts/Montserrat-Regular.woff',
-  '/fonts/Montserrat-Regular.woff2',
-  '/fonts/Montserrat-Medium.ttf',
-  '/fonts/Montserrat-Bold.ttf',
-  '/fonts/Montserrat-ExtraBold.ttf',
-];
-
 export const client = window.matchMedia(
   mediaQueries.desktop.replace('@media ', '')
 ).matches
@@ -40,33 +31,103 @@ export const renderer = createRenderer({
   ],
 });
 
-renderer.renderFont('Montserrat-Regular', files, {
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Thin.ttf'], {
   fontStyle: 'normal',
-  fontWeight: 400,
+  fontWeight: 100,
 });
 
-renderer.renderFont('Montserrat-Medium', files, {
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-ThinItalic.ttf'], {
+  fontStyle: 'italic',
+  fontWeight: 100,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-ExtraLight.ttf'], {
+  fontStyle: 'normal',
+  fontWeight: 200,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-ExtraLightItalic.ttf'], {
+  fontStyle: 'italic',
+  fontWeight: 200,
+});
+
+renderer.renderFont(
+  'Montserrat',
+  ['/fonts/Montserrat-Light.ttf', '/fonts/Montserrat-Light.woff'],
+  {
+    fontStyle: 'normal',
+    fontWeight: 300,
+  }
+);
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-LightItalic.ttf'], {
+  fontStyle: 'italic',
+  fontWeight: 300,
+});
+
+renderer.renderFont(
+  'Montserrat',
+  ['/fonts/Montserrat-Regular.ttf', '/fonts/Montserrat-Regular.woff2'],
+  {
+    fontStyle: 'normal',
+    fontWeight: 400,
+  }
+);
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Medium.ttf'], {
   fontStyle: 'normal',
   fontWeight: 500,
 });
 
-renderer.renderFont('Montserrat-Bold', files, {
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-MediumItalic.ttf'], {
+  fontStyle: 'italic',
+  fontWeight: 500,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-SemiBold.ttf'], {
+  fontStyle: 'normal',
+  fontWeight: 600,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-SemiBoldItalic.ttf'], {
+  fontStyle: 'italic',
+  fontWeight: 600,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Bold.ttf'], {
   fontStyle: 'normal',
   fontWeight: 700,
 });
 
-renderer.renderFont('Montserrat-ExtraBold', files, {
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-BoldItalic.ttf'], {
+  fontStyle: 'italic',
+  fontWeight: 700,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-ExtraBold.ttf'], {
   fontStyle: 'normal',
   fontWeight: 800,
 });
 
-renderer.renderStatic(`
-  * {
-    font-family: "Montserrat"
-  }
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-ExtraBoldItalic.ttf'], {
+  fontStyle: 'italic',
+  fontWeight: 800,
+});
 
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Black.ttf'], {
+  fontStyle: 'normal',
+  fontWeight: 900,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-BlackItalic.ttf'], {
+  fontStyle: 'italic',
+  fontWeight: 900,
+});
+
+renderer.renderStatic(`
   #root {
-    font-family: "Montserrat"
+    font-family: "Montserrat";
+    font-weight: 400;
   }
 `);
 
