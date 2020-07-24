@@ -134,7 +134,7 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
         private: {
           ...data.private,
           recovery: {
-            date: '', // TODO: add mongodb date
+            date: Date(),
             code,
           },
         },
