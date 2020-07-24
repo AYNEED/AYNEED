@@ -2,11 +2,9 @@ import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
 
-
 type Props = {
   fill?: COLOR;
 };
-
 
 export const RocketPlume: React.FC<Props> = ({ fill = COLOR.PRIMARY_500 }) => (
   <svg width="8" height="15" viewBox="0 0 8 15" fill="none">

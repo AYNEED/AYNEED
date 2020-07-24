@@ -3,7 +3,6 @@ import { FormattedMessage, IntlShape as IIntlShape } from 'react-intl';
 
 import { DictionaryKey } from 'shared';
 
-
 export type IntlShape = IIntlShape;
 
 export interface MsgProps {

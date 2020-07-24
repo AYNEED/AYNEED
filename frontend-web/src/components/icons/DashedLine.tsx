@@ -2,11 +2,9 @@ import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
 
-
 type Props = {
   fill?: COLOR;
 };
-
 
 export const DashedLine: React.FC<Props> = ({ fill = COLOR.PRIMARY_500 }) => (
   <svg width="828" height="186" viewBox="0 0 828 186" fill="none">

@@ -95,8 +95,13 @@ export enum SearchMode {
   Mvps = 'mvps',
 }
 
+export enum Role {
+  User = 'user',
+}
+
 export type User = {
   id: Scalars['ID'];
+  role: Role;
   network: UserNetwotk;
   about: UserAboutData;
   personal: UserPersonalData;

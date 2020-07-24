@@ -2,7 +2,6 @@ import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
 
-
 type Props = {
   fill?: COLOR;
 };

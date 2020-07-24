@@ -10,15 +10,10 @@ import { ROUTES } from 'shared';
 import { Networks } from 'src/routes/Main/MainPageNetworks';
 import { MainPageChain } from 'src/routes/Main/MainPageChain';
 
-
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
 const styles: Styles<
-  'pageWrapper' | 
-  'title' | 
-  'content' | 
-  'leftContent' |
-  'network'
+  'pageWrapper' | 'title' | 'content' | 'leftContent' | 'network'
 > = {
   pageWrapper: {
     width: '100%',
@@ -52,35 +47,34 @@ const styles: Styles<
   },
   network: {
     marginTop: '23px',
-  }
-}
+  },
+};
 
 const Title: React.FC = () => (
   <FelaComponent style={styles.title}>
     <Msg id="web.routes.Main.description" />
   </FelaComponent>
-)
+);
 
 const StartButton: React.FC = () => (
   <ButtonLink url={{ scheme: ROUTES.FEED }}>
     <Msg id="web.routes.Main.button_start" />
   </ButtonLink>
-)
+);
 
 const LeftContent: React.FC = () => (
   <FelaComponent style={styles.leftContent}>
     <Title />
     <StartButton />
   </FelaComponent>
-)
+);
 
 const Content: React.FC = () => (
   <FelaComponent style={styles.content}>
     <LeftContent />
     <MainPageChain />
   </FelaComponent>
-)
-
+);
 
 const Main: React.FC = () => (
   <Page>
@@ -89,7 +83,7 @@ const Main: React.FC = () => (
 
       <Content />
 
-      <Networks style={styles.network}/>
+      <Networks style={styles.network} />
     </FelaComponent>
   </Page>
 );

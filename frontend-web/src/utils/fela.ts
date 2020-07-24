@@ -8,7 +8,6 @@ import unit from 'fela-plugin-unit';
 
 import { Client } from 'src/__generated__';
 
-
 const mediaQueries = {
   desktop: '@media (min-width: 1024px)',
   tablet: '@media (min-width: 768px)',
@@ -49,11 +48,10 @@ renderer.renderStatic(`
     width: 100%;
     height: 100%;
   }
-`)
+`);
 
 export type Styles<K extends string, T = {}, P = {}> = {
   [key in K]: CssFelaStyle<T, P>;
 };
 
-
-export type PropsStyle<T = {}, P = {}> = CssFelaStyle<T, P>
+export type PropsStyle<T = {}, P = {}> = CssFelaStyle<T, P>;
