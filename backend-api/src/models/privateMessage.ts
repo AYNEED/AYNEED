@@ -109,4 +109,4 @@ const PrivateMessageSchema = new Schema(
   schemaOptions
 );
 
-export const PrivateMessage = model('User', PrivateMessageSchema);
+export const PrivateMessageModel = model('PrivateMessage', PrivateMessageSchema);
