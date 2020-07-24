@@ -40,6 +40,7 @@ export type MutationSignInEmailArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
   client: Client;
+  role: Role;
 };
 
 export type MutationSignUpEmailArgs = {
@@ -50,11 +51,13 @@ export type MutationSignUpEmailArgs = {
   locale: Locale;
   isAgree: Scalars['Boolean'];
   client: Client;
+  role: Role;
 };
 
 export type Query = {
-  user: Maybe<User>;
+  user: User;
   users: UserFeed;
+  search: UserFeed;
 };
 
 export type QueryUserArgs = {
@@ -63,6 +66,11 @@ export type QueryUserArgs = {
 
 export type QueryUsersArgs = {
   cursor: Maybe<Scalars['ID']>;
+};
+
+export type QuerySearchArgs = {
+  query: Scalars['String'];
+  mode: SearchMode;
 };
 
 export type Subscription = {
@@ -88,6 +96,18 @@ export enum Client {
   Desktop = 'desktop',
 }
 
+export enum SearchMode {
+  Candidates = 'candidates',
+  Users = 'users',
+  Ideas = 'ideas',
+  Concepts = 'concepts',
+  Mvps = 'mvps',
+}
+
+export enum Role {
+  User = 'user',
+}
+
 export type User = {
   id: Scalars['ID'];
   network: UserNetwotk;
@@ -96,6 +116,7 @@ export type User = {
   regional: UserRegionalData;
   contacts: UserContactsData;
   statistics: UserStatisticsData;
+  role: Role;
   createdAt: Scalars['DateTime'];
 };
 
@@ -297,6 +318,8 @@ export type ResolversTypes = {
   LOCALE: Locale;
   LANGUAGE_LEVEL: LanguageLevel;
   CLIENT: Client;
+  SEARCH_MODE: SearchMode;
+  ROLE: Role;
   User: ResolverTypeWrapper<User>;
   UserNetwotk: ResolverTypeWrapper<UserNetwotk>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
@@ -390,7 +413,7 @@ export type QueryResolvers<
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
   user: Resolver<
-    Maybe<ResolversTypes['User']>,
+    ResolversTypes['User'],
     ParentType,
     ContextType,
     RequireFields<QueryUserArgs, 'id'>
@@ -400,6 +423,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QueryUsersArgs, never>
+  >;
+  search: Resolver<
+    ResolversTypes['UserFeed'],
+    ParentType,
+    ContextType,
+    RequireFields<QuerySearchArgs, 'query' | 'mode'>
   >;
 };
 
@@ -448,6 +477,7 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
+  role: Resolver<ResolversTypes['ROLE'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };

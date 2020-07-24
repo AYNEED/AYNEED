@@ -100,7 +100,8 @@ const SignUpEmail: React.FC = () => {
         <InputCheckbox
           name="isAgree"
           label={{ id: 'web.routes.SignUpEmail.form_is_agree' }}
-          value={formik.values.isAgree}
+          value=""
+          checked={formik.values.isAgree}
           onChange={formik.handleChange}
         />
 

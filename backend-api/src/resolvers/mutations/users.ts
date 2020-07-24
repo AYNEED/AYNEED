@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers, Role } from 'src/__generated__';
 import { UserModel, UserComplete } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import {
@@ -101,6 +101,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
       },
       recovery: null,
     },
+    role: Role.User,
   });
 
   const user = userDriver(data, {
@@ -141,7 +142,7 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
     );
 
     if (!updated) {
-      throw new ValidationError('error.email.format');
+      throw new ValidationError('error.user.notFound');
     }
 
     await send({ type: 'email', event: EVENTS.USER_FORGOT_PASSWORD }, updated);
@@ -186,7 +187,7 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
   );
 
   if (!updated) {
-    throw new ValidationError('error.recoveryCode.notFound');
+    throw new ValidationError('error.user.notFound');
   }
 
   const user = userDriver(updated, {

@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 
+import { SearchForm } from 'src/components/blocks/SearchForm';
 import { Page } from 'src/components/wrappers/Page';
 import {
   GetUsersDocument,
@@ -64,6 +65,8 @@ const Feed: React.FC = () => {
       <h2>
         <Msg id="web.routes.Feed.users" />
       </h2>
+
+      <SearchForm onSubmit={console.log} withChangeHistory />
 
       {error && <p>Error</p>}
 

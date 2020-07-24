@@ -29,8 +29,10 @@ type Mutation {
 }
 
 type Query {
-  user(id: ID!): User
+  user(id: ID!): User!
   users(cursor: ID): UserFeed!
+
+  search(query: String!, mode: SEARCH_MODE!): UserFeed!
 }
 
 type Subscription {
@@ -56,8 +58,21 @@ enum CLIENT {
   desktop
 }
 
+enum SEARCH_MODE {
+  candidates
+  users
+  ideas
+  concepts
+  mvps
+}
+
+enum ROLE {
+  user
+}
+
 type User {
   id: ID!
+  role: ROLE!
   network: UserNetwotk!
   about: UserAboutData!
   personal: UserPersonalData!

@@ -46,8 +46,9 @@ export type MutationSignUpEmailArgs = {
 };
 
 export type Query = {
-  user: Maybe<User>;
+  user: User;
   users: UserFeed;
+  search: UserFeed;
 };
 
 export type QueryUserArgs = {
@@ -56,6 +57,11 @@ export type QueryUserArgs = {
 
 export type QueryUsersArgs = {
   cursor: Maybe<Scalars['ID']>;
+};
+
+export type QuerySearchArgs = {
+  query: Scalars['String'];
+  mode: SearchMode;
 };
 
 export type Subscription = {
@@ -79,6 +85,14 @@ export enum LanguageLevel {
 export enum Client {
   Mobile = 'mobile',
   Desktop = 'desktop',
+}
+
+export enum SearchMode {
+  Candidates = 'candidates',
+  Users = 'users',
+  Ideas = 'ideas',
+  Concepts = 'concepts',
+  Mvps = 'mvps',
 }
 
 export type User = {

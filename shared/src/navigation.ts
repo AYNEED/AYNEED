@@ -1,5 +1,6 @@
 export enum ROUTES {
   MAIN = '/',
+  ERROR_404 = '*',
 
   FORGOT_PASSWORD = '/forgot-password',
   FORGOT_PASSWORD_CHANGE = '/forgot-password/change',
