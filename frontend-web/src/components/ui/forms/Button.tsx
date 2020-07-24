@@ -29,7 +29,7 @@ const styles: Styles<'text'> = {
 
 const buttonRule: {} = () => ({
   position: 'relative',
-  height: 50,
+  height: '50px',
   width: '200px',
   backgroundColor: COLOR.TRANSPARENT,
   border: `2px solid ${COLOR.PRIMARY_500}`,
@@ -37,15 +37,25 @@ const buttonRule: {} = () => ({
   justifyContent: 'center',
   alignItems: 'center',
   cursor: 'pointer',
-  // overflow: 'hidden',
+  overflow: 'hidden',
 })
 
 const rippleHover: string = (`
   position: absolute; 
-  width: 50px; 
-  height: 50px; 
-  borderRadius: 10px; 
+  width: 2px; 
+  height: 2px; 
+  border-radius: 40px; 
   background: linear-gradient(0deg, #D4EFDF 28.02%, rgba(212, 239, 223, 0) 100%); 
+  animation: .5s k1 ease-out; 
+  zIndex: 5;
+`)
+
+const rippleClick: string = (`
+  position: absolute; 
+  width: 2px; 
+  height: 2px; 
+  border-radius: 40px; 
+  background: radial-gradient(50% 50% at 50% 50%, #27AE60 0%, rgba(39, 174, 96, 0) 100%); 
   animation: .5s k1 ease-out; 
   zIndex: 5;
 `)
@@ -57,12 +67,12 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
   const buttonLink: React.RefObject<HTMLDivElement> = React.createRef()
    
   
-  const onMouseOverHandler = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
+  const onMouseOverHandler = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
 
     if (buttonLink.current !== null) {
       const y = event.pageY - buttonLink.current.offsetTop
       const x = event.pageX - buttonLink.current.offsetLeft
-      const w = buttonLink.current.offsetWidth / 50
+      const w = buttonLink.current.offsetWidth / 2
       
       const ripple: HTMLElement = document.createElement('span')
         
@@ -81,9 +91,34 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
     }
   }
 
+  const onMouseDownHandler = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+
+    if (buttonLink.current !== null) {
+      const y = event.pageY - buttonLink.current.offsetTop
+      const x = event.pageX - buttonLink.current.offsetLeft
+      const w = buttonLink.current.offsetWidth / 2
+      
+      const ripple: HTMLElement = document.createElement('span')
+        
+      ripple.setAttribute('style', rippleClick)
+      ripple.style.top = y + "px"
+      ripple.style.left = x + "px"
+      ripple.style.setProperty('--scale', String(w));
+      
+      // buttonLink.current.removeEventListener('mouseover', onMouseOverHandler)
+      buttonLink.current.appendChild(ripple)
+    
+      setTimeout(() => {
+        if (ripple !== null && ripple.parentNode !== null) {
+          ripple.parentNode.removeChild(ripple)
+        }
+      }, 500)
+    }
+  }
+
 
   return(
-    <Link onMouseOver={onMouseOverHandler} url={url}>
+    <Link onMouseOver={onMouseOverHandler} onMouseDown={onMouseDownHandler} url={url}>
       <div className={css(buttonRule)} ref={buttonLink}>
         <FelaComponent style={styles.text}>{children}</FelaComponent>
       </div>
