@@ -1,7 +1,7 @@
 import React from 'react';
 import { FelaComponent } from 'react-fela';
 
-import { Styles } from 'src/utils/fela';
+import { Styles, PropsStyle } from 'src/utils/fela';
 import { MsgProps } from 'src/i18n/Msg';
 import { Idea } from 'src/components/icons/Idea';
 import { Command } from 'src/components/icons/Command';
@@ -13,7 +13,7 @@ import { MainPageCircle } from 'src/routes/Main/MainPageCircle';
 
 interface CircleProps {
   id: MsgProps['id'];
-  circleStyle: {};
+  circleStyle: PropsStyle;
   childNode: React.FC;
 }
 
@@ -54,17 +54,17 @@ const styles: Styles<
 
 const circles: Array<CircleProps> = [
   {
-    id: 'web.routes.Main.ball_idea',
+    id: 'web.routes.Main.MainPageChain.idea',
     circleStyle: styles.idea,
     childNode: Idea,
   },
   {
-    id: 'web.routes.Main.ball_command',
+    id: 'web.routes.Main.MainPageChain.command',
     circleStyle: styles.command,
     childNode: Command,
   },
   {
-    id: 'web.routes.Main.ball_investments',
+    id: 'web.routes.Main.MainPageChain.investments',
     circleStyle: styles.investments,
     childNode: Investments,
   },
@@ -79,9 +79,9 @@ const RocketWithPlume: React.FC = () => (
 
 const Circles: React.FC = () => (
   <>
-    {circles.map((circle) => (
-      <MainPageCircle key={circle.id} id={circle.id} style={circle.circleStyle}>
-        {React.createElement(circle.childNode)}
+    {circles.map(({ id, circleStyle, childNode }) => (
+      <MainPageCircle key={id} id={id} style={circleStyle}>
+        {React.createElement(childNode)}
       </MainPageCircle>
     ))}
   </>

@@ -55,7 +55,7 @@ const networks: Array<NetworkProps> = [
 
 const Title: React.FC = () => (
   <FelaComponent style={styles.title}>
-    <Msg id="web.routes.Main.Networks.title" />
+    <Msg id="web.routes.Main.MainPageNetworks.title" />
   </FelaComponent>
 );
 
@@ -64,20 +64,16 @@ const Links: React.FC = () => {
 
   return (
     <FelaComponent style={styles.linksWrapper}>
-      {networks.map((network) => (
-        <a
-          key={network.id}
-          href={network.href}
-          title={msg(intl, { id: network.id })}
-        >
-          {React.createElement(network.childNode)}
+      {networks.map(({ id, href, childNode }) => (
+        <a key={id} href={href} title={msg(intl, { id })}>
+          {React.createElement(childNode)}
         </a>
       ))}
     </FelaComponent>
   );
 };
 
-export const Networks: React.FC<Props> = ({ style }) => (
+export const MainPageNetworks: React.FC<Props> = ({ style }) => (
   <FelaComponent style={style}>
     <Title />
     <Links />

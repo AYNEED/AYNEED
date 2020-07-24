@@ -7,7 +7,7 @@ import { Page } from 'src/components/wrappers/Page';
 import { ButtonLink } from 'src/components/ui/forms/Button';
 import { Msg } from 'src/i18n/Msg';
 import { ROUTES } from 'shared';
-import { Networks } from 'src/routes/Main/MainPageNetworks';
+import { MainPageNetworks } from 'src/routes/Main/MainPageNetworks';
 import { MainPageChain } from 'src/routes/Main/MainPageChain';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
@@ -83,7 +83,7 @@ const Main: React.FC = () => (
 
       <Content />
 
-      <Networks style={styles.network} />
+      <MainPageNetworks style={styles.network} />
     </FelaComponent>
   </Page>
 );
