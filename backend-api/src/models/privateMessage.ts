@@ -55,15 +55,14 @@ const MessagePublicInfoSchema = new Schema<MessageVisible>({
   //Отчет о прочтении
   messageIsRead: {
     type: Boolean,
+    required: true,
   },
   messageParentId: {
     type: String,
-    required: true,
   },
   //Привязанный контент
   messageContent: {
     type: String,
-    required: true,
   },
 });
 
