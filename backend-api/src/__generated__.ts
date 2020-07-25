@@ -53,9 +53,19 @@ export type MutationSignUpEmailArgs = {
 };
 
 export type Query = {
+  beginning: Beginning;
+  beginnings: BeginningFeed;
   user: User;
   users: UserFeed;
   search: UserFeed;
+};
+
+export type QueryBeginningArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryBeginningsArgs = {
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type QueryUserArgs = {
@@ -72,6 +82,8 @@ export type QuerySearchArgs = {
 };
 
 export type Subscription = {
+  beginningAdded: Beginning;
+  beginningUpdated: Beginning;
   userAdded: User;
   userUpdated: User;
 };
@@ -106,10 +118,29 @@ export enum Role {
   User = 'user',
 }
 
+export type BeginningFeed = {
+  items: Array<Beginning>;
+  hasMore: Scalars['Boolean'];
+};
+
+export type UserFeed = {
+  items: Array<User>;
+  hasMore: Scalars['Boolean'];
+};
+
+export type Beginning = {
+  id: Scalars['ID'];
+  authorId: Scalars['ID'];
+  title: Scalars['String'];
+  problem: Scalars['String'];
+  solution: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+};
+
 export type User = {
   id: Scalars['ID'];
   role: Role;
-  network: UserNetwotk;
+  network: UserNetwotkData;
   about: UserAboutData;
   personal: UserPersonalData;
   regional: UserRegionalData;
@@ -118,14 +149,9 @@ export type User = {
   createdAt: Scalars['DateTime'];
 };
 
-export type UserNetwotk = {
+export type UserNetwotkData = {
   isOnline: Scalars['Boolean'];
   client: Client;
-};
-
-export type UserFeed = {
-  items: Array<User>;
-  hasMore: Scalars['Boolean'];
 };
 
 export type UserAboutData = {
@@ -318,9 +344,11 @@ export type ResolversTypes = {
   CLIENT: Client;
   SEARCH_MODE: SearchMode;
   ROLE: Role;
-  User: ResolverTypeWrapper<User>;
-  UserNetwotk: ResolverTypeWrapper<UserNetwotk>;
+  BeginningFeed: ResolverTypeWrapper<BeginningFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
+  Beginning: ResolverTypeWrapper<Beginning>;
+  User: ResolverTypeWrapper<User>;
+  UserNetwotkData: ResolverTypeWrapper<UserNetwotkData>;
   UserAboutData: ResolverTypeWrapper<UserAboutData>;
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
   UserRegionalData: ResolverTypeWrapper<UserRegionalData>;
@@ -343,9 +371,11 @@ export type ResolversParentTypes = {
   Query: {};
   ID: Scalars['ID'];
   Subscription: {};
-  User: User;
-  UserNetwotk: UserNetwotk;
+  BeginningFeed: BeginningFeed;
   UserFeed: UserFeed;
+  Beginning: Beginning;
+  User: User;
+  UserNetwotkData: UserNetwotkData;
   UserAboutData: UserAboutData;
   UserPersonalData: UserPersonalData;
   UserRegionalData: UserRegionalData;
@@ -410,6 +440,18 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
+  beginning: Resolver<
+    ResolversTypes['Beginning'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryBeginningArgs, 'id'>
+  >;
+  beginnings: Resolver<
+    ResolversTypes['BeginningFeed'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryBeginningsArgs, never>
+  >;
   user: Resolver<
     ResolversTypes['User'],
     ParentType,
@@ -434,6 +476,18 @@ export type SubscriptionResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
 > = {
+  beginningAdded: SubscriptionResolver<
+    ResolversTypes['Beginning'],
+    'beginningAdded',
+    ParentType,
+    ContextType
+  >;
+  beginningUpdated: SubscriptionResolver<
+    ResolversTypes['Beginning'],
+    'beginningUpdated',
+    ParentType,
+    ContextType
+  >;
   userAdded: SubscriptionResolver<
     ResolversTypes['User'],
     'userAdded',
@@ -448,13 +502,44 @@ export type SubscriptionResolvers<
   >;
 };
 
+export type BeginningFeedResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BeginningFeed'] = ResolversParentTypes['BeginningFeed']
+> = {
+  items: Resolver<Array<ResolversTypes['Beginning']>, ParentType, ContextType>;
+  hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserFeedResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['UserFeed'] = ResolversParentTypes['UserFeed']
+> = {
+  items: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type BeginningResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Beginning'] = ResolversParentTypes['Beginning']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  authorId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type UserResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   role: Resolver<ResolversTypes['ROLE'], ParentType, ContextType>;
-  network: Resolver<ResolversTypes['UserNetwotk'], ParentType, ContextType>;
+  network: Resolver<ResolversTypes['UserNetwotkData'], ParentType, ContextType>;
   about: Resolver<ResolversTypes['UserAboutData'], ParentType, ContextType>;
   personal: Resolver<
     ResolversTypes['UserPersonalData'],
@@ -480,21 +565,12 @@ export type UserResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type UserNetwotkResolvers<
+export type UserNetwotkDataResolvers<
   ContextType = any,
-  ParentType extends ResolversParentTypes['UserNetwotk'] = ResolversParentTypes['UserNetwotk']
+  ParentType extends ResolversParentTypes['UserNetwotkData'] = ResolversParentTypes['UserNetwotkData']
 > = {
   isOnline: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   client: Resolver<ResolversTypes['CLIENT'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type UserFeedResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['UserFeed'] = ResolversParentTypes['UserFeed']
-> = {
-  items: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
-  hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -646,9 +722,11 @@ export type Resolvers<ContextType = any> = {
   Mutation: MutationResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
-  User: UserResolvers<ContextType>;
-  UserNetwotk: UserNetwotkResolvers<ContextType>;
+  BeginningFeed: BeginningFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
+  Beginning: BeginningResolvers<ContextType>;
+  User: UserResolvers<ContextType>;
+  UserNetwotkData: UserNetwotkDataResolvers<ContextType>;
   UserAboutData: UserAboutDataResolvers<ContextType>;
   UserPersonalData: UserPersonalDataResolvers<ContextType>;
   UserRegionalData: UserRegionalDataResolvers<ContextType>;

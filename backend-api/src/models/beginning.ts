@@ -1,8 +1,12 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
+import { Beginning } from 'src/__generated__';
 
-const BeginningSchema = new Schema(
+export type BeginningRes = Document & Beginning;
+type BeginningReq = Omit<BeginningRes, 'createdAt'>;
+
+const BeginningSchema = new Schema<BeginningReq>(
   {
     authorId: {
       type: Schema.Types.ObjectId,
@@ -25,4 +29,7 @@ const BeginningSchema = new Schema(
   schemaOptions
 );
 
-export const BeginningModel = model('Beginning', BeginningSchema);
+export const BeginningModel = model<BeginningReq, BeginningRes>(
+  'Beginning',
+  BeginningSchema
+);

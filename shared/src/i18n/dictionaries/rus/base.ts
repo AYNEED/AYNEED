@@ -21,7 +21,10 @@ export const base = {
   'web.routes.Error404.title': '404 Не найдено',
 
   'web.routes.Feed.title': 'Лента активности',
-  'web.routes.Feed.users': 'Люди',
+  'web.routes.Feed.FeedBeginnings.title': 'Идеи',
+  'web.routes.Feed.FeedBeginnings.problem': 'Проблема',
+  'web.routes.Feed.FeedBeginnings.solution': 'Решение',
+  'web.routes.Feed.FeedUsers.title': 'Люди',
 
   'web.routes.ForgotPassword.form_email': 'E-mail',
   'web.routes.ForgotPassword.form_submit': 'Сменить пароль',
