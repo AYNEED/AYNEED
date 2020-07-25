@@ -5,24 +5,20 @@ export const profileCompleteness = ({
   regional,
   contacts,
 }: UserComplete): number => {
-  const total = 4;
-  let current = 0;
+  const requiredFields = [
+    personal.firstName,
+    personal.lastName,
+    personal.bornAt,
+    regional.country,
+    regional.city,
+    contacts.email,
+    contacts.phone,
+  ];
 
-  if (personal.bornAt) {
-    current++;
-  }
+  const current = requiredFields.reduce<number>(
+    (count, field) => (field ? count + 1 : count),
+    0
+  );
 
-  if (regional.country) {
-    current++;
-  }
-
-  if (regional.city) {
-    current++;
-  }
-
-  if (contacts.phone) {
-    current++;
-  }
-
-  return (current * 100) / total;
+  return Math.round((current * 100) / requiredFields.length);
 };
