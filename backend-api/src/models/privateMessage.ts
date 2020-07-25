@@ -2,91 +2,60 @@ import { Schema, model } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
 
-export type MessageIdInfo = {
-  //Id диалога
-  messageDialogId: string;
-  //Id отправителя
-  messageAuthorId: string;
-  //Id получателя
-  messageRecipientId: string;
-};
-
-export type MessageVisible = {
-  //При удалении только у себя
-  messageIsVisibleSender: boolean;
-  //При удалении у обоих
-  messageIsVisibleAll: boolean;
-};
-
-export type MessageDateInfo = {
-  messageSendTime: string;
-  messageEditTime: string;
-  //Время удаления
-  messageDeleteTime: string;
-};
-
-export type MessagePublicInfo = {
-  messageText: string;
-  //Отчет о прочтении
-  messageIsRead: boolean;
-  messageParentId: string;
-  //Привязанный контент
-  messageContent: string;
-};
-
-const MessageDateInfoSchema = new Schema<MessageIdInfo>({
-  messageSendTime: {
+const MessageDateInfoSchema = new Schema<never>({
+  sendTime: {
+    type: Date,
+    required: true,
+  },
+  editTime: {
     type: Date,
   },
-  messageEditTime: {
-    type: Date,
-  },
-  //Время удаления
-  messageDeleteTime: {
+  // Moment of deletion message
+  deleteTime: {
     type: Date,
   },
 });
 
-const MessagePublicInfoSchema = new Schema<MessageVisible>({
-  messageText: {
+const MessagePublicInfoSchema = new Schema<never>({
+  text: {
     type: String,
     required: true,
   },
-  //Отчет о прочтении
-  messageIsRead: {
+  // Read report
+  isRead: {
     type: Boolean,
     required: true,
   },
-  messageParentId: {
+  parentId: {
     type: String,
   },
-  //Привязанный контент
-  messageContent: {
+  // Message content
+  content: {
     type: String,
   },
 });
 
-const MessageIdInfoSchema = new Schema<MessageDateInfo>({
-  messageDialogId: {
+const MessageIdInfoSchema = new Schema<never>({
+  dialogId: {
     type: String,
   },
-  messageAuthorId: {
+  authorId: {
     type: String,
     required: true,
   },
-  messageRecipientId: {
+  recipientId: {
     type: String,
     required: true,
   },
 });
 
-const MessageVisibleSchema = new Schema<MessagePublicInfo>({
-  //При удалении только у себя
-  messageIsVisibleSender: {
+const MessageVisibleSchema = new Schema<never>({
+  // If author delete message only for yourself
+  isVisibleAuthor: {
     type: Boolean,
   },
-  //При удалении у обоих
-  messageIsVisibleAll: {
+  // If author delete message for all
+  isVisibleAll: {
     type: Boolean,
   },
 });
@@ -109,4 +78,7 @@ const PrivateMessageSchema = new Schema(
   schemaOptions
 );
 
-export const PrivateMessageModel = model('PrivateMessage', PrivateMessageSchema);
+export const PrivateMessageModel = model(
+  'PrivateMessage',
+  PrivateMessageSchema
+);
