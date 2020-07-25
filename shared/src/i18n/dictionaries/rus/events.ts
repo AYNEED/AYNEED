@@ -18,4 +18,6 @@ export const events = {
   'error.lastName.required': 'Укажите вашу фамилию',
 
   'error.user.notFound': 'Пользователь не найден',
+
+  'error.beginning.notFound': 'Начинание не найдено',
 };
