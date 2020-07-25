@@ -10,8 +10,8 @@ const exUser: UserComplete = {
     education: [],
   },
   personal: {
-    firstName: '',
-    lastName: '',
+    firstName: 'Jon',
+    lastName: 'Doe',
     isAgree: true,
     bornAt: null,
     photo: [],
@@ -25,7 +25,7 @@ const exUser: UserComplete = {
   },
   contacts: {
     email: {
-      value: '',
+      value: 'test@example.com',
       isVisible: false,
       isVerified: false,
     },
@@ -39,11 +39,11 @@ const exUser: UserComplete = {
 };
 
 describe('Use profile completeness function', () => {
-  test('check 0/4 completeness - 0%', () => {
-    expect(profileCompleteness(exUser)).toEqual(0);
+  test('check 3/7 completeness - 0%', () => {
+    expect(profileCompleteness(exUser)).toEqual(43);
   });
 
-  test('check 1/4 completeness - 25%', () => {
+  test('check 4/7 completeness - 25%', () => {
     const user = {
       ...exUser,
       contacts: {
@@ -56,10 +56,10 @@ describe('Use profile completeness function', () => {
       },
     };
 
-    expect(profileCompleteness(user)).toEqual(25);
+    expect(profileCompleteness(user)).toEqual(57);
   });
 
-  test('check 2/4 completeness - 50%', () => {
+  test('check 5/7 completeness - 50%', () => {
     const user = {
       ...exUser,
       contacts: {
@@ -76,10 +76,10 @@ describe('Use profile completeness function', () => {
       },
     };
 
-    expect(profileCompleteness(user)).toEqual(50);
+    expect(profileCompleteness(user)).toEqual(71);
   });
 
-  test('check 3/4 completeness - 75%', () => {
+  test('check 6/7 completeness - 75%', () => {
     const user = {
       ...exUser,
       contacts: {
@@ -97,10 +97,10 @@ describe('Use profile completeness function', () => {
       },
     };
 
-    expect(profileCompleteness(user)).toEqual(75);
+    expect(profileCompleteness(user)).toEqual(86);
   });
 
-  test('check 4/4 completeness - 100%', () => {
+  test('check 7/7 completeness - 100%', () => {
     const user = {
       ...exUser,
       contacts: {
