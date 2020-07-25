@@ -6,19 +6,21 @@ import { subscription } from 'src/resolvers/subscriptions';
 import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
+  resolveBeginning,
+  resolveBeginningFeed,
   resolveUser,
-  resolveUserNetwork,
   resolveUserFeed,
   resolveUserAboutData,
+  resolveUserContactsData,
+  resolveUserNetworkData,
   resolveUserPersonalData,
   resolveUserRegionalData,
-  resolveUserContactsData,
   resolveUserStatisticsData,
   resolveUserCareerRecord,
-  resolveUserSkillRecord,
+  resolveUserContactRecord,
   resolveUserEducationRecord,
   resolveUserLanguageRecord,
-  resolveUserContactRecord,
+  resolveUserSkillRecord,
 } from 'src/resolvers/customResolvers';
 import { scalarDateTime } from 'src/resolvers/customScalars';
 
@@ -36,17 +38,19 @@ export const resolvers: Resolvers = {
   DateTime: scalarDateTime,
 
   // Custom resolvers:
+  Beginning: resolveBeginning,
+  BeginningFeed: resolveBeginningFeed,
   User: resolveUser,
-  UserNetwotk: resolveUserNetwork,
   UserFeed: resolveUserFeed,
   UserAboutData: resolveUserAboutData,
+  UserContactsData: resolveUserContactsData,
+  UserNetwotkData: resolveUserNetworkData,
   UserPersonalData: resolveUserPersonalData,
   UserRegionalData: resolveUserRegionalData,
-  UserContactsData: resolveUserContactsData,
   UserStatisticsData: resolveUserStatisticsData,
   UserCareerRecord: resolveUserCareerRecord,
-  UserSkillRecord: resolveUserSkillRecord,
+  UserContactRecord: resolveUserContactRecord,
   UserEducationRecord: resolveUserEducationRecord,
   UserLanguageRecord: resolveUserLanguageRecord,
-  UserContactRecord: resolveUserContactRecord,
+  UserSkillRecord: resolveUserSkillRecord,
 };

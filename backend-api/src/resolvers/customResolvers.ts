@@ -1,5 +1,19 @@
 import { Resolvers } from 'src/__generated__';
 
+export const resolveBeginning: Resolvers['Beginning'] = {
+  id: (parent) => parent.id,
+  authorId: (parent) => parent.authorId,
+  title: (parent) => parent.title,
+  problem: (parent) => parent.problem,
+  solution: (parent) => parent.solution,
+  createdAt: (parent) => parent.createdAt,
+};
+
+export const resolveBeginningFeed: Resolvers['BeginningFeed'] = {
+  items: (parent) => parent.items,
+  hasMore: (parent) => parent.hasMore,
+};
+
 export const resolveUser: Resolvers['User'] = {
   id: (parent) => parent.id,
   network: (parent) => parent.network,
@@ -12,11 +26,6 @@ export const resolveUser: Resolvers['User'] = {
   createdAt: (parent) => parent.createdAt,
 };
 
-export const resolveUserNetwork: Resolvers['UserNetwotk'] = {
-  isOnline: (parent) => parent.isOnline,
-  client: (parent) => parent.client,
-};
-
 export const resolveUserFeed: Resolvers['UserFeed'] = {
   items: (parent) => parent.items,
   hasMore: (parent) => parent.hasMore,
@@ -27,6 +36,21 @@ export const resolveUserAboutData: Resolvers['UserAboutData'] = {
   career: (parent) => parent.career,
   skills: (parent) => parent.skills,
   education: (parent) => parent.education,
+};
+
+export const resolveUserContactsData: Resolvers['UserContactsData'] = {
+  email: (parent) => parent.email,
+  phone: (parent) => parent.phone,
+  vkontakte: (parent) => parent.vkontakte,
+  facebook: (parent) => parent.facebook,
+  instagram: (parent) => parent.instagram,
+  telegram: (parent) => parent.telegram,
+  linkedin: (parent) => parent.linkedin,
+};
+
+export const resolveUserNetworkData: Resolvers['UserNetwotkData'] = {
+  isOnline: (parent) => parent.isOnline,
+  client: (parent) => parent.client,
 };
 
 export const resolveUserPersonalData: Resolvers['UserPersonalData'] = {
@@ -45,16 +69,6 @@ export const resolveUserRegionalData: Resolvers['UserRegionalData'] = {
   languages: (parent) => parent.languages,
 };
 
-export const resolveUserContactsData: Resolvers['UserContactsData'] = {
-  email: (parent) => parent.email,
-  phone: (parent) => parent.phone,
-  vkontakte: (parent) => parent.vkontakte,
-  facebook: (parent) => parent.facebook,
-  instagram: (parent) => parent.instagram,
-  telegram: (parent) => parent.telegram,
-  linkedin: (parent) => parent.linkedin,
-};
-
 export const resolveUserStatisticsData: Resolvers['UserStatisticsData'] = {
   completeness: (parent) => parent.completeness,
 };
@@ -64,9 +78,10 @@ export const resolveUserCareerRecord: Resolvers['UserCareerRecord'] = {
   description: (parent) => parent.description,
 };
 
-export const resolveUserSkillRecord: Resolvers['UserSkillRecord'] = {
-  title: (parent) => parent.title,
-  primary: (parent) => parent.primary,
+export const resolveUserContactRecord: Resolvers['UserContactRecord'] = {
+  value: (parent) => parent.value,
+  isVisible: (parent) => parent.isVisible,
+  isVerified: (parent) => parent.isVerified,
 };
 
 export const resolveUserEducationRecord: Resolvers['UserEducationRecord'] = {
@@ -79,8 +94,7 @@ export const resolveUserLanguageRecord: Resolvers['UserLanguageRecord'] = {
   level: (parent) => parent.level,
 };
 
-export const resolveUserContactRecord: Resolvers['UserContactRecord'] = {
-  value: (parent) => parent.value,
-  isVisible: (parent) => parent.isVisible,
-  isVerified: (parent) => parent.isVerified,
+export const resolveUserSkillRecord: Resolvers['UserSkillRecord'] = {
+  title: (parent) => parent.title,
+  primary: (parent) => parent.primary,
 };
