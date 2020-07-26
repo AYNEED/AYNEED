@@ -26,18 +26,18 @@ type UserRecovery = {
 
 export type UserComplete = Omit<
   User,
-  'id' | 'network' | 'statistics' | 'role' | 'createdAt'
+  'id' | 'beginnings' | 'network' | 'statistics' | 'role' | 'createdAt'
 >;
 
 export type UserRes = Document &
-  Omit<User, 'isOnline'> & {
+  Omit<User, 'beginnings' | 'network'> & {
     private: {
       password: UserPassword;
       recovery: Maybe<UserRecovery>;
     };
   };
 
-type UserReq = Omit<UserRes, 'createdAt' | 'network'>;
+type UserReq = Omit<UserRes, 'id' | 'createdAt'>;
 
 const UserSkillSchema = new Schema<UserSkillRecord>({
   title: {

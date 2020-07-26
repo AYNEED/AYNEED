@@ -26,5 +26,6 @@ export const userDriver = (
   statistics,
   role,
   createdAt,
+  beginnings: [],
   ...additional,
 });
