@@ -6,7 +6,6 @@ const MessageDateInfoSchema = new Schema<never>({
   // Delayed message sending
   sendAt: {
     type: Date,
-    required: true,
   },
   editAt: {
     type: Date,
@@ -67,7 +66,6 @@ const PrivateMessageSchema = new Schema(
   {
     DateInfoSchema: {
       type: MessageDateInfoSchema,
-      required: true,
     },
     PublicInfoSchema: {
       type: MessagePublicInfoSchema,
