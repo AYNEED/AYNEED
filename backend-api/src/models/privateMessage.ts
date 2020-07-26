@@ -3,15 +3,16 @@ import { Schema, model } from 'mongoose';
 import { schemaOptions } from 'src/utils/mongodb';
 
 const MessageDateInfoSchema = new Schema<never>({
-  sendTime: {
+  // Delayed message sending
+  sendAt: {
     type: Date,
     required: true,
   },
-  editTime: {
+  editAt: {
     type: Date,
   },
   // Moment of deletion message
-  deleteTime: {
+  deleteAt: {
     type: Date,
   },
 });
@@ -26,25 +27,25 @@ const MessagePublicInfoSchema = new Schema<never>({
     type: Boolean,
     required: true,
   },
+  // Response to a specific message
   parentId: {
     type: String,
   },
-  // Message content
+  // Message content (images, audio, video...)
   content: {
     type: String,
   },
 });
 
 const MessageIdInfoSchema = new Schema<never>({
-  dialogId: {
-    type: String,
-  },
   authorId: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
   recipientId: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
 });
@@ -53,26 +54,32 @@ const MessageVisibleSchema = new Schema<never>({
   // If author delete message only for yourself
   isVisibleAuthor: {
     type: Boolean,
+    required: true,
   },
   // If author delete message for all
   isVisibleAll: {
     type: Boolean,
+    required: true,
   },
 });
 
 const PrivateMessageSchema = new Schema(
   {
-    MessageDateInfoSchema: {
+    DateInfoSchema: {
       type: MessageDateInfoSchema,
+      required: true,
     },
-    MessagePublicInfoSchema: {
+    PublicInfoSchema: {
       type: MessagePublicInfoSchema,
+      required: true,
     },
-    MessageIdInfoSchema: {
+    IdInfoSchema: {
       type: MessageIdInfoSchema,
+      required: true,
     },
-    MessageVisibleSchema: {
+    VisibleSchema: {
       type: MessageVisibleSchema,
+      required: true,
     },
   },
   schemaOptions
