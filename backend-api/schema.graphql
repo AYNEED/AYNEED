@@ -105,6 +105,7 @@ type User {
   contacts: UserContactsData!
   statistics: UserStatisticsData!
   createdAt: DateTime!
+  beginnings: [Beginning!]!
 }
 
 type UserNetwotkData {

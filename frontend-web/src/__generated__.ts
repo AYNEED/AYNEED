@@ -140,6 +140,7 @@ export type User = {
   contacts: UserContactsData;
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
+  beginnings: Array<Beginning>;
 };
 
 export type UserNetwotkData = {

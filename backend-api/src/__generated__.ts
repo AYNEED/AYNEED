@@ -147,6 +147,7 @@ export type User = {
   contacts: UserContactsData;
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
+  beginnings: Array<Beginning>;
 };
 
 export type UserNetwotkData = {
@@ -562,6 +563,11 @@ export type UserResolvers<
     ContextType
   >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  beginnings: Resolver<
+    Array<ResolversTypes['Beginning']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 

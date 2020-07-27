@@ -1,5 +1,4 @@
 import { BeginningRes, BeginningModel } from 'src/models/beginning';
-
 import { Beginning } from 'src/__generated__';
 import { ValidationError } from 'shared';
 
