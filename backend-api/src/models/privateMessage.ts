@@ -3,10 +3,6 @@ import { Schema, model } from 'mongoose';
 import { schemaOptions } from 'src/utils/mongodb';
 
 const MessageDateInfoSchema = new Schema<never>({
-  // Delayed message sending
-  sendAt: {
-    type: Date,
-  },
   editAt: {
     type: Date,
   },
@@ -25,14 +21,7 @@ const MessagePublicInfoSchema = new Schema<never>({
   isRead: {
     type: Boolean,
     required: true,
-  },
-  // Response to a specific message
-  parentId: {
-    type: String,
-  },
-  // Message content (images, audio, video...)
-  content: {
-    type: String,
+    default: false,
   },
 });
 
@@ -54,28 +43,30 @@ const MessageVisibleSchema = new Schema<never>({
   isVisibleAuthor: {
     type: Boolean,
     required: true,
+    default: true,
   },
   // If author delete message for all
   isVisibleAll: {
     type: Boolean,
     required: true,
+    default: true,
   },
 });
 
 const PrivateMessageSchema = new Schema(
   {
-    DateInfoSchema: {
+    dateInfoSchema: {
       type: MessageDateInfoSchema,
     },
-    PublicInfoSchema: {
+    publicInfoSchema: {
       type: MessagePublicInfoSchema,
       required: true,
     },
-    IdInfoSchema: {
+    idInfoSchema: {
       type: MessageIdInfoSchema,
       required: true,
     },
-    VisibleSchema: {
+    visibleSchema: {
       type: MessageVisibleSchema,
       required: true,
     },
