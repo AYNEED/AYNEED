@@ -51,24 +51,20 @@ renderer.renderFont('Montserrat', ['/fonts/Montserrat-ExtraLightItalic.woff'], {
   fontWeight: 200,
 });
 
-renderer.renderFont(
-  'Montserrat', ['/fonts/Montserrat-Light.woff'], {
-    fontStyle: 'normal',
-    fontWeight: 300,
-  }
-);
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Light.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 300,
+});
 
 renderer.renderFont('Montserrat', ['/fonts/Montserrat-LightItalic.woff'], {
   fontStyle: 'italic',
   fontWeight: 300,
 });
 
-renderer.renderFont(
-  'Montserrat', ['/fonts/Montserrat-Regular.woff'], {
-    fontStyle: 'normal',
-    fontWeight: 400,
-  }
-);
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Regular.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 400,
+});
 
 renderer.renderFont('Montserrat', ['/fonts/Montserrat-Medium.woff'], {
   fontStyle: 'normal',
