@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ROUTES, DictionaryKey } from 'shared';
 
 export type Access = 'all' | 'authorized' | 'unauthorized';

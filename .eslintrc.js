@@ -15,5 +15,13 @@ module.exports = {
       'warn',
       { allowExpressions: true },
     ],
+    '@typescript-eslint/ban-types': [
+      'error',
+      {
+        types: {
+          '{}': false,
+        },
+      },
+    ],
   },
 };

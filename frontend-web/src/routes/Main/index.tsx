@@ -1,45 +1,90 @@
 import React from 'react';
+import { FelaComponent } from 'react-fela';
 
+import { Styles } from 'src/utils/fela';
+import { COLOR } from 'src/constants/colors';
 import { Page } from 'src/components/wrappers/Page';
 import { ButtonLink } from 'src/components/ui/forms/Button';
 import { Msg } from 'src/i18n/Msg';
 import { ROUTES } from 'shared';
-import { Ball } from 'src/routes/Main/Ball';
-import { Networks } from 'src/routes/Main/Networks';
-import { Idea } from 'src/components/icons/Idea';
-import { Command } from 'src/components/icons/Command';
-import { Investments } from 'src/components/icons/Investments';
-import { Rocket } from 'src/components/icons/Rocket';
+import { MainPageNetworks } from 'src/routes/Main/MainPageNetworks';
+import { MainPageChain } from 'src/routes/Main/MainPageChain';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
+const styles: Styles<
+  'pageWrapper' | 'title' | 'content' | 'leftContent' | 'network'
+> = {
+  pageWrapper: {
+    width: '100%',
+    height: '100%',
+    padding: '308px 419px 277px 350px',
+    backgroundColor: COLOR.SECONDARY_100,
+    display: 'flex !important',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+  title: {
+    width: '95px',
+    color: COLOR.SECONDARY_400,
+    lineHeight: '17px',
+    fontSize: '14px',
+    wordSpacing: '35px',
+  },
+  content: {
+    width: '100%',
+    height: '216px',
+    marginTop: '60px',
+    display: 'flex !important',
+    alignItems: 'flex-start',
+  },
+  leftContent: {
+    height: '100%',
+    width: '206px',
+    display: 'flex !important',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  network: {
+    marginTop: '23px',
+  },
+};
+
+const Title: React.FC = () => (
+  <FelaComponent style={styles.title}>
+    <Msg id="web.routes.Main.description" />
+  </FelaComponent>
+);
+
+const StartButton: React.FC = () => (
+  <ButtonLink url={{ scheme: ROUTES.FEED }}>
+    <Msg id="web.routes.Main.button_start" />
+  </ButtonLink>
+);
+
+const LeftContent: React.FC = () => (
+  <FelaComponent style={styles.leftContent}>
+    <Title />
+    <StartButton />
+  </FelaComponent>
+);
+
+const Content: React.FC = () => (
+  <FelaComponent style={styles.content}>
+    <LeftContent />
+    <MainPageChain />
+  </FelaComponent>
+);
+
 const Main: React.FC = () => (
   <Page>
-    <Logo />
+    <FelaComponent style={styles.pageWrapper}>
+      <Logo />
 
-    <p>
-      <Msg id="web.routes.Main.description" />
-    </p>
+      <Content />
 
-    <ButtonLink url={{ scheme: ROUTES.FEED }}>
-      <Msg id="web.routes.Main.button_start" />
-    </ButtonLink>
-
-    <Ball id="web.routes.Main.ball_idea">
-      <Idea />
-    </Ball>
-
-    <Ball id="web.routes.Main.ball_command">
-      <Command />
-    </Ball>
-
-    <Ball id="web.routes.Main.ball_investments">
-      <Investments />
-    </Ball>
-
-    <Rocket />
-
-    <Networks />
+      <MainPageNetworks style={styles.network} />
+    </FelaComponent>
   </Page>
 );
 
