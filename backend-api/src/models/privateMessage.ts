@@ -2,7 +2,6 @@ import { Schema, model } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
 
-
 const MessagePublicInfoSchema = new Schema<never>({
   text: {
     type: String,
