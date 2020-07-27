@@ -39,7 +39,7 @@ const styles: Styles<
     alignItems: 'flex-start',
   },
   leftContent: {
-    height: '100%',
+    height: '97%',
     width: '206px',
     display: 'flex !important',
     flexDirection: 'column',
