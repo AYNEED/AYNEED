@@ -2,15 +2,6 @@ import { Schema, model } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
 
-const MessageDateInfoSchema = new Schema<never>({
-  editAt: {
-    type: Date,
-  },
-  // Moment of deletion message
-  deleteAt: {
-    type: Date,
-  },
-});
 
 const MessagePublicInfoSchema = new Schema<never>({
   text: {
@@ -55,9 +46,6 @@ const MessageVisibleSchema = new Schema<never>({
 
 const PrivateMessageSchema = new Schema(
   {
-    dateInfoSchema: {
-      type: MessageDateInfoSchema,
-    },
     publicInfoSchema: {
       type: MessagePublicInfoSchema,
       required: true,
@@ -69,6 +57,15 @@ const PrivateMessageSchema = new Schema(
     visibleSchema: {
       type: MessageVisibleSchema,
       required: true,
+    },
+    dateInfo: {
+      editAt: {
+        type: Date,
+      },
+      // Moment of deletion message
+      deleteAt: {
+        type: Date,
+      },
     },
   },
   schemaOptions
