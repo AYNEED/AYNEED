@@ -1,5 +1,4 @@
-import { Resolvers, Client } from 'src/__generated__';
-import { events, pubsub } from 'src/resolvers/subscriptions';
+import { Resolvers } from 'src/__generated__';
 import { UserModel } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import {
@@ -7,11 +6,14 @@ import {
   createRandomString,
   verifyPassword,
 } from 'src/utils/password';
+import { EVENTS } from 'src/notifications/events';
+import { send } from 'src/notifications';
 import { validators, ValidationError } from 'shared';
+import { createUser, updateUser } from 'src/helpers/users';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
-  { email, password }
+  { email, password, client }
 ) => {
   await validators.signInEmail.validate({ email, password });
 
@@ -24,61 +26,99 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   }
 
   const user = userDriver(data, {
-    network: { isOnline: false, client: Client.Desktop },
+    network: { isOnline: false, client },
   });
 
-  pubsub.publish(events.user.updated, user);
+  // TODO: create session
+
+  await send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
 
   return user;
 };
 
 export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   parent,
-  { email, password, firstName, lastName, locale, isAgree }
+  { email, password, firstName, lastName, locale, isAgree, client }
 ) => {
+  await validators.signUpEmail.validate({
+    firstName,
+    lastName,
+    email,
+    password,
+  });
+
+  // TODO: check: if the user exists -> authorize
+
+  const data = await createUser({
+    email,
+    password,
+    firstName,
+    lastName,
+    locale,
+    isAgree,
+  });
+
+  const user = userDriver(data, {
+    network: { isOnline: false, client },
+  });
+
+  // TODO: create session
+
+  await send({ type: 'ws', event: EVENTS.USER_ADDED }, user);
+
+  return user;
+};
+
+export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
+  parent,
+  { email }
+) => {
+  await validators.forgotPassword.validate({ email });
+
+  const data = await UserModel.findOne({
+    'contacts.email.value': email,
+  });
+
+  if (data) {
+    const updated = await updateUser(data.id, {
+      private: {
+        ...data.private,
+        recovery: {
+          date: Date(),
+          code: createRandomString() + data.id,
+        },
+      },
+    });
+
+    await send({ type: 'email', event: EVENTS.USER_FORGOT_PASSWORD }, updated);
+  }
+
+  // This is the correct logic: we don’t want to show
+  // the frontend that the user is not in the DB,
+  // therefore we always say that the email has been sent.
+  return true;
+};
+
+export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange'] = async (
+  parent,
+  { password, recoveryCode, client }
+) => {
+  await validators.forgotPasswordChange.validate({ password });
+
+  const data = await UserModel.findOne({
+    'private.recovery.code': recoveryCode,
+  });
+
+  if (!data) {
+    throw new ValidationError('error.recoveryCode.notFound');
+  }
+
+  // TODO: check code expiration date
+
   const salt = createRandomString();
   const hash = createPasswordHash(password, salt);
-  const data = await UserModel.create({
-    network: {
-      isOnline: false,
-      client: Client.Desktop,
-    },
-    about: {
-      bio: null,
-      skills: [],
-      career: [],
-      education: [],
-    },
-    personal: {
-      firstName,
-      lastName,
-      isAgree,
-      bornAt: null,
-      photo: [],
-    },
-    regional: {
-      city: null,
-      state: null,
-      country: null,
-      locale,
-      languages: [],
-    },
-    contacts: {
-      email: {
-        value: email,
-        isVisible: false,
-        isVerified: false,
-      },
-      phone: null,
-      vkontakte: null,
-      facebook: null,
-      instagram: null,
-      telegram: null,
-      linkedin: null,
-    },
-    statistics: {
-      completeness: 0,
-    },
+
+  const updated = await updateUser(data.id, {
     private: {
       password: {
         hash,
@@ -88,11 +128,13 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
     },
   });
 
-  const user = userDriver(data, {
-    network: { isOnline: false, client: Client.Desktop },
+  const user = userDriver(updated, {
+    network: { isOnline: false, client },
   });
 
-  pubsub.publish(events.user.added, user);
+  // TODO: create session
+
+  await send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
 
   return user;
 };

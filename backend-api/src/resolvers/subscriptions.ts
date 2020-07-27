@@ -1,23 +1,27 @@
-import { PubSub } from 'apollo-server';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { PubSub } from 'apollo-server-express';
 
-import { Resolvers, User } from 'src/__generated__';
+import { Resolvers, Beginning, User } from 'src/__generated__';
+import { EVENTS } from 'src/notifications/events';
 
 export const pubsub = new PubSub();
 
-export const events = {
-  user: {
-    added: 'EVENTS_USER_ADDED',
-    updated: 'EVENTS_USER_UPDATED',
-  },
-};
-
 export const subscription: Resolvers['Subscription'] = {
+  beginningAdded: {
+    resolve: (payload: Beginning): Beginning => payload,
+    subscribe: () => pubsub.asyncIterator(EVENTS.BEGINNING_ADDED),
+  },
+  beginningUpdated: {
+    resolve: (payload: Beginning): Beginning => payload,
+    subscribe: () => pubsub.asyncIterator(EVENTS.BEGINNING_UPDATED),
+  },
+
   userAdded: {
-    resolve: (payload: User) => payload,
-    subscribe: () => pubsub.asyncIterator(events.user.added),
+    resolve: (payload: User): User => payload,
+    subscribe: () => pubsub.asyncIterator(EVENTS.USER_ADDED),
   },
   userUpdated: {
-    resolve: (payload: User) => payload,
-    subscribe: () => pubsub.asyncIterator(events.user.updated),
+    resolve: (payload: User): User => payload,
+    subscribe: () => pubsub.asyncIterator(EVENTS.USER_UPDATED),
   },
 };

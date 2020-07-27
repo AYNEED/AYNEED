@@ -1,23 +1,33 @@
+import { readFileSync } from 'fs';
+import { gql } from 'apollo-server-express';
+
 import { Resolvers } from 'src/__generated__';
 import { subscription } from 'src/resolvers/subscriptions';
 import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
+  resolveBeginning,
+  resolveBeginningFeed,
   resolveUser,
-  resolveUserNetwork,
   resolveUserFeed,
   resolveUserAboutData,
+  resolveUserContactsData,
+  resolveUserNetworkData,
   resolveUserPersonalData,
   resolveUserRegionalData,
-  resolveUserContactsData,
   resolveUserStatisticsData,
   resolveUserCareerRecord,
-  resolveUserSkillRecord,
+  resolveUserContactRecord,
   resolveUserEducationRecord,
   resolveUserLanguageRecord,
-  resolveUserContactRecord,
+  resolveUserSkillRecord,
 } from 'src/resolvers/customResolvers';
 import { scalarDateTime } from 'src/resolvers/customScalars';
+
+const schemaPath = process.cwd().concat('/schema.graphql');
+const schemaText = readFileSync(schemaPath, 'utf8');
+
+export const typeDefs = gql(schemaText);
 
 export const resolvers: Resolvers = {
   Mutation: mutation,
@@ -28,17 +38,19 @@ export const resolvers: Resolvers = {
   DateTime: scalarDateTime,
 
   // Custom resolvers:
+  Beginning: resolveBeginning,
+  BeginningFeed: resolveBeginningFeed,
   User: resolveUser,
-  UserNetwotk: resolveUserNetwork,
   UserFeed: resolveUserFeed,
   UserAboutData: resolveUserAboutData,
+  UserContactsData: resolveUserContactsData,
+  UserNetwotkData: resolveUserNetworkData,
   UserPersonalData: resolveUserPersonalData,
   UserRegionalData: resolveUserRegionalData,
-  UserContactsData: resolveUserContactsData,
   UserStatisticsData: resolveUserStatisticsData,
   UserCareerRecord: resolveUserCareerRecord,
-  UserSkillRecord: resolveUserSkillRecord,
+  UserContactRecord: resolveUserContactRecord,
   UserEducationRecord: resolveUserEducationRecord,
   UserLanguageRecord: resolveUserLanguageRecord,
-  UserContactRecord: resolveUserContactRecord,
+  UserSkillRecord: resolveUserSkillRecord,
 };

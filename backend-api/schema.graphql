@@ -7,7 +7,15 @@ schema {
 }
 
 type Mutation {
-  signInEmail(email: String!, password: String!, client: CLIENT!): User
+  forgotPassword(email: String!): Boolean!
+
+  forgotPasswordChange(
+    password: String!
+    recoveryCode: String!
+    client: CLIENT!
+  ): User!
+
+  signInEmail(email: String!, password: String!, client: CLIENT!): User!
 
   signUpEmail(
     email: String!
@@ -17,15 +25,23 @@ type Mutation {
     locale: LOCALE!
     isAgree: Boolean!
     client: CLIENT!
-  ): User
+  ): User!
 }
 
 type Query {
-  user(id: ID!): User
+  beginning(id: ID!): Beginning!
+  beginnings(cursor: ID): BeginningFeed!
+
+  user(id: ID!): User!
   users(cursor: ID): UserFeed!
+
+  search(query: String!, mode: SEARCH_MODE!): UserFeed!
 }
 
 type Subscription {
+  beginningAdded: Beginning!
+  beginningUpdated: Beginning!
+
   userAdded: User!
   userUpdated: User!
 }
@@ -48,25 +64,53 @@ enum CLIENT {
   desktop
 }
 
+enum SEARCH_MODE {
+  candidates
+  users
+  ideas
+  concepts
+  mvps
+}
+
+enum ROLE {
+  user
+}
+
+type BeginningFeed {
+  items: [Beginning!]!
+  hasMore: Boolean!
+}
+
+type UserFeed {
+  items: [User!]!
+  hasMore: Boolean!
+}
+
+type Beginning {
+  id: ID!
+  authorId: ID!
+  title: String!
+  problem: String!
+  solution: String!
+  createdAt: DateTime!
+}
+
 type User {
   id: ID!
-  network: UserNetwotk!
+  role: ROLE!
+  network: UserNetwotkData!
   about: UserAboutData!
   personal: UserPersonalData!
   regional: UserRegionalData!
   contacts: UserContactsData!
   statistics: UserStatisticsData!
   createdAt: DateTime!
+  beginnings: [Beginning!]!
 }
 
-type UserNetwotk {
+type UserNetwotkData {
   isOnline: Boolean!
   client: CLIENT!
-}
-
-type UserFeed {
-  items: [User!]!
-  hasMore: Boolean!
 }
 
 type UserAboutData {

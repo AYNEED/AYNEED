@@ -1,36 +1,46 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
-import { MsgProps, msg } from 'src/i18n/Msg';
+import { MsgProps, Msg, msg } from 'src/i18n/Msg';
 import { Tooltip } from 'src/components/ui/Tooltip';
 import { ExclamationPoint } from 'src/components/icons/ExclamationPoint';
 
-type Props = {
+interface CommonProps {
   name: string;
-  type: 'email' | 'password' | 'text';
+  icon?: JSX.Element;
+  onChange: React.ChangeEventHandler;
+}
+
+interface InputProps extends CommonProps {
   value: string;
   error?: string;
-  onChange: React.ChangeEventHandler;
   placeholder: MsgProps;
-};
+  maxLength?: number;
+}
 
-export const Input: React.FC<Props> = ({
-  name,
-  type,
-  value,
-  error,
-  onChange,
-  placeholder,
-}) => {
+interface InputCheckabeProps extends CommonProps {
+  value: string;
+  label: MsgProps;
+  checked?: boolean;
+}
+
+const Input: React.FC<
+  InputProps & {
+    type: 'password' | 'text';
+  }
+> = ({ name, icon, type, value, error, onChange, placeholder, maxLength }) => {
   const intl = useIntl();
 
   return (
     <>
+      {icon}
+
       <input
         name={name}
         type={type}
         value={value}
         onChange={onChange}
+        maxLength={maxLength}
         placeholder={msg(intl, placeholder)}
       />
 
@@ -42,3 +52,39 @@ export const Input: React.FC<Props> = ({
     </>
   );
 };
+
+const InputChecable: React.FC<
+  InputCheckabeProps & {
+    type: 'checkbox' | 'radio';
+  }
+> = ({ name, type, value, label, checked, onChange }) => (
+  <label>
+    <input
+      name={name}
+      type={type}
+      value={value}
+      checked={checked}
+      onChange={onChange}
+    />
+
+    <Msg id={label.id} values={label.values} />
+  </label>
+);
+
+export const InputText: React.FC<InputProps> = (props) => (
+  <Input {...props} type="text" />
+);
+
+export const InputEmail: React.FC<InputProps> = InputText;
+
+export const InputPassword: React.FC<InputProps> = (props) => (
+  <Input {...props} type="password" />
+);
+
+export const InputCheckbox: React.FC<InputCheckabeProps> = (props) => (
+  <InputChecable {...props} type="checkbox" />
+);
+
+export const InputRadio: React.FC<InputCheckabeProps> = (props) => (
+  <InputChecable {...props} type="radio" />
+);

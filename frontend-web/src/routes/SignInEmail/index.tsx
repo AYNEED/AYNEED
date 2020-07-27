@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/react-hooks';
 
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
-import { Input } from 'src/components/ui/forms/Input';
+import { InputEmail, InputPassword } from 'src/components/ui/forms/Input';
 import { ButtonSubmit } from 'src/components/ui/forms/Button';
 import { ROUTES, validators } from 'shared';
 import { Link } from 'src/components/ui/Link';
@@ -46,18 +46,16 @@ const SignInEmail: React.FC = () => {
       <form onSubmit={formik.handleSubmit}>
         <Notification error={result.error} />
 
-        <Input
+        <InputEmail
           name="email"
-          type="email"
           value={formik.values.email}
           error={formik.errors.email}
           onChange={formik.handleChange}
           placeholder={{ id: 'web.routes.SignInEmail.form_email' }}
         />
 
-        <Input
+        <InputPassword
           name="password"
-          type="password"
           value={formik.values.password}
           error={formik.errors.password}
           onChange={formik.handleChange}

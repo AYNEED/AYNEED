@@ -31,6 +31,24 @@ export const renderer = createRenderer({
   ],
 });
 
+renderer.renderStatic(`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body, html {
+    width: 100%;
+    height: 100%;
+  }
+
+  #root{
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+`);
 
 const buttonKeyframe = () => ({
   '0%': {
@@ -48,3 +66,5 @@ renderer.renderKeyframe(buttonKeyframe, {})
 export type Styles<K extends string, T = {}, P = {}> = {
   [key in K]: CssFelaStyle<T, P>;
 };
+
+export type PropsStyle<T = {}, P = {}> = CssFelaStyle<T, P>;

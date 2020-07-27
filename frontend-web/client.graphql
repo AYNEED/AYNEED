@@ -1,3 +1,10 @@
+fragment commouBeginningFields on Beginning {
+  id
+  title
+  problem
+  solution
+}
+
 fragment commouUserFields on User {
   id
   network {
@@ -17,6 +24,15 @@ fragment commouUserFields on User {
   }
 }
 
+query GetBeginnings($cursor: ID) {
+  beginnings(cursor: $cursor) {
+    items {
+      ...commouBeginningFields
+    }
+    hasMore
+  }
+}
+
 query GetUsers($cursor: ID) {
   users(cursor: $cursor) {
     items {
@@ -26,14 +42,58 @@ query GetUsers($cursor: ID) {
   }
 }
 
+subscription onBeginningAdded {
+  beginningAdded {
+    ...commouBeginningFields
+  }
+}
+
+subscription onBeginningUpdated {
+  beginningUpdated {
+    ...commouBeginningFields
+  }
+}
+
 subscription onUserAdded {
   userAdded {
     ...commouUserFields
   }
 }
 
+subscription onUserUpdated {
+  userUpdated {
+    ...commouUserFields
+  }
+}
+
+mutation ForgotPassword($email: String!) {
+  forgotPassword(email: $email)
+}
+
 mutation SignInEmail($email: String!, $password: String!, $client: CLIENT!) {
   signInEmail(email: $email, password: $password, client: $client) {
+    ...commouUserFields
+  }
+}
+
+mutation SignUpEmail(
+  $email: String!
+  $password: String!
+  $firstName: String!
+  $lastName: String!
+  $locale: LOCALE!
+  $isAgree: Boolean!
+  $client: CLIENT!
+) {
+  signUpEmail(
+    email: $email
+    password: $password
+    firstName: $firstName
+    lastName: $lastName
+    locale: $locale
+    isAgree: $isAgree
+    client: $client
+  ) {
     ...commouUserFields
   }
 }

@@ -6,7 +6,16 @@ type UserDriverAdditional = {
 };
 
 export const userDriver = (
-  { id, about, personal, regional, contacts, statistics, createdAt }: UserRes,
+  {
+    id,
+    about,
+    personal,
+    regional,
+    contacts,
+    statistics,
+    role,
+    createdAt,
+  }: UserRes,
   additional: UserDriverAdditional
 ): User => ({
   id,
@@ -15,6 +24,8 @@ export const userDriver = (
   regional,
   contacts,
   statistics,
+  role,
   createdAt,
+  beginnings: [],
   ...additional,
 });
