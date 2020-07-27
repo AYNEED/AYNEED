@@ -1,4 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Styles } from 'src/utils/fela';
+import { FelaComponent } from 'react-fela';
+import { COLOR } from 'src/constants/colors';
+
 import { useFormik, FormikConfig } from 'formik';
 import { useHistory } from 'react-router-dom';
 
@@ -26,6 +30,40 @@ const modeToItem: {
 };
 
 const modes = Object.values(SearchMode);
+
+const style: Styles<'inputCheckable' | 'input' | 'container' | 'icon'> = {
+  inputCheckable: {
+    padding: '16px',
+    fontFamily: 'Montserrat',
+    fontSize: '18px',
+    lineHeight: '150%',
+    color: '#C2CFE0',
+    float: 'right',
+  },
+  input: {
+    zIndex: -1,
+    cursor: 'pointer',
+    position: 'absolute',
+    background: 'transparent',
+    outline: '0',
+    width: '100%',
+    height: '100%',
+    border: 'none',
+  },
+  container: {
+    zIndex: 0,
+    marginTop: '108.7px',
+    position: 'relative',
+    width: '70%',
+    height: '59px',
+    border: '1px solid #E4E9F0',
+    boxSizing: 'border-box',
+  },
+  icon: {
+    float: 'left',
+    padding: '16.5px',
+  },
+};
 
 export const SearchForm: React.FC<Props> = ({
   onSubmit,
@@ -55,27 +93,52 @@ export const SearchForm: React.FC<Props> = ({
     }
   }, [history, formik.values, withChangeHistory]);
 
-  return (
-    <form onSubmit={formik.handleSubmit}>
-      <InputText
-        icon={<Search />}
-        name="query"
-        value={formik.values.query}
-        placeholder={{ id: 'web.components.blocks.SearchForm.form_search' }}
-        onChange={formik.handleChange}
-        maxLength={80}
-      />
+  const [isFocused, setIsFocused] = useState(false);
 
-      {modes.map((mode) => (
-        <InputRadio
-          key={mode}
-          name="mode"
-          value={mode}
-          checked={formik.values.mode === mode}
-          label={{ id: modeToItem[mode as SearchMode] }}
-          onChange={formik.handleChange}
-        />
-      ))}
-    </form>
+  return (
+    <FelaComponent style={style.container}>
+      <form
+        onSubmit={formik.handleSubmit}
+        onMouseEnter={() => setIsFocused(true)}
+        onMouseLeave={() => setIsFocused(false)}
+      >
+        <FelaComponent style={style.input}>
+          {({ className }) => (
+            <InputText
+              className={className}
+              icon={
+                <FelaComponent style={style.icon}>
+                  <Search
+                    fill={isFocused ? COLOR.PRIMARY_500 : COLOR.SECONDARY_400}
+                  />
+                </FelaComponent>
+              }
+              name="query"
+              value={formik.values.query}
+              placeholder={{
+                id: 'web.components.blocks.SearchForm.form_search',
+              }}
+              onChange={formik.handleChange}
+              maxLength={80}
+            />
+          )}
+        </FelaComponent>
+        {modes.map((mode) => (
+          <FelaComponent style={style.inputCheckable}>
+            {({ className }) => (
+              <InputRadio
+                className={className}
+                key={mode}
+                name="mode"
+                value={mode}
+                checked={formik.values.mode === mode}
+                label={{ id: modeToItem[mode as SearchMode] }}
+                onChange={formik.handleChange}
+              />
+            )}
+          </FelaComponent>
+        ))}
+      </form>
+    </FelaComponent>
   );
 };
