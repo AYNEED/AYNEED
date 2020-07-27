@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
 
-const MessagePublicInfoSchema = new Schema<never>({
+const MessageInfoSchema = new Schema<never>({
   text: {
     type: String,
     required: true,
@@ -15,7 +15,7 @@ const MessagePublicInfoSchema = new Schema<never>({
   },
 });
 
-const MessageIdInfoSchema = new Schema<never>({
+const MessageUsersSchema = new Schema<never>({
   authorId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -43,34 +43,29 @@ const MessageVisibleSchema = new Schema<never>({
   },
 });
 
-const PrivateMessageSchema = new Schema(
+const MessageSchema = new Schema(
   {
-    publicInfo: {
-      type: MessagePublicInfoSchema,
+    info: {
+      type: MessageInfoSchema,
       required: true,
     },
-    idInfo: {
-      type: MessageIdInfoSchema,
+    users: {
+      type: MessageUsersSchema,
       required: true,
     },
     visible: {
       type: MessageVisibleSchema,
       required: true,
     },
-    dateInfo: {
-      editAt: {
-        type: Date,
-      },
-      // Moment of deletion message
-      deleteAt: {
-        type: Date,
-      },
+    editAt: {
+      type: Date,
+    },
+    // Moment of deletion message
+    deleteAt: {
+      type: Date,
     },
   },
   schemaOptions
 );
 
-export const PrivateMessageModel = model(
-  'PrivateMessage',
-  PrivateMessageSchema
-);
+export const MessageModel = model('Message', MessageSchema);
