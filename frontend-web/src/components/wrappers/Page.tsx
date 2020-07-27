@@ -22,7 +22,7 @@ export const Page: React.FC<Props> = ({ children, title }) => {
   }, [msgProps, intl]);
 
   return (
-    <>
+    <div data-testid="page">
       {!!(title && msgProps) && (
         <h1>
           <Msg {...msgProps} />
@@ -30,6 +30,6 @@ export const Page: React.FC<Props> = ({ children, title }) => {
       )}
 
       {children}
-    </>
+    </div>
   );
 };

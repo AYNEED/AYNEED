@@ -1,3 +1,10 @@
+fragment commouBeginningFields on Beginning {
+  id
+  title
+  problem
+  solution
+}
+
 fragment commouUserFields on User {
   id
   network {
@@ -17,6 +24,15 @@ fragment commouUserFields on User {
   }
 }
 
+query GetBeginnings($cursor: ID) {
+  beginnings(cursor: $cursor) {
+    items {
+      ...commouBeginningFields
+    }
+    hasMore
+  }
+}
+
 query GetUsers($cursor: ID) {
   users(cursor: $cursor) {
     items {
@@ -26,8 +42,26 @@ query GetUsers($cursor: ID) {
   }
 }
 
+subscription onBeginningAdded {
+  beginningAdded {
+    ...commouBeginningFields
+  }
+}
+
+subscription onBeginningUpdated {
+  beginningUpdated {
+    ...commouBeginningFields
+  }
+}
+
 subscription onUserAdded {
   userAdded {
+    ...commouUserFields
+  }
+}
+
+subscription onUserUpdated {
+  userUpdated {
     ...commouUserFields
   }
 }
