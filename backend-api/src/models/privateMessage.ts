@@ -45,15 +45,15 @@ const MessageVisibleSchema = new Schema<never>({
 
 const PrivateMessageSchema = new Schema(
   {
-    publicInfoSchema: {
+    publicInfo: {
       type: MessagePublicInfoSchema,
       required: true,
     },
-    idInfoSchema: {
+    idInfo: {
       type: MessageIdInfoSchema,
       required: true,
     },
-    visibleSchema: {
+    visible: {
       type: MessageVisibleSchema,
       required: true,
     },
