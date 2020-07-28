@@ -26,6 +26,13 @@ type Mutation {
     isAgree: Boolean!
     client: CLIENT!
   ): User!
+
+  addBeginning(
+    authorId: ID!
+    title: String!
+    problem: String!
+    solution: String!
+  ): Beginning!
 }
 
 type Query {

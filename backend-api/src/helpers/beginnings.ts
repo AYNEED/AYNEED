@@ -1,5 +1,5 @@
 import { BeginningRes, BeginningModel } from 'src/models/beginning';
-import { Beginning } from 'src/__generated__';
+import { Beginning, MutationAddBeginningArgs } from 'src/__generated__';
 import { ValidationError } from 'shared';
 
 export const findBeginningById = async (
@@ -12,4 +12,18 @@ export const findBeginningById = async (
   }
 
   return beginning;
+};
+
+export const createBeginning = async ({
+  authorId,
+  title,
+  problem,
+  solution,
+}: MutationAddBeginningArgs): Promise<BeginningRes> => {
+  return BeginningModel.create({
+    authorId,
+    title,
+    problem,
+    solution,
+  });
 };
