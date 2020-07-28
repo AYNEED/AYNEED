@@ -24,6 +24,7 @@ export type Mutation = {
   forgotPasswordChange: User;
   signInEmail: User;
   signUpEmail: User;
+  addBeginning: Beginning;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -50,6 +51,13 @@ export type MutationSignUpEmailArgs = {
   locale: Locale;
   isAgree: Scalars['Boolean'];
   client: Client;
+};
+
+export type MutationAddBeginningArgs = {
+  authorId: Scalars['ID'];
+  title: Scalars['String'];
+  problem: Scalars['String'];
+  solution: Scalars['String'];
 };
 
 export type Query = {
@@ -337,8 +345,8 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
   LOCALE: Locale;
   LANGUAGE_LEVEL: LanguageLevel;
@@ -369,8 +377,8 @@ export type ResolversParentTypes = {
   Mutation: {};
   Boolean: Scalars['Boolean'];
   String: Scalars['String'];
-  Query: {};
   ID: Scalars['ID'];
+  Query: {};
   Subscription: {};
   BeginningFeed: BeginningFeed;
   UserFeed: UserFeed;
@@ -433,6 +441,15 @@ export type MutationResolvers<
       | 'locale'
       | 'isAgree'
       | 'client'
+    >
+  >;
+  addBeginning: Resolver<
+    ResolversTypes['Beginning'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationAddBeginningArgs,
+      'authorId' | 'title' | 'problem' | 'solution'
     >
   >;
 };
