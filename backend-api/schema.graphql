@@ -43,6 +43,9 @@ type Query {
   users(cursor: ID): UserFeed!
 
   search(query: String!, mode: SEARCH_MODE!): UserFeed!
+
+  messages(cursor: ID!): MessageFeed!
+
 }
 
 type Subscription {
@@ -93,6 +96,11 @@ type UserFeed {
   hasMore: Boolean!
 }
 
+type MessageFeed {
+  items: [Message!]!
+  hasMore: Boolean!
+}
+
 type Beginning {
   id: ID!
   authorId: ID!
@@ -113,6 +121,14 @@ type User {
   statistics: UserStatisticsData!
   createdAt: DateTime!
   beginnings: [Beginning!]!
+}
+
+type Message {
+  info: MessageInfo!
+  users: MessageUsers!
+  visible: MessageVisible!
+  editAt: DateTime!
+  deleteAt: DateTime!
 }
 
 type UserNetwotkData {
@@ -182,3 +198,22 @@ type UserContactRecord {
   isVisible: Boolean!
   isVerified: Boolean!
 }
+
+type MessageInfo {
+  text: String!
+  isRead: Boolean!
+}
+
+type MessageUsers {
+  authorId: ID!
+  recipientId: ID!
+}
+
+type MessageVisible {
+  isVisibleAuthor: Boolean!
+  isVisibleAll: Boolean!
+}
+
+
+
+

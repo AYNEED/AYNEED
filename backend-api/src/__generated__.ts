@@ -66,6 +66,7 @@ export type Query = {
   user: User;
   users: UserFeed;
   search: UserFeed;
+  messages: MessageFeed;
 };
 
 export type QueryBeginningArgs = {
@@ -87,6 +88,10 @@ export type QueryUsersArgs = {
 export type QuerySearchArgs = {
   query: Scalars['String'];
   mode: SearchMode;
+};
+
+export type QueryMessagesArgs = {
+  cursor: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -136,6 +141,11 @@ export type UserFeed = {
   hasMore: Scalars['Boolean'];
 };
 
+export type MessageFeed = {
+  items: Array<Message>;
+  hasMore: Scalars['Boolean'];
+};
+
 export type Beginning = {
   id: Scalars['ID'];
   authorId: Scalars['ID'];
@@ -156,6 +166,14 @@ export type User = {
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
   beginnings: Array<Beginning>;
+};
+
+export type Message = {
+  info: MessageInfo;
+  users: MessageUsers;
+  visible: MessageVisible;
+  editAt: Scalars['DateTime'];
+  deleteAt: Scalars['DateTime'];
 };
 
 export type UserNetwotkData = {
@@ -224,6 +242,21 @@ export type UserContactRecord = {
   value: Scalars['String'];
   isVisible: Scalars['Boolean'];
   isVerified: Scalars['Boolean'];
+};
+
+export type MessageInfo = {
+  text: Scalars['String'];
+  isRead: Scalars['Boolean'];
+};
+
+export type MessageUsers = {
+  authorId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+};
+
+export type MessageVisible = {
+  isVisibleAuthor: Scalars['Boolean'];
+  isVisibleAll: Scalars['Boolean'];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -355,8 +388,10 @@ export type ResolversTypes = {
   ROLE: Role;
   BeginningFeed: ResolverTypeWrapper<BeginningFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
+  MessageFeed: ResolverTypeWrapper<MessageFeed>;
   Beginning: ResolverTypeWrapper<Beginning>;
   User: ResolverTypeWrapper<User>;
+  Message: ResolverTypeWrapper<Message>;
   UserNetwotkData: ResolverTypeWrapper<UserNetwotkData>;
   UserAboutData: ResolverTypeWrapper<UserAboutData>;
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
@@ -369,6 +404,9 @@ export type ResolversTypes = {
   UserEducationRecord: ResolverTypeWrapper<UserEducationRecord>;
   UserLanguageRecord: ResolverTypeWrapper<UserLanguageRecord>;
   UserContactRecord: ResolverTypeWrapper<UserContactRecord>;
+  MessageInfo: ResolverTypeWrapper<MessageInfo>;
+  MessageUsers: ResolverTypeWrapper<MessageUsers>;
+  MessageVisible: ResolverTypeWrapper<MessageVisible>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -382,8 +420,10 @@ export type ResolversParentTypes = {
   Subscription: {};
   BeginningFeed: BeginningFeed;
   UserFeed: UserFeed;
+  MessageFeed: MessageFeed;
   Beginning: Beginning;
   User: User;
+  Message: Message;
   UserNetwotkData: UserNetwotkData;
   UserAboutData: UserAboutData;
   UserPersonalData: UserPersonalData;
@@ -396,6 +436,9 @@ export type ResolversParentTypes = {
   UserEducationRecord: UserEducationRecord;
   UserLanguageRecord: UserLanguageRecord;
   UserContactRecord: UserContactRecord;
+  MessageInfo: MessageInfo;
+  MessageUsers: MessageUsers;
+  MessageVisible: MessageVisible;
 };
 
 export interface DateTimeScalarConfig
@@ -488,6 +531,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QuerySearchArgs, 'query' | 'mode'>
   >;
+  messages: Resolver<
+    ResolversTypes['MessageFeed'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryMessagesArgs, 'cursor'>
+  >;
 };
 
 export type SubscriptionResolvers<
@@ -534,6 +583,15 @@ export type UserFeedResolvers<
   ParentType extends ResolversParentTypes['UserFeed'] = ResolversParentTypes['UserFeed']
 > = {
   items: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
+  hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type MessageFeedResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['MessageFeed'] = ResolversParentTypes['MessageFeed']
+> = {
+  items: Resolver<Array<ResolversTypes['Message']>, ParentType, ContextType>;
   hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -585,6 +643,18 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type MessageResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
+> = {
+  info: Resolver<ResolversTypes['MessageInfo'], ParentType, ContextType>;
+  users: Resolver<ResolversTypes['MessageUsers'], ParentType, ContextType>;
+  visible: Resolver<ResolversTypes['MessageVisible'], ParentType, ContextType>;
+  editAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  deleteAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -740,6 +810,33 @@ export type UserContactRecordResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type MessageInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['MessageInfo'] = ResolversParentTypes['MessageInfo']
+> = {
+  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isRead: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type MessageUsersResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['MessageUsers'] = ResolversParentTypes['MessageUsers']
+> = {
+  authorId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type MessageVisibleResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['MessageVisible'] = ResolversParentTypes['MessageVisible']
+> = {
+  isVisibleAuthor: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isVisibleAll: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type Resolvers<ContextType = any> = {
   DateTime: GraphQLScalarType;
   Mutation: MutationResolvers<ContextType>;
@@ -747,8 +844,10 @@ export type Resolvers<ContextType = any> = {
   Subscription: SubscriptionResolvers<ContextType>;
   BeginningFeed: BeginningFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
+  MessageFeed: MessageFeedResolvers<ContextType>;
   Beginning: BeginningResolvers<ContextType>;
   User: UserResolvers<ContextType>;
+  Message: MessageResolvers<ContextType>;
   UserNetwotkData: UserNetwotkDataResolvers<ContextType>;
   UserAboutData: UserAboutDataResolvers<ContextType>;
   UserPersonalData: UserPersonalDataResolvers<ContextType>;
@@ -760,6 +859,9 @@ export type Resolvers<ContextType = any> = {
   UserEducationRecord: UserEducationRecordResolvers<ContextType>;
   UserLanguageRecord: UserLanguageRecordResolvers<ContextType>;
   UserContactRecord: UserContactRecordResolvers<ContextType>;
+  MessageInfo: MessageInfoResolvers<ContextType>;
+  MessageUsers: MessageUsersResolvers<ContextType>;
+  MessageVisible: MessageVisibleResolvers<ContextType>;
 };
 
 /**
