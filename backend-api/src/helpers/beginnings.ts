@@ -19,11 +19,10 @@ export const createBeginning = async ({
   title,
   problem,
   solution,
-}: MutationAddBeginningArgs): Promise<BeginningRes> => {
-  return BeginningModel.create({
+}: MutationAddBeginningArgs): Promise<BeginningRes> =>
+  BeginningModel.create({
     authorId,
     title,
     problem,
     solution,
   });
-};
