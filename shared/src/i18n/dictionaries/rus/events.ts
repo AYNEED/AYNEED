@@ -18,6 +18,8 @@ export const events = {
   'error.lastName.required': 'Укажите вашу фамилию',
 
   'error.user.notFound': 'Пользователь не найден',
+  'error.user.incompleteProfile':
+    'Профиль заполнен не полностью. Заполните и повторите попытку',
 
   'error.beginning.notFound': 'Начинание не найдено',
 };

@@ -17,6 +17,7 @@ export type Mutation = {
   forgotPasswordChange: User;
   signInEmail: User;
   signUpEmail: User;
+  addBeginning: Beginning;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -43,6 +44,13 @@ export type MutationSignUpEmailArgs = {
   locale: Locale;
   isAgree: Scalars['Boolean'];
   client: Client;
+};
+
+export type MutationAddBeginningArgs = {
+  authorId: Scalars['ID'];
+  title: Scalars['String'];
+  problem: Scalars['String'];
+  solution: Scalars['String'];
 };
 
 export type Query = {
@@ -140,6 +148,7 @@ export type User = {
   contacts: UserContactsData;
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
+  beginnings: Array<Beginning>;
 };
 
 export type UserNetwotkData = {

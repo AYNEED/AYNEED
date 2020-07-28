@@ -1,3 +1,4 @@
+import { BeginningModel } from 'src/models/beginning';
 import { Resolvers } from 'src/__generated__';
 
 export const resolveBeginning: Resolvers['Beginning'] = {
@@ -24,6 +25,8 @@ export const resolveUser: Resolvers['User'] = {
   statistics: (parent) => parent.statistics,
   role: (parent) => parent.role,
   createdAt: (parent) => parent.createdAt,
+
+  beginnings: async (parent) => BeginningModel.find({ authorId: parent.id }),
 };
 
 export const resolveUserFeed: Resolvers['UserFeed'] = {
