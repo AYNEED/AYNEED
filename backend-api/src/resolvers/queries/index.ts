@@ -5,6 +5,7 @@ import {
 } from 'src/resolvers/queries/beginnings';
 import { getUserById, getUsers } from 'src/resolvers/queries/users';
 import { getSearchResults } from 'src/resolvers/queries/search';
+import { getMessages } from './messages';
 
 export const query: Resolvers['Query'] = {
   beginning: getBeginningById,
@@ -14,4 +15,6 @@ export const query: Resolvers['Query'] = {
   users: getUsers,
 
   search: getSearchResults,
+
+  messages: getMessages,
 };

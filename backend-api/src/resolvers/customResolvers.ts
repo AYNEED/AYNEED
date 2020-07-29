@@ -15,6 +15,35 @@ export const resolveBeginningFeed: Resolvers['BeginningFeed'] = {
   hasMore: (parent) => parent.hasMore,
 };
 
+export const resolveMessageFeed: Resolvers['MessageFeed'] = {
+  items: (parent) => parent.items,
+  hasMore: (parent) => parent.hasMore,
+};
+
+export const resolveMessageInfo: Resolvers['MessageInfo'] = {
+  text: (parent) => parent.text,
+  isRead: (parent) => parent.isRead,
+};
+
+export const resolveMessageUsers: Resolvers['MessageUsers'] = {
+  authorId: (parent) => parent.authorId,
+  recipientId: (parent) => parent.recipientId,
+};
+
+export const resolveMessageVisible: Resolvers['MessageVisible'] = {
+  isVisibleAuthor: (parent) => parent.isVisibleAuthor,
+  isVisibleAll: (parent) => parent.isVisibleAll,
+};
+
+export const resolveMessage: Resolvers['Message'] = {
+  info: (parent) => parent.info,
+  users: (parent) => parent.users,
+  visible: (parent) => parent.visible,
+  createdAt: (parent) => parent.createdAt,
+  editAt: (parent) => parent.editAt,
+  deleteAt: (parent) => parent.deleteAt,
+};
+
 export const resolveUser: Resolvers['User'] = {
   id: (parent) => parent.id,
   network: (parent) => parent.network,

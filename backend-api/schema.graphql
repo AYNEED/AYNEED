@@ -127,8 +127,9 @@ type Message {
   info: MessageInfo!
   users: MessageUsers!
   visible: MessageVisible!
-  editAt: DateTime!
-  deleteAt: DateTime!
+  createdAt: DateTime!
+  editAt: DateTime
+  deleteAt: DateTime
 }
 
 type UserNetwotkData {

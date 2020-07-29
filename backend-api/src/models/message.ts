@@ -1,6 +1,10 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
+import { Message } from '../__generated__';
+
+export type MessageRes = Document & Message;
+type MessageReq = Omit<MessageRes, 'createdAt'>;
 
 const MessageInfoSchema = new Schema<never>({
   text: {
@@ -68,4 +72,7 @@ const MessageSchema = new Schema(
   schemaOptions
 );
 
-export const MessageModel = model('Message', MessageSchema);
+export const MessageModel = model<MessageReq, MessageRes>(
+  'Message',
+  MessageSchema
+);

@@ -21,6 +21,11 @@ import {
   resolveUserEducationRecord,
   resolveUserLanguageRecord,
   resolveUserSkillRecord,
+  resolveMessageFeed,
+  resolveMessageVisible,
+  resolveMessageUsers,
+  resolveMessageInfo,
+  resolveMessage,
 } from 'src/resolvers/customResolvers';
 import { scalarDateTime } from 'src/resolvers/customScalars';
 
@@ -40,6 +45,11 @@ export const resolvers: Resolvers = {
   // Custom resolvers:
   Beginning: resolveBeginning,
   BeginningFeed: resolveBeginningFeed,
+  Message: resolveMessage,
+  MessageFeed: resolveMessageFeed,
+  MessageInfo: resolveMessageInfo,
+  MessageUsers: resolveMessageUsers,
+  MessageVisible: resolveMessageVisible,
   User: resolveUser,
   UserFeed: resolveUserFeed,
   UserAboutData: resolveUserAboutData,
