@@ -45,7 +45,6 @@ type Query {
   search(query: String!, mode: SEARCH_MODE!): UserFeed!
 
   messages(cursor: ID!): MessageFeed!
-
 }
 
 type Subscription {
@@ -214,7 +213,3 @@ type MessageVisible {
   isVisibleAuthor: Boolean!
   isVisibleAll: Boolean!
 }
-
-
-
-
