@@ -1,5 +1,5 @@
 import { Resolvers } from 'src/__generated__';
-import { FEED_LIMIT } from '../../constants';
+import { FEED_LIMIT } from 'src/constants';
 import { MessageModel } from 'src/models/message';
 
 export const getMessages: Resolvers['Query']['messages'] = async (

@@ -123,9 +123,9 @@ type User {
 }
 
 type Message {
-  info: MessageInfo!
-  users: MessageUsers!
-  visible: MessageVisible!
+  info: MessageInfoData!
+  users: MessageUsersData!
+  visible: MessageVisibleData!
   createdAt: DateTime!
   editAt: DateTime
   deleteAt: DateTime
@@ -199,17 +199,17 @@ type UserContactRecord {
   isVerified: Boolean!
 }
 
-type MessageInfo {
+type MessageInfoData {
   text: String!
   isRead: Boolean!
 }
 
-type MessageUsers {
+type MessageUsersData {
   authorId: ID!
   recipientId: ID!
 }
 
-type MessageVisible {
+type MessageVisibleData {
   isVisibleAuthor: Boolean!
   isVisibleAll: Boolean!
 }

@@ -20,17 +20,17 @@ export const resolveMessageFeed: Resolvers['MessageFeed'] = {
   hasMore: (parent) => parent.hasMore,
 };
 
-export const resolveMessageInfo: Resolvers['MessageInfo'] = {
+export const resolveMessageInfo: Resolvers['MessageInfoData'] = {
   text: (parent) => parent.text,
   isRead: (parent) => parent.isRead,
 };
 
-export const resolveMessageUsers: Resolvers['MessageUsers'] = {
+export const resolveMessageUsers: Resolvers['MessageUsersData'] = {
   authorId: (parent) => parent.authorId,
   recipientId: (parent) => parent.recipientId,
 };
 
-export const resolveMessageVisible: Resolvers['MessageVisible'] = {
+export const resolveMessageVisible: Resolvers['MessageVisibleData'] = {
   isVisibleAuthor: (parent) => parent.isVisibleAuthor,
   isVisibleAll: (parent) => parent.isVisibleAll,
 };
