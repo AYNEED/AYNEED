@@ -70,7 +70,7 @@ const InputChecable: React.FC<
     type: 'checkbox' | 'radio';
   }
 > = ({ name, type, value, label, checked, onChange, className }) => (
-  <label className={className}>
+  <label className={checked === true ? className : ''}>
     <input
       name={name}
       type={type}

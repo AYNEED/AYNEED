@@ -1,4 +1,4 @@
-import { createRenderer } from 'fela';
+import { createRenderer, TRule } from 'fela';
 import { CssFelaStyle } from 'react-fela';
 import typescript from 'fela-plugin-typescript';
 import fallbackValue from 'fela-plugin-fallback-value';
@@ -147,3 +147,7 @@ export type Styles<K extends string, T = {}, P = {}> = {
 };
 
 export type PropsStyle<T = {}, P = {}> = CssFelaStyle<T, P>;
+
+export type RuleStyles<K extends string> = {
+  [key in K]: TRule;
+};

@@ -11,12 +11,17 @@ import { Error404 as Error404Icon } from 'src/components/icons/Error404';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
-const style: Styles<'logo' | 'notFound'> = {
+const style: Styles<'logo' | 'notFound' | 'container'> = {
   logo: {
     marginTop: '111.38px',
   },
   notFound: {
     marginTop: '116.26px',
+  },
+  container: {
+    display: 'flex !important',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 };
 
@@ -25,13 +30,7 @@ const Error404: React.FC = () => {
 
   return (
     <Page>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+      <FelaComponent style={style.container}>
         <FelaComponent style={style.logo}>
           <Logo />
         </FelaComponent>
@@ -41,7 +40,7 @@ const Error404: React.FC = () => {
         <SearchForm
           onSubmit={(values) => updateHistory(history, ROUTES.FEED, values)}
         />
-      </div>
+      </FelaComponent>
     </Page>
   );
 };

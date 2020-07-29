@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Styles } from 'src/utils/fela';
+import { RuleStyles, renderer } from 'src/utils/fela';
 import { FelaComponent } from 'react-fela';
 import { COLOR } from 'src/constants/colors';
 
@@ -31,38 +31,62 @@ const modeToItem: {
 
 const modes = Object.values(SearchMode);
 
-const style: Styles<'inputCheckable' | 'input' | 'container' | 'icon'> = {
-  inputCheckable: {
-    padding: '16px',
-    fontFamily: 'Montserrat',
-    fontSize: '18px',
-    lineHeight: '150%',
-    color: '#C2CFE0',
-    float: 'right',
-  },
-  input: {
-    zIndex: -1,
-    cursor: 'pointer',
-    position: 'absolute',
-    background: 'transparent',
-    outline: '0',
-    width: '100%',
-    height: '100%',
-    border: 'none',
-  },
-  container: {
+const style: RuleStyles<'container' | 'icon' | 'checked'> = {
+  container: () => ({
     zIndex: 0,
     marginTop: '108.7px',
     position: 'relative',
-    width: '70%',
+    width: '1410px',
     height: '59px',
-    border: '1px solid #E4E9F0',
+    border: '1px solid ' + COLOR.SECONDARY_200,
     boxSizing: 'border-box',
-  },
-  icon: {
+    ':hover': {
+      border: '1px solid ' + COLOR.SECONDARY_300,
+    },
+    '> form > input': {
+      zIndex: -1,
+      cursor: 'pointer',
+      position: 'absolute',
+      fontSize: '18px',
+      lineHeight: '150%',
+      background: 'transparent',
+      color: COLOR.SECONDARY_500,
+      outline: '0',
+      width: '100%',
+      height: '100%',
+      border: 'none',
+      '::placeholder': {
+        color: COLOR.SECONDARY_300,
+      },
+    },
+    '> form > label': {
+      padding: '16px',
+      fontSize: '18px',
+      lineHeight: '150%',
+      color: COLOR.SECONDARY_300,
+      float: 'right',
+      '>input[type="radio"]': {
+        display: 'none',
+      },
+    },
+    '> form > label > input': {
+      '[type="text"]': {
+        zIndex: -1,
+        cursor: 'pointer',
+        position: 'absolute',
+        background: 'transparent',
+        width: '100%',
+        height: '100%',
+      },
+    },
+  }),
+  icon: () => ({
     float: 'left',
     padding: '16.5px',
-  },
+  }),
+  checked: () => ({
+    color: COLOR.PRIMARY_300 + ' !important',
+  }),
 };
 
 export const SearchForm: React.FC<Props> = ({
@@ -102,41 +126,32 @@ export const SearchForm: React.FC<Props> = ({
         onMouseEnter={() => setIsFocused(true)}
         onMouseLeave={() => setIsFocused(false)}
       >
-        <FelaComponent style={style.input}>
-          {({ className }) => (
-            <InputText
-              className={className}
-              icon={
-                <FelaComponent style={style.icon}>
-                  <Search
-                    fill={isFocused ? COLOR.PRIMARY_500 : COLOR.SECONDARY_400}
-                  />
-                </FelaComponent>
-              }
-              name="query"
-              value={formik.values.query}
-              placeholder={{
-                id: 'web.components.blocks.SearchForm.form_search',
-              }}
-              onChange={formik.handleChange}
-              maxLength={80}
-            />
-          )}
-        </FelaComponent>
-        {modes.map((mode) => (
-          <FelaComponent style={style.inputCheckable}>
-            {({ className }) => (
-              <InputRadio
-                className={className}
-                key={mode}
-                name="mode"
-                value={mode}
-                checked={formik.values.mode === mode}
-                label={{ id: modeToItem[mode as SearchMode] }}
-                onChange={formik.handleChange}
+        <InputText
+          icon={
+            <FelaComponent style={style.icon}>
+              <Search
+                fill={isFocused ? COLOR.PRIMARY_500 : COLOR.SECONDARY_400}
               />
-            )}
-          </FelaComponent>
+            </FelaComponent>
+          }
+          name="query"
+          value={formik.values.query}
+          placeholder={{
+            id: 'web.components.blocks.SearchForm.form_search',
+          }}
+          onChange={formik.handleChange}
+          maxLength={80}
+        />
+        {modes.map((mode) => (
+          <InputRadio
+            className={renderer.renderRule(style.checked, {})}
+            key={mode}
+            name="mode"
+            value={mode}
+            checked={formik.values.mode === mode}
+            label={{ id: modeToItem[mode as SearchMode] }}
+            onChange={formik.handleChange}
+          />
         ))}
       </form>
     </FelaComponent>
