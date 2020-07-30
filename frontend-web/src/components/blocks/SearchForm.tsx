@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { RuleStyles, renderer } from 'src/utils/fela';
 import { FelaComponent } from 'react-fela';
-import { COLOR } from 'src/constants/colors';
 
 import { useFormik, FormikConfig } from 'formik';
 import { useHistory } from 'react-router-dom';
 
+import { RuleStyles, Styles } from 'src/utils/fela';
+import { COLOR } from 'src/constants/colors';
 import { ROUTES } from 'shared';
 import { useGetParams } from 'src/hooks/useGetParams';
 import { MsgProps } from 'src/i18n/Msg';
@@ -31,11 +31,12 @@ const modeToItem: {
 
 const modes = Object.values(SearchMode);
 
-const style: RuleStyles<'container' | 'icon' | 'checked'> = {
+const styleExp: RuleStyles<'container'> = {
   container: () => ({
-    zIndex: 0,
-    marginTop: '108.7px',
+    marginTop: '120px',
     position: 'relative',
+    display: 'flex !important',
+    flexDirection: 'row',
     width: '1410px',
     height: '59px',
     border: '1px solid ' + COLOR.SECONDARY_200,
@@ -43,15 +44,14 @@ const style: RuleStyles<'container' | 'icon' | 'checked'> = {
     ':hover': {
       border: '1px solid ' + COLOR.SECONDARY_300,
     },
-    '> form > input': {
-      zIndex: -1,
+    '> input': {
       cursor: 'pointer',
-      position: 'absolute',
       fontSize: '18px',
       lineHeight: '150%',
       background: 'transparent',
       color: COLOR.SECONDARY_500,
       outline: '0',
+      flex: 1,
       width: '100%',
       height: '100%',
       border: 'none',
@@ -59,34 +59,25 @@ const style: RuleStyles<'container' | 'icon' | 'checked'> = {
         color: COLOR.SECONDARY_300,
       },
     },
-    '> form > label': {
+    '> label': {
       padding: '16px',
       fontSize: '18px',
       lineHeight: '150%',
       color: COLOR.SECONDARY_300,
-      float: 'right',
       '>input[type="radio"]': {
         display: 'none',
       },
     },
-    '> form > label > input': {
-      '[type="text"]': {
-        zIndex: -1,
-        cursor: 'pointer',
-        position: 'absolute',
-        background: 'transparent',
-        width: '100%',
-        height: '100%',
-      },
-    },
   }),
-  icon: () => ({
-    float: 'left',
+};
+
+const style: Styles<'icon' | 'checked'> = {
+  icon: {
     padding: '16.5px',
-  }),
-  checked: () => ({
+  },
+  checked: {
     color: COLOR.PRIMARY_300 + ' !important',
-  }),
+  },
 };
 
 export const SearchForm: React.FC<Props> = ({
@@ -120,12 +111,12 @@ export const SearchForm: React.FC<Props> = ({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <FelaComponent style={style.container}>
-      <form
-        onSubmit={formik.handleSubmit}
-        onMouseEnter={() => setIsFocused(true)}
-        onMouseLeave={() => setIsFocused(false)}
-      >
+    <form
+      onSubmit={formik.handleSubmit}
+      onMouseEnter={() => setIsFocused(true)}
+      onMouseLeave={() => setIsFocused(false)}
+    >
+      <FelaComponent style={styleExp.container}>
         <InputText
           icon={
             <FelaComponent style={style.icon}>
@@ -142,18 +133,22 @@ export const SearchForm: React.FC<Props> = ({
           onChange={formik.handleChange}
           maxLength={80}
         />
-        {modes.map((mode) => (
-          <InputRadio
-            className={renderer.renderRule(style.checked, {})}
-            key={mode}
-            name="mode"
-            value={mode}
-            checked={formik.values.mode === mode}
-            label={{ id: modeToItem[mode as SearchMode] }}
-            onChange={formik.handleChange}
-          />
-        ))}
-      </form>
-    </FelaComponent>
+        <FelaComponent style={style.checked}>
+          {({ className }) =>
+            modes.map((mode) => (
+              <InputRadio
+                className={formik.values.mode === mode ? className : undefined}
+                key={mode}
+                name="mode"
+                value={mode}
+                checked={formik.values.mode === mode}
+                label={{ id: modeToItem[mode as SearchMode] }}
+                onChange={formik.handleChange}
+              />
+            ))
+          }
+        </FelaComponent>
+      </FelaComponent>
+    </form>
   );
 };

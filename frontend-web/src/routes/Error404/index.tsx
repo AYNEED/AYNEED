@@ -1,8 +1,8 @@
 import React from 'react';
-import { Styles } from 'src/utils/fela';
 import { FelaComponent } from 'react-fela';
 import { useHistory } from 'react-router-dom';
 
+import { Styles } from 'src/utils/fela';
 import { ROUTES } from 'shared';
 import { updateHistory } from 'src/navigation';
 import { Page } from 'src/components/wrappers/Page';
@@ -13,10 +13,10 @@ const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
 const style: Styles<'logo' | 'notFound' | 'container'> = {
   logo: {
-    marginTop: '111.38px',
+    marginTop: '110px',
   },
   notFound: {
-    marginTop: '116.26px',
+    marginTop: '120px',
   },
   container: {
     display: 'flex !important',
