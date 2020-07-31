@@ -1,8 +1,17 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
+import {
+  Message,
+  MessageInfoData,
+  MessageUsersData,
+  MessageVisibleData,
+} from 'src/__generated__';
 
-const MessageInfoSchema = new Schema<never>({
+export type MessageRes = Document & Message;
+type MessageReq = Omit<MessageRes, 'createdAt'>;
+
+const MessageInfoSchema = new Schema<MessageInfoData>({
   text: {
     type: String,
     required: true,
@@ -15,7 +24,7 @@ const MessageInfoSchema = new Schema<never>({
   },
 });
 
-const MessageUsersSchema = new Schema<never>({
+const MessageUsersSchema = new Schema<MessageUsersData>({
   authorId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -28,7 +37,7 @@ const MessageUsersSchema = new Schema<never>({
   },
 });
 
-const MessageVisibleSchema = new Schema<never>({
+const MessageVisibleSchema = new Schema<MessageVisibleData>({
   // If author delete message only for yourself
   isVisibleAuthor: {
     type: Boolean,
@@ -68,4 +77,7 @@ const MessageSchema = new Schema(
   schemaOptions
 );
 
-export const MessageModel = model('Message', MessageSchema);
+export const MessageModel = model<MessageReq, MessageRes>(
+  'Message',
+  MessageSchema
+);

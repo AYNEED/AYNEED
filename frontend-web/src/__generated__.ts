@@ -59,6 +59,7 @@ export type Query = {
   user: User;
   users: UserFeed;
   search: UserFeed;
+  messages: MessageFeed;
 };
 
 export type QueryBeginningArgs = {
@@ -80,6 +81,10 @@ export type QueryUsersArgs = {
 export type QuerySearchArgs = {
   query: Scalars['String'];
   mode: SearchMode;
+};
+
+export type QueryMessagesArgs = {
+  cursor: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -129,6 +134,11 @@ export type UserFeed = {
   hasMore: Scalars['Boolean'];
 };
 
+export type MessageFeed = {
+  items: Array<Message>;
+  hasMore: Scalars['Boolean'];
+};
+
 export type Beginning = {
   id: Scalars['ID'];
   authorId: Scalars['ID'];
@@ -149,6 +159,15 @@ export type User = {
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
   beginnings: Array<Beginning>;
+};
+
+export type Message = {
+  info: MessageInfoData;
+  users: MessageUsersData;
+  visible: MessageVisibleData;
+  createdAt: Scalars['DateTime'];
+  editAt: Maybe<Scalars['DateTime']>;
+  deleteAt: Maybe<Scalars['DateTime']>;
 };
 
 export type UserNetwotkData = {
@@ -217,6 +236,21 @@ export type UserContactRecord = {
   value: Scalars['String'];
   isVisible: Scalars['Boolean'];
   isVerified: Scalars['Boolean'];
+};
+
+export type MessageInfoData = {
+  text: Scalars['String'];
+  isRead: Scalars['Boolean'];
+};
+
+export type MessageUsersData = {
+  authorId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+};
+
+export type MessageVisibleData = {
+  isVisibleAuthor: Scalars['Boolean'];
+  isVisibleAll: Scalars['Boolean'];
 };
 
 export type CommouBeginningFieldsFragment = Pick<
