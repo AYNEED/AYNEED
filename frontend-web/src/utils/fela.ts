@@ -1,5 +1,4 @@
-import { createRenderer, TRule } from 'fela';
-import { CssFelaStyle } from 'react-fela';
+import { createRenderer, IStyle } from 'fela';
 import typescript from 'fela-plugin-typescript';
 import fallbackValue from 'fela-plugin-fallback-value';
 import namedKeys from 'fela-plugin-named-keys';
@@ -142,12 +141,18 @@ renderer.renderStatic(`
   }
 `);
 
-export type Styles<K extends string, T = {}, P = {}> = {
-  [key in K]: CssFelaStyle<T, P>;
-};
+interface IAugmentedStyle extends IStyle {
+  ':hover'?: IStyle;
+  '> a'?: IStyle;
+  '> input'?: IStyle;
+  '> label'?: IStyle;
+}
 
-export type PropsStyle<T = {}, P = {}> = CssFelaStyle<T, P>;
+type FelaSheet = IAugmentedStyle;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type FelaSheetFunction = (props: any) => FelaSheet;
+export type PropsStyle = FelaSheet | FelaSheetFunction;
 
-export type RuleStyles<K extends string> = {
-  [key in K]: TRule;
+export type Styles<T extends string> = {
+  [key in T]: PropsStyle;
 };

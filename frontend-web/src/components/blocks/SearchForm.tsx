@@ -4,7 +4,7 @@ import { FelaComponent } from 'react-fela';
 import { useFormik, FormikConfig } from 'formik';
 import { useHistory } from 'react-router-dom';
 
-import { RuleStyles, Styles } from 'src/utils/fela';
+import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
 import { ROUTES } from 'shared';
 import { useGetParams } from 'src/hooks/useGetParams';
@@ -31,24 +31,29 @@ const modeToItem: {
 
 const modes = Object.values(SearchMode);
 
-const styleExp: RuleStyles<'container'> = {
+const style: Styles<'container' | 'icon' | 'checked'> = {
   container: () => ({
-    marginTop: '120px',
     position: 'relative',
     display: 'flex !important',
     flexDirection: 'row',
-    width: '1410px',
+    width: '80vw',
     height: '59px',
-    border: '1px solid ' + COLOR.SECONDARY_200,
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: COLOR.SECONDARY_200,
     boxSizing: 'border-box',
+    backgroundColor: COLOR.WHITE,
+    paddingRight: '10px',
+
     ':hover': {
-      border: '1px solid ' + COLOR.SECONDARY_300,
+      borderColor: COLOR.SECONDARY_300,
     },
+
     '> input': {
-      cursor: 'pointer',
+      cursor: 'text',
       fontSize: '18px',
       lineHeight: '150%',
-      background: 'transparent',
+      backgroundColor: 'transparent',
       color: COLOR.SECONDARY_500,
       outline: '0',
       flex: 1,
@@ -59,19 +64,19 @@ const styleExp: RuleStyles<'container'> = {
         color: COLOR.SECONDARY_300,
       },
     },
+
     '> label': {
+      cursor: 'pointer',
       padding: '16px',
       fontSize: '18px',
       lineHeight: '150%',
       color: COLOR.SECONDARY_300,
-      '>input[type="radio"]': {
+
+      '> input[type="radio"]': {
         display: 'none',
       },
     },
   }),
-};
-
-const style: Styles<'icon' | 'checked'> = {
   icon: {
     padding: '16.5px',
   },
@@ -116,7 +121,7 @@ export const SearchForm: React.FC<Props> = ({
       onMouseEnter={() => setIsFocused(true)}
       onMouseLeave={() => setIsFocused(false)}
     >
-      <FelaComponent style={styleExp.container}>
+      <FelaComponent style={style.container}>
         <InputText
           icon={
             <FelaComponent style={style.icon}>

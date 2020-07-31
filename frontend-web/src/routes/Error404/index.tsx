@@ -17,11 +17,13 @@ const style: Styles<'logo' | 'notFound' | 'container'> = {
   },
   notFound: {
     marginTop: '120px',
+    marginBottom: '100px',
   },
   container: {
     display: 'flex !important',
     flexDirection: 'column',
     alignItems: 'center',
+    paddingBottom: '100px',
   },
 };
 
@@ -29,7 +31,7 @@ const Error404: React.FC = () => {
   const history = useHistory();
 
   return (
-    <Page>
+    <Page gray>
       <FelaComponent style={style.container}>
         <FelaComponent style={style.logo}>
           <Logo />
