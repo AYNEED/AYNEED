@@ -24,6 +24,7 @@ export type Mutation = {
   forgotPasswordChange: User;
   signInEmail: User;
   signUpEmail: User;
+  addBeginning: Beginning;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -52,12 +53,20 @@ export type MutationSignUpEmailArgs = {
   client: Client;
 };
 
+export type MutationAddBeginningArgs = {
+  authorId: Scalars['ID'];
+  title: Scalars['String'];
+  problem: Scalars['String'];
+  solution: Scalars['String'];
+};
+
 export type Query = {
   beginning: Beginning;
   beginnings: BeginningFeed;
   user: User;
   users: UserFeed;
   search: UserFeed;
+  messages: MessageFeed;
 };
 
 export type QueryBeginningArgs = {
@@ -79,6 +88,10 @@ export type QueryUsersArgs = {
 export type QuerySearchArgs = {
   query: Scalars['String'];
   mode: SearchMode;
+};
+
+export type QueryMessagesArgs = {
+  cursor: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -128,6 +141,11 @@ export type UserFeed = {
   hasMore: Scalars['Boolean'];
 };
 
+export type MessageFeed = {
+  items: Array<Message>;
+  hasMore: Scalars['Boolean'];
+};
+
 export type Beginning = {
   id: Scalars['ID'];
   authorId: Scalars['ID'];
@@ -147,6 +165,16 @@ export type User = {
   contacts: UserContactsData;
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
+  beginnings: Array<Beginning>;
+};
+
+export type Message = {
+  info: MessageInfoData;
+  users: MessageUsersData;
+  visible: MessageVisibleData;
+  createdAt: Scalars['DateTime'];
+  editAt: Maybe<Scalars['DateTime']>;
+  deleteAt: Maybe<Scalars['DateTime']>;
 };
 
 export type UserNetwotkData = {
@@ -215,6 +243,21 @@ export type UserContactRecord = {
   value: Scalars['String'];
   isVisible: Scalars['Boolean'];
   isVerified: Scalars['Boolean'];
+};
+
+export type MessageInfoData = {
+  text: Scalars['String'];
+  isRead: Scalars['Boolean'];
+};
+
+export type MessageUsersData = {
+  authorId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+};
+
+export type MessageVisibleData = {
+  isVisibleAuthor: Scalars['Boolean'];
+  isVisibleAll: Scalars['Boolean'];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -336,8 +379,8 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
   LOCALE: Locale;
   LANGUAGE_LEVEL: LanguageLevel;
@@ -346,8 +389,10 @@ export type ResolversTypes = {
   ROLE: Role;
   BeginningFeed: ResolverTypeWrapper<BeginningFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
+  MessageFeed: ResolverTypeWrapper<MessageFeed>;
   Beginning: ResolverTypeWrapper<Beginning>;
   User: ResolverTypeWrapper<User>;
+  Message: ResolverTypeWrapper<Message>;
   UserNetwotkData: ResolverTypeWrapper<UserNetwotkData>;
   UserAboutData: ResolverTypeWrapper<UserAboutData>;
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
@@ -360,6 +405,9 @@ export type ResolversTypes = {
   UserEducationRecord: ResolverTypeWrapper<UserEducationRecord>;
   UserLanguageRecord: ResolverTypeWrapper<UserLanguageRecord>;
   UserContactRecord: ResolverTypeWrapper<UserContactRecord>;
+  MessageInfoData: ResolverTypeWrapper<MessageInfoData>;
+  MessageUsersData: ResolverTypeWrapper<MessageUsersData>;
+  MessageVisibleData: ResolverTypeWrapper<MessageVisibleData>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -368,13 +416,15 @@ export type ResolversParentTypes = {
   Mutation: {};
   Boolean: Scalars['Boolean'];
   String: Scalars['String'];
-  Query: {};
   ID: Scalars['ID'];
+  Query: {};
   Subscription: {};
   BeginningFeed: BeginningFeed;
   UserFeed: UserFeed;
+  MessageFeed: MessageFeed;
   Beginning: Beginning;
   User: User;
+  Message: Message;
   UserNetwotkData: UserNetwotkData;
   UserAboutData: UserAboutData;
   UserPersonalData: UserPersonalData;
@@ -387,6 +437,9 @@ export type ResolversParentTypes = {
   UserEducationRecord: UserEducationRecord;
   UserLanguageRecord: UserLanguageRecord;
   UserContactRecord: UserContactRecord;
+  MessageInfoData: MessageInfoData;
+  MessageUsersData: MessageUsersData;
+  MessageVisibleData: MessageVisibleData;
 };
 
 export interface DateTimeScalarConfig
@@ -434,6 +487,15 @@ export type MutationResolvers<
       | 'client'
     >
   >;
+  addBeginning: Resolver<
+    ResolversTypes['Beginning'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationAddBeginningArgs,
+      'authorId' | 'title' | 'problem' | 'solution'
+    >
+  >;
 };
 
 export type QueryResolvers<
@@ -469,6 +531,12 @@ export type QueryResolvers<
     ParentType,
     ContextType,
     RequireFields<QuerySearchArgs, 'query' | 'mode'>
+  >;
+  messages: Resolver<
+    ResolversTypes['MessageFeed'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryMessagesArgs, 'cursor'>
   >;
 };
 
@@ -520,6 +588,15 @@ export type UserFeedResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type MessageFeedResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['MessageFeed'] = ResolversParentTypes['MessageFeed']
+> = {
+  items: Resolver<Array<ResolversTypes['Message']>, ParentType, ContextType>;
+  hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type BeginningResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Beginning'] = ResolversParentTypes['Beginning']
@@ -562,6 +639,32 @@ export type UserResolvers<
     ContextType
   >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  beginnings: Resolver<
+    Array<ResolversTypes['Beginning']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type MessageResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
+> = {
+  info: Resolver<ResolversTypes['MessageInfoData'], ParentType, ContextType>;
+  users: Resolver<ResolversTypes['MessageUsersData'], ParentType, ContextType>;
+  visible: Resolver<
+    ResolversTypes['MessageVisibleData'],
+    ParentType,
+    ContextType
+  >;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  editAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  deleteAt: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -717,6 +820,33 @@ export type UserContactRecordResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type MessageInfoDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['MessageInfoData'] = ResolversParentTypes['MessageInfoData']
+> = {
+  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isRead: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type MessageUsersDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['MessageUsersData'] = ResolversParentTypes['MessageUsersData']
+> = {
+  authorId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type MessageVisibleDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['MessageVisibleData'] = ResolversParentTypes['MessageVisibleData']
+> = {
+  isVisibleAuthor: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isVisibleAll: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type Resolvers<ContextType = any> = {
   DateTime: GraphQLScalarType;
   Mutation: MutationResolvers<ContextType>;
@@ -724,8 +854,10 @@ export type Resolvers<ContextType = any> = {
   Subscription: SubscriptionResolvers<ContextType>;
   BeginningFeed: BeginningFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
+  MessageFeed: MessageFeedResolvers<ContextType>;
   Beginning: BeginningResolvers<ContextType>;
   User: UserResolvers<ContextType>;
+  Message: MessageResolvers<ContextType>;
   UserNetwotkData: UserNetwotkDataResolvers<ContextType>;
   UserAboutData: UserAboutDataResolvers<ContextType>;
   UserPersonalData: UserPersonalDataResolvers<ContextType>;
@@ -737,6 +869,9 @@ export type Resolvers<ContextType = any> = {
   UserEducationRecord: UserEducationRecordResolvers<ContextType>;
   UserLanguageRecord: UserLanguageRecordResolvers<ContextType>;
   UserContactRecord: UserContactRecordResolvers<ContextType>;
+  MessageInfoData: MessageInfoDataResolvers<ContextType>;
+  MessageUsersData: MessageUsersDataResolvers<ContextType>;
+  MessageVisibleData: MessageVisibleDataResolvers<ContextType>;
 };
 
 /**

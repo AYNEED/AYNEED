@@ -9,6 +9,7 @@ interface CommonProps {
   name: string;
   icon?: JSX.Element;
   onChange: React.ChangeEventHandler;
+  className?: string;
 }
 
 interface InputProps extends CommonProps {
@@ -28,7 +29,17 @@ const Input: React.FC<
   InputProps & {
     type: 'password' | 'text';
   }
-> = ({ name, icon, type, value, error, onChange, placeholder, maxLength }) => {
+> = ({
+  name,
+  icon,
+  type,
+  value,
+  error,
+  onChange,
+  placeholder,
+  maxLength,
+  className,
+}) => {
   const intl = useIntl();
 
   return (
@@ -36,6 +47,7 @@ const Input: React.FC<
       {icon}
 
       <input
+        className={className}
         name={name}
         type={type}
         value={value}
@@ -57,8 +69,8 @@ const InputChecable: React.FC<
   InputCheckabeProps & {
     type: 'checkbox' | 'radio';
   }
-> = ({ name, type, value, label, checked, onChange }) => (
-  <label>
+> = ({ name, type, value, label, checked, onChange, className }) => (
+  <label className={className}>
     <input
       name={name}
       type={type}

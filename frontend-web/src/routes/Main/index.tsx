@@ -19,7 +19,6 @@ const styles: Styles<
     width: '100%',
     height: '100%',
     padding: '308px 419px 277px 350px',
-    backgroundColor: COLOR.SECONDARY_100,
     display: 'flex !important',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -77,7 +76,7 @@ const Content: React.FC = () => (
 );
 
 const Main: React.FC = () => (
-  <Page>
+  <Page gray>
     <FelaComponent style={styles.pageWrapper}>
       <Logo />
 

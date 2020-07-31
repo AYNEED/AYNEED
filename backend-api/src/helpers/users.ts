@@ -16,6 +16,7 @@ export const createUser = async ({
   const hash = createPasswordHash(password, salt);
 
   const userComplete: UserComplete = {
+    role: Role.User,
     about: {
       bio: null,
       skills: [],
@@ -63,7 +64,6 @@ export const createUser = async ({
       },
       recovery: null,
     },
-    role: Role.User,
   });
 };
 

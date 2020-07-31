@@ -1,5 +1,4 @@
-import { createRenderer } from 'fela';
-import { CssFelaStyle } from 'react-fela';
+import { createRenderer, IStyle } from 'fela';
 import typescript from 'fela-plugin-typescript';
 import fallbackValue from 'fela-plugin-fallback-value';
 import namedKeys from 'fela-plugin-named-keys';
@@ -31,6 +30,98 @@ export const renderer = createRenderer({
   ],
 });
 
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Thin.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 100,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-ThinItalic.woff'], {
+  fontStyle: 'italic',
+  fontWeight: 100,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-ExtraLight.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 200,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-ExtraLightItalic.woff'], {
+  fontStyle: 'italic',
+  fontWeight: 200,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Light.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 300,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-LightItalic.woff'], {
+  fontStyle: 'italic',
+  fontWeight: 300,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Regular.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 400,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Medium.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 500,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-MediumItalic.woff'], {
+  fontStyle: 'italic',
+  fontWeight: 500,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-SemiBold.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 600,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-SemiBoldItalic.woff'], {
+  fontStyle: 'italic',
+  fontWeight: 600,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Bold.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 700,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-BoldItalic.woff'], {
+  fontStyle: 'italic',
+  fontWeight: 700,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-ExtraBold.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 800,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-ExtraBoldItalic.woff'], {
+  fontStyle: 'italic',
+  fontWeight: 800,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-Black.woff'], {
+  fontStyle: 'normal',
+  fontWeight: 900,
+});
+
+renderer.renderFont('Montserrat', ['/fonts/Montserrat-BlackItalic.woff'], {
+  fontStyle: 'italic',
+  fontWeight: 900,
+});
+
+renderer.renderStatic(`
+  #root {
+    font-family: "Montserrat";
+    font-weight: 400;
+  }
+`);
+
 renderer.renderStatic(`
   * {
     margin: 0;
@@ -50,8 +141,18 @@ renderer.renderStatic(`
   }
 `);
 
-export type Styles<K extends string, T = {}, P = {}> = {
-  [key in K]: CssFelaStyle<T, P>;
-};
+interface IAugmentedStyle extends IStyle {
+  ':hover'?: IStyle;
+  '> a'?: IStyle;
+  '> input'?: IStyle;
+  '> label'?: IStyle;
+}
 
-export type PropsStyle<T = {}, P = {}> = CssFelaStyle<T, P>;
+type FelaSheet = IAugmentedStyle;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type FelaSheetFunction = (props: any) => FelaSheet;
+export type PropsStyle = FelaSheet | FelaSheetFunction;
+
+export type Styles<T extends string> = {
+  [key in T]: PropsStyle;
+};
