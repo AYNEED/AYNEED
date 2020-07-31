@@ -32,8 +32,16 @@ const eventToHandler = {
     to,
     from: EMAIL_SUPPORT,
     subject: 'Восстановление пароля',
-    text: `Добрый день! Вы оставили заявку на сайте aynd.ru для смены пароля. Перейдите по ссылке, чтобы задать себе новый пароль: ${webURL}${ROUTES.FORGOT_PASSWORD_CHANGE}?code=${code}`,
-    html: `Добрый день! Вы оставили заявку на сайте aynd.ru для смены пароля. <a href="${webURL}${ROUTES.FORGOT_PASSWORD_CHANGE}?code=${code}">Нажмите сюда</a>, чтобы задать себе новый пароль`,
+    text: `
+      Добрый день!
+      Вы оставили заявку на сайте aynd.ru для смены пароля.
+      Перейдите по ссылке, чтобы задать себе новый пароль: ${webURL}${ROUTES.FORGOT_PASSWORD_CHANGE}?code=${code}
+    `,
+    html: `
+      Добрый день!
+      Вы оставили заявку на сайте aynd.ru для смены пароля.
+      <a href="${webURL}${ROUTES.FORGOT_PASSWORD_CHANGE}?code=${code}">Нажмите сюда</a>, чтобы задать себе новый пароль
+    `,
   }),
 };
 
