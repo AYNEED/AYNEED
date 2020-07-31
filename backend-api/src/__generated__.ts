@@ -25,6 +25,7 @@ export type Mutation = {
   signInEmail: User;
   signUpEmail: User;
   addBeginning: Beginning;
+  addMessage: Message;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -58,6 +59,12 @@ export type MutationAddBeginningArgs = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+};
+
+export type MutationAddMessageArgs = {
+  text: Scalars['String'];
+  authorId: Scalars['ID'];
+  recipientId: Scalars['ID'];
 };
 
 export type Query = {
@@ -495,6 +502,12 @@ export type MutationResolvers<
       MutationAddBeginningArgs,
       'authorId' | 'title' | 'problem' | 'solution'
     >
+  >;
+  addMessage: Resolver<
+    ResolversTypes['Message'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationAddMessageArgs, 'text' | 'authorId' | 'recipientId'>
   >;
 };
 
