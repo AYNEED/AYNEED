@@ -34,11 +34,7 @@ type Mutation {
     solution: String!
   ): Beginning!
 
-  addMessage(
-  text: String!
-  authorId: ID!
-  recipientId: ID!
-  ): Message!
+  addMessage(text: String!, authorId: ID!, recipientId: ID!): Message!
 }
 
 type Query {
