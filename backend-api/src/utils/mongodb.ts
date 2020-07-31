@@ -6,6 +6,7 @@ export const host = process.env.AYNEED_BACKEND_MONGO_DB_HOST || '';
 export const options: ConnectionOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
 };
 
 export const schemaOptions: SchemaOptions = {
