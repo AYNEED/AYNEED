@@ -54,7 +54,7 @@ const SignUpEmail: React.FC = () => {
   });
 
   return (
-    <Page>
+    <Page gray>
       <Logo />
       <EnterThrough />
 

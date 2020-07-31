@@ -39,7 +39,7 @@ const SignInEmail: React.FC = () => {
   });
 
   return (
-    <Page>
+    <Page gray>
       <Logo />
       <EnterThrough />
 
