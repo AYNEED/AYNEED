@@ -5,8 +5,8 @@ export const createMessage = async ({
   text,
   authorId,
   recipientId,
-}: MutationAddMessageArgs): Promise<MessageRes> => {
-  return MessageModel.create({
+}: MutationAddMessageArgs): Promise<MessageRes> =>
+  MessageModel.create({
     info: {
       text,
       isRead: false,
@@ -22,4 +22,3 @@ export const createMessage = async ({
     editAt: null,
     deleteAt: null,
   });
-};

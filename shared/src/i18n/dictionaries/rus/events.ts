@@ -23,5 +23,5 @@ export const events = {
 
   'error.beginning.notFound': 'Начинание не найдено',
 
-  'error.message.empty': 'Пустое сообщение',
+  'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',
 };
