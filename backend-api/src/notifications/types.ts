@@ -1,16 +1,8 @@
 import { EVENTS } from 'src/notifications/events';
 
-export interface NotificationsBaseConfig {
-  event: keyof typeof EVENTS;
-}
-
-export interface NotificationsConfig extends NotificationsBaseConfig {
-  type: 'email' | 'ws';
-}
+export type Transport = 'email' | 'ws';
+export type Event = keyof typeof EVENTS;
 
 export type TypeToTransport = {
-  [key in NotificationsConfig['type']]: <T extends {} = {}>(
-    options: NotificationsBaseConfig,
-    payload: T
-  ) => void;
+  [key in Transport]: <T extends {} = {}>(event: Event, payload: T) => void;
 };

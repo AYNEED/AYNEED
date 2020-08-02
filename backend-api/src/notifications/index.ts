@@ -1,4 +1,4 @@
-import { TypeToTransport, NotificationsConfig } from 'src/notifications/types';
+import { TypeToTransport, Transport, Event } from 'src/notifications/types';
 import { email } from 'src/notifications/transports/email';
 import { ws } from 'src/notifications/transports/ws';
 
@@ -8,11 +8,15 @@ const typeToTransport: TypeToTransport = {
 };
 
 export const send = async <T extends {} = {}>(
-  options: NotificationsConfig,
+  transportName: Transport | Transport[],
+  event: Event,
   payload: T
-): Promise<void> => {
-  const transport = typeToTransport[options.type];
+): Promise<void[]> => {
+  const transports: Transport[] = Array.isArray(transportName)
+    ? transportName
+    : [transportName];
 
-  delete options.type;
-  return transport(options, payload);
+  return Promise.all(
+    transports.map((name) => typeToTransport[name](event, payload))
+  );
 };

@@ -3,17 +3,17 @@ import sgMail, { MailDataRequired } from '@sendgrid/mail';
 import { ROUTES } from 'shared';
 import { EMAIL_SUPPORT } from 'src/constants';
 import { EVENTS } from 'src/notifications/events';
-import { NotificationsBaseConfig } from 'src/notifications/types';
+import { Event } from 'src/notifications/types';
 
 const webURL = process.env.AYNEED_BACKEND_HOST_URL;
 
 sgMail.setApiKey(process.env.AYNEED_BACKEND_SENDGRID_API_KEY || '');
 
-const eventToHandler = {
-  [EVENTS.BEGINNING_ADDED]: null,
-  [EVENTS.BEGINNING_UPDATED]: null,
-
-  [EVENTS.USER_ADDED]: ({ to, code }: any): MailDataRequired => ({
+const eventToHandler: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key in Event]?: (params: any) => MailDataRequired;
+} = {
+  [EVENTS.USER_ADDED]: ({ to, code }): MailDataRequired => ({
     to,
     from: EMAIL_SUPPORT,
     subject: 'Регистрация на AYNeed',
@@ -26,9 +26,7 @@ const eventToHandler = {
       Чтобы завершить регистрацию, перейдите <a href="${webURL}/registerConfirm?code=${code}">перейдите по ссылке</a>.
     `,
   }),
-  [EVENTS.USER_UPDATED]: null,
-
-  [EVENTS.USER_FORGOT_PASSWORD]: ({ to, code }: any): MailDataRequired => ({
+  [EVENTS.USER_FORGOT_PASSWORD]: ({ to, code }): MailDataRequired => ({
     to,
     from: EMAIL_SUPPORT,
     subject: 'Восстановление пароля',
@@ -46,10 +44,10 @@ const eventToHandler = {
 };
 
 export const email = async <T extends {} = {}>(
-  options: NotificationsBaseConfig,
+  event: Event,
   payload: T
 ): Promise<void> => {
-  const handler = eventToHandler[options.event];
+  const handler = eventToHandler[event];
 
   if (handler) {
     try {
@@ -59,8 +57,6 @@ export const email = async <T extends {} = {}>(
       console.error(`[notifications email] ${error}`);
     }
   } else {
-    console.error(
-      `[notifications email] Event ${options.event} is not supported`
-    );
+    console.error(`[notifications email] Event ${event} is not supported`);
   }
 };

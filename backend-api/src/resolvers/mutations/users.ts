@@ -31,7 +31,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
   // TODO: create session
 
-  await send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
+  await send('ws', EVENTS.USER_UPDATED, user);
 
   return user;
 };
@@ -64,7 +64,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
 
   // TODO: create session
 
-  await send({ type: 'ws', event: EVENTS.USER_ADDED }, user);
+  await send('ws', EVENTS.USER_ADDED, user);
 
   return user;
 };
@@ -90,7 +90,7 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
       },
     });
 
-    await send({ type: 'email', event: EVENTS.USER_FORGOT_PASSWORD }, updated);
+    await send('email', EVENTS.USER_FORGOT_PASSWORD, updated);
   }
 
   // This is the correct logic: we don’t want to show
@@ -134,7 +134,7 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
 
   // TODO: create session
 
-  await send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
+  await send('ws', EVENTS.USER_UPDATED, user);
 
   return user;
 };
