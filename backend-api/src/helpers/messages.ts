@@ -1,4 +1,4 @@
-import { MessageRes, MessageModel, MessageComplete } from 'src/models/message';
+import { MessageRes, MessageModel } from 'src/models/message';
 import { MutationAddMessageArgs } from 'src/__generated__';
 
 export const createMessage = async ({
@@ -6,7 +6,7 @@ export const createMessage = async ({
   authorId,
   recipientId,
 }: MutationAddMessageArgs): Promise<MessageRes> => {
-  const messageComplete: MessageComplete = {
+  return MessageModel.create({
     info: {
       text,
       isRead: false,
@@ -19,7 +19,7 @@ export const createMessage = async ({
       isVisibleAuthor: true,
       isVisibleAll: true,
     },
-  };
-
-  return MessageModel.create({ ...messageComplete });
+    editAt: null,
+    deleteAt: null,
+  });
 };

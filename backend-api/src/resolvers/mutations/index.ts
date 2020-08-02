@@ -7,7 +7,6 @@ import {
 } from 'src/resolvers/mutations/users';
 
 import { addMessage } from 'src/resolvers/mutations/messages';
-
 import { addBeginning } from 'src/resolvers/mutations/beginnings';
 
 export const mutation: Resolvers['Mutation'] = {

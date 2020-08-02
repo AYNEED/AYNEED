@@ -62,9 +62,9 @@ export type MutationAddBeginningArgs = {
 };
 
 export type MutationAddMessageArgs = {
-  text: Scalars['String'];
   authorId: Scalars['ID'];
   recipientId: Scalars['ID'];
+  text: Scalars['String'];
 };
 
 export type Query = {
@@ -507,7 +507,7 @@ export type MutationResolvers<
     ResolversTypes['Message'],
     ParentType,
     ContextType,
-    RequireFields<MutationAddMessageArgs, 'text' | 'authorId' | 'recipientId'>
+    RequireFields<MutationAddMessageArgs, 'authorId' | 'recipientId' | 'text'>
   >;
 };
 
