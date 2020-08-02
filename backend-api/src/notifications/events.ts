@@ -20,6 +20,6 @@ export const UPDATES = {
  * List of events at which we send notifications
  */
 export const EVENTS = {
-  ON_SIGN_UP_EMAIL: 'ON_SIGN_UP_EMAIL',
+  // ON_SIGN_UP_EMAIL: 'ON_SIGN_UP_EMAIL',
   ON_USER_FORGOT_PASSWORD: 'ON_USER_FORGOT_PASSWORD',
 } as const;

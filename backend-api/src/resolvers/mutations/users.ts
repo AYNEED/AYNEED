@@ -86,7 +86,7 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
   });
 
   if (data) {
-    const updated = await updateUser(data.id, {
+    await updateUser(data.id, {
       private: {
         ...data.private,
         recovery: {
@@ -96,7 +96,10 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
       },
     });
 
-    await send.notification('ws', EVENTS.ON_USER_FORGOT_PASSWORD, updated);
+    await send.notification({
+      event: EVENTS.ON_USER_FORGOT_PASSWORD,
+      payload: { from: 'ayneed', to: data.id },
+    });
   }
 
   // This is the correct logic: we don’t want to show

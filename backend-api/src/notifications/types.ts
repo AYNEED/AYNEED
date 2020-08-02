@@ -5,20 +5,17 @@ import {
 } from 'src/notifications/events';
 import { User, Beginning } from 'src/__generated__';
 
-export type Transport = 'email' | 'ws';
 export type Event = keyof typeof EVENTS;
 
-export type TypeToTransport = {
-  [key in Transport]: <T extends {} = {}>(event: Event, payload: T) => void;
-};
-
 export type Notification = {
-  // transport: 'ws' | 'email';
-  // recipient: 'user' | 'users';
-  // payload: 'custom fields';
+  event: Event;
+  payload: {
+    from: 'ayneed';
+    to: User['id'];
+  };
 };
 
-export type ActionUpdate =
+export type Update =
   | {
       event: keyof typeof USER_UPDATES;
       payload: User;
