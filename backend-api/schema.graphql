@@ -59,6 +59,12 @@ enum LOCALE {
   rus
 }
 
+enum STATUS_STATEMENT {
+  waiting
+  accepted
+  rejected
+}
+
 enum LANGUAGE_LEVEL {
   beginner
   elementary
@@ -113,6 +119,7 @@ type SubscriptionUser {
   id: ID!
   senderId: ID!
   recipientId: ID!
+  status: STATUS_STATEMENT!
   createdAt: DateTime!
 }
 

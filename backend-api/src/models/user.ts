@@ -26,11 +26,11 @@ type UserRecovery = {
 
 export type UserComplete = Omit<
   User,
-  'id' | 'beginnings' | 'network' | 'statistics' | 'createdAt'
+  'id' | 'beginnings' | 'subsriptions' | 'network' | 'statistics' | 'createdAt'
 >;
 
 export type UserRes = Document &
-  Omit<User, 'beginnings' | 'network'> & {
+  Omit<User, 'beginnings' | 'subscriptions' | 'network'> & {
     private: {
       password: UserPassword;
       recovery: Maybe<UserRecovery>;

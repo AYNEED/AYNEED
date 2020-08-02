@@ -50,6 +50,7 @@ export const createUser = async ({
       telegram: null,
       linkedin: null,
     },
+    subscriptions: [],
   };
 
   return UserModel.create({
@@ -82,7 +83,7 @@ export const updateUser = async (
   fields: Partial<UserRes>
 ): Promise<UserRes> => {
   const oldUser = await findUserById(id);
-  const newUser = { ...oldUser, ...fields };
+  const newUser = { ...oldUser, ...fields, subscriptions: [] };
 
   const user = await UserModel.findOneAndUpdate(
     { _id: id },

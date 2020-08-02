@@ -98,6 +98,12 @@ export enum Locale {
   Rus = 'rus',
 }
 
+export enum StatusStatement {
+  Waiting = 'waiting',
+  Accepted = 'accepted',
+  Rejected = 'rejected',
+}
+
 export enum LanguageLevel {
   Beginner = 'beginner',
   Elementary = 'elementary',
@@ -148,6 +154,14 @@ export type Beginning = {
   createdAt: Scalars['DateTime'];
 };
 
+export type SubscriptionUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+  status: StatusStatement;
+  createdAt: Scalars['DateTime'];
+};
+
 export type User = {
   id: Scalars['ID'];
   role: Role;
@@ -159,6 +173,7 @@ export type User = {
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
   beginnings: Array<Beginning>;
+  subscriptions: Array<SubscriptionUser>;
 };
 
 export type Message = {
