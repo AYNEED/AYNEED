@@ -33,6 +33,12 @@ type Mutation {
     problem: String!
     solution: String!
   ): Beginning!
+
+  addSubscriptionUser(
+    senderId: ID!
+    recipientId: ID!
+    status: STATUS_STATEMENT!
+  ): SubscriptionUser!
 }
 
 type Query {
