@@ -13,7 +13,7 @@ const eventToHandler: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key in Event]?: (params: any) => MailDataRequired;
 } = {
-  [EVENTS.USER_ADDED]: ({ to, code }): MailDataRequired => ({
+  [EVENTS.ON_SIGN_UP_EMAIL]: ({ to, code }): MailDataRequired => ({
     to,
     from: EMAIL_SUPPORT,
     subject: 'Регистрация на AYNeed',
@@ -26,7 +26,7 @@ const eventToHandler: {
       Чтобы завершить регистрацию, перейдите <a href="${webURL}/registerConfirm?code=${code}">перейдите по ссылке</a>.
     `,
   }),
-  [EVENTS.USER_FORGOT_PASSWORD]: ({ to, code }): MailDataRequired => ({
+  [EVENTS.ON_USER_FORGOT_PASSWORD]: ({ to, code }): MailDataRequired => ({
     to,
     from: EMAIL_SUPPORT,
     subject: 'Восстановление пароля',
