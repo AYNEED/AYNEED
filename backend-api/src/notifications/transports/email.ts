@@ -5,7 +5,7 @@ import { EMAIL_SUPPORT } from 'src/constants';
 import { EVENTS } from 'src/notifications/events';
 import { Event } from 'src/notifications/types';
 
-const webURL = process.env.AYNEED_BACKEND_HOST_URL;
+const webURL = process.env.AYNEED_BACKEND_CLIENT_DOMAIN;
 
 sgMail.setApiKey(process.env.AYNEED_BACKEND_SENDGRID_API_KEY || '');
 
