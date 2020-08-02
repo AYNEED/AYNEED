@@ -109,6 +109,13 @@ type Beginning {
   createdAt: DateTime!
 }
 
+type SubscriptionUser {
+  id: ID!
+  senderId: ID!
+  recipientId: ID!
+  createdAt: DateTime!
+}
+
 type User {
   id: ID!
   role: ROLE!
@@ -120,6 +127,7 @@ type User {
   statistics: UserStatisticsData!
   createdAt: DateTime!
   beginnings: [Beginning!]!
+  subscriptions: [SubscriptionUser!]!
 }
 
 type Message {
