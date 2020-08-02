@@ -58,11 +58,8 @@ const eventToTemplate: {
 export const email = async (action: Notification): Promise<void> => {
   const template = await eventToTemplate[action.event](action.payload);
 
-  console.log(template);
-
   try {
-    const res = await sgMail.send(template);
-    console.log(res);
+    await sgMail.send(template);
   } catch (error) {
     console.error(`[notifications email] ${error}`);
   }
