@@ -1,9 +1,6 @@
 import { pubsub } from 'src/resolvers/subscriptions';
-import { NotificationsBaseConfig } from 'src/notifications/types';
+import { Update, Notification } from 'src/notifications/types';
 
-export const ws = async <T extends {} = {}>(
-  options: NotificationsBaseConfig,
-  payload: T
-): Promise<void> => {
-  pubsub.publish(options.event, payload);
+export const ws = async (action: Update | Notification): Promise<void> => {
+  pubsub.publish(action.event, action.payload);
 };

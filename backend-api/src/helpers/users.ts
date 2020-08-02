@@ -81,8 +81,26 @@ export const updateUser = async (
   id: User['id'],
   fields: Partial<UserRes>
 ): Promise<UserRes> => {
-  const oldUser = await findUserById(id);
-  const newUser = { ...oldUser, ...fields };
+  const {
+    about,
+    personal,
+    regional,
+    contacts,
+    statistics,
+    role,
+    createdAt,
+  } = await findUserById(id);
+
+  const newUser = {
+    about,
+    personal,
+    regional,
+    contacts,
+    statistics,
+    role,
+    createdAt,
+    ...fields,
+  };
 
   const user = await UserModel.findOneAndUpdate(
     { _id: id },
