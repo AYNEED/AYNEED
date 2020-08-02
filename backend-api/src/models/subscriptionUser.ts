@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
 
-const UserSubscribeSchema = new Schema(
+const SubscriptionUserScheme = new Schema(
   {
     senderId: {
       type: Schema.Types.ObjectId,
@@ -10,16 +10,15 @@ const UserSubscribeSchema = new Schema(
       required: true,
     },
     recipientId: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
-    },
-    status: {
-      type: Number,
-      required: true,
-      default: 0,
     },
   },
   schemaOptions
 );
 
-export const UserSubscribeModel = model('UserSubscribe', UserSubscribeSchema);
+export const SubscriptionUserModel = model(
+  'UserSubscribe',
+  SubscriptionUserScheme
+);
