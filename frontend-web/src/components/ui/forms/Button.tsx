@@ -2,10 +2,11 @@ import React from 'react';
 import { FelaComponent } from 'react-fela';
 import { useFela } from 'react-fela';
 
-import { Styles } from 'src/utils/fela';
+import { Styles, PropsStyle } from 'src/utils/fela';
 import { Link } from 'src/components/ui/Link';
 import { Scheme } from 'src/navigation';
 import { COLOR } from 'src/constants/colors';
+
 
 type ButtonLinkProps = {
   url: Scheme;
@@ -27,7 +28,7 @@ const styles: Styles<'text'> = {
   },
 };
 
-const buttonRule: {} = () => ({
+const buttonRule: PropsStyle = () => ({
   position: 'relative',
   height: '50px',
   width: '200px',
@@ -66,7 +67,6 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
 
   const buttonLink: React.RefObject<HTMLDivElement> = React.createRef()
    
-  
   const onMouseOverHandler = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
 
     if (buttonLink.current !== null) {
