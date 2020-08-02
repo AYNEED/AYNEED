@@ -26,6 +26,13 @@ type Mutation {
     isAgree: Boolean!
     client: CLIENT!
   ): User!
+
+  addBeginning(
+    authorId: ID!
+    title: String!
+    problem: String!
+    solution: String!
+  ): Beginning!
 }
 
 type Query {
@@ -36,6 +43,8 @@ type Query {
   users(cursor: ID): UserFeed!
 
   search(query: String!, mode: SEARCH_MODE!): UserFeed!
+
+  messages(cursor: ID!): MessageFeed!
 }
 
 type Subscription {
@@ -86,6 +95,11 @@ type UserFeed {
   hasMore: Boolean!
 }
 
+type MessageFeed {
+  items: [Message!]!
+  hasMore: Boolean!
+}
+
 type Beginning {
   id: ID!
   authorId: ID!
@@ -106,6 +120,15 @@ type User {
   statistics: UserStatisticsData!
   createdAt: DateTime!
   beginnings: [Beginning!]!
+}
+
+type Message {
+  info: MessageInfoData!
+  users: MessageUsersData!
+  visible: MessageVisibleData!
+  createdAt: DateTime!
+  editAt: DateTime
+  deleteAt: DateTime
 }
 
 type UserNetwotkData {
@@ -174,4 +197,19 @@ type UserContactRecord {
   value: String!
   isVisible: Boolean!
   isVerified: Boolean!
+}
+
+type MessageInfoData {
+  text: String!
+  isRead: Boolean!
+}
+
+type MessageUsersData {
+  authorId: ID!
+  recipientId: ID!
+}
+
+type MessageVisibleData {
+  isVisibleAuthor: Boolean!
+  isVisibleAll: Boolean!
 }

@@ -4,6 +4,7 @@
   "private": true,
   "main": "./src",
   "dependencies": {
+    "@sendgrid/mail": "^7.2.2",
     "apollo-server-express": "^2.16.0",
     "dotenv-flow": "^3.2.0",
     "express": "^4.17.1",
@@ -30,7 +31,7 @@
     "build": "tsc -b",
     "watch": "yarn run build -w",
     "start": "NODE_PATH=build/ node ./build",
-    "test": "NODE_ENV=test jest --verbose",
+    "test": "NODE_ENV=test jest",
     "db": "mongod --dbpath ../db",
     "migrations": "migrate-mongo"
   }
