@@ -67,9 +67,8 @@ export const resolveUser: Resolvers['User'] = {
   beginnings: async (parent) => BeginningModel.find({ authorId: parent.id }),
   subscriptions: async (parent) =>
     SubscriptionUserModel.find({
-      recipientId: parent.id,
-      // @ts-ignore
-      status: { $all: [StatusStatement.Waiting, StatusStatement.Rejected] },
+      senderId: parent.id,
+      status: { $in: [StatusStatement.Waiting, StatusStatement.Rejected] },
     }),
 };
 

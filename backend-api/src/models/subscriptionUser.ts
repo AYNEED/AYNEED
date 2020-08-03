@@ -35,4 +35,4 @@ const SubscriptionUserScheme = new Schema<SubscriptionUserReq>(
 export const SubscriptionUserModel = model<
   SubscriptionUserReq,
   SubscriptionUserRes
->('UserSubscribe', SubscriptionUserScheme);
+>('SubscriptionUser', SubscriptionUserScheme);
