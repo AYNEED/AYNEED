@@ -112,6 +112,12 @@ export enum Locale {
   Rus = 'rus',
 }
 
+export enum StatusStatement {
+  Waiting = 'waiting',
+  Accepted = 'accepted',
+  Rejected = 'rejected',
+}
+
 export enum LanguageLevel {
   Beginner = 'beginner',
   Elementary = 'elementary',
@@ -162,6 +168,14 @@ export type Beginning = {
   createdAt: Scalars['DateTime'];
 };
 
+export type SubscriptionUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+  status: StatusStatement;
+  createdAt: Scalars['DateTime'];
+};
+
 export type User = {
   id: Scalars['ID'];
   role: Role;
@@ -173,6 +187,7 @@ export type User = {
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
   beginnings: Array<Beginning>;
+  subscriptions: Array<SubscriptionUser>;
 };
 
 export type Message = {
@@ -390,6 +405,7 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
   LOCALE: Locale;
+  STATUS_STATEMENT: StatusStatement;
   LANGUAGE_LEVEL: LanguageLevel;
   CLIENT: Client;
   SEARCH_MODE: SearchMode;
@@ -398,6 +414,7 @@ export type ResolversTypes = {
   UserFeed: ResolverTypeWrapper<UserFeed>;
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
   Beginning: ResolverTypeWrapper<Beginning>;
+  SubscriptionUser: ResolverTypeWrapper<SubscriptionUser>;
   User: ResolverTypeWrapper<User>;
   Message: ResolverTypeWrapper<Message>;
   UserNetwotkData: ResolverTypeWrapper<UserNetwotkData>;
@@ -430,6 +447,7 @@ export type ResolversParentTypes = {
   UserFeed: UserFeed;
   MessageFeed: MessageFeed;
   Beginning: Beginning;
+  SubscriptionUser: SubscriptionUser;
   User: User;
   Message: Message;
   UserNetwotkData: UserNetwotkData;
@@ -623,6 +641,18 @@ export type BeginningResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type SubscriptionUserResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SubscriptionUser'] = ResolversParentTypes['SubscriptionUser']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  status: Resolver<ResolversTypes['STATUS_STATEMENT'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type UserResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
@@ -654,6 +684,11 @@ export type UserResolvers<
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   beginnings: Resolver<
     Array<ResolversTypes['Beginning']>,
+    ParentType,
+    ContextType
+  >;
+  subscriptions: Resolver<
+    Array<ResolversTypes['SubscriptionUser']>,
     ParentType,
     ContextType
   >;
@@ -869,6 +904,7 @@ export type Resolvers<ContextType = any> = {
   UserFeed: UserFeedResolvers<ContextType>;
   MessageFeed: MessageFeedResolvers<ContextType>;
   Beginning: BeginningResolvers<ContextType>;
+  SubscriptionUser: SubscriptionUserResolvers<ContextType>;
   User: UserResolvers<ContextType>;
   Message: MessageResolvers<ContextType>;
   UserNetwotkData: UserNetwotkDataResolvers<ContextType>;

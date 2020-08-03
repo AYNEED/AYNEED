@@ -18,6 +18,7 @@ export type Mutation = {
   signInEmail: User;
   signUpEmail: User;
   addBeginning: Beginning;
+  addMessage: Message;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -51,6 +52,12 @@ export type MutationAddBeginningArgs = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+};
+
+export type MutationAddMessageArgs = {
+  authorId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+  text: Scalars['String'];
 };
 
 export type Query = {
@@ -96,6 +103,12 @@ export type Subscription = {
 
 export enum Locale {
   Rus = 'rus',
+}
+
+export enum StatusStatement {
+  Waiting = 'waiting',
+  Accepted = 'accepted',
+  Rejected = 'rejected',
 }
 
 export enum LanguageLevel {
@@ -148,6 +161,14 @@ export type Beginning = {
   createdAt: Scalars['DateTime'];
 };
 
+export type SubscriptionUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+  status: StatusStatement;
+  createdAt: Scalars['DateTime'];
+};
+
 export type User = {
   id: Scalars['ID'];
   role: Role;
@@ -159,6 +180,7 @@ export type User = {
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
   beginnings: Array<Beginning>;
+  subscriptions: Array<SubscriptionUser>;
 };
 
 export type Message = {
