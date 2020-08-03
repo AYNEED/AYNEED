@@ -1,16 +1,26 @@
-import { EVENTS } from 'src/notifications/events';
+import {
+  EVENTS,
+  USER_UPDATES,
+  BEGINNING_UPDATES,
+} from 'src/notifications/events';
+import { User, Beginning } from 'src/__generated__';
 
-export interface NotificationsBaseConfig {
-  event: keyof typeof EVENTS;
-}
+export type Event = keyof typeof EVENTS;
 
-export interface NotificationsConfig extends NotificationsBaseConfig {
-  type: 'email' | 'ws';
-}
-
-export type TypeToTransport = {
-  [key in NotificationsConfig['type']]: <T extends {} = {}>(
-    options: NotificationsBaseConfig,
-    payload: T
-  ) => void;
+export type Notification = {
+  event: Event;
+  payload: {
+    from: 'ayneed';
+    to: User['id'];
+  };
 };
+
+export type Update =
+  | {
+      event: keyof typeof USER_UPDATES;
+      payload: User;
+    }
+  | {
+      event: keyof typeof BEGINNING_UPDATES;
+      payload: Beginning;
+    };

@@ -33,6 +33,8 @@ type Mutation {
     problem: String!
     solution: String!
   ): Beginning!
+
+  addMessage(authorId: ID!, recipientId: ID!, text: String!): Message!
 }
 
 type Query {

@@ -6,7 +6,7 @@ import {
   createRandomString,
   verifyPassword,
 } from 'src/utils/password';
-import { EVENTS } from 'src/notifications/events';
+import { EVENTS, UPDATES } from 'src/notifications/events';
 import { send } from 'src/notifications';
 import { validators, ValidationError } from 'shared';
 import { createUser, updateUser } from 'src/helpers/users';
@@ -31,7 +31,10 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
   // TODO: create session
 
-  await send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
+  await send.update({
+    event: UPDATES.USER_UPDATED,
+    payload: user,
+  });
 
   return user;
 };
@@ -64,7 +67,10 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
 
   // TODO: create session
 
-  await send({ type: 'ws', event: EVENTS.USER_ADDED }, user);
+  await send.update({
+    event: UPDATES.USER_ADDED,
+    payload: user,
+  });
 
   return user;
 };
@@ -80,7 +86,7 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
   });
 
   if (data) {
-    const updated = await updateUser(data.id, {
+    await updateUser(data.id, {
       private: {
         ...data.private,
         recovery: {
@@ -90,7 +96,10 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
       },
     });
 
-    await send({ type: 'email', event: EVENTS.USER_FORGOT_PASSWORD }, updated);
+    await send.notification({
+      event: EVENTS.ON_USER_FORGOT_PASSWORD,
+      payload: { from: 'ayneed', to: data.id },
+    });
   }
 
   // This is the correct logic: we don’t want to show
@@ -134,7 +143,10 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
 
   // TODO: create session
 
-  await send({ type: 'ws', event: EVENTS.USER_UPDATED }, user);
+  await send.update({
+    event: UPDATES.USER_UPDATED,
+    payload: user,
+  });
 
   return user;
 };
