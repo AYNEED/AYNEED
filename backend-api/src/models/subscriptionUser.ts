@@ -20,11 +20,7 @@ const SubscriptionUserScheme = new Schema<SubscriptionUserReq>(
     },
     status: {
       type: String,
-      enum: [
-        StatusStatement.Waiting,
-        StatusStatement.Accepted,
-        StatusStatement.Rejected,
-      ],
+      enum: Object.values(StatusStatement),
       required: true,
       default: 'waiting',
     },
