@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import { SubscriptionUser } from 'src/__generated__';
+import { SubscriptionUser, StatusStatement } from 'src/__generated__';
 
 export type SubscriptionUserRes = Document & SubscriptionUser;
 type SubscriptionUserReq = Omit<SubscriptionUserRes, 'createdAt'>;
@@ -20,7 +20,11 @@ const SubscriptionUserScheme = new Schema<SubscriptionUserReq>(
     },
     status: {
       type: String,
-      enum: ['waiting', 'accepted', 'rejected'],
+      enum: [
+        StatusStatement.Waiting,
+        StatusStatement.Accepted,
+        StatusStatement.Rejected,
+      ],
       required: true,
       default: 'waiting',
     },

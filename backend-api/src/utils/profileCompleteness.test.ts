@@ -37,7 +37,6 @@ const exUser: UserComplete = {
     telegram: null,
     linkedin: null,
   },
-  subscriptions: [],
 };
 
 describe('Use profile completeness function', () => {

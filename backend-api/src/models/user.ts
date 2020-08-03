@@ -26,7 +26,7 @@ type UserRecovery = {
 
 export type UserComplete = Omit<
   User,
-  'id' | 'beginnings' | 'subsriptions' | 'network' | 'statistics' | 'createdAt'
+  'id' | 'beginnings' | 'subscriptions' | 'network' | 'statistics' | 'createdAt'
 >;
 
 export type UserRes = Document &
