@@ -1,7 +1,7 @@
-import { Client, Resolvers, SearchMode } from 'src/__generated__';
-import { UserModel } from '../../models/user';
-import { SEARCH_LIMIT } from '../../constants';
-import { userDriver } from '../drivers';
+import { Client, Resolvers, SearchMode, UserFeed } from 'src/__generated__';
+import { UserModel } from 'src/models/user';
+import { SEARCH_LIMIT } from 'src/constants';
+import { userDriver } from 'src/resolvers/drivers';
 
 export const getSearchResults: Resolvers['Query']['search'] = async (
   parent,
@@ -10,8 +10,10 @@ export const getSearchResults: Resolvers['Query']['search'] = async (
   let count = 0;
   let items: any;
 
-  switch (query.mode) {
-    case SearchMode.Users:
+  const searchModeToHandler: {
+    [key in SearchMode]: () => Promise<UserFeed>;
+  } = {
+    [SearchMode.Users]: async () => {
       const data = await UserModel.find(
         { 'personal.firstName': { $regex: '^' + query.query + '.*' } },
         null,
@@ -25,29 +27,27 @@ export const getSearchResults: Resolvers['Query']['search'] = async (
           'personal.firstName': { $regex: '^' + query.query + '.*' },
         });
       }
+
       items = data.map((user) =>
         userDriver(user, {
           network: { isOnline: false, client: Client.Desktop },
         })
       );
 
-      break;
+      return {
+        items: items,
+        hasMore: !!count,
+      };
+    },
 
-    case SearchMode.Candidates:
-      break;
+    [SearchMode.Candidates]: async () => ({ items: [], hasMore: false }),
 
-    case SearchMode.Concepts:
-      break;
+    [SearchMode.Concepts]: async () => ({ items: [], hasMore: false }),
 
-    case SearchMode.Ideas:
-      break;
+    [SearchMode.Ideas]: async () => ({ items: [], hasMore: false }),
 
-    case SearchMode.Mvps:
-      break;
-  }
-
-  return {
-    items: items,
-    hasMore: !!count,
+    [SearchMode.Mvps]: async () => ({ items: [], hasMore: false }),
   };
+
+  return await searchModeToHandler[query.mode]();
 };
