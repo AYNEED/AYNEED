@@ -19,6 +19,7 @@ export type Mutation = {
   signUpEmail: User;
   addBeginning: Beginning;
   addSubscriptionUser: SubscriptionUser;
+  addMessage: Message;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -58,6 +59,12 @@ export type MutationAddSubscriptionUserArgs = {
   senderId: Scalars['ID'];
   recipientId: Scalars['ID'];
   status: StatusStatement;
+};
+
+export type MutationAddMessageArgs = {
+  authorId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+  text: Scalars['String'];
 };
 
 export type Query = {

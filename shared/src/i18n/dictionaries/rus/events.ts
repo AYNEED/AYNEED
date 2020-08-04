@@ -24,4 +24,5 @@ export const events = {
   'error.beginning.notFound': 'Начинание не найдено',
 
   'error.subscription.notFound': 'Подписка на пользователя не найдена',
+  'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',
 };

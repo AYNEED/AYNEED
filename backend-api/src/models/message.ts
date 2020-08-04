@@ -9,7 +9,7 @@ import {
 } from 'src/__generated__';
 
 export type MessageRes = Document & Message;
-type MessageReq = Omit<MessageRes, 'createdAt'>;
+type MessageReq = Omit<MessageRes, 'id' | 'createdAt'>;
 
 const MessageInfoSchema = new Schema<MessageInfoData>({
   text: {

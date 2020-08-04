@@ -39,6 +39,8 @@ type Mutation {
     recipientId: ID!
     status: STATUS_STATEMENT!
   ): SubscriptionUser!
+
+  addMessage(authorId: ID!, recipientId: ID!, text: String!): Message!
 }
 
 type Query {

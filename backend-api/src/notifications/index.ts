@@ -1,18 +1,9 @@
-import { TypeToTransport, NotificationsConfig } from 'src/notifications/types';
+import { Update, Notification } from 'src/notifications/types';
 import { email } from 'src/notifications/transports/email';
 import { ws } from 'src/notifications/transports/ws';
 
-const typeToTransport: TypeToTransport = {
-  email,
-  ws,
-};
-
-export const send = async <T extends {} = {}>(
-  options: NotificationsConfig,
-  payload: T
-): Promise<void> => {
-  const transport = typeToTransport[options.type];
-
-  delete options.type;
-  return transport(options, payload);
+export const send = {
+  // TODO: use queue
+  notification: async (action: Notification): Promise<void> => email(action),
+  update: async (action: Update): Promise<void> => ws(action),
 };

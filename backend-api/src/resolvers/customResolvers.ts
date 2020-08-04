@@ -1,6 +1,6 @@
 import { BeginningModel } from 'src/models/beginning';
 import { SubscriptionUserModel } from 'src/models/subscriptionUser';
-import { Resolvers } from 'src/__generated__';
+import { Resolvers, StatusStatement } from 'src/__generated__';
 
 export const resolveSubscriptionUser: Resolvers['SubscriptionUser'] = {
   id: (parent) => parent.id,
@@ -66,7 +66,10 @@ export const resolveUser: Resolvers['User'] = {
 
   beginnings: async (parent) => BeginningModel.find({ authorId: parent.id }),
   subscriptions: async (parent) =>
-    SubscriptionUserModel.find({ senderId: parent.id, recipientId: parent.id }),
+    SubscriptionUserModel.find({
+      senderId: parent.id,
+      status: { $in: [StatusStatement.Waiting, StatusStatement.Rejected] },
+    }),
 };
 
 export const resolveUserFeed: Resolvers['UserFeed'] = {
