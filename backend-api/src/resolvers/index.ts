@@ -6,6 +6,7 @@ import { subscription } from 'src/resolvers/subscriptions';
 import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
+  resolveSubscriptionUser,
   resolveBeginning,
   resolveBeginningFeed,
   resolveUser,
@@ -43,6 +44,7 @@ export const resolvers: Resolvers = {
   DateTime: scalarDateTime,
 
   // Custom resolvers:
+  SubscriptionUser: resolveSubscriptionUser,
   Beginning: resolveBeginning,
   BeginningFeed: resolveBeginningFeed,
   Message: resolveMessage,
