@@ -7,47 +7,47 @@ export const getSearchResults: Resolvers['Query']['search'] = async (
   parent,
   query
 ) => {
-  let count = 0;
+  const count = 0;
   let items: any;
 
-  const searchModeToHandler: {
-    [key in SearchMode]: () => Promise<UserFeed>;
-  } = {
-    [SearchMode.Users]: async () => {
-      const data = await UserModel.find(
-        { 'personal.firstName': { $regex: '^' + query.query + '.*' } },
-        null,
-        { sort: { createdAt: 'desc' }, limit: SEARCH_LIMIT }
-      );
+  return await searchModeToHandler[query.mode](query.query, count, items);
+};
 
-      const last = data[data.length - 1];
+const searchModeToHandler: {
+  [key in SearchMode]: (...args: any) => Promise<UserFeed>;
+} = {
+  [SearchMode.Users]: async (query: string, count: number, items: any) => {
+    const data = await UserModel.find(
+      { 'personal.firstName': { $regex: '^' + query + '.*' } },
+      null,
+      { sort: { createdAt: 'desc' }, limit: SEARCH_LIMIT }
+    );
 
-      if (last) {
-        count = await UserModel.count({
-          'personal.firstName': { $regex: '^' + query.query + '.*' },
-        });
-      }
+    const last = data[data.length - 1];
 
-      items = data.map((user) =>
-        userDriver(user, {
-          network: { isOnline: false, client: Client.Desktop },
-        })
-      );
+    if (last) {
+      count = await UserModel.count({
+        'personal.firstName': { $regex: '^' + query + '.*' },
+      });
+    }
 
-      return {
-        items: items,
-        hasMore: !!count,
-      };
-    },
+    items = data.map((user) =>
+      userDriver(user, {
+        network: { isOnline: false, client: Client.Desktop },
+      })
+    );
 
-    [SearchMode.Candidates]: async () => ({ items: [], hasMore: false }),
+    return {
+      items: items,
+      hasMore: !!count,
+    };
+  },
 
-    [SearchMode.Concepts]: async () => ({ items: [], hasMore: false }),
+  [SearchMode.Candidates]: async () => ({ items: [], hasMore: false }),
 
-    [SearchMode.Ideas]: async () => ({ items: [], hasMore: false }),
+  [SearchMode.Concepts]: async () => ({ items: [], hasMore: false }),
 
-    [SearchMode.Mvps]: async () => ({ items: [], hasMore: false }),
-  };
+  [SearchMode.Ideas]: async () => ({ items: [], hasMore: false }),
 
-  return await searchModeToHandler[query.mode]();
+  [SearchMode.Mvps]: async () => ({ items: [], hasMore: false }),
 };
