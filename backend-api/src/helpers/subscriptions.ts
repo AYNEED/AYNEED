@@ -2,12 +2,10 @@ import {
   SubscriptionUserRes,
   SubscriptionUserModel,
 } from 'src/models/subscriptionUser';
-
 import {
   SubscriptionUser,
   MutationAddSubscriptionUserArgs,
 } from 'src/__generated__';
-
 import { ValidationError } from 'shared';
 
 export const findSubscriptionUserById = async (
