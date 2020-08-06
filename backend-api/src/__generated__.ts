@@ -25,6 +25,7 @@ export type Mutation = {
   signInEmail: User;
   signUpEmail: User;
   addBeginning: Beginning;
+  addSubscriptionUser: SubscriptionUser;
   addMessage: Message;
 };
 
@@ -59,6 +60,12 @@ export type MutationAddBeginningArgs = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+};
+
+export type MutationAddSubscriptionUserArgs = {
+  senderId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+  status: StatusStatement;
 };
 
 export type MutationAddMessageArgs = {
@@ -519,6 +526,15 @@ export type MutationResolvers<
     RequireFields<
       MutationAddBeginningArgs,
       'authorId' | 'title' | 'problem' | 'solution'
+    >
+  >;
+  addSubscriptionUser: Resolver<
+    ResolversTypes['SubscriptionUser'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationAddSubscriptionUserArgs,
+      'senderId' | 'recipientId' | 'status'
     >
   >;
   addMessage: Resolver<

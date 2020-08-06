@@ -34,6 +34,12 @@ type Mutation {
     solution: String!
   ): Beginning!
 
+  addSubscriptionUser(
+    senderId: ID!
+    recipientId: ID!
+    status: STATUS_STATEMENT!
+  ): SubscriptionUser!
+
   addMessage(authorId: ID!, recipientId: ID!, text: String!): Message!
 }
 
