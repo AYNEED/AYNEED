@@ -7,15 +7,11 @@ export const addSubscriptionUser: Resolvers['Mutation']['addSubscriptionUser'] =
   parent,
   { senderId, recipientId, status }
 ) => {
+  await findUserById(recipientId);
   const sender = await findUserById(senderId);
-  const recipient = await findUserById(recipientId);
 
   if (sender.statistics.completeness !== 100) {
     throw new ValidationError('error.user.incompleteProfile');
-  }
-
-  if (!recipient) {
-    throw new ValidationError('error.user.notFound');
   }
 
   return await createSubscriptionUser({
