@@ -28,5 +28,6 @@ export const userDriver = (
   createdAt,
   beginnings: [],
   subscriptions: [],
+  friends: [],
   ...additional,
 });

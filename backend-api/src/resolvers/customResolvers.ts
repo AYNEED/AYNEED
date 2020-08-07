@@ -10,6 +10,13 @@ export const resolveSubscriptionUser: Resolvers['SubscriptionUser'] = {
   createdAt: (parent) => parent.createdAt,
 };
 
+export const resolveFriendsUser: Resolvers['FriendUser'] = {
+  id: (parent) => parent.id,
+  senderId: (parent) => parent.senderId,
+  recipientId: (parent) => parent.recipientId,
+  createdAt: (parent) => parent.createdAt,
+};
+
 export const resolveBeginning: Resolvers['Beginning'] = {
   id: (parent) => parent.id,
   authorId: (parent) => parent.authorId,
@@ -69,6 +76,11 @@ export const resolveUser: Resolvers['User'] = {
     SubscriptionUserModel.find({
       senderId: parent.id,
       status: { $in: [StatusStatement.Waiting, StatusStatement.Rejected] },
+    }),
+  friends: async (parent) =>
+    SubscriptionUserModel.find({
+      senderId: parent.id,
+      status: { $in: [StatusStatement.Accepted] },
     }),
 };
 

@@ -131,6 +131,13 @@ type SubscriptionUser {
   createdAt: DateTime!
 }
 
+type FriendUser {
+  id: ID!
+  senderId: ID!
+  recipientId: ID!
+  createdAt: DateTime!
+}
+
 type User {
   id: ID!
   role: ROLE!
@@ -143,6 +150,7 @@ type User {
   createdAt: DateTime!
   beginnings: [Beginning!]!
   subscriptions: [SubscriptionUser!]!
+  friends: [FriendUser!]!
 }
 
 type Message {
