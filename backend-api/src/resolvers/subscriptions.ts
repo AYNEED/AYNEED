@@ -9,11 +9,11 @@ export const pubsub = new PubSub();
 export const subscription: Resolvers['Subscription'] = {
   projectAdded: {
     resolve: (payload: Project): Project => payload,
-    subscribe: () => pubsub.asyncIterator(UPDATES.BEGINNING_ADDED),
+    subscribe: () => pubsub.asyncIterator(UPDATES.PROJECT_ADDED),
   },
   projectUpdated: {
     resolve: (payload: Project): Project => payload,
-    subscribe: () => pubsub.asyncIterator(UPDATES.BEGINNING_UPDATED),
+    subscribe: () => pubsub.asyncIterator(UPDATES.PROJECT_UPDATED),
   },
 
   userAdded: {

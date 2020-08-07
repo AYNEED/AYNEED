@@ -23,7 +23,7 @@ export const addProject: Resolvers['Mutation']['addProject'] = async (
   });
 
   await send.update({
-    event: UPDATES.BEGINNING_UPDATED,
+    event: UPDATES.PROJECT_UPDATED,
     payload: project,
   });
 
