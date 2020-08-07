@@ -20,6 +20,7 @@ export type Mutation = {
   addBeginning: Beginning;
   addSubscriptionUser: SubscriptionUser;
   addMessage: Message;
+  addLike: Like;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -67,6 +68,13 @@ export type MutationAddMessageArgs = {
   text: Scalars['String'];
 };
 
+export type MutationAddLikeArgs = {
+  owner: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetType: LikeTargetType;
+  statement: LikeStatement;
+};
+
 export type Query = {
   beginning: Beginning;
   beginnings: BeginningFeed;
@@ -74,6 +82,7 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
+  like: Like;
 };
 
 export type QueryBeginningArgs = {
@@ -99,6 +108,10 @@ export type QuerySearchArgs = {
 
 export type QueryMessagesArgs = {
   cursor: Scalars['ID'];
+};
+
+export type QueryLikeArgs = {
+  id: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -143,6 +156,26 @@ export enum SearchMode {
 export enum Role {
   User = 'user',
 }
+
+export enum LikeTargetType {
+  User = 'user',
+  Comment = 'comment',
+  Project = 'project',
+}
+
+export enum LikeStatement {
+  Like = 'like',
+  Dislike = 'dislike',
+}
+
+export type Like = {
+  id: Scalars['ID'];
+  owner: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetType: LikeTargetType;
+  statement: LikeStatement;
+  createdAt: Scalars['DateTime'];
+};
 
 export type BeginningFeed = {
   items: Array<Beginning>;

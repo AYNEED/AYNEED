@@ -41,6 +41,13 @@ type Mutation {
   ): SubscriptionUser!
 
   addMessage(authorId: ID!, recipientId: ID!, text: String!): Message!
+
+  addLike(
+    owner: ID!
+    targetId: ID!
+    targetType: LIKE_TARGET_TYPE!
+    statement: LIKE_STATEMENT!
+  ): Like!
 }
 
 type Query {
@@ -53,6 +60,8 @@ type Query {
   search(query: String!, mode: SEARCH_MODE!): UserFeed!
 
   messages(cursor: ID!): MessageFeed!
+
+  like(id: ID!): Like!
 }
 
 type Subscription {
@@ -97,6 +106,26 @@ enum SEARCH_MODE {
 
 enum ROLE {
   user
+}
+
+enum LIKE_TARGET_TYPE {
+  user
+  comment
+  project
+}
+
+enum LIKE_STATEMENT {
+  like
+  dislike
+}
+
+type Like {
+  id: ID!
+  owner: ID!
+  targetId: ID!
+  targetType: LIKE_TARGET_TYPE!
+  statement: LIKE_STATEMENT!
+  createdAt: DateTime!
 }
 
 type BeginningFeed {

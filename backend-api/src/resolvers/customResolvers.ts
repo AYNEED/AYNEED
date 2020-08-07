@@ -2,6 +2,15 @@ import { BeginningModel } from 'src/models/beginning';
 import { SubscriptionUserModel } from 'src/models/subscriptionUser';
 import { Resolvers, StatusStatement } from 'src/__generated__';
 
+export const resolveLike: Resolvers['Like'] = {
+  id: (parent) => parent.id,
+  owner: (parent) => parent.owner,
+  targetId: (parent) => parent.targetId,
+  targetType: (parent) => parent.targetType,
+  statement: (parent) => parent.statement,
+  createdAt: (parent) => parent.createdAt,
+};
+
 export const resolveSubscriptionUser: Resolvers['SubscriptionUser'] = {
   id: (parent) => parent.id,
   senderId: (parent) => parent.senderId,

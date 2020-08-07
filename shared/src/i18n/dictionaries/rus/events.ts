@@ -25,4 +25,6 @@ export const events = {
 
   'error.subscription.notFound': 'Подписка на пользователя не найдена',
   'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',
+
+  'error.like.notFound': 'Лайк не найден',
 };

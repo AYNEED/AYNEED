@@ -27,6 +27,7 @@ export type Mutation = {
   addBeginning: Beginning;
   addSubscriptionUser: SubscriptionUser;
   addMessage: Message;
+  addLike: Like;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -74,6 +75,13 @@ export type MutationAddMessageArgs = {
   text: Scalars['String'];
 };
 
+export type MutationAddLikeArgs = {
+  owner: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetType: LikeTargetType;
+  statement: LikeStatement;
+};
+
 export type Query = {
   beginning: Beginning;
   beginnings: BeginningFeed;
@@ -81,6 +89,7 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
+  like: Like;
 };
 
 export type QueryBeginningArgs = {
@@ -106,6 +115,10 @@ export type QuerySearchArgs = {
 
 export type QueryMessagesArgs = {
   cursor: Scalars['ID'];
+};
+
+export type QueryLikeArgs = {
+  id: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -150,6 +163,26 @@ export enum SearchMode {
 export enum Role {
   User = 'user',
 }
+
+export enum LikeTargetType {
+  User = 'user',
+  Comment = 'comment',
+  Project = 'project',
+}
+
+export enum LikeStatement {
+  Like = 'like',
+  Dislike = 'dislike',
+}
+
+export type Like = {
+  id: Scalars['ID'];
+  owner: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetType: LikeTargetType;
+  statement: LikeStatement;
+  createdAt: Scalars['DateTime'];
+};
 
 export type BeginningFeed = {
   items: Array<Beginning>;
@@ -417,6 +450,9 @@ export type ResolversTypes = {
   CLIENT: Client;
   SEARCH_MODE: SearchMode;
   ROLE: Role;
+  LIKE_TARGET_TYPE: LikeTargetType;
+  LIKE_STATEMENT: LikeStatement;
+  Like: ResolverTypeWrapper<Like>;
   BeginningFeed: ResolverTypeWrapper<BeginningFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
@@ -450,6 +486,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Query: {};
   Subscription: {};
+  Like: Like;
   BeginningFeed: BeginningFeed;
   UserFeed: UserFeed;
   MessageFeed: MessageFeed;
@@ -543,6 +580,15 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationAddMessageArgs, 'authorId' | 'recipientId' | 'text'>
   >;
+  addLike: Resolver<
+    ResolversTypes['Like'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationAddLikeArgs,
+      'owner' | 'targetId' | 'targetType' | 'statement'
+    >
+  >;
 };
 
 export type QueryResolvers<
@@ -585,6 +631,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryMessagesArgs, 'cursor'>
   >;
+  like: Resolver<
+    ResolversTypes['Like'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryLikeArgs, 'id'>
+  >;
 };
 
 export type SubscriptionResolvers<
@@ -615,6 +667,27 @@ export type SubscriptionResolvers<
     ParentType,
     ContextType
   >;
+};
+
+export type LikeResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Like'] = ResolversParentTypes['Like']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  owner: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetType: Resolver<
+    ResolversTypes['LIKE_TARGET_TYPE'],
+    ParentType,
+    ContextType
+  >;
+  statement: Resolver<
+    ResolversTypes['LIKE_STATEMENT'],
+    ParentType,
+    ContextType
+  >;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type BeginningFeedResolvers<
@@ -916,6 +989,7 @@ export type Resolvers<ContextType = any> = {
   Mutation: MutationResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
+  Like: LikeResolvers<ContextType>;
   BeginningFeed: BeginningFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
   MessageFeed: MessageFeedResolvers<ContextType>;
