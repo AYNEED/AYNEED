@@ -141,14 +141,14 @@ renderer.renderStatic(`
   }
 `);
 
-interface IAugmentedStyle extends IStyle {
+interface AugmentedStyle extends IStyle {
   ':hover'?: IStyle;
   '> a'?: IStyle;
   '> input'?: IStyle;
   '> label'?: IStyle;
 }
 
-type FelaSheet = IAugmentedStyle;
+type FelaSheet = AugmentedStyle;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FelaSheetFunction = (props: any) => FelaSheet;
 export type PropsStyle = FelaSheet | FelaSheetFunction;

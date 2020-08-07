@@ -1,18 +1,18 @@
 import { Resolvers } from 'src/__generated__';
-import { BeginningModel } from 'src/models/beginning';
+import { ProjectModel } from 'src/models/project';
 import { FEED_LIMIT } from 'src/constants';
-import { findBeginningById } from 'src/helpers/beginnings';
+import { findProjectById } from 'src/helpers/projects';
 
-export const getBeginningById: Resolvers['Query']['beginning'] = async (
+export const getProjectById: Resolvers['Query']['project'] = async (
   parent,
   query
-) => findBeginningById(query.id);
+) => findProjectById(query.id);
 
-export const getBeginnings: Resolvers['Query']['beginnings'] = async (
+export const getProjects: Resolvers['Query']['projects'] = async (
   parent,
   query
 ) => {
-  const items = await BeginningModel.find(
+  const items = await ProjectModel.find(
     query.cursor ? { _id: { $lt: query.cursor } } : {},
     null,
     { sort: { createdAt: 'desc' }, limit: FEED_LIMIT }
@@ -23,7 +23,7 @@ export const getBeginnings: Resolvers['Query']['beginnings'] = async (
   let count = 0;
 
   if (last) {
-    count = await BeginningModel.count({
+    count = await ProjectModel.count({
       _id: { $lt: last.id },
     });
   }

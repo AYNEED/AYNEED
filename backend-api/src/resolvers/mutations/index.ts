@@ -9,14 +9,14 @@ import {
 import { addLike } from 'src/resolvers/mutations/likes';
 import { addMessage } from 'src/resolvers/mutations/messages';
 import { addSubscriptionUser } from 'src/resolvers/mutations/subscriptions';
-import { addBeginning } from 'src/resolvers/mutations/beginnings';
+import { addProject } from 'src/resolvers/mutations/projects';
 
 export const mutation: Resolvers['Mutation'] = {
   forgotPassword,
   forgotPasswordChange,
   signInEmail,
   signUpEmail,
-  addBeginning,
+  addProject,
   addSubscriptionUser,
   addMessage,
   addLike,

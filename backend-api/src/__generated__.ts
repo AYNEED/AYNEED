@@ -24,7 +24,7 @@ export type Mutation = {
   forgotPasswordChange: User;
   signInEmail: User;
   signUpEmail: User;
-  addBeginning: Beginning;
+  addProject: Project;
   addSubscriptionUser: SubscriptionUser;
   addMessage: Message;
   addLike: Like;
@@ -56,7 +56,7 @@ export type MutationSignUpEmailArgs = {
   client: Client;
 };
 
-export type MutationAddBeginningArgs = {
+export type MutationAddProjectArgs = {
   authorId: Scalars['ID'];
   title: Scalars['String'];
   problem: Scalars['String'];
@@ -83,8 +83,8 @@ export type MutationAddLikeArgs = {
 };
 
 export type Query = {
-  beginning: Beginning;
-  beginnings: BeginningFeed;
+  project: Project;
+  projects: ProjectFeed;
   user: User;
   users: UserFeed;
   search: UserFeed;
@@ -92,11 +92,11 @@ export type Query = {
   like: Like;
 };
 
-export type QueryBeginningArgs = {
+export type QueryProjectArgs = {
   id: Scalars['ID'];
 };
 
-export type QueryBeginningsArgs = {
+export type QueryProjectsArgs = {
   cursor: Maybe<Scalars['ID']>;
 };
 
@@ -122,8 +122,8 @@ export type QueryLikeArgs = {
 };
 
 export type Subscription = {
-  beginningAdded: Beginning;
-  beginningUpdated: Beginning;
+  projectAdded: Project;
+  projectUpdated: Project;
   userAdded: User;
   userUpdated: User;
 };
@@ -184,8 +184,8 @@ export type Like = {
   createdAt: Scalars['DateTime'];
 };
 
-export type BeginningFeed = {
-  items: Array<Beginning>;
+export type ProjectFeed = {
+  items: Array<Project>;
   hasMore: Scalars['Boolean'];
 };
 
@@ -199,7 +199,7 @@ export type MessageFeed = {
   hasMore: Scalars['Boolean'];
 };
 
-export type Beginning = {
+export type Project = {
   id: Scalars['ID'];
   authorId: Scalars['ID'];
   title: Scalars['String'];
@@ -241,7 +241,7 @@ export type User = {
   contacts: UserContactsData;
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
-  beginnings: Array<Beginning>;
+  projects: Array<Project>;
   subscriptions: Array<SubscriptionUser>;
   subscribers: Array<SubscriberUser>;
   friends: Array<FriendUser>;
@@ -470,10 +470,10 @@ export type ResolversTypes = {
   LIKE_TARGET_TYPE: LikeTargetType;
   LIKE_STATEMENT: LikeStatement;
   Like: ResolverTypeWrapper<Like>;
-  BeginningFeed: ResolverTypeWrapper<BeginningFeed>;
+  ProjectFeed: ResolverTypeWrapper<ProjectFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
-  Beginning: ResolverTypeWrapper<Beginning>;
+  Project: ResolverTypeWrapper<Project>;
   SubscriptionUser: ResolverTypeWrapper<SubscriptionUser>;
   SubscriberUser: ResolverTypeWrapper<SubscriberUser>;
   FriendUser: ResolverTypeWrapper<FriendUser>;
@@ -506,10 +506,10 @@ export type ResolversParentTypes = {
   Query: {};
   Subscription: {};
   Like: Like;
-  BeginningFeed: BeginningFeed;
+  ProjectFeed: ProjectFeed;
   UserFeed: UserFeed;
   MessageFeed: MessageFeed;
-  Beginning: Beginning;
+  Project: Project;
   SubscriptionUser: SubscriptionUser;
   SubscriberUser: SubscriberUser;
   FriendUser: FriendUser;
@@ -577,12 +577,12 @@ export type MutationResolvers<
       | 'client'
     >
   >;
-  addBeginning: Resolver<
-    ResolversTypes['Beginning'],
+  addProject: Resolver<
+    ResolversTypes['Project'],
     ParentType,
     ContextType,
     RequireFields<
-      MutationAddBeginningArgs,
+      MutationAddProjectArgs,
       'authorId' | 'title' | 'problem' | 'solution'
     >
   >;
@@ -616,17 +616,17 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
-  beginning: Resolver<
-    ResolversTypes['Beginning'],
+  project: Resolver<
+    ResolversTypes['Project'],
     ParentType,
     ContextType,
-    RequireFields<QueryBeginningArgs, 'id'>
+    RequireFields<QueryProjectArgs, 'id'>
   >;
-  beginnings: Resolver<
-    ResolversTypes['BeginningFeed'],
+  projects: Resolver<
+    ResolversTypes['ProjectFeed'],
     ParentType,
     ContextType,
-    RequireFields<QueryBeginningsArgs, never>
+    RequireFields<QueryProjectsArgs, never>
   >;
   user: Resolver<
     ResolversTypes['User'],
@@ -664,15 +664,15 @@ export type SubscriptionResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
 > = {
-  beginningAdded: SubscriptionResolver<
-    ResolversTypes['Beginning'],
-    'beginningAdded',
+  projectAdded: SubscriptionResolver<
+    ResolversTypes['Project'],
+    'projectAdded',
     ParentType,
     ContextType
   >;
-  beginningUpdated: SubscriptionResolver<
-    ResolversTypes['Beginning'],
-    'beginningUpdated',
+  projectUpdated: SubscriptionResolver<
+    ResolversTypes['Project'],
+    'projectUpdated',
     ParentType,
     ContextType
   >;
@@ -711,11 +711,11 @@ export type LikeResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type BeginningFeedResolvers<
+export type ProjectFeedResolvers<
   ContextType = any,
-  ParentType extends ResolversParentTypes['BeginningFeed'] = ResolversParentTypes['BeginningFeed']
+  ParentType extends ResolversParentTypes['ProjectFeed'] = ResolversParentTypes['ProjectFeed']
 > = {
-  items: Resolver<Array<ResolversTypes['Beginning']>, ParentType, ContextType>;
+  items: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>;
   hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -738,9 +738,9 @@ export type MessageFeedResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type BeginningResolvers<
+export type ProjectResolvers<
   ContextType = any,
-  ParentType extends ResolversParentTypes['Beginning'] = ResolversParentTypes['Beginning']
+  ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   authorId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -815,11 +815,7 @@ export type UserResolvers<
     ContextType
   >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  beginnings: Resolver<
-    Array<ResolversTypes['Beginning']>,
-    ParentType,
-    ContextType
-  >;
+  projects: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>;
   subscriptions: Resolver<
     Array<ResolversTypes['SubscriptionUser']>,
     ParentType,
@@ -1044,10 +1040,10 @@ export type Resolvers<ContextType = any> = {
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
   Like: LikeResolvers<ContextType>;
-  BeginningFeed: BeginningFeedResolvers<ContextType>;
+  ProjectFeed: ProjectFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
   MessageFeed: MessageFeedResolvers<ContextType>;
-  Beginning: BeginningResolvers<ContextType>;
+  Project: ProjectResolvers<ContextType>;
   SubscriptionUser: SubscriptionUserResolvers<ContextType>;
   SubscriberUser: SubscriberUserResolvers<ContextType>;
   FriendUser: FriendUserResolvers<ContextType>;

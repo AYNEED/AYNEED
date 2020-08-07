@@ -1,4 +1,4 @@
-import { BeginningModel } from 'src/models/beginning';
+import { ProjectModel } from 'src/models/project';
 import { SubscriptionUserModel } from 'src/models/subscriptionUser';
 import { Resolvers, StatusStatement } from 'src/__generated__';
 
@@ -34,7 +34,7 @@ export const resolveFriendsUser: Resolvers['FriendUser'] = {
   createdAt: (parent) => parent.createdAt,
 };
 
-export const resolveBeginning: Resolvers['Beginning'] = {
+export const resolveProject: Resolvers['Project'] = {
   id: (parent) => parent.id,
   authorId: (parent) => parent.authorId,
   title: (parent) => parent.title,
@@ -43,7 +43,7 @@ export const resolveBeginning: Resolvers['Beginning'] = {
   createdAt: (parent) => parent.createdAt,
 };
 
-export const resolveBeginningFeed: Resolvers['BeginningFeed'] = {
+export const resolveProjectFeed: Resolvers['ProjectFeed'] = {
   items: (parent) => parent.items,
   hasMore: (parent) => parent.hasMore,
 };
@@ -88,7 +88,7 @@ export const resolveUser: Resolvers['User'] = {
   role: (parent) => parent.role,
   createdAt: (parent) => parent.createdAt,
 
-  beginnings: async (parent) => BeginningModel.find({ authorId: parent.id }),
+  projects: async (parent) => ProjectModel.find({ authorId: parent.id }),
   subscriptions: async (parent) =>
     SubscriptionUserModel.find({
       senderId: parent.id,

@@ -1,11 +1,11 @@
 import { Resolvers } from 'src/__generated__';
 import { findUserById } from 'src/helpers/users';
-import { createBeginning } from 'src/helpers/beginnings';
+import { createProject } from 'src/helpers/projects';
 import { ValidationError } from 'shared';
 import { UPDATES } from 'src/notifications/events';
 import { send } from 'src/notifications';
 
-export const addBeginning: Resolvers['Mutation']['addBeginning'] = async (
+export const addProject: Resolvers['Mutation']['addProject'] = async (
   parent,
   { authorId, title, problem, solution }
 ) => {
@@ -15,7 +15,7 @@ export const addBeginning: Resolvers['Mutation']['addBeginning'] = async (
     throw new ValidationError('error.user.incompleteProfile');
   }
 
-  const beginning = await createBeginning({
+  const project = await createProject({
     authorId,
     title,
     problem,
@@ -23,9 +23,9 @@ export const addBeginning: Resolvers['Mutation']['addBeginning'] = async (
   });
 
   await send.update({
-    event: UPDATES.BEGINNING_UPDATED,
-    payload: beginning,
+    event: UPDATES.PROJECT_UPDATED,
+    payload: project,
   });
 
-  return beginning;
+  return project;
 };

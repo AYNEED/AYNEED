@@ -17,7 +17,7 @@ export type Mutation = {
   forgotPasswordChange: User;
   signInEmail: User;
   signUpEmail: User;
-  addBeginning: Beginning;
+  addProject: Project;
   addSubscriptionUser: SubscriptionUser;
   addMessage: Message;
   addLike: Like;
@@ -49,7 +49,7 @@ export type MutationSignUpEmailArgs = {
   client: Client;
 };
 
-export type MutationAddBeginningArgs = {
+export type MutationAddProjectArgs = {
   authorId: Scalars['ID'];
   title: Scalars['String'];
   problem: Scalars['String'];
@@ -76,8 +76,8 @@ export type MutationAddLikeArgs = {
 };
 
 export type Query = {
-  beginning: Beginning;
-  beginnings: BeginningFeed;
+  project: Project;
+  projects: ProjectFeed;
   user: User;
   users: UserFeed;
   search: UserFeed;
@@ -85,11 +85,11 @@ export type Query = {
   like: Like;
 };
 
-export type QueryBeginningArgs = {
+export type QueryProjectArgs = {
   id: Scalars['ID'];
 };
 
-export type QueryBeginningsArgs = {
+export type QueryProjectsArgs = {
   cursor: Maybe<Scalars['ID']>;
 };
 
@@ -115,8 +115,8 @@ export type QueryLikeArgs = {
 };
 
 export type Subscription = {
-  beginningAdded: Beginning;
-  beginningUpdated: Beginning;
+  projectAdded: Project;
+  projectUpdated: Project;
   userAdded: User;
   userUpdated: User;
 };
@@ -177,8 +177,8 @@ export type Like = {
   createdAt: Scalars['DateTime'];
 };
 
-export type BeginningFeed = {
-  items: Array<Beginning>;
+export type ProjectFeed = {
+  items: Array<Project>;
   hasMore: Scalars['Boolean'];
 };
 
@@ -192,7 +192,7 @@ export type MessageFeed = {
   hasMore: Scalars['Boolean'];
 };
 
-export type Beginning = {
+export type Project = {
   id: Scalars['ID'];
   authorId: Scalars['ID'];
   title: Scalars['String'];
@@ -209,6 +209,21 @@ export type SubscriptionUser = {
   createdAt: Scalars['DateTime'];
 };
 
+export type SubscriberUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+  status: StatusStatement;
+  createdAt: Scalars['DateTime'];
+};
+
+export type FriendUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+};
+
 export type User = {
   id: Scalars['ID'];
   role: Role;
@@ -219,8 +234,10 @@ export type User = {
   contacts: UserContactsData;
   statistics: UserStatisticsData;
   createdAt: Scalars['DateTime'];
-  beginnings: Array<Beginning>;
+  projects: Array<Project>;
   subscriptions: Array<SubscriptionUser>;
+  subscribers: Array<SubscriberUser>;
+  friends: Array<FriendUser>;
 };
 
 export type Message = {
@@ -315,8 +332,8 @@ export type MessageVisibleData = {
   isVisibleAll: Scalars['Boolean'];
 };
 
-export type CommouBeginningFieldsFragment = Pick<
-  Beginning,
+export type CommouProjectFieldsFragment = Pick<
+  Project,
   'id' | 'title' | 'problem' | 'solution'
 >;
 
@@ -326,13 +343,13 @@ export type CommouUserFieldsFragment = Pick<User, 'id'> & {
   personal: Pick<UserPersonalData, 'firstName' | 'lastName' | 'photo'>;
 };
 
-export type GetBeginningsQueryVariables = Exact<{
+export type GetProjectsQueryVariables = Exact<{
   cursor: Maybe<Scalars['ID']>;
 }>;
 
-export type GetBeginningsQuery = {
-  beginnings: Pick<BeginningFeed, 'hasMore'> & {
-    items: Array<CommouBeginningFieldsFragment>;
+export type GetProjectsQuery = {
+  projects: Pick<ProjectFeed, 'hasMore'> & {
+    items: Array<CommouProjectFieldsFragment>;
   };
 };
 
@@ -344,20 +361,20 @@ export type GetUsersQuery = {
   users: Pick<UserFeed, 'hasMore'> & { items: Array<CommouUserFieldsFragment> };
 };
 
-export type OnBeginningAddedSubscriptionVariables = Exact<{
+export type OnProjectAddedSubscriptionVariables = Exact<{
   [key: string]: never;
 }>;
 
-export type OnBeginningAddedSubscription = {
-  beginningAdded: CommouBeginningFieldsFragment;
+export type OnProjectAddedSubscription = {
+  projectAdded: CommouProjectFieldsFragment;
 };
 
-export type OnBeginningUpdatedSubscriptionVariables = Exact<{
+export type OnProjectUpdatedSubscriptionVariables = Exact<{
   [key: string]: never;
 }>;
 
-export type OnBeginningUpdatedSubscription = {
-  beginningUpdated: CommouBeginningFieldsFragment;
+export type OnProjectUpdatedSubscription = {
+  projectUpdated: CommouProjectFieldsFragment;
 };
 
 export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
@@ -398,8 +415,8 @@ export type SignUpEmailMutationVariables = Exact<{
 
 export type SignUpEmailMutation = { signUpEmail: CommouUserFieldsFragment };
 
-export const CommouBeginningFieldsFragmentDoc = gql`
-  fragment commouBeginningFields on Beginning {
+export const CommouProjectFieldsFragmentDoc = gql`
+  fragment commouProjectFields on Project {
     id
     title
     problem
@@ -426,20 +443,20 @@ export const CommouUserFieldsFragmentDoc = gql`
     }
   }
 `;
-export const GetBeginningsDocument = gql`
-  query GetBeginnings($cursor: ID) {
-    beginnings(cursor: $cursor) {
+export const GetProjectsDocument = gql`
+  query GetProjects($cursor: ID) {
+    projects(cursor: $cursor) {
       items {
-        ...commouBeginningFields
+        ...commouProjectFields
       }
       hasMore
     }
   }
-  ${CommouBeginningFieldsFragmentDoc}
+  ${CommouProjectFieldsFragmentDoc}
 `;
-export type GetBeginningsQueryResult = ApolloReactCommon.QueryResult<
-  GetBeginningsQuery,
-  GetBeginningsQueryVariables
+export type GetProjectsQueryResult = ApolloReactCommon.QueryResult<
+  GetProjectsQuery,
+  GetProjectsQueryVariables
 >;
 export const GetUsersDocument = gql`
   query GetUsers($cursor: ID) {
@@ -456,27 +473,27 @@ export type GetUsersQueryResult = ApolloReactCommon.QueryResult<
   GetUsersQuery,
   GetUsersQueryVariables
 >;
-export const OnBeginningAddedDocument = gql`
-  subscription onBeginningAdded {
-    beginningAdded {
-      ...commouBeginningFields
+export const OnProjectAddedDocument = gql`
+  subscription onProjectAdded {
+    projectAdded {
+      ...commouProjectFields
     }
   }
-  ${CommouBeginningFieldsFragmentDoc}
+  ${CommouProjectFieldsFragmentDoc}
 `;
-export type OnBeginningAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
-  OnBeginningAddedSubscription
+export type OnProjectAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
+  OnProjectAddedSubscription
 >;
-export const OnBeginningUpdatedDocument = gql`
-  subscription onBeginningUpdated {
-    beginningUpdated {
-      ...commouBeginningFields
+export const OnProjectUpdatedDocument = gql`
+  subscription onProjectUpdated {
+    projectUpdated {
+      ...commouProjectFields
     }
   }
-  ${CommouBeginningFieldsFragmentDoc}
+  ${CommouProjectFieldsFragmentDoc}
 `;
-export type OnBeginningUpdatedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
-  OnBeginningUpdatedSubscription
+export type OnProjectUpdatedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
+  OnProjectUpdatedSubscription
 >;
 export const OnUserAddedDocument = gql`
   subscription onUserAdded {

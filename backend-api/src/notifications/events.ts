@@ -3,9 +3,9 @@ export const USER_UPDATES = {
   USER_UPDATED: 'USER_UPDATED',
 } as const;
 
-export const BEGINNING_UPDATES = {
-  BEGINNING_ADDED: 'BEGINNING_ADDED',
-  BEGINNING_UPDATED: 'BEGINNING_UPDATED',
+export const PROJECT_UPDATES = {
+  PROJECT_ADDED: 'PROJECT_ADDED',
+  PROJECT_UPDATED: 'PROJECT_UPDATED',
 } as const;
 
 /**
@@ -13,7 +13,7 @@ export const BEGINNING_UPDATES = {
  */
 export const UPDATES = {
   ...USER_UPDATES,
-  ...BEGINNING_UPDATES,
+  ...PROJECT_UPDATES,
 } as const;
 
 /**

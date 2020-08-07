@@ -27,7 +27,7 @@ type UserRecovery = {
 export type UserComplete = Omit<
   User,
   | 'id'
-  | 'beginnings'
+  | 'projects'
   | 'subscribers'
   | 'subscriptions'
   | 'friends'
@@ -39,7 +39,7 @@ export type UserComplete = Omit<
 export type UserRes = Document &
   Omit<
     User,
-    'beginnings' | 'subscriptions' | 'subscribers' | 'friends' | 'network'
+    'projects' | 'subscriptions' | 'subscribers' | 'friends' | 'network'
   > & {
     private: {
       password: UserPassword;
