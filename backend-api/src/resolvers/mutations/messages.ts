@@ -10,14 +10,14 @@ export const addMessage: Resolvers['Mutation']['addMessage'] = async (
   const recipient = await findUserById(recipientId);
   const author = await findUserById(authorId);
 
+  // TODO: exclude these checks for messages to the support
+
   if (
     recipient.statistics.completeness !== 100 &&
     author.statistics.completeness !== 100
   ) {
     throw new ValidationError('error.user.incompleteProfile');
   }
-
-  //TODO: add exception (support chat)
 
   if (!text) {
     throw new ValidationError('error.message.empty');
