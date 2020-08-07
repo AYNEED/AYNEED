@@ -24,4 +24,6 @@ export const events = {
   'error.beginning.notFound': 'Начинание не найдено',
 
   'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',
+
+  'error.like.notFound': 'Лайк не найден',
 };

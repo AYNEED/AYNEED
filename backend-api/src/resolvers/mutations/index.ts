@@ -6,6 +6,7 @@ import {
   signUpEmail,
 } from 'src/resolvers/mutations/users';
 
+import { addLike } from 'src/resolvers/mutations/likes';
 import { addMessage } from 'src/resolvers/mutations/messages';
 import { addBeginning } from 'src/resolvers/mutations/beginnings';
 
@@ -16,4 +17,5 @@ export const mutation: Resolvers['Mutation'] = {
   signUpEmail,
   addBeginning,
   addMessage,
+  addLike,
 };
