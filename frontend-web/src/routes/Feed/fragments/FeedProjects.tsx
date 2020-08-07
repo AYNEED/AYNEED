@@ -81,7 +81,7 @@ export const FeedProjects: React.FC = () => {
   return (
     <>
       <h2>
-        <Msg id="web.routes.Feed.FeedProjects.title" />
+        <Msg id="web.routes.Feed.fragments.FeedProjects.title" />
       </h2>
 
       {error && <p>Error</p>}
