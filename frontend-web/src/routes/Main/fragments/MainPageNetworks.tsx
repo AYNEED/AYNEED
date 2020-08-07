@@ -55,7 +55,7 @@ const networks: Array<NetworkProps> = [
 
 const Title: React.FC = () => (
   <FelaComponent style={styles.title}>
-    <Msg id="web.routes.Main.MainPageNetworks.title" />
+    <Msg id="web.routes.Main.fragments.MainPageNetworks.title" />
   </FelaComponent>
 );
 
