@@ -183,6 +183,14 @@ export type SubscriptionUser = {
   createdAt: Scalars['DateTime'];
 };
 
+export type SubscriberUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  recipientId: Scalars['ID'];
+  status: StatusStatement;
+  createdAt: Scalars['DateTime'];
+};
+
 export type FriendUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
@@ -202,6 +210,7 @@ export type User = {
   createdAt: Scalars['DateTime'];
   beginnings: Array<Beginning>;
   subscriptions: Array<SubscriptionUser>;
+  subscribers: Array<SubscriberUser>;
   friends: Array<FriendUser>;
 };
 
@@ -430,6 +439,7 @@ export type ResolversTypes = {
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
   Beginning: ResolverTypeWrapper<Beginning>;
   SubscriptionUser: ResolverTypeWrapper<SubscriptionUser>;
+  SubscriberUser: ResolverTypeWrapper<SubscriberUser>;
   FriendUser: ResolverTypeWrapper<FriendUser>;
   User: ResolverTypeWrapper<User>;
   Message: ResolverTypeWrapper<Message>;
@@ -464,6 +474,7 @@ export type ResolversParentTypes = {
   MessageFeed: MessageFeed;
   Beginning: Beginning;
   SubscriptionUser: SubscriptionUser;
+  SubscriberUser: SubscriberUser;
   FriendUser: FriendUser;
   User: User;
   Message: Message;
@@ -679,6 +690,18 @@ export type SubscriptionUserResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type SubscriberUserResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SubscriberUser'] = ResolversParentTypes['SubscriberUser']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  status: Resolver<ResolversTypes['STATUS_STATEMENT'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type FriendUserResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['FriendUser'] = ResolversParentTypes['FriendUser']
@@ -726,6 +749,11 @@ export type UserResolvers<
   >;
   subscriptions: Resolver<
     Array<ResolversTypes['SubscriptionUser']>,
+    ParentType,
+    ContextType
+  >;
+  subscribers: Resolver<
+    Array<ResolversTypes['SubscriberUser']>,
     ParentType,
     ContextType
   >;
@@ -947,6 +975,7 @@ export type Resolvers<ContextType = any> = {
   MessageFeed: MessageFeedResolvers<ContextType>;
   Beginning: BeginningResolvers<ContextType>;
   SubscriptionUser: SubscriptionUserResolvers<ContextType>;
+  SubscriberUser: SubscriberUserResolvers<ContextType>;
   FriendUser: FriendUserResolvers<ContextType>;
   User: UserResolvers<ContextType>;
   Message: MessageResolvers<ContextType>;

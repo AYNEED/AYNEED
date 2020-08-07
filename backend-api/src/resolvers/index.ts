@@ -28,6 +28,7 @@ import {
   resolveMessageUsersData,
   resolveMessageInfoData,
   resolveMessage,
+  resolveSubscribersUser,
 } from 'src/resolvers/customResolvers';
 import { scalarDateTime } from 'src/resolvers/customScalars';
 
@@ -46,6 +47,7 @@ export const resolvers: Resolvers = {
 
   // Custom resolvers:
   SubscriptionUser: resolveSubscriptionUser,
+  SubscriberUser: resolveSubscribersUser,
   FriendUser: resolveFriendsUser,
   Beginning: resolveBeginning,
   BeginningFeed: resolveBeginningFeed,

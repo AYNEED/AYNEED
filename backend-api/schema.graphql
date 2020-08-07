@@ -131,6 +131,14 @@ type SubscriptionUser {
   createdAt: DateTime!
 }
 
+type SubscriberUser {
+  id: ID!
+  senderId: ID!
+  recipientId: ID!
+  status: STATUS_STATEMENT!
+  createdAt: DateTime!
+}
+
 type FriendUser {
   id: ID!
   senderId: ID!
@@ -150,6 +158,7 @@ type User {
   createdAt: DateTime!
   beginnings: [Beginning!]!
   subscriptions: [SubscriptionUser!]!
+  subscribers: [SubscriberUser!]!
   friends: [FriendUser!]!
 }
 

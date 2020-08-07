@@ -28,6 +28,7 @@ export type UserComplete = Omit<
   User,
   | 'id'
   | 'beginnings'
+  | 'subscribers'
   | 'subscriptions'
   | 'friends'
   | 'network'
@@ -36,7 +37,10 @@ export type UserComplete = Omit<
 >;
 
 export type UserRes = Document &
-  Omit<User, 'beginnings' | 'subscriptions' | 'friends' | 'network'> & {
+  Omit<
+    User,
+    'beginnings' | 'subscriptions' | 'subscribers' | 'friends' | 'network'
+  > & {
     private: {
       password: UserPassword;
       recovery: Maybe<UserRecovery>;
