@@ -21,7 +21,7 @@ export const events = {
   'error.user.incompleteProfile':
     'Профиль заполнен не полностью. Заполните и повторите попытку',
 
-  'error.beginning.notFound': 'Начинание не найдено',
+  'error.project.notFound': 'Начинание не найдено',
 
   'error.subscription.notFound': 'Подписка на пользователя не найдена',
   'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',

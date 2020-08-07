@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { PubSub } from 'apollo-server-express';
 
-import { Resolvers, Beginning, User } from 'src/__generated__';
+import { Resolvers, Project, User } from 'src/__generated__';
 import { UPDATES } from 'src/notifications/events';
 
 export const pubsub = new PubSub();
 
 export const subscription: Resolvers['Subscription'] = {
-  beginningAdded: {
-    resolve: (payload: Beginning): Beginning => payload,
+  projectAdded: {
+    resolve: (payload: Project): Project => payload,
     subscribe: () => pubsub.asyncIterator(UPDATES.BEGINNING_ADDED),
   },
-  beginningUpdated: {
-    resolve: (payload: Beginning): Beginning => payload,
+  projectUpdated: {
+    resolve: (payload: Project): Project => payload,
     subscribe: () => pubsub.asyncIterator(UPDATES.BEGINNING_UPDATED),
   },
 

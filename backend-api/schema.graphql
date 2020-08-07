@@ -27,12 +27,12 @@ type Mutation {
     client: CLIENT!
   ): User!
 
-  addBeginning(
+  addProject(
     authorId: ID!
     title: String!
     problem: String!
     solution: String!
-  ): Beginning!
+  ): Project!
 
   addSubscriptionUser(
     senderId: ID!
@@ -51,8 +51,8 @@ type Mutation {
 }
 
 type Query {
-  beginning(id: ID!): Beginning!
-  beginnings(cursor: ID): BeginningFeed!
+  project(id: ID!): Project!
+  projects(cursor: ID): ProjectFeed!
 
   user(id: ID!): User!
   users(cursor: ID): UserFeed!
@@ -65,8 +65,8 @@ type Query {
 }
 
 type Subscription {
-  beginningAdded: Beginning!
-  beginningUpdated: Beginning!
+  projectAdded: Project!
+  projectUpdated: Project!
 
   userAdded: User!
   userUpdated: User!
@@ -128,8 +128,8 @@ type Like {
   createdAt: DateTime!
 }
 
-type BeginningFeed {
-  items: [Beginning!]!
+type ProjectFeed {
+  items: [Project!]!
   hasMore: Boolean!
 }
 
@@ -143,7 +143,7 @@ type MessageFeed {
   hasMore: Boolean!
 }
 
-type Beginning {
+type Project {
   id: ID!
   authorId: ID!
   title: String!
@@ -185,7 +185,7 @@ type User {
   contacts: UserContactsData!
   statistics: UserStatisticsData!
   createdAt: DateTime!
-  beginnings: [Beginning!]!
+  projects: [Project!]!
   subscriptions: [SubscriptionUser!]!
   subscribers: [SubscriberUser!]!
   friends: [FriendUser!]!

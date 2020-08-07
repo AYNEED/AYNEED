@@ -1,12 +1,12 @@
 import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import { Beginning } from 'src/__generated__';
+import { Project } from 'src/__generated__';
 
-export type BeginningRes = Document & Beginning;
-type BeginningReq = Omit<BeginningRes, 'createdAt'>;
+export type ProjectRes = Document & Project;
+type ProjectReq = Omit<ProjectRes, 'createdAt'>;
 
-const BeginningSchema = new Schema<BeginningReq>(
+const ProjectSchema = new Schema<ProjectReq>(
   {
     authorId: {
       type: Schema.Types.ObjectId,
@@ -29,7 +29,7 @@ const BeginningSchema = new Schema<BeginningReq>(
   schemaOptions
 );
 
-export const BeginningModel = model<BeginningReq, BeginningRes>(
-  'Beginning',
-  BeginningSchema
+export const ProjectModel = model<ProjectReq, ProjectRes>(
+  'Project',
+  ProjectSchema
 );
