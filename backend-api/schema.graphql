@@ -1,5 +1,5 @@
-scalar Token
 scalar DateTime
+scalar Token
 
 schema {
   mutation: Mutation
@@ -13,19 +13,19 @@ type Mutation {
   forgotPasswordChange(
     password: String!
     recoveryCode: String!
-    client: CLIENT!
+    client: USER_CLIENT!
   ): User!
 
-  signInEmail(email: String!, password: String!, client: CLIENT!): User!
+  signInEmail(email: String!, password: String!, client: USER_CLIENT!): User!
 
   signUpEmail(
     email: String!
     password: String!
     firstName: String!
     lastName: String!
-    locale: LOCALE!
+    locale: USER_LOCALE!
     isAgree: Boolean!
-    client: CLIENT!
+    client: USER_CLIENT!
   ): User!
 
   signOut(token: Token!): Boolean!
@@ -75,27 +75,17 @@ type Subscription {
   userUpdated: User!
 }
 
-enum LOCALE {
-  rus
+# ########################### enums ###########################
+
+enum LIKE_STATUS {
+  like
+  dislike
 }
 
-enum LANGUAGE_LEVEL {
-  beginner
-  elementary
-  intermediate
-  upper_intermediate
-  advanced
-  proficiency
-}
-
-enum CLIENT {
-  mobile
-  desktop
-}
-
-enum ROLE {
+enum LIKE_TARGET_MODEL {
   user
-  support
+  comment
+  project
 }
 
 enum SEARCH_TARGET_MODEL {
@@ -112,24 +102,34 @@ enum SUBSCRIPTION_STATUS {
   rejected
 }
 
-enum LIKE_STATUS {
-  like
-  dislike
+enum USER_LOCALE {
+  rus
 }
 
-enum LIKE_TARGET_MODEL {
+enum USER_LANGUAGE_LEVEL {
+  beginner
+  elementary
+  intermediate
+  upper_intermediate
+  advanced
+  proficiency
+}
+
+enum USER_CLIENT {
+  mobile
+  desktop
+}
+
+enum USER_ROLE {
   user
-  comment
-  project
+  support
 }
 
-type Like {
-  id: ID!
-  senderId: ID!
-  targetId: ID!
-  targetModel: LIKE_TARGET_MODEL!
-  status: LIKE_STATUS!
-  createdAt: DateTime!
+# ########################### feeds ###########################
+
+type MessageFeed {
+  items: [Message!]!
+  hasMore: Boolean!
 }
 
 type ProjectFeed {
@@ -142,9 +142,15 @@ type UserFeed {
   hasMore: Boolean!
 }
 
-type MessageFeed {
-  items: [Message!]!
-  hasMore: Boolean!
+# ########################## models ###########################
+
+type Message {
+  info: MessageInfoData!
+  users: MessageUsersData!
+  visible: MessageVisibleData!
+  createdAt: DateTime!
+  editAt: DateTime
+  deleteAt: DateTime
 }
 
 type Project {
@@ -156,32 +162,9 @@ type Project {
   createdAt: DateTime!
 }
 
-type SubscriptionUser {
-  id: ID!
-  senderId: ID!
-  targetId: ID!
-  status: SUBSCRIPTION_STATUS!
-  createdAt: DateTime!
-}
-
-type SubscriberUser {
-  id: ID!
-  senderId: ID!
-  targetId: ID!
-  status: SUBSCRIPTION_STATUS!
-  createdAt: DateTime!
-}
-
-type FriendUser {
-  id: ID!
-  senderId: ID!
-  targetId: ID!
-  createdAt: DateTime!
-}
-
 type User {
   id: ID!
-  role: ROLE!
+  role: USER_ROLE!
   network: UserNetwotkData!
   about: UserAboutData!
   personal: UserPersonalData!
@@ -195,82 +178,41 @@ type User {
   friends: [FriendUser!]!
 }
 
-type Message {
-  info: MessageInfoData!
-  users: MessageUsersData!
-  visible: MessageVisibleData!
+# #################### additional models ######################
+
+type FriendUser {
+  id: ID!
+  senderId: ID!
+  targetId: ID!
   createdAt: DateTime!
-  editAt: DateTime
-  deleteAt: DateTime
 }
 
-type UserNetwotkData {
-  isOnline: Boolean!
-  client: CLIENT!
+type Like {
+  id: ID!
+  senderId: ID!
+  targetId: ID!
+  targetModel: LIKE_TARGET_MODEL!
+  status: LIKE_STATUS!
+  createdAt: DateTime!
 }
 
-type UserAboutData {
-  bio: String
-  skills: [UserSkillRecord!]!
-  career: [UserCareerRecord!]!
-  education: [UserEducationRecord!]!
+type SubscriberUser {
+  id: ID!
+  senderId: ID!
+  targetId: ID!
+  status: SUBSCRIPTION_STATUS!
+  createdAt: DateTime!
 }
 
-type UserPersonalData {
-  firstName: String!
-  lastName: String!
-  isAgree: Boolean!
-  bornAt: DateTime
-  photo: [String!]!
+type SubscriptionUser {
+  id: ID!
+  senderId: ID!
+  targetId: ID!
+  status: SUBSCRIPTION_STATUS!
+  createdAt: DateTime!
 }
 
-type UserRegionalData {
-  city: String
-  state: String
-  country: String
-  locale: LOCALE!
-  languages: [UserLanguageRecord!]!
-}
-
-type UserContactsData {
-  email: UserContactRecord!
-  phone: UserContactRecord
-  vkontakte: UserContactRecord
-  facebook: UserContactRecord
-  instagram: UserContactRecord
-  telegram: UserContactRecord
-  linkedin: UserContactRecord
-}
-
-type UserStatisticsData {
-  completeness: Int!
-}
-
-type UserSkillRecord {
-  title: String!
-  primary: Boolean!
-}
-
-type UserCareerRecord {
-  title: String!
-  description: String!
-}
-
-type UserEducationRecord {
-  title: String!
-  description: String!
-}
-
-type UserLanguageRecord {
-  code: String!
-  level: LANGUAGE_LEVEL!
-}
-
-type UserContactRecord {
-  value: String!
-  isVisible: Boolean!
-  isVerified: Boolean!
-}
+# ######################## models data ########################
 
 type MessageInfoData {
   text: String!
@@ -285,4 +227,74 @@ type MessageUsersData {
 type MessageVisibleData {
   isVisibleAuthor: Boolean!
   isVisibleAll: Boolean!
+}
+
+type UserAboutData {
+  bio: String
+  skills: [UserSkillRecord!]!
+  career: [UserCareerRecord!]!
+  education: [UserEducationRecord!]!
+}
+
+type UserContactsData {
+  email: UserContactRecord!
+  phone: UserContactRecord
+  vkontakte: UserContactRecord
+  facebook: UserContactRecord
+  instagram: UserContactRecord
+  telegram: UserContactRecord
+  linkedin: UserContactRecord
+}
+
+type UserNetwotkData {
+  isOnline: Boolean!
+  client: USER_CLIENT!
+}
+
+type UserPersonalData {
+  firstName: String!
+  lastName: String!
+  isAgree: Boolean!
+  bornAt: DateTime
+  photo: [String!]!
+}
+
+type UserRegionalData {
+  city: String
+  state: String
+  country: String
+  locale: USER_LOCALE!
+  languages: [UserLanguageRecord!]!
+}
+
+type UserStatisticsData {
+  completeness: Int!
+}
+
+# ###################### models records #######################
+
+type UserCareerRecord {
+  title: String!
+  description: String!
+}
+
+type UserContactRecord {
+  value: String!
+  isVisible: Boolean!
+  isVerified: Boolean!
+}
+
+type UserEducationRecord {
+  title: String!
+  description: String!
+}
+
+type UserLanguageRecord {
+  code: String!
+  level: USER_LANGUAGE_LEVEL!
+}
+
+type UserSkillRecord {
+  title: String!
+  primary: Boolean!
 }

@@ -2,10 +2,10 @@ import { UserRes, UserComplete, UserModel } from 'src/models/user';
 import { createPasswordHash, createRandomString } from 'src/utils/password';
 import { profileCompleteness } from 'src/utils/profileCompleteness';
 import {
-  User,
   MutationSignUpEmailArgs,
-  Role,
   Scalars,
+  User,
+  UserRole,
 } from 'src/__generated__';
 import { ValidationError } from 'shared';
 
@@ -21,7 +21,7 @@ export const createUser = async ({
   const hash = createPasswordHash(password, salt);
 
   const userComplete: UserComplete = {
-    role: Role.User,
+    role: UserRole.User,
     about: {
       bio: null,
       skills: [],

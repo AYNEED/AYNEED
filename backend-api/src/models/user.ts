@@ -3,15 +3,15 @@ import { Schema, model, Document } from 'mongoose';
 import { schemaOptions } from 'src/utils/mongodb';
 import {
   Maybe,
-  Locale,
-  LanguageLevel,
-  Role,
   User,
-  UserSkillRecord,
   UserCareerRecord,
-  UserEducationRecord,
-  UserLanguageRecord,
   UserContactRecord,
+  UserEducationRecord,
+  UserLanguageLevel,
+  UserLanguageRecord,
+  UserLocale,
+  UserRole,
+  UserSkillRecord,
 } from 'src/__generated__';
 
 export type UserPassword = {
@@ -89,7 +89,7 @@ const UserLanguageSchema = new Schema<UserLanguageRecord>({
   },
   level: {
     type: String,
-    enum: Object.values(LanguageLevel),
+    enum: Object.values(UserLanguageLevel),
     required: true,
   },
 });
@@ -172,7 +172,7 @@ const UserSchema = new Schema<UserReq>(
       },
       locale: {
         type: String,
-        enum: Object.values(Locale),
+        enum: Object.values(UserLocale),
         required: true,
       },
       languages: {
@@ -211,7 +211,7 @@ const UserSchema = new Schema<UserReq>(
     },
     role: {
       type: String,
-      enum: Object.values(Role),
+      enum: Object.values(UserRole),
       required: true,
     },
     private: {

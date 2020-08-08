@@ -1,9 +1,9 @@
 import { profileCompleteness } from 'src/utils/profileCompleteness';
 import { UserComplete } from 'src/models/user';
-import { Locale, Role } from 'src/__generated__';
+import { UserLocale, UserRole } from 'src/__generated__';
 
 const exUser: UserComplete = {
-  role: Role.User,
+  role: UserRole.User,
   about: {
     bio: null,
     skills: [],
@@ -21,7 +21,7 @@ const exUser: UserComplete = {
     city: null,
     state: null,
     country: null,
-    locale: Locale.Rus,
+    locale: UserLocale.Rus,
     languages: [],
   },
   contacts: {
