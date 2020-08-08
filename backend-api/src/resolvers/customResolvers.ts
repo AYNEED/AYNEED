@@ -11,6 +11,14 @@ export const resolveLike: Resolvers['Like'] = {
   createdAt: (parent) => parent.createdAt,
 };
 
+export const resolveSubscriptionProject: Resolvers['SubscriptionProject'] = {
+  id: (parent) => parent.id,
+  owner: (parent) => parent.owner,
+  targetId: (parent) => parent.targetId,
+  status: (parent) => parent.status,
+  createdAt: (parent) => parent.createdAt,
+};
+
 export const resolveSubscriptionUser: Resolvers['SubscriptionUser'] = {
   id: (parent) => parent.id,
   senderId: (parent) => parent.senderId,

@@ -23,7 +23,8 @@ export const events = {
 
   'error.project.notFound': 'Начинание не найдено',
 
-  'error.subscription.notFound': 'Подписка на пользователя не найдена',
+  'error.subscription.user.notFound': 'Подписка на пользователя не найдена',
+  'error.subscription.project.notFound': 'Подписка на проект не найдена',
   'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',
 
   'error.like.notFound': 'Лайк не найден',

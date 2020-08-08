@@ -7,6 +7,7 @@ import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
   resolveLike,
+  resolveSubscriptionProject,
   resolveSubscriptionUser,
   resolveFriendsUser,
   resolveProject,
@@ -48,6 +49,7 @@ export const resolvers: Resolvers = {
 
   // Custom resolvers:
   Like: resolveLike,
+  SubscriptionProject: resolveSubscriptionProject,
   SubscriptionUser: resolveSubscriptionUser,
   SubscriberUser: resolveSubscribersUser,
   FriendUser: resolveFriendsUser,

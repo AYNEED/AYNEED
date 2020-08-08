@@ -21,6 +21,7 @@ export type Mutation = {
   addSubscriptionUser: SubscriptionUser;
   addMessage: Message;
   addLike: Like;
+  addSubscriptionProject: SubscriptionProject;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -73,6 +74,12 @@ export type MutationAddLikeArgs = {
   targetId: Scalars['ID'];
   targetType: LikeTargetType;
   statement: LikeStatement;
+};
+
+export type MutationAddSubscriptionProjectArgs = {
+  owner: Scalars['ID'];
+  targetId: Scalars['ID'];
+  status: ProjectStatement;
 };
 
 export type Query = {
@@ -168,6 +175,14 @@ export enum LikeStatement {
   Dislike = 'dislike',
 }
 
+export enum ProjectStatement {
+  Beginning = 'beginning',
+  Concept = 'concept',
+  Project = 'project',
+  Idea = 'idea',
+  Mvp = 'mvp',
+}
+
 export type Like = {
   id: Scalars['ID'];
   owner: Scalars['ID'];
@@ -198,6 +213,14 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type SubscriptionProject = {
+  id: Scalars['ID'];
+  owner: Scalars['ID'];
+  targetId: Scalars['ID'];
+  status: ProjectStatement;
   createdAt: Scalars['DateTime'];
 };
 

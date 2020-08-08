@@ -28,6 +28,7 @@ export type Mutation = {
   addSubscriptionUser: SubscriptionUser;
   addMessage: Message;
   addLike: Like;
+  addSubscriptionProject: SubscriptionProject;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -80,6 +81,12 @@ export type MutationAddLikeArgs = {
   targetId: Scalars['ID'];
   targetType: LikeTargetType;
   statement: LikeStatement;
+};
+
+export type MutationAddSubscriptionProjectArgs = {
+  owner: Scalars['ID'];
+  targetId: Scalars['ID'];
+  status: ProjectStatement;
 };
 
 export type Query = {
@@ -175,6 +182,14 @@ export enum LikeStatement {
   Dislike = 'dislike',
 }
 
+export enum ProjectStatement {
+  Beginning = 'beginning',
+  Concept = 'concept',
+  Project = 'project',
+  Idea = 'idea',
+  Mvp = 'mvp',
+}
+
 export type Like = {
   id: Scalars['ID'];
   owner: Scalars['ID'];
@@ -205,6 +220,14 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type SubscriptionProject = {
+  id: Scalars['ID'];
+  owner: Scalars['ID'];
+  targetId: Scalars['ID'];
+  status: ProjectStatement;
   createdAt: Scalars['DateTime'];
 };
 
@@ -469,11 +492,13 @@ export type ResolversTypes = {
   ROLE: Role;
   LIKE_TARGET_TYPE: LikeTargetType;
   LIKE_STATEMENT: LikeStatement;
+  PROJECT_STATEMENT: ProjectStatement;
   Like: ResolverTypeWrapper<Like>;
   ProjectFeed: ResolverTypeWrapper<ProjectFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
   Project: ResolverTypeWrapper<Project>;
+  SubscriptionProject: ResolverTypeWrapper<SubscriptionProject>;
   SubscriptionUser: ResolverTypeWrapper<SubscriptionUser>;
   SubscriberUser: ResolverTypeWrapper<SubscriberUser>;
   FriendUser: ResolverTypeWrapper<FriendUser>;
@@ -510,6 +535,7 @@ export type ResolversParentTypes = {
   UserFeed: UserFeed;
   MessageFeed: MessageFeed;
   Project: Project;
+  SubscriptionProject: SubscriptionProject;
   SubscriptionUser: SubscriptionUser;
   SubscriberUser: SubscriberUser;
   FriendUser: FriendUser;
@@ -608,6 +634,15 @@ export type MutationResolvers<
     RequireFields<
       MutationAddLikeArgs,
       'owner' | 'targetId' | 'targetType' | 'statement'
+    >
+  >;
+  addSubscriptionProject: Resolver<
+    ResolversTypes['SubscriptionProject'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationAddSubscriptionProjectArgs,
+      'owner' | 'targetId' | 'status'
     >
   >;
 };
@@ -747,6 +782,22 @@ export type ProjectResolvers<
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type SubscriptionProjectResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SubscriptionProject'] = ResolversParentTypes['SubscriptionProject']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  owner: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  status: Resolver<
+    ResolversTypes['PROJECT_STATEMENT'],
+    ParentType,
+    ContextType
+  >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -1044,6 +1095,7 @@ export type Resolvers<ContextType = any> = {
   UserFeed: UserFeedResolvers<ContextType>;
   MessageFeed: MessageFeedResolvers<ContextType>;
   Project: ProjectResolvers<ContextType>;
+  SubscriptionProject: SubscriptionProjectResolvers<ContextType>;
   SubscriptionUser: SubscriptionUserResolvers<ContextType>;
   SubscriberUser: SubscriberUserResolvers<ContextType>;
   FriendUser: FriendUserResolvers<ContextType>;

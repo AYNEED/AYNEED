@@ -8,8 +8,11 @@ import {
 
 import { addLike } from 'src/resolvers/mutations/likes';
 import { addMessage } from 'src/resolvers/mutations/messages';
-import { addSubscriptionUser } from 'src/resolvers/mutations/subscriptions';
 import { addProject } from 'src/resolvers/mutations/projects';
+import {
+  addSubscriptionUser,
+  addSubscriptionProject,
+} from 'src/resolvers/mutations/subscriptions';
 
 export const mutation: Resolvers['Mutation'] = {
   forgotPassword,
@@ -17,6 +20,7 @@ export const mutation: Resolvers['Mutation'] = {
   signInEmail,
   signUpEmail,
   addProject,
+  addSubscriptionProject,
   addSubscriptionUser,
   addMessage,
   addLike,

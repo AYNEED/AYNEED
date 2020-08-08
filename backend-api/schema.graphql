@@ -48,6 +48,12 @@ type Mutation {
     targetType: LIKE_TARGET_TYPE!
     statement: LIKE_STATEMENT!
   ): Like!
+
+  addSubscriptionProject(
+    owner: ID!
+    targetId: ID!
+    status: PROJECT_STATEMENT!
+  ): SubscriptionProject!
 }
 
 type Query {
@@ -119,6 +125,14 @@ enum LIKE_STATEMENT {
   dislike
 }
 
+enum PROJECT_STATEMENT {
+  beginning
+  concept
+  project
+  idea
+  mvp
+}
+
 type Like {
   id: ID!
   owner: ID!
@@ -149,6 +163,14 @@ type Project {
   title: String!
   problem: String!
   solution: String!
+  createdAt: DateTime!
+}
+
+type SubscriptionProject {
+  id: ID!
+  owner: ID!
+  targetId: ID!
+  status: PROJECT_STATEMENT!
   createdAt: DateTime!
 }
 
