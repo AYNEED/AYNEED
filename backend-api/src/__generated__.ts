@@ -24,10 +24,14 @@ export type Mutation = {
   forgotPasswordChange: User;
   signInEmail: User;
   signUpEmail: User;
-  addProject: Project;
-  addSubscriptionUser: SubscriptionUser;
-  addMessage: Message;
-  addLike: Like;
+  signOut: Scalars['Boolean'];
+  likeAdd: Like;
+  likeRemove: Scalars['Boolean'];
+  messageAdd: Message;
+  projectAdd: Project;
+  projectRemove: Scalars['Boolean'];
+  subscriptionToUserAdd: SubscriptionUser;
+  subscriptionToUserRemove: Scalars['Boolean'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -37,13 +41,13 @@ export type MutationForgotPasswordArgs = {
 export type MutationForgotPasswordChangeArgs = {
   password: Scalars['String'];
   recoveryCode: Scalars['String'];
-  client: Client;
+  client: UserClient;
 };
 
 export type MutationSignInEmailArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
-  client: Client;
+  client: UserClient;
 };
 
 export type MutationSignUpEmailArgs = {
@@ -51,35 +55,42 @@ export type MutationSignUpEmailArgs = {
   password: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
-  locale: Locale;
+  locale: UserLocale;
   isAgree: Scalars['Boolean'];
-  client: Client;
+  client: UserClient;
 };
 
-export type MutationAddProjectArgs = {
-  authorId: Scalars['ID'];
+export type MutationLikeAddArgs = {
+  targetId: Scalars['ID'];
+  targetModel: LikeTargetModel;
+  status: LikeStatus;
+};
+
+export type MutationLikeRemoveArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationMessageAddArgs = {
+  targetId: Scalars['ID'];
+  text: Scalars['String'];
+};
+
+export type MutationProjectAddArgs = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
 };
 
-export type MutationAddSubscriptionUserArgs = {
-  senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-  status: StatusStatement;
+export type MutationProjectRemoveArgs = {
+  id: Scalars['ID'];
 };
 
-export type MutationAddMessageArgs = {
-  authorId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-  text: Scalars['String'];
-};
-
-export type MutationAddLikeArgs = {
-  owner: Scalars['ID'];
+export type MutationSubscriptionToUserAddArgs = {
   targetId: Scalars['ID'];
-  targetType: LikeTargetType;
-  statement: LikeStatement;
+};
+
+export type MutationSubscriptionToUserRemoveArgs = {
+  id: Scalars['ID'];
 };
 
 export type Query = {
@@ -89,7 +100,6 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
-  like: Like;
 };
 
 export type QueryProjectArgs = {
@@ -110,15 +120,11 @@ export type QueryUsersArgs = {
 
 export type QuerySearchArgs = {
   query: Scalars['String'];
-  mode: SearchMode;
+  targetModel: SearchTargetModel;
 };
 
 export type QueryMessagesArgs = {
   cursor: Scalars['ID'];
-};
-
-export type QueryLikeArgs = {
-  id: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -128,17 +134,36 @@ export type Subscription = {
   userUpdated: User;
 };
 
-export enum Locale {
-  Rus = 'rus',
+export enum LikeStatus {
+  Like = 'like',
+  Dislike = 'dislike',
 }
 
-export enum StatusStatement {
+export enum LikeTargetModel {
+  User = 'user',
+  Comment = 'comment',
+  Project = 'project',
+}
+
+export enum SearchTargetModel {
+  Candidates = 'candidates',
+  Users = 'users',
+  Ideas = 'ideas',
+  Concepts = 'concepts',
+  Mvps = 'mvps',
+}
+
+export enum SubscriptionStatus {
   Waiting = 'waiting',
   Accepted = 'accepted',
   Rejected = 'rejected',
 }
 
-export enum LanguageLevel {
+export enum UserLocale {
+  Rus = 'rus',
+}
+
+export enum UserLanguageLevel {
   Beginner = 'beginner',
   Elementary = 'elementary',
   Intermediate = 'intermediate',
@@ -147,41 +172,19 @@ export enum LanguageLevel {
   Proficiency = 'proficiency',
 }
 
-export enum Client {
+export enum UserClient {
   Mobile = 'mobile',
   Desktop = 'desktop',
 }
 
-export enum SearchMode {
-  Candidates = 'candidates',
-  Users = 'users',
-  Ideas = 'ideas',
-  Concepts = 'concepts',
-  Mvps = 'mvps',
-}
-
-export enum Role {
+export enum UserRole {
   User = 'user',
+  Support = 'support',
 }
 
-export enum LikeTargetType {
-  User = 'user',
-  Comment = 'comment',
-  Project = 'project',
-}
-
-export enum LikeStatement {
-  Like = 'like',
-  Dislike = 'dislike',
-}
-
-export type Like = {
-  id: Scalars['ID'];
-  owner: Scalars['ID'];
-  targetId: Scalars['ID'];
-  targetType: LikeTargetType;
-  statement: LikeStatement;
-  createdAt: Scalars['DateTime'];
+export type MessageFeed = {
+  items: Array<Message>;
+  hasMore: Scalars['Boolean'];
 };
 
 export type ProjectFeed = {
@@ -194,46 +197,28 @@ export type UserFeed = {
   hasMore: Scalars['Boolean'];
 };
 
-export type MessageFeed = {
-  items: Array<Message>;
-  hasMore: Scalars['Boolean'];
+export type Message = {
+  id: Scalars['ID'];
+  info: MessageInfoData;
+  users: MessageUsersData;
+  visible: MessageVisibleData;
+  createdAt: Scalars['DateTime'];
+  editAt: Maybe<Scalars['DateTime']>;
+  deleteAt: Maybe<Scalars['DateTime']>;
 };
 
 export type Project = {
   id: Scalars['ID'];
-  authorId: Scalars['ID'];
+  senderId: Scalars['ID'];
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
   createdAt: Scalars['DateTime'];
 };
 
-export type SubscriptionUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-  status: StatusStatement;
-  createdAt: Scalars['DateTime'];
-};
-
-export type SubscriberUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-  status: StatusStatement;
-  createdAt: Scalars['DateTime'];
-};
-
-export type FriendUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-  createdAt: Scalars['DateTime'];
-};
-
 export type User = {
   id: Scalars['ID'];
-  role: Role;
+  role: UserRole;
   network: UserNetwotkData;
   about: UserAboutData;
   personal: UserPersonalData;
@@ -247,18 +232,51 @@ export type User = {
   friends: Array<FriendUser>;
 };
 
-export type Message = {
-  info: MessageInfoData;
-  users: MessageUsersData;
-  visible: MessageVisibleData;
+export type FriendUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
   createdAt: Scalars['DateTime'];
-  editAt: Maybe<Scalars['DateTime']>;
-  deleteAt: Maybe<Scalars['DateTime']>;
 };
 
-export type UserNetwotkData = {
-  isOnline: Scalars['Boolean'];
-  client: Client;
+export type Like = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetModel: LikeTargetModel;
+  status: LikeStatus;
+  createdAt: Scalars['DateTime'];
+};
+
+export type SubscriberUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  status: SubscriptionStatus;
+  createdAt: Scalars['DateTime'];
+};
+
+export type SubscriptionUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  status: SubscriptionStatus;
+  createdAt: Scalars['DateTime'];
+};
+
+export type MessageInfoData = {
+  text: Scalars['String'];
+  isRead: Scalars['Boolean'];
+};
+
+export type MessageUsersData = {
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+};
+
+export type MessageVisibleData = {
+  isVisibleSender: Scalars['Boolean'];
+  isVisibleAll: Scalars['Boolean'];
 };
 
 export type UserAboutData = {
@@ -266,6 +284,21 @@ export type UserAboutData = {
   skills: Array<UserSkillRecord>;
   career: Array<UserCareerRecord>;
   education: Array<UserEducationRecord>;
+};
+
+export type UserContactsData = {
+  email: UserContactRecord;
+  phone: Maybe<UserContactRecord>;
+  vkontakte: Maybe<UserContactRecord>;
+  facebook: Maybe<UserContactRecord>;
+  instagram: Maybe<UserContactRecord>;
+  telegram: Maybe<UserContactRecord>;
+  linkedin: Maybe<UserContactRecord>;
+};
+
+export type UserNetwotkData = {
+  isOnline: Scalars['Boolean'];
+  client: UserClient;
 };
 
 export type UserPersonalData = {
@@ -280,32 +313,23 @@ export type UserRegionalData = {
   city: Maybe<Scalars['String']>;
   state: Maybe<Scalars['String']>;
   country: Maybe<Scalars['String']>;
-  locale: Locale;
+  locale: UserLocale;
   languages: Array<UserLanguageRecord>;
-};
-
-export type UserContactsData = {
-  email: UserContactRecord;
-  phone: Maybe<UserContactRecord>;
-  vkontakte: Maybe<UserContactRecord>;
-  facebook: Maybe<UserContactRecord>;
-  instagram: Maybe<UserContactRecord>;
-  telegram: Maybe<UserContactRecord>;
-  linkedin: Maybe<UserContactRecord>;
 };
 
 export type UserStatisticsData = {
   completeness: Scalars['Int'];
 };
 
-export type UserSkillRecord = {
-  title: Scalars['String'];
-  primary: Scalars['Boolean'];
-};
-
 export type UserCareerRecord = {
   title: Scalars['String'];
   description: Scalars['String'];
+};
+
+export type UserContactRecord = {
+  value: Scalars['String'];
+  isVisible: Scalars['Boolean'];
+  isVerified: Scalars['Boolean'];
 };
 
 export type UserEducationRecord = {
@@ -315,28 +339,12 @@ export type UserEducationRecord = {
 
 export type UserLanguageRecord = {
   code: Scalars['String'];
-  level: LanguageLevel;
+  level: UserLanguageLevel;
 };
 
-export type UserContactRecord = {
-  value: Scalars['String'];
-  isVisible: Scalars['Boolean'];
-  isVerified: Scalars['Boolean'];
-};
-
-export type MessageInfoData = {
-  text: Scalars['String'];
-  isRead: Scalars['Boolean'];
-};
-
-export type MessageUsersData = {
-  authorId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-};
-
-export type MessageVisibleData = {
-  isVisibleAuthor: Scalars['Boolean'];
-  isVisibleAll: Scalars['Boolean'];
+export type UserSkillRecord = {
+  title: Scalars['String'];
+  primary: Scalars['Boolean'];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -461,39 +469,39 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
-  LOCALE: Locale;
-  STATUS_STATEMENT: StatusStatement;
-  LANGUAGE_LEVEL: LanguageLevel;
-  CLIENT: Client;
-  SEARCH_MODE: SearchMode;
-  ROLE: Role;
-  LIKE_TARGET_TYPE: LikeTargetType;
-  LIKE_STATEMENT: LikeStatement;
-  Like: ResolverTypeWrapper<Like>;
+  LIKE_STATUS: LikeStatus;
+  LIKE_TARGET_MODEL: LikeTargetModel;
+  SEARCH_TARGET_MODEL: SearchTargetModel;
+  SUBSCRIPTION_STATUS: SubscriptionStatus;
+  USER_LOCALE: UserLocale;
+  USER_LANGUAGE_LEVEL: UserLanguageLevel;
+  USER_CLIENT: UserClient;
+  USER_ROLE: UserRole;
+  MessageFeed: ResolverTypeWrapper<MessageFeed>;
   ProjectFeed: ResolverTypeWrapper<ProjectFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
-  MessageFeed: ResolverTypeWrapper<MessageFeed>;
-  Project: ResolverTypeWrapper<Project>;
-  SubscriptionUser: ResolverTypeWrapper<SubscriptionUser>;
-  SubscriberUser: ResolverTypeWrapper<SubscriberUser>;
-  FriendUser: ResolverTypeWrapper<FriendUser>;
-  User: ResolverTypeWrapper<User>;
   Message: ResolverTypeWrapper<Message>;
-  UserNetwotkData: ResolverTypeWrapper<UserNetwotkData>;
-  UserAboutData: ResolverTypeWrapper<UserAboutData>;
-  UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
-  UserRegionalData: ResolverTypeWrapper<UserRegionalData>;
-  UserContactsData: ResolverTypeWrapper<UserContactsData>;
-  UserStatisticsData: ResolverTypeWrapper<UserStatisticsData>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
-  UserSkillRecord: ResolverTypeWrapper<UserSkillRecord>;
-  UserCareerRecord: ResolverTypeWrapper<UserCareerRecord>;
-  UserEducationRecord: ResolverTypeWrapper<UserEducationRecord>;
-  UserLanguageRecord: ResolverTypeWrapper<UserLanguageRecord>;
-  UserContactRecord: ResolverTypeWrapper<UserContactRecord>;
+  Project: ResolverTypeWrapper<Project>;
+  User: ResolverTypeWrapper<User>;
+  FriendUser: ResolverTypeWrapper<FriendUser>;
+  Like: ResolverTypeWrapper<Like>;
+  SubscriberUser: ResolverTypeWrapper<SubscriberUser>;
+  SubscriptionUser: ResolverTypeWrapper<SubscriptionUser>;
   MessageInfoData: ResolverTypeWrapper<MessageInfoData>;
   MessageUsersData: ResolverTypeWrapper<MessageUsersData>;
   MessageVisibleData: ResolverTypeWrapper<MessageVisibleData>;
+  UserAboutData: ResolverTypeWrapper<UserAboutData>;
+  UserContactsData: ResolverTypeWrapper<UserContactsData>;
+  UserNetwotkData: ResolverTypeWrapper<UserNetwotkData>;
+  UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
+  UserRegionalData: ResolverTypeWrapper<UserRegionalData>;
+  UserStatisticsData: ResolverTypeWrapper<UserStatisticsData>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  UserCareerRecord: ResolverTypeWrapper<UserCareerRecord>;
+  UserContactRecord: ResolverTypeWrapper<UserContactRecord>;
+  UserEducationRecord: ResolverTypeWrapper<UserEducationRecord>;
+  UserLanguageRecord: ResolverTypeWrapper<UserLanguageRecord>;
+  UserSkillRecord: ResolverTypeWrapper<UserSkillRecord>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -505,31 +513,31 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Query: {};
   Subscription: {};
-  Like: Like;
+  MessageFeed: MessageFeed;
   ProjectFeed: ProjectFeed;
   UserFeed: UserFeed;
-  MessageFeed: MessageFeed;
-  Project: Project;
-  SubscriptionUser: SubscriptionUser;
-  SubscriberUser: SubscriberUser;
-  FriendUser: FriendUser;
-  User: User;
   Message: Message;
-  UserNetwotkData: UserNetwotkData;
-  UserAboutData: UserAboutData;
-  UserPersonalData: UserPersonalData;
-  UserRegionalData: UserRegionalData;
-  UserContactsData: UserContactsData;
-  UserStatisticsData: UserStatisticsData;
-  Int: Scalars['Int'];
-  UserSkillRecord: UserSkillRecord;
-  UserCareerRecord: UserCareerRecord;
-  UserEducationRecord: UserEducationRecord;
-  UserLanguageRecord: UserLanguageRecord;
-  UserContactRecord: UserContactRecord;
+  Project: Project;
+  User: User;
+  FriendUser: FriendUser;
+  Like: Like;
+  SubscriberUser: SubscriberUser;
+  SubscriptionUser: SubscriptionUser;
   MessageInfoData: MessageInfoData;
   MessageUsersData: MessageUsersData;
   MessageVisibleData: MessageVisibleData;
+  UserAboutData: UserAboutData;
+  UserContactsData: UserContactsData;
+  UserNetwotkData: UserNetwotkData;
+  UserPersonalData: UserPersonalData;
+  UserRegionalData: UserRegionalData;
+  UserStatisticsData: UserStatisticsData;
+  Int: Scalars['Int'];
+  UserCareerRecord: UserCareerRecord;
+  UserContactRecord: UserContactRecord;
+  UserEducationRecord: UserEducationRecord;
+  UserLanguageRecord: UserLanguageRecord;
+  UserSkillRecord: UserSkillRecord;
 };
 
 export interface DateTimeScalarConfig
@@ -538,7 +546,7 @@ export interface DateTimeScalarConfig
 }
 
 export type MutationResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
   forgotPassword: Resolver<
@@ -577,43 +585,53 @@ export type MutationResolvers<
       | 'client'
     >
   >;
-  addProject: Resolver<
-    ResolversTypes['Project'],
-    ParentType,
-    ContextType,
-    RequireFields<
-      MutationAddProjectArgs,
-      'authorId' | 'title' | 'problem' | 'solution'
-    >
-  >;
-  addSubscriptionUser: Resolver<
-    ResolversTypes['SubscriptionUser'],
-    ParentType,
-    ContextType,
-    RequireFields<
-      MutationAddSubscriptionUserArgs,
-      'senderId' | 'recipientId' | 'status'
-    >
-  >;
-  addMessage: Resolver<
-    ResolversTypes['Message'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationAddMessageArgs, 'authorId' | 'recipientId' | 'text'>
-  >;
-  addLike: Resolver<
+  signOut: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  likeAdd: Resolver<
     ResolversTypes['Like'],
     ParentType,
     ContextType,
-    RequireFields<
-      MutationAddLikeArgs,
-      'owner' | 'targetId' | 'targetType' | 'statement'
-    >
+    RequireFields<MutationLikeAddArgs, 'targetId' | 'targetModel' | 'status'>
+  >;
+  likeRemove: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationLikeRemoveArgs, 'id'>
+  >;
+  messageAdd: Resolver<
+    ResolversTypes['Message'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationMessageAddArgs, 'targetId' | 'text'>
+  >;
+  projectAdd: Resolver<
+    ResolversTypes['Project'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationProjectAddArgs, 'title' | 'problem' | 'solution'>
+  >;
+  projectRemove: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationProjectRemoveArgs, 'id'>
+  >;
+  subscriptionToUserAdd: Resolver<
+    ResolversTypes['SubscriptionUser'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSubscriptionToUserAddArgs, 'targetId'>
+  >;
+  subscriptionToUserRemove: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSubscriptionToUserRemoveArgs, 'id'>
   >;
 };
 
 export type QueryResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
   project: Resolver<
@@ -644,7 +662,7 @@ export type QueryResolvers<
     ResolversTypes['UserFeed'],
     ParentType,
     ContextType,
-    RequireFields<QuerySearchArgs, 'query' | 'mode'>
+    RequireFields<QuerySearchArgs, 'query' | 'targetModel'>
   >;
   messages: Resolver<
     ResolversTypes['MessageFeed'],
@@ -652,16 +670,10 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryMessagesArgs, 'cursor'>
   >;
-  like: Resolver<
-    ResolversTypes['Like'],
-    ParentType,
-    ContextType,
-    RequireFields<QueryLikeArgs, 'id'>
-  >;
 };
 
 export type SubscriptionResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
 > = {
   projectAdded: SubscriptionResolver<
@@ -690,29 +702,17 @@ export type SubscriptionResolvers<
   >;
 };
 
-export type LikeResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Like'] = ResolversParentTypes['Like']
+export type MessageFeedResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['MessageFeed'] = ResolversParentTypes['MessageFeed']
 > = {
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  owner: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  targetType: Resolver<
-    ResolversTypes['LIKE_TARGET_TYPE'],
-    ParentType,
-    ContextType
-  >;
-  statement: Resolver<
-    ResolversTypes['LIKE_STATEMENT'],
-    ParentType,
-    ContextType
-  >;
-  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  items: Resolver<Array<ResolversTypes['Message']>, ParentType, ContextType>;
+  hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type ProjectFeedResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['ProjectFeed'] = ResolversParentTypes['ProjectFeed']
 > = {
   items: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>;
@@ -721,7 +721,7 @@ export type ProjectFeedResolvers<
 };
 
 export type UserFeedResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserFeed'] = ResolversParentTypes['UserFeed']
 > = {
   items: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
@@ -729,21 +729,34 @@ export type UserFeedResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type MessageFeedResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['MessageFeed'] = ResolversParentTypes['MessageFeed']
+export type MessageResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
 > = {
-  items: Resolver<Array<ResolversTypes['Message']>, ParentType, ContextType>;
-  hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  info: Resolver<ResolversTypes['MessageInfoData'], ParentType, ContextType>;
+  users: Resolver<ResolversTypes['MessageUsersData'], ParentType, ContextType>;
+  visible: Resolver<
+    ResolversTypes['MessageVisibleData'],
+    ParentType,
+    ContextType
+  >;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  editAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  deleteAt: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type ProjectResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  authorId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -751,47 +764,12 @@ export type ProjectResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type SubscriptionUserResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['SubscriptionUser'] = ResolversParentTypes['SubscriptionUser']
-> = {
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  status: Resolver<ResolversTypes['STATUS_STATEMENT'], ParentType, ContextType>;
-  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type SubscriberUserResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['SubscriberUser'] = ResolversParentTypes['SubscriberUser']
-> = {
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  status: Resolver<ResolversTypes['STATUS_STATEMENT'], ParentType, ContextType>;
-  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type FriendUserResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['FriendUser'] = ResolversParentTypes['FriendUser']
-> = {
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
 export type UserResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  role: Resolver<ResolversTypes['ROLE'], ParentType, ContextType>;
+  role: Resolver<ResolversTypes['USER_ROLE'], ParentType, ContextType>;
   network: Resolver<ResolversTypes['UserNetwotkData'], ParentType, ContextType>;
   about: Resolver<ResolversTypes['UserAboutData'], ParentType, ContextType>;
   personal: Resolver<
@@ -834,38 +812,95 @@ export type UserResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type MessageResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
+export type FriendUserResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['FriendUser'] = ResolversParentTypes['FriendUser']
 > = {
-  info: Resolver<ResolversTypes['MessageInfoData'], ParentType, ContextType>;
-  users: Resolver<ResolversTypes['MessageUsersData'], ParentType, ContextType>;
-  visible: Resolver<
-    ResolversTypes['MessageVisibleData'],
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type LikeResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['Like'] = ResolversParentTypes['Like']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetModel: Resolver<
+    ResolversTypes['LIKE_TARGET_MODEL'],
+    ParentType,
+    ContextType
+  >;
+  status: Resolver<ResolversTypes['LIKE_STATUS'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type SubscriberUserResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['SubscriberUser'] = ResolversParentTypes['SubscriberUser']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  status: Resolver<
+    ResolversTypes['SUBSCRIPTION_STATUS'],
     ParentType,
     ContextType
   >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  editAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  deleteAt: Resolver<
-    Maybe<ResolversTypes['DateTime']>,
-    ParentType,
-    ContextType
-  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type UserNetwotkDataResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['UserNetwotkData'] = ResolversParentTypes['UserNetwotkData']
+export type SubscriptionUserResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['SubscriptionUser'] = ResolversParentTypes['SubscriptionUser']
 > = {
-  isOnline: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  client: Resolver<ResolversTypes['CLIENT'], ParentType, ContextType>;
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  status: Resolver<
+    ResolversTypes['SUBSCRIPTION_STATUS'],
+    ParentType,
+    ContextType
+  >;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type MessageInfoDataResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['MessageInfoData'] = ResolversParentTypes['MessageInfoData']
+> = {
+  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isRead: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type MessageUsersDataResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['MessageUsersData'] = ResolversParentTypes['MessageUsersData']
+> = {
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type MessageVisibleDataResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['MessageVisibleData'] = ResolversParentTypes['MessageVisibleData']
+> = {
+  isVisibleSender: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isVisibleAll: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type UserAboutDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserAboutData'] = ResolversParentTypes['UserAboutData']
 > = {
   bio: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -887,36 +922,8 @@ export type UserAboutDataResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type UserPersonalDataResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['UserPersonalData'] = ResolversParentTypes['UserPersonalData']
-> = {
-  firstName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  lastName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  isAgree: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  bornAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  photo: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type UserRegionalDataResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['UserRegionalData'] = ResolversParentTypes['UserRegionalData']
-> = {
-  city: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  state: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  country: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  locale: Resolver<ResolversTypes['LOCALE'], ParentType, ContextType>;
-  languages: Resolver<
-    Array<ResolversTypes['UserLanguageRecord']>,
-    ParentType,
-    ContextType
-  >;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
 export type UserContactsDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserContactsData'] = ResolversParentTypes['UserContactsData']
 > = {
   email: Resolver<ResolversTypes['UserContactRecord'], ParentType, ContextType>;
@@ -953,25 +960,53 @@ export type UserContactsDataResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type UserNetwotkDataResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['UserNetwotkData'] = ResolversParentTypes['UserNetwotkData']
+> = {
+  isOnline: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  client: Resolver<ResolversTypes['USER_CLIENT'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserPersonalDataResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['UserPersonalData'] = ResolversParentTypes['UserPersonalData']
+> = {
+  firstName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  lastName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  isAgree: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  bornAt: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  photo: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type UserRegionalDataResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['UserRegionalData'] = ResolversParentTypes['UserRegionalData']
+> = {
+  city: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  state: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  country: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  locale: Resolver<ResolversTypes['USER_LOCALE'], ParentType, ContextType>;
+  languages: Resolver<
+    Array<ResolversTypes['UserLanguageRecord']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type UserStatisticsDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserStatisticsData'] = ResolversParentTypes['UserStatisticsData']
 > = {
   completeness: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type UserSkillRecordResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['UserSkillRecord'] = ResolversParentTypes['UserSkillRecord']
-> = {
-  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  primary: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
 export type UserCareerRecordResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserCareerRecord'] = ResolversParentTypes['UserCareerRecord']
 > = {
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -979,26 +1014,8 @@ export type UserCareerRecordResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type UserEducationRecordResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['UserEducationRecord'] = ResolversParentTypes['UserEducationRecord']
-> = {
-  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  description: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type UserLanguageRecordResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['UserLanguageRecord'] = ResolversParentTypes['UserLanguageRecord']
-> = {
-  code: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  level: Resolver<ResolversTypes['LANGUAGE_LEVEL'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
 export type UserContactRecordResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserContactRecord'] = ResolversParentTypes['UserContactRecord']
 > = {
   value: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1007,66 +1024,70 @@ export type UserContactRecordResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type MessageInfoDataResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['MessageInfoData'] = ResolversParentTypes['MessageInfoData']
+export type UserEducationRecordResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['UserEducationRecord'] = ResolversParentTypes['UserEducationRecord']
 > = {
-  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  isRead: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type MessageUsersDataResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['MessageUsersData'] = ResolversParentTypes['MessageUsersData']
+export type UserLanguageRecordResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['UserLanguageRecord'] = ResolversParentTypes['UserLanguageRecord']
 > = {
-  authorId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  code: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  level: Resolver<
+    ResolversTypes['USER_LANGUAGE_LEVEL'],
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type MessageVisibleDataResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['MessageVisibleData'] = ResolversParentTypes['MessageVisibleData']
+export type UserSkillRecordResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['UserSkillRecord'] = ResolversParentTypes['UserSkillRecord']
 > = {
-  isVisibleAuthor: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  isVisibleAll: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  primary: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type Resolvers<ContextType = any> = {
+export type Resolvers<ContextType = { user?: User }> = {
   DateTime: GraphQLScalarType;
   Mutation: MutationResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
-  Like: LikeResolvers<ContextType>;
+  MessageFeed: MessageFeedResolvers<ContextType>;
   ProjectFeed: ProjectFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
-  MessageFeed: MessageFeedResolvers<ContextType>;
-  Project: ProjectResolvers<ContextType>;
-  SubscriptionUser: SubscriptionUserResolvers<ContextType>;
-  SubscriberUser: SubscriberUserResolvers<ContextType>;
-  FriendUser: FriendUserResolvers<ContextType>;
-  User: UserResolvers<ContextType>;
   Message: MessageResolvers<ContextType>;
-  UserNetwotkData: UserNetwotkDataResolvers<ContextType>;
-  UserAboutData: UserAboutDataResolvers<ContextType>;
-  UserPersonalData: UserPersonalDataResolvers<ContextType>;
-  UserRegionalData: UserRegionalDataResolvers<ContextType>;
-  UserContactsData: UserContactsDataResolvers<ContextType>;
-  UserStatisticsData: UserStatisticsDataResolvers<ContextType>;
-  UserSkillRecord: UserSkillRecordResolvers<ContextType>;
-  UserCareerRecord: UserCareerRecordResolvers<ContextType>;
-  UserEducationRecord: UserEducationRecordResolvers<ContextType>;
-  UserLanguageRecord: UserLanguageRecordResolvers<ContextType>;
-  UserContactRecord: UserContactRecordResolvers<ContextType>;
+  Project: ProjectResolvers<ContextType>;
+  User: UserResolvers<ContextType>;
+  FriendUser: FriendUserResolvers<ContextType>;
+  Like: LikeResolvers<ContextType>;
+  SubscriberUser: SubscriberUserResolvers<ContextType>;
+  SubscriptionUser: SubscriptionUserResolvers<ContextType>;
   MessageInfoData: MessageInfoDataResolvers<ContextType>;
   MessageUsersData: MessageUsersDataResolvers<ContextType>;
   MessageVisibleData: MessageVisibleDataResolvers<ContextType>;
+  UserAboutData: UserAboutDataResolvers<ContextType>;
+  UserContactsData: UserContactsDataResolvers<ContextType>;
+  UserNetwotkData: UserNetwotkDataResolvers<ContextType>;
+  UserPersonalData: UserPersonalDataResolvers<ContextType>;
+  UserRegionalData: UserRegionalDataResolvers<ContextType>;
+  UserStatisticsData: UserStatisticsDataResolvers<ContextType>;
+  UserCareerRecord: UserCareerRecordResolvers<ContextType>;
+  UserContactRecord: UserContactRecordResolvers<ContextType>;
+  UserEducationRecord: UserEducationRecordResolvers<ContextType>;
+  UserLanguageRecord: UserLanguageRecordResolvers<ContextType>;
+  UserSkillRecord: UserSkillRecordResolvers<ContextType>;
 };
 
 /**
  * @deprecated
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
  */
-export type IResolvers<ContextType = any> = Resolvers<ContextType>;
+export type IResolvers<ContextType = { user?: User }> = Resolvers<ContextType>;

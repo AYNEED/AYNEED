@@ -17,10 +17,14 @@ export type Mutation = {
   forgotPasswordChange: User;
   signInEmail: User;
   signUpEmail: User;
-  addProject: Project;
-  addSubscriptionUser: SubscriptionUser;
-  addMessage: Message;
-  addLike: Like;
+  signOut: Scalars['Boolean'];
+  likeAdd: Like;
+  likeRemove: Scalars['Boolean'];
+  messageAdd: Message;
+  projectAdd: Project;
+  projectRemove: Scalars['Boolean'];
+  subscriptionToUserAdd: SubscriptionUser;
+  subscriptionToUserRemove: Scalars['Boolean'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -30,13 +34,13 @@ export type MutationForgotPasswordArgs = {
 export type MutationForgotPasswordChangeArgs = {
   password: Scalars['String'];
   recoveryCode: Scalars['String'];
-  client: Client;
+  client: UserClient;
 };
 
 export type MutationSignInEmailArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
-  client: Client;
+  client: UserClient;
 };
 
 export type MutationSignUpEmailArgs = {
@@ -44,35 +48,42 @@ export type MutationSignUpEmailArgs = {
   password: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
-  locale: Locale;
+  locale: UserLocale;
   isAgree: Scalars['Boolean'];
-  client: Client;
+  client: UserClient;
 };
 
-export type MutationAddProjectArgs = {
-  authorId: Scalars['ID'];
+export type MutationLikeAddArgs = {
+  targetId: Scalars['ID'];
+  targetModel: LikeTargetModel;
+  status: LikeStatus;
+};
+
+export type MutationLikeRemoveArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationMessageAddArgs = {
+  targetId: Scalars['ID'];
+  text: Scalars['String'];
+};
+
+export type MutationProjectAddArgs = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
 };
 
-export type MutationAddSubscriptionUserArgs = {
-  senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-  status: StatusStatement;
+export type MutationProjectRemoveArgs = {
+  id: Scalars['ID'];
 };
 
-export type MutationAddMessageArgs = {
-  authorId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-  text: Scalars['String'];
-};
-
-export type MutationAddLikeArgs = {
-  owner: Scalars['ID'];
+export type MutationSubscriptionToUserAddArgs = {
   targetId: Scalars['ID'];
-  targetType: LikeTargetType;
-  statement: LikeStatement;
+};
+
+export type MutationSubscriptionToUserRemoveArgs = {
+  id: Scalars['ID'];
 };
 
 export type Query = {
@@ -82,7 +93,6 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
-  like: Like;
 };
 
 export type QueryProjectArgs = {
@@ -103,15 +113,11 @@ export type QueryUsersArgs = {
 
 export type QuerySearchArgs = {
   query: Scalars['String'];
-  mode: SearchMode;
+  targetModel: SearchTargetModel;
 };
 
 export type QueryMessagesArgs = {
   cursor: Scalars['ID'];
-};
-
-export type QueryLikeArgs = {
-  id: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -121,17 +127,36 @@ export type Subscription = {
   userUpdated: User;
 };
 
-export enum Locale {
-  Rus = 'rus',
+export enum LikeStatus {
+  Like = 'like',
+  Dislike = 'dislike',
 }
 
-export enum StatusStatement {
+export enum LikeTargetModel {
+  User = 'user',
+  Comment = 'comment',
+  Project = 'project',
+}
+
+export enum SearchTargetModel {
+  Candidates = 'candidates',
+  Users = 'users',
+  Ideas = 'ideas',
+  Concepts = 'concepts',
+  Mvps = 'mvps',
+}
+
+export enum SubscriptionStatus {
   Waiting = 'waiting',
   Accepted = 'accepted',
   Rejected = 'rejected',
 }
 
-export enum LanguageLevel {
+export enum UserLocale {
+  Rus = 'rus',
+}
+
+export enum UserLanguageLevel {
   Beginner = 'beginner',
   Elementary = 'elementary',
   Intermediate = 'intermediate',
@@ -140,41 +165,19 @@ export enum LanguageLevel {
   Proficiency = 'proficiency',
 }
 
-export enum Client {
+export enum UserClient {
   Mobile = 'mobile',
   Desktop = 'desktop',
 }
 
-export enum SearchMode {
-  Candidates = 'candidates',
-  Users = 'users',
-  Ideas = 'ideas',
-  Concepts = 'concepts',
-  Mvps = 'mvps',
-}
-
-export enum Role {
+export enum UserRole {
   User = 'user',
+  Support = 'support',
 }
 
-export enum LikeTargetType {
-  User = 'user',
-  Comment = 'comment',
-  Project = 'project',
-}
-
-export enum LikeStatement {
-  Like = 'like',
-  Dislike = 'dislike',
-}
-
-export type Like = {
-  id: Scalars['ID'];
-  owner: Scalars['ID'];
-  targetId: Scalars['ID'];
-  targetType: LikeTargetType;
-  statement: LikeStatement;
-  createdAt: Scalars['DateTime'];
+export type MessageFeed = {
+  items: Array<Message>;
+  hasMore: Scalars['Boolean'];
 };
 
 export type ProjectFeed = {
@@ -187,46 +190,28 @@ export type UserFeed = {
   hasMore: Scalars['Boolean'];
 };
 
-export type MessageFeed = {
-  items: Array<Message>;
-  hasMore: Scalars['Boolean'];
+export type Message = {
+  id: Scalars['ID'];
+  info: MessageInfoData;
+  users: MessageUsersData;
+  visible: MessageVisibleData;
+  createdAt: Scalars['DateTime'];
+  editAt: Maybe<Scalars['DateTime']>;
+  deleteAt: Maybe<Scalars['DateTime']>;
 };
 
 export type Project = {
   id: Scalars['ID'];
-  authorId: Scalars['ID'];
+  senderId: Scalars['ID'];
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
   createdAt: Scalars['DateTime'];
 };
 
-export type SubscriptionUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-  status: StatusStatement;
-  createdAt: Scalars['DateTime'];
-};
-
-export type SubscriberUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-  status: StatusStatement;
-  createdAt: Scalars['DateTime'];
-};
-
-export type FriendUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-  createdAt: Scalars['DateTime'];
-};
-
 export type User = {
   id: Scalars['ID'];
-  role: Role;
+  role: UserRole;
   network: UserNetwotkData;
   about: UserAboutData;
   personal: UserPersonalData;
@@ -240,18 +225,51 @@ export type User = {
   friends: Array<FriendUser>;
 };
 
-export type Message = {
-  info: MessageInfoData;
-  users: MessageUsersData;
-  visible: MessageVisibleData;
+export type FriendUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
   createdAt: Scalars['DateTime'];
-  editAt: Maybe<Scalars['DateTime']>;
-  deleteAt: Maybe<Scalars['DateTime']>;
 };
 
-export type UserNetwotkData = {
-  isOnline: Scalars['Boolean'];
-  client: Client;
+export type Like = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetModel: LikeTargetModel;
+  status: LikeStatus;
+  createdAt: Scalars['DateTime'];
+};
+
+export type SubscriberUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  status: SubscriptionStatus;
+  createdAt: Scalars['DateTime'];
+};
+
+export type SubscriptionUser = {
+  id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  status: SubscriptionStatus;
+  createdAt: Scalars['DateTime'];
+};
+
+export type MessageInfoData = {
+  text: Scalars['String'];
+  isRead: Scalars['Boolean'];
+};
+
+export type MessageUsersData = {
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+};
+
+export type MessageVisibleData = {
+  isVisibleSender: Scalars['Boolean'];
+  isVisibleAll: Scalars['Boolean'];
 };
 
 export type UserAboutData = {
@@ -259,6 +277,21 @@ export type UserAboutData = {
   skills: Array<UserSkillRecord>;
   career: Array<UserCareerRecord>;
   education: Array<UserEducationRecord>;
+};
+
+export type UserContactsData = {
+  email: UserContactRecord;
+  phone: Maybe<UserContactRecord>;
+  vkontakte: Maybe<UserContactRecord>;
+  facebook: Maybe<UserContactRecord>;
+  instagram: Maybe<UserContactRecord>;
+  telegram: Maybe<UserContactRecord>;
+  linkedin: Maybe<UserContactRecord>;
+};
+
+export type UserNetwotkData = {
+  isOnline: Scalars['Boolean'];
+  client: UserClient;
 };
 
 export type UserPersonalData = {
@@ -273,32 +306,23 @@ export type UserRegionalData = {
   city: Maybe<Scalars['String']>;
   state: Maybe<Scalars['String']>;
   country: Maybe<Scalars['String']>;
-  locale: Locale;
+  locale: UserLocale;
   languages: Array<UserLanguageRecord>;
-};
-
-export type UserContactsData = {
-  email: UserContactRecord;
-  phone: Maybe<UserContactRecord>;
-  vkontakte: Maybe<UserContactRecord>;
-  facebook: Maybe<UserContactRecord>;
-  instagram: Maybe<UserContactRecord>;
-  telegram: Maybe<UserContactRecord>;
-  linkedin: Maybe<UserContactRecord>;
 };
 
 export type UserStatisticsData = {
   completeness: Scalars['Int'];
 };
 
-export type UserSkillRecord = {
-  title: Scalars['String'];
-  primary: Scalars['Boolean'];
-};
-
 export type UserCareerRecord = {
   title: Scalars['String'];
   description: Scalars['String'];
+};
+
+export type UserContactRecord = {
+  value: Scalars['String'];
+  isVisible: Scalars['Boolean'];
+  isVerified: Scalars['Boolean'];
 };
 
 export type UserEducationRecord = {
@@ -308,28 +332,12 @@ export type UserEducationRecord = {
 
 export type UserLanguageRecord = {
   code: Scalars['String'];
-  level: LanguageLevel;
+  level: UserLanguageLevel;
 };
 
-export type UserContactRecord = {
-  value: Scalars['String'];
-  isVisible: Scalars['Boolean'];
-  isVerified: Scalars['Boolean'];
-};
-
-export type MessageInfoData = {
-  text: Scalars['String'];
-  isRead: Scalars['Boolean'];
-};
-
-export type MessageUsersData = {
-  authorId: Scalars['ID'];
-  recipientId: Scalars['ID'];
-};
-
-export type MessageVisibleData = {
-  isVisibleAuthor: Scalars['Boolean'];
-  isVisibleAll: Scalars['Boolean'];
+export type UserSkillRecord = {
+  title: Scalars['String'];
+  primary: Scalars['Boolean'];
 };
 
 export type CommouProjectFieldsFragment = Pick<
@@ -398,7 +406,7 @@ export type ForgotPasswordMutation = Pick<Mutation, 'forgotPassword'>;
 export type SignInEmailMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
-  client: Client;
+  client: UserClient;
 }>;
 
 export type SignInEmailMutation = { signInEmail: CommouUserFieldsFragment };
@@ -408,9 +416,9 @@ export type SignUpEmailMutationVariables = Exact<{
   password: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
-  locale: Locale;
+  locale: UserLocale;
   isAgree: Scalars['Boolean'];
-  client: Client;
+  client: UserClient;
 }>;
 
 export type SignUpEmailMutation = { signUpEmail: CommouUserFieldsFragment };
@@ -534,7 +542,11 @@ export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOption
   ForgotPasswordMutationVariables
 >;
 export const SignInEmailDocument = gql`
-  mutation SignInEmail($email: String!, $password: String!, $client: CLIENT!) {
+  mutation SignInEmail(
+    $email: String!
+    $password: String!
+    $client: USER_CLIENT!
+  ) {
     signInEmail(email: $email, password: $password, client: $client) {
       ...commouUserFields
     }
@@ -558,9 +570,9 @@ export const SignUpEmailDocument = gql`
     $password: String!
     $firstName: String!
     $lastName: String!
-    $locale: LOCALE!
+    $locale: USER_LOCALE!
     $isAgree: Boolean!
-    $client: CLIENT!
+    $client: USER_CLIENT!
   ) {
     signUpEmail(
       email: $email

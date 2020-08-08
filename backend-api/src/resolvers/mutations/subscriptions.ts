@@ -3,20 +3,37 @@ import { findUserById } from 'src/helpers/users';
 import { createSubscriptionUser } from 'src/helpers/subscriptions';
 import { ValidationError } from 'shared';
 
-export const addSubscriptionUser: Resolvers['Mutation']['addSubscriptionUser'] = async (
+export const subscriptionToUserAdd: Resolvers['Mutation']['subscriptionToUserAdd'] = async (
   parent,
-  { senderId, recipientId, status }
+  { targetId },
+  { user }
 ) => {
-  await findUserById(recipientId);
-  const sender = await findUserById(senderId);
+  if (!user) {
+    throw new ValidationError('error.user.notFound');
+  }
 
-  if (sender.statistics.completeness !== 100) {
+  if (user.id === targetId) {
+    // TODO: throw exception
+  }
+
+  // TODO: if subscription already exists, throw exception
+
+  const target = await findUserById(targetId);
+
+  if (user.statistics.completeness !== 100) {
     throw new ValidationError('error.user.incompleteProfile');
   }
 
   return await createSubscriptionUser({
-    senderId,
-    recipientId,
-    status,
+    senderId: user.id,
+    targetId: target.id,
   });
+};
+
+export const subscriptionToUserRemove: Resolvers['Mutation']['subscriptionToUserRemove'] = async (
+  parent,
+  { id }
+) => {
+  // TODO: remove subscription from db
+  return true;
 };

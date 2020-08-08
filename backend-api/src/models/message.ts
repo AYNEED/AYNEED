@@ -16,7 +16,6 @@ const MessageInfoSchema = new Schema<MessageInfoData>({
     type: String,
     required: true,
   },
-  // Read report
   isRead: {
     type: Boolean,
     required: true,
@@ -25,12 +24,12 @@ const MessageInfoSchema = new Schema<MessageInfoData>({
 });
 
 const MessageUsersSchema = new Schema<MessageUsersData>({
-  authorId: {
+  senderId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-  recipientId: {
+  targetId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
@@ -38,13 +37,13 @@ const MessageUsersSchema = new Schema<MessageUsersData>({
 });
 
 const MessageVisibleSchema = new Schema<MessageVisibleData>({
-  // If author delete message only for yourself
-  isVisibleAuthor: {
+  // If sender delete message only for yourself
+  isVisibleSender: {
     type: Boolean,
     required: true,
     default: true,
   },
-  // If author delete message for all
+  // If sender delete message for all
   isVisibleAll: {
     type: Boolean,
     required: true,
@@ -69,7 +68,6 @@ const MessageSchema = new Schema(
     editAt: {
       type: Date,
     },
-    // Moment of deletion message
     deleteAt: {
       type: Date,
     },
