@@ -29,7 +29,6 @@
       "typeNames": "pascal-case#pascalCase"
     },
     "scalars": {
-      "Token": "string",
       "DateTime": "string"
     }
   },
