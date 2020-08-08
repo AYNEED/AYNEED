@@ -71,6 +71,7 @@ type Subscription {
   projectAdded: Project!
   projectUpdated: Project!
 
+  userAdded: User!
   userUpdated: User!
 }
 

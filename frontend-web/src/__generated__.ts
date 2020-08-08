@@ -135,6 +135,7 @@ export type QueryMessagesArgs = {
 export type Subscription = {
   projectAdded: Project;
   projectUpdated: Project;
+  userAdded: User;
   userUpdated: User;
 };
 
@@ -395,6 +396,10 @@ export type OnProjectUpdatedSubscription = {
   projectUpdated: CommouProjectFieldsFragment;
 };
 
+export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type OnUserAddedSubscription = { userAdded: CommouUserFieldsFragment };
+
 export type OnUserUpdatedSubscriptionVariables = Exact<{
   [key: string]: never;
 }>;
@@ -508,6 +513,17 @@ export const OnProjectUpdatedDocument = gql`
 `;
 export type OnProjectUpdatedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
   OnProjectUpdatedSubscription
+>;
+export const OnUserAddedDocument = gql`
+  subscription onUserAdded {
+    userAdded {
+      ...commouUserFields
+    }
+  }
+  ${CommouUserFieldsFragmentDoc}
+`;
+export type OnUserAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
+  OnUserAddedSubscription
 >;
 export const OnUserUpdatedDocument = gql`
   subscription onUserUpdated {

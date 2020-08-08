@@ -142,6 +142,7 @@ export type QueryMessagesArgs = {
 export type Subscription = {
   projectAdded: Project;
   projectUpdated: Project;
+  userAdded: User;
   userUpdated: User;
 };
 
@@ -713,6 +714,12 @@ export type SubscriptionResolvers<
   projectUpdated: SubscriptionResolver<
     ResolversTypes['Project'],
     'projectUpdated',
+    ParentType,
+    ContextType
+  >;
+  userAdded: SubscriptionResolver<
+    ResolversTypes['User'],
+    'userAdded',
     ParentType,
     ContextType
   >;

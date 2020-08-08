@@ -16,6 +16,10 @@ export const subscription: Resolvers['Subscription'] = {
     subscribe: () => pubsub.asyncIterator(UPDATES.PROJECT_UPDATED),
   },
 
+  userAdded: {
+    resolve: (payload: User): User => payload,
+    subscribe: () => pubsub.asyncIterator(UPDATES.USER_ADDED),
+  },
   userUpdated: {
     resolve: (payload: User): User => payload,
     subscribe: () => pubsub.asyncIterator(UPDATES.USER_UPDATED),

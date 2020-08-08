@@ -31,10 +31,12 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
   // TODO: create session
 
-  await send.update({
-    event: UPDATES.USER_UPDATED,
-    payload: user,
-  });
+  if (user.statistics.completeness >= 100) {
+    await send.update({
+      event: UPDATES.USER_UPDATED,
+      payload: user,
+    });
+  }
 
   return user;
 };
@@ -138,10 +140,12 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
 
   // TODO: create session
 
-  await send.update({
-    event: UPDATES.USER_UPDATED,
-    payload: user,
-  });
+  if (user.statistics.completeness >= 100) {
+    await send.update({
+      event: UPDATES.USER_UPDATED,
+      payload: user,
+    });
+  }
 
   return user;
 };

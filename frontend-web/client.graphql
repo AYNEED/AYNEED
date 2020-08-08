@@ -54,6 +54,12 @@ subscription onProjectUpdated {
   }
 }
 
+subscription onUserAdded {
+  userAdded {
+    ...commouUserFields
+  }
+}
+
 subscription onUserUpdated {
   userUpdated {
     ...commouUserFields

@@ -4,6 +4,8 @@ import { useQuery } from '@apollo/react-hooks';
 import {
   GetUsersDocument,
   GetUsersQuery,
+  OnUserAddedDocument,
+  OnUserAddedSubscription,
   OnUserUpdatedDocument,
   OnUserUpdatedSubscription,
 } from 'src/__generated__';
@@ -17,13 +19,23 @@ export const FeedUsers: React.FC = () => {
   );
 
   useEffect(() => {
+    subscribeToMore<OnUserAddedSubscription>({
+      document: OnUserAddedDocument,
+      updateQuery: (prev, { subscriptionData }) => ({
+        ...prev,
+        users: {
+          ...prev.users,
+          items: [subscriptionData.data.userAdded, ...prev.users.items],
+        },
+      }),
+    });
+
     subscribeToMore<OnUserUpdatedSubscription>({
       document: OnUserUpdatedDocument,
       updateQuery: (prev, { subscriptionData }) => ({
         ...prev,
         users: {
           ...prev.users,
-          // TODO: add new users
           items: prev.users.items.map((user) =>
             user.id === subscriptionData.data.userUpdated.id
               ? subscriptionData.data.userUpdated
