@@ -16,6 +16,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Token: string;
   DateTime: string;
 };
 
@@ -24,10 +25,14 @@ export type Mutation = {
   forgotPasswordChange: User;
   signInEmail: User;
   signUpEmail: User;
-  addProject: Project;
-  addSubscriptionUser: SubscriptionUser;
-  addMessage: Message;
-  addLike: Like;
+  signOut: Scalars['Boolean'];
+  likeAdd: Like;
+  likeRemove: Scalars['Boolean'];
+  messageAdd: Message;
+  projectAdd: Project;
+  projectRemove: Scalars['Boolean'];
+  subscriptionToUserAdd: SubscriptionUser;
+  subscriptionToUserRemove: Scalars['Boolean'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -56,30 +61,48 @@ export type MutationSignUpEmailArgs = {
   client: Client;
 };
 
-export type MutationAddProjectArgs = {
-  senderId: Scalars['ID'];
+export type MutationSignOutArgs = {
+  token: Scalars['Token'];
+};
+
+export type MutationLikeAddArgs = {
+  token: Scalars['Token'];
+  targetId: Scalars['ID'];
+  targetModel: LikeTargetModel;
+  status: LikeStatus;
+};
+
+export type MutationLikeRemoveArgs = {
+  token: Scalars['Token'];
+  id: Scalars['ID'];
+};
+
+export type MutationMessageAddArgs = {
+  token: Scalars['Token'];
+  targetId: Scalars['ID'];
+  text: Scalars['String'];
+};
+
+export type MutationProjectAddArgs = {
+  token: Scalars['Token'];
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
 };
 
-export type MutationAddSubscriptionUserArgs = {
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
-  status: StatusStatement;
+export type MutationProjectRemoveArgs = {
+  token: Scalars['Token'];
+  id: Scalars['ID'];
 };
 
-export type MutationAddMessageArgs = {
-  senderId: Scalars['ID'];
+export type MutationSubscriptionToUserAddArgs = {
+  token: Scalars['Token'];
   targetId: Scalars['ID'];
-  text: Scalars['String'];
 };
 
-export type MutationAddLikeArgs = {
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
-  targetType: LikeTargetType;
-  statement: LikeStatement;
+export type MutationSubscriptionToUserRemoveArgs = {
+  token: Scalars['Token'];
+  id: Scalars['ID'];
 };
 
 export type Query = {
@@ -89,7 +112,6 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
-  like: Like;
 };
 
 export type QueryProjectArgs = {
@@ -110,32 +132,21 @@ export type QueryUsersArgs = {
 
 export type QuerySearchArgs = {
   query: Scalars['String'];
-  mode: SearchMode;
+  targetModel: SearchTargetModel;
 };
 
 export type QueryMessagesArgs = {
   cursor: Scalars['ID'];
 };
 
-export type QueryLikeArgs = {
-  id: Scalars['ID'];
-};
-
 export type Subscription = {
   projectAdded: Project;
   projectUpdated: Project;
-  userAdded: User;
   userUpdated: User;
 };
 
 export enum Locale {
   Rus = 'rus',
-}
-
-export enum StatusStatement {
-  Waiting = 'waiting',
-  Accepted = 'accepted',
-  Rejected = 'rejected',
 }
 
 export enum LanguageLevel {
@@ -152,7 +163,12 @@ export enum Client {
   Desktop = 'desktop',
 }
 
-export enum SearchMode {
+export enum Role {
+  User = 'user',
+  Support = 'support',
+}
+
+export enum SearchTargetModel {
   Candidates = 'candidates',
   Users = 'users',
   Ideas = 'ideas',
@@ -160,27 +176,29 @@ export enum SearchMode {
   Mvps = 'mvps',
 }
 
-export enum Role {
-  User = 'user',
+export enum SubscriptionStatus {
+  Waiting = 'waiting',
+  Accepted = 'accepted',
+  Rejected = 'rejected',
 }
 
-export enum LikeTargetType {
+export enum LikeStatus {
+  Like = 'like',
+  Dislike = 'dislike',
+}
+
+export enum LikeTargetModel {
   User = 'user',
   Comment = 'comment',
   Project = 'project',
-}
-
-export enum LikeStatement {
-  Like = 'like',
-  Dislike = 'dislike',
 }
 
 export type Like = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
-  targetType: LikeTargetType;
-  statement: LikeStatement;
+  targetModel: LikeTargetModel;
+  status: LikeStatus;
   createdAt: Scalars['DateTime'];
 };
 
@@ -212,7 +230,7 @@ export type SubscriptionUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
-  status: StatusStatement;
+  status: SubscriptionStatus;
   createdAt: Scalars['DateTime'];
 };
 
@@ -220,7 +238,7 @@ export type SubscriberUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
-  status: StatusStatement;
+  status: SubscriptionStatus;
   createdAt: Scalars['DateTime'];
 };
 
@@ -454,6 +472,7 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  Token: ResolverTypeWrapper<Scalars['Token']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -462,13 +481,13 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
   LOCALE: Locale;
-  STATUS_STATEMENT: StatusStatement;
   LANGUAGE_LEVEL: LanguageLevel;
   CLIENT: Client;
-  SEARCH_MODE: SearchMode;
   ROLE: Role;
-  LIKE_TARGET_TYPE: LikeTargetType;
-  LIKE_STATEMENT: LikeStatement;
+  SEARCH_TARGET_MODEL: SearchTargetModel;
+  SUBSCRIPTION_STATUS: SubscriptionStatus;
+  LIKE_STATUS: LikeStatus;
+  LIKE_TARGET_MODEL: LikeTargetModel;
   Like: ResolverTypeWrapper<Like>;
   ProjectFeed: ResolverTypeWrapper<ProjectFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
@@ -498,6 +517,7 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Token: Scalars['Token'];
   DateTime: Scalars['DateTime'];
   Mutation: {};
   Boolean: Scalars['Boolean'];
@@ -531,6 +551,11 @@ export type ResolversParentTypes = {
   MessageUsersData: MessageUsersData;
   MessageVisibleData: MessageVisibleData;
 };
+
+export interface TokenScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['Token'], any> {
+  name: 'Token';
+}
 
 export interface DateTimeScalarConfig
   extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
@@ -577,38 +602,59 @@ export type MutationResolvers<
       | 'client'
     >
   >;
-  addProject: Resolver<
-    ResolversTypes['Project'],
+  signOut: Resolver<
+    ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<
-      MutationAddProjectArgs,
-      'senderId' | 'title' | 'problem' | 'solution'
-    >
+    RequireFields<MutationSignOutArgs, 'token'>
   >;
-  addSubscriptionUser: Resolver<
-    ResolversTypes['SubscriptionUser'],
-    ParentType,
-    ContextType,
-    RequireFields<
-      MutationAddSubscriptionUserArgs,
-      'senderId' | 'targetId' | 'status'
-    >
-  >;
-  addMessage: Resolver<
-    ResolversTypes['Message'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationAddMessageArgs, 'senderId' | 'targetId' | 'text'>
-  >;
-  addLike: Resolver<
+  likeAdd: Resolver<
     ResolversTypes['Like'],
     ParentType,
     ContextType,
     RequireFields<
-      MutationAddLikeArgs,
-      'senderId' | 'targetId' | 'targetType' | 'statement'
+      MutationLikeAddArgs,
+      'token' | 'targetId' | 'targetModel' | 'status'
     >
+  >;
+  likeRemove: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationLikeRemoveArgs, 'token' | 'id'>
+  >;
+  messageAdd: Resolver<
+    ResolversTypes['Message'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationMessageAddArgs, 'token' | 'targetId' | 'text'>
+  >;
+  projectAdd: Resolver<
+    ResolversTypes['Project'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationProjectAddArgs,
+      'token' | 'title' | 'problem' | 'solution'
+    >
+  >;
+  projectRemove: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationProjectRemoveArgs, 'token' | 'id'>
+  >;
+  subscriptionToUserAdd: Resolver<
+    ResolversTypes['SubscriptionUser'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSubscriptionToUserAddArgs, 'token' | 'targetId'>
+  >;
+  subscriptionToUserRemove: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationSubscriptionToUserRemoveArgs, 'token' | 'id'>
   >;
 };
 
@@ -644,19 +690,13 @@ export type QueryResolvers<
     ResolversTypes['UserFeed'],
     ParentType,
     ContextType,
-    RequireFields<QuerySearchArgs, 'query' | 'mode'>
+    RequireFields<QuerySearchArgs, 'query' | 'targetModel'>
   >;
   messages: Resolver<
     ResolversTypes['MessageFeed'],
     ParentType,
     ContextType,
     RequireFields<QueryMessagesArgs, 'cursor'>
-  >;
-  like: Resolver<
-    ResolversTypes['Like'],
-    ParentType,
-    ContextType,
-    RequireFields<QueryLikeArgs, 'id'>
   >;
 };
 
@@ -676,12 +716,6 @@ export type SubscriptionResolvers<
     ParentType,
     ContextType
   >;
-  userAdded: SubscriptionResolver<
-    ResolversTypes['User'],
-    'userAdded',
-    ParentType,
-    ContextType
-  >;
   userUpdated: SubscriptionResolver<
     ResolversTypes['User'],
     'userUpdated',
@@ -697,16 +731,12 @@ export type LikeResolvers<
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  targetType: Resolver<
-    ResolversTypes['LIKE_TARGET_TYPE'],
+  targetModel: Resolver<
+    ResolversTypes['LIKE_TARGET_MODEL'],
     ParentType,
     ContextType
   >;
-  statement: Resolver<
-    ResolversTypes['LIKE_STATEMENT'],
-    ParentType,
-    ContextType
-  >;
+  status: Resolver<ResolversTypes['LIKE_STATUS'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -758,7 +788,11 @@ export type SubscriptionUserResolvers<
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  status: Resolver<ResolversTypes['STATUS_STATEMENT'], ParentType, ContextType>;
+  status: Resolver<
+    ResolversTypes['SUBSCRIPTION_STATUS'],
+    ParentType,
+    ContextType
+  >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -770,7 +804,11 @@ export type SubscriberUserResolvers<
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  status: Resolver<ResolversTypes['STATUS_STATEMENT'], ParentType, ContextType>;
+  status: Resolver<
+    ResolversTypes['SUBSCRIPTION_STATUS'],
+    ParentType,
+    ContextType
+  >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -1035,6 +1073,7 @@ export type MessageVisibleDataResolvers<
 };
 
 export type Resolvers<ContextType = any> = {
+  Token: GraphQLScalarType;
   DateTime: GraphQLScalarType;
   Mutation: MutationResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;

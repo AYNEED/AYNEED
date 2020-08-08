@@ -16,7 +16,6 @@ const MessageInfoSchema = new Schema<MessageInfoData>({
     type: String,
     required: true,
   },
-  // Read report
   isRead: {
     type: Boolean,
     required: true,
@@ -69,7 +68,6 @@ const MessageSchema = new Schema(
     editAt: {
       type: Date,
     },
-    // Moment of deletion message
     deleteAt: {
       type: Date,
     },

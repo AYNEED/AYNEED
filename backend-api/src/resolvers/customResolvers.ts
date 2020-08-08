@@ -1,13 +1,13 @@
 import { ProjectModel } from 'src/models/project';
 import { SubscriptionUserModel } from 'src/models/subscriptionUser';
-import { Resolvers, StatusStatement } from 'src/__generated__';
+import { Resolvers, SubscriptionStatus } from 'src/__generated__';
 
 export const resolveLike: Resolvers['Like'] = {
   id: (parent) => parent.id,
   senderId: (parent) => parent.senderId,
   targetId: (parent) => parent.targetId,
-  targetType: (parent) => parent.targetType,
-  statement: (parent) => parent.statement,
+  targetModel: (parent) => parent.targetModel,
+  status: (parent) => parent.status,
   createdAt: (parent) => parent.createdAt,
 };
 
@@ -92,17 +92,21 @@ export const resolveUser: Resolvers['User'] = {
   subscriptions: async (parent) =>
     SubscriptionUserModel.find({
       senderId: parent.id,
-      status: { $in: [StatusStatement.Waiting, StatusStatement.Rejected] },
+      status: {
+        $in: [SubscriptionStatus.Waiting, SubscriptionStatus.Rejected],
+      },
     }),
   subscribers: async (parent) =>
     SubscriptionUserModel.find({
       targetId: parent.id,
-      status: { $in: [StatusStatement.Waiting, StatusStatement.Rejected] },
+      status: {
+        $in: [SubscriptionStatus.Waiting, SubscriptionStatus.Rejected],
+      },
     }),
   friends: async (parent) =>
     SubscriptionUserModel.find({
       targetId: parent.id,
-      status: { $in: [StatusStatement.Accepted] },
+      status: { $in: [SubscriptionStatus.Accepted] },
     }),
 };
 

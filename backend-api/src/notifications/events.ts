@@ -1,5 +1,4 @@
 export const USER_UPDATES = {
-  USER_ADDED: 'USER_ADDED',
   USER_UPDATED: 'USER_UPDATED',
 } as const;
 

@@ -1,3 +1,4 @@
+scalar Token
 scalar DateTime
 
 schema {
@@ -27,27 +28,31 @@ type Mutation {
     client: CLIENT!
   ): User!
 
-  addProject(
-    senderId: ID!
+  signOut(token: Token!): Boolean!
+
+  likeAdd(
+    token: Token!
+    targetId: ID!
+    targetModel: LIKE_TARGET_MODEL!
+    status: LIKE_STATUS!
+  ): Like!
+
+  likeRemove(token: Token!, id: ID!): Boolean!
+
+  messageAdd(token: Token!, targetId: ID!, text: String!): Message!
+
+  projectAdd(
+    token: Token!
     title: String!
     problem: String!
     solution: String!
   ): Project!
 
-  addSubscriptionUser(
-    senderId: ID!
-    targetId: ID!
-    status: STATUS_STATEMENT!
-  ): SubscriptionUser!
+  projectRemove(token: Token!, id: ID!): Boolean!
 
-  addMessage(senderId: ID!, targetId: ID!, text: String!): Message!
+  subscriptionToUserAdd(token: Token!, targetId: ID!): SubscriptionUser!
 
-  addLike(
-    senderId: ID!
-    targetId: ID!
-    targetType: LIKE_TARGET_TYPE!
-    statement: LIKE_STATEMENT!
-  ): Like!
+  subscriptionToUserRemove(token: Token!, id: ID!): Boolean!
 }
 
 type Query {
@@ -57,29 +62,20 @@ type Query {
   user(id: ID!): User!
   users(cursor: ID): UserFeed!
 
-  search(query: String!, mode: SEARCH_MODE!): UserFeed!
+  search(query: String!, targetModel: SEARCH_TARGET_MODEL!): UserFeed!
 
   messages(cursor: ID!): MessageFeed!
-
-  like(id: ID!): Like! # TODO: this request looks redundant
 }
 
 type Subscription {
   projectAdded: Project!
   projectUpdated: Project!
 
-  userAdded: User!
   userUpdated: User!
 }
 
 enum LOCALE {
   rus
-}
-
-enum STATUS_STATEMENT {
-  waiting
-  accepted
-  rejected
 }
 
 enum LANGUAGE_LEVEL {
@@ -96,7 +92,12 @@ enum CLIENT {
   desktop
 }
 
-enum SEARCH_MODE {
+enum ROLE {
+  user
+  support
+}
+
+enum SEARCH_TARGET_MODEL {
   candidates
   users
   ideas
@@ -104,27 +105,29 @@ enum SEARCH_MODE {
   mvps
 }
 
-enum ROLE {
-  user
+enum SUBSCRIPTION_STATUS {
+  waiting
+  accepted
+  rejected
 }
 
-enum LIKE_TARGET_TYPE {
+enum LIKE_STATUS {
+  like
+  dislike
+}
+
+enum LIKE_TARGET_MODEL {
   user
   comment
   project
-}
-
-enum LIKE_STATEMENT {
-  like
-  dislike
 }
 
 type Like {
   id: ID!
   senderId: ID!
   targetId: ID!
-  targetType: LIKE_TARGET_TYPE!
-  statement: LIKE_STATEMENT!
+  targetModel: LIKE_TARGET_MODEL!
+  status: LIKE_STATUS!
   createdAt: DateTime!
 }
 
@@ -156,7 +159,7 @@ type SubscriptionUser {
   id: ID!
   senderId: ID!
   targetId: ID!
-  status: STATUS_STATEMENT!
+  status: SUBSCRIPTION_STATUS!
   createdAt: DateTime!
 }
 
@@ -164,7 +167,7 @@ type SubscriberUser {
   id: ID!
   senderId: ID!
   targetId: ID!
-  status: STATUS_STATEMENT!
+  status: SUBSCRIPTION_STATUS!
   createdAt: DateTime!
 }
 

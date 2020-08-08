@@ -1,13 +1,14 @@
 import { Resolvers } from 'src/__generated__';
-import { findUserById } from 'src/helpers/users';
+import { findUserById, findSenderIdByToken } from 'src/helpers/users';
 import { createSubscriptionUser } from 'src/helpers/subscriptions';
 import { ValidationError } from 'shared';
 
-export const addSubscriptionUser: Resolvers['Mutation']['addSubscriptionUser'] = async (
+export const subscriptionToUserAdd: Resolvers['Mutation']['subscriptionToUserAdd'] = async (
   parent,
-  { senderId, targetId, status }
+  { token, targetId }
 ) => {
   await findUserById(targetId);
+  const senderId = await findSenderIdByToken(token);
   const sender = await findUserById(senderId);
 
   if (sender.statistics.completeness !== 100) {
@@ -17,6 +18,13 @@ export const addSubscriptionUser: Resolvers['Mutation']['addSubscriptionUser'] =
   return await createSubscriptionUser({
     senderId,
     targetId,
-    status,
   });
+};
+
+export const subscriptionToUserRemove: Resolvers['Mutation']['subscriptionToUserRemove'] = async (
+  parent,
+  { token, id }
+) => {
+  // TODO: remove subscription from db
+  return true;
 };

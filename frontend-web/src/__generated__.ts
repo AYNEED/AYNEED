@@ -9,6 +9,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Token: string;
   DateTime: string;
 };
 
@@ -17,10 +18,14 @@ export type Mutation = {
   forgotPasswordChange: User;
   signInEmail: User;
   signUpEmail: User;
-  addProject: Project;
-  addSubscriptionUser: SubscriptionUser;
-  addMessage: Message;
-  addLike: Like;
+  signOut: Scalars['Boolean'];
+  likeAdd: Like;
+  likeRemove: Scalars['Boolean'];
+  messageAdd: Message;
+  projectAdd: Project;
+  projectRemove: Scalars['Boolean'];
+  subscriptionToUserAdd: SubscriptionUser;
+  subscriptionToUserRemove: Scalars['Boolean'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -49,30 +54,48 @@ export type MutationSignUpEmailArgs = {
   client: Client;
 };
 
-export type MutationAddProjectArgs = {
-  senderId: Scalars['ID'];
+export type MutationSignOutArgs = {
+  token: Scalars['Token'];
+};
+
+export type MutationLikeAddArgs = {
+  token: Scalars['Token'];
+  targetId: Scalars['ID'];
+  targetModel: LikeTargetModel;
+  status: LikeStatus;
+};
+
+export type MutationLikeRemoveArgs = {
+  token: Scalars['Token'];
+  id: Scalars['ID'];
+};
+
+export type MutationMessageAddArgs = {
+  token: Scalars['Token'];
+  targetId: Scalars['ID'];
+  text: Scalars['String'];
+};
+
+export type MutationProjectAddArgs = {
+  token: Scalars['Token'];
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
 };
 
-export type MutationAddSubscriptionUserArgs = {
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
-  status: StatusStatement;
+export type MutationProjectRemoveArgs = {
+  token: Scalars['Token'];
+  id: Scalars['ID'];
 };
 
-export type MutationAddMessageArgs = {
-  senderId: Scalars['ID'];
+export type MutationSubscriptionToUserAddArgs = {
+  token: Scalars['Token'];
   targetId: Scalars['ID'];
-  text: Scalars['String'];
 };
 
-export type MutationAddLikeArgs = {
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
-  targetType: LikeTargetType;
-  statement: LikeStatement;
+export type MutationSubscriptionToUserRemoveArgs = {
+  token: Scalars['Token'];
+  id: Scalars['ID'];
 };
 
 export type Query = {
@@ -82,7 +105,6 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
-  like: Like;
 };
 
 export type QueryProjectArgs = {
@@ -103,32 +125,21 @@ export type QueryUsersArgs = {
 
 export type QuerySearchArgs = {
   query: Scalars['String'];
-  mode: SearchMode;
+  targetModel: SearchTargetModel;
 };
 
 export type QueryMessagesArgs = {
   cursor: Scalars['ID'];
 };
 
-export type QueryLikeArgs = {
-  id: Scalars['ID'];
-};
-
 export type Subscription = {
   projectAdded: Project;
   projectUpdated: Project;
-  userAdded: User;
   userUpdated: User;
 };
 
 export enum Locale {
   Rus = 'rus',
-}
-
-export enum StatusStatement {
-  Waiting = 'waiting',
-  Accepted = 'accepted',
-  Rejected = 'rejected',
 }
 
 export enum LanguageLevel {
@@ -145,7 +156,12 @@ export enum Client {
   Desktop = 'desktop',
 }
 
-export enum SearchMode {
+export enum Role {
+  User = 'user',
+  Support = 'support',
+}
+
+export enum SearchTargetModel {
   Candidates = 'candidates',
   Users = 'users',
   Ideas = 'ideas',
@@ -153,27 +169,29 @@ export enum SearchMode {
   Mvps = 'mvps',
 }
 
-export enum Role {
-  User = 'user',
+export enum SubscriptionStatus {
+  Waiting = 'waiting',
+  Accepted = 'accepted',
+  Rejected = 'rejected',
 }
 
-export enum LikeTargetType {
+export enum LikeStatus {
+  Like = 'like',
+  Dislike = 'dislike',
+}
+
+export enum LikeTargetModel {
   User = 'user',
   Comment = 'comment',
   Project = 'project',
-}
-
-export enum LikeStatement {
-  Like = 'like',
-  Dislike = 'dislike',
 }
 
 export type Like = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
-  targetType: LikeTargetType;
-  statement: LikeStatement;
+  targetModel: LikeTargetModel;
+  status: LikeStatus;
   createdAt: Scalars['DateTime'];
 };
 
@@ -205,7 +223,7 @@ export type SubscriptionUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
-  status: StatusStatement;
+  status: SubscriptionStatus;
   createdAt: Scalars['DateTime'];
 };
 
@@ -213,7 +231,7 @@ export type SubscriberUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
-  status: StatusStatement;
+  status: SubscriptionStatus;
   createdAt: Scalars['DateTime'];
 };
 
@@ -377,10 +395,6 @@ export type OnProjectUpdatedSubscription = {
   projectUpdated: CommouProjectFieldsFragment;
 };
 
-export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
-
-export type OnUserAddedSubscription = { userAdded: CommouUserFieldsFragment };
-
 export type OnUserUpdatedSubscriptionVariables = Exact<{
   [key: string]: never;
 }>;
@@ -494,17 +508,6 @@ export const OnProjectUpdatedDocument = gql`
 `;
 export type OnProjectUpdatedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
   OnProjectUpdatedSubscription
->;
-export const OnUserAddedDocument = gql`
-  subscription onUserAdded {
-    userAdded {
-      ...commouUserFields
-    }
-  }
-  ${CommouUserFieldsFragmentDoc}
-`;
-export type OnUserAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
-  OnUserAddedSubscription
 >;
 export const OnUserUpdatedDocument = gql`
   subscription onUserUpdated {

@@ -1,26 +1,16 @@
 import { LikeModel, LikeRes } from 'src/models/like';
-import { Like, MutationAddLikeArgs } from 'src/__generated__';
-import { ValidationError } from 'shared';
-
-export const findLikeById = async (id: Like['id']): Promise<LikeRes> => {
-  const like = await LikeModel.findById(id);
-
-  if (!like) {
-    throw new ValidationError('error.like.notFound');
-  }
-
-  return like;
-};
+import { MutationLikeAddArgs } from 'src/__generated__';
+import { TokenToSenderId } from 'src/types';
 
 export const createLike = async ({
   senderId,
   targetId,
-  targetType,
-  statement,
-}: MutationAddLikeArgs): Promise<LikeRes> =>
+  targetModel,
+  status,
+}: TokenToSenderId<MutationLikeAddArgs>): Promise<LikeRes> =>
   LikeModel.create({
     senderId,
     targetId,
-    targetType,
-    statement,
+    targetModel,
+    status,
   });

@@ -1,7 +1,12 @@
 import { UserRes, UserComplete, UserModel } from 'src/models/user';
 import { createPasswordHash, createRandomString } from 'src/utils/password';
 import { profileCompleteness } from 'src/utils/profileCompleteness';
-import { User, MutationSignUpEmailArgs, Role } from 'src/__generated__';
+import {
+  User,
+  MutationSignUpEmailArgs,
+  Role,
+  Scalars,
+} from 'src/__generated__';
 import { ValidationError } from 'shared';
 
 export const createUser = async ({
@@ -65,6 +70,13 @@ export const createUser = async ({
       recovery: null,
     },
   });
+};
+
+export const findSenderIdByToken = async (
+  token: Scalars['Token']
+): Promise<User['id']> => {
+  // TODO: get userId fom session
+  return 'todo';
 };
 
 export const findUserById = async (id: User['id']): Promise<UserRes> => {

@@ -1,12 +1,14 @@
 import { Resolvers } from 'src/__generated__';
 import { ValidationError } from 'shared';
 import { createMessage } from 'src/helpers/messages';
-import { findUserById } from 'src/helpers/users';
+import { findUserById, findSenderIdByToken } from 'src/helpers/users';
 
-export const addMessage: Resolvers['Mutation']['addMessage'] = async (
+export const messageAdd: Resolvers['Mutation']['messageAdd'] = async (
   parent,
-  { text, senderId, targetId }
+  { token, targetId, text }
 ) => {
+  const senderId = await findSenderIdByToken(token);
+
   const recipient = await findUserById(targetId);
   const author = await findUserById(senderId);
 
