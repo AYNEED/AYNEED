@@ -17,7 +17,6 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: string;
-  Token: string;
 };
 
 export type Mutation = {
@@ -61,47 +60,36 @@ export type MutationSignUpEmailArgs = {
   client: UserClient;
 };
 
-export type MutationSignOutArgs = {
-  token: Scalars['Token'];
-};
-
 export type MutationLikeAddArgs = {
-  token: Scalars['Token'];
   targetId: Scalars['ID'];
   targetModel: LikeTargetModel;
   status: LikeStatus;
 };
 
 export type MutationLikeRemoveArgs = {
-  token: Scalars['Token'];
   id: Scalars['ID'];
 };
 
 export type MutationMessageAddArgs = {
-  token: Scalars['Token'];
   targetId: Scalars['ID'];
   text: Scalars['String'];
 };
 
 export type MutationProjectAddArgs = {
-  token: Scalars['Token'];
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
 };
 
 export type MutationProjectRemoveArgs = {
-  token: Scalars['Token'];
   id: Scalars['ID'];
 };
 
 export type MutationSubscriptionToUserAddArgs = {
-  token: Scalars['Token'];
   targetId: Scalars['ID'];
 };
 
 export type MutationSubscriptionToUserRemoveArgs = {
-  token: Scalars['Token'];
   id: Scalars['ID'];
 };
 
@@ -474,7 +462,6 @@ export type DirectiveResolverFn<
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
-  Token: ResolverTypeWrapper<Scalars['Token']>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -519,7 +506,6 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   DateTime: Scalars['DateTime'];
-  Token: Scalars['Token'];
   Mutation: {};
   Boolean: Scalars['Boolean'];
   String: Scalars['String'];
@@ -558,13 +544,8 @@ export interface DateTimeScalarConfig
   name: 'DateTime';
 }
 
-export interface TokenScalarConfig
-  extends GraphQLScalarTypeConfig<ResolversTypes['Token'], any> {
-  name: 'Token';
-}
-
 export type MutationResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = {
   forgotPassword: Resolver<
@@ -603,64 +584,53 @@ export type MutationResolvers<
       | 'client'
     >
   >;
-  signOut: Resolver<
-    ResolversTypes['Boolean'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationSignOutArgs, 'token'>
-  >;
+  signOut: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   likeAdd: Resolver<
     ResolversTypes['Like'],
     ParentType,
     ContextType,
-    RequireFields<
-      MutationLikeAddArgs,
-      'token' | 'targetId' | 'targetModel' | 'status'
-    >
+    RequireFields<MutationLikeAddArgs, 'targetId' | 'targetModel' | 'status'>
   >;
   likeRemove: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationLikeRemoveArgs, 'token' | 'id'>
+    RequireFields<MutationLikeRemoveArgs, 'id'>
   >;
   messageAdd: Resolver<
     ResolversTypes['Message'],
     ParentType,
     ContextType,
-    RequireFields<MutationMessageAddArgs, 'token' | 'targetId' | 'text'>
+    RequireFields<MutationMessageAddArgs, 'targetId' | 'text'>
   >;
   projectAdd: Resolver<
     ResolversTypes['Project'],
     ParentType,
     ContextType,
-    RequireFields<
-      MutationProjectAddArgs,
-      'token' | 'title' | 'problem' | 'solution'
-    >
+    RequireFields<MutationProjectAddArgs, 'title' | 'problem' | 'solution'>
   >;
   projectRemove: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationProjectRemoveArgs, 'token' | 'id'>
+    RequireFields<MutationProjectRemoveArgs, 'id'>
   >;
   subscriptionToUserAdd: Resolver<
     ResolversTypes['SubscriptionUser'],
     ParentType,
     ContextType,
-    RequireFields<MutationSubscriptionToUserAddArgs, 'token' | 'targetId'>
+    RequireFields<MutationSubscriptionToUserAddArgs, 'targetId'>
   >;
   subscriptionToUserRemove: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationSubscriptionToUserRemoveArgs, 'token' | 'id'>
+    RequireFields<MutationSubscriptionToUserRemoveArgs, 'id'>
   >;
 };
 
 export type QueryResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
   project: Resolver<
@@ -702,7 +672,7 @@ export type QueryResolvers<
 };
 
 export type SubscriptionResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']
 > = {
   projectAdded: SubscriptionResolver<
@@ -732,7 +702,7 @@ export type SubscriptionResolvers<
 };
 
 export type MessageFeedResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['MessageFeed'] = ResolversParentTypes['MessageFeed']
 > = {
   items: Resolver<Array<ResolversTypes['Message']>, ParentType, ContextType>;
@@ -741,7 +711,7 @@ export type MessageFeedResolvers<
 };
 
 export type ProjectFeedResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['ProjectFeed'] = ResolversParentTypes['ProjectFeed']
 > = {
   items: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>;
@@ -750,7 +720,7 @@ export type ProjectFeedResolvers<
 };
 
 export type UserFeedResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserFeed'] = ResolversParentTypes['UserFeed']
 > = {
   items: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
@@ -759,7 +729,7 @@ export type UserFeedResolvers<
 };
 
 export type MessageResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
 > = {
   info: Resolver<ResolversTypes['MessageInfoData'], ParentType, ContextType>;
@@ -780,7 +750,7 @@ export type MessageResolvers<
 };
 
 export type ProjectResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -793,7 +763,7 @@ export type ProjectResolvers<
 };
 
 export type UserResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -841,7 +811,7 @@ export type UserResolvers<
 };
 
 export type FriendUserResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['FriendUser'] = ResolversParentTypes['FriendUser']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -852,7 +822,7 @@ export type FriendUserResolvers<
 };
 
 export type LikeResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Like'] = ResolversParentTypes['Like']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -869,7 +839,7 @@ export type LikeResolvers<
 };
 
 export type SubscriberUserResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['SubscriberUser'] = ResolversParentTypes['SubscriberUser']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -885,7 +855,7 @@ export type SubscriberUserResolvers<
 };
 
 export type SubscriptionUserResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['SubscriptionUser'] = ResolversParentTypes['SubscriptionUser']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -901,7 +871,7 @@ export type SubscriptionUserResolvers<
 };
 
 export type MessageInfoDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['MessageInfoData'] = ResolversParentTypes['MessageInfoData']
 > = {
   text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -910,7 +880,7 @@ export type MessageInfoDataResolvers<
 };
 
 export type MessageUsersDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['MessageUsersData'] = ResolversParentTypes['MessageUsersData']
 > = {
   senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -919,7 +889,7 @@ export type MessageUsersDataResolvers<
 };
 
 export type MessageVisibleDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['MessageVisibleData'] = ResolversParentTypes['MessageVisibleData']
 > = {
   isVisibleAuthor: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -928,7 +898,7 @@ export type MessageVisibleDataResolvers<
 };
 
 export type UserAboutDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserAboutData'] = ResolversParentTypes['UserAboutData']
 > = {
   bio: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -951,7 +921,7 @@ export type UserAboutDataResolvers<
 };
 
 export type UserContactsDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserContactsData'] = ResolversParentTypes['UserContactsData']
 > = {
   email: Resolver<ResolversTypes['UserContactRecord'], ParentType, ContextType>;
@@ -989,7 +959,7 @@ export type UserContactsDataResolvers<
 };
 
 export type UserNetwotkDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserNetwotkData'] = ResolversParentTypes['UserNetwotkData']
 > = {
   isOnline: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -998,7 +968,7 @@ export type UserNetwotkDataResolvers<
 };
 
 export type UserPersonalDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserPersonalData'] = ResolversParentTypes['UserPersonalData']
 > = {
   firstName: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1010,7 +980,7 @@ export type UserPersonalDataResolvers<
 };
 
 export type UserRegionalDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserRegionalData'] = ResolversParentTypes['UserRegionalData']
 > = {
   city: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -1026,7 +996,7 @@ export type UserRegionalDataResolvers<
 };
 
 export type UserStatisticsDataResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserStatisticsData'] = ResolversParentTypes['UserStatisticsData']
 > = {
   completeness: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -1034,7 +1004,7 @@ export type UserStatisticsDataResolvers<
 };
 
 export type UserCareerRecordResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserCareerRecord'] = ResolversParentTypes['UserCareerRecord']
 > = {
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1043,7 +1013,7 @@ export type UserCareerRecordResolvers<
 };
 
 export type UserContactRecordResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserContactRecord'] = ResolversParentTypes['UserContactRecord']
 > = {
   value: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1053,7 +1023,7 @@ export type UserContactRecordResolvers<
 };
 
 export type UserEducationRecordResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserEducationRecord'] = ResolversParentTypes['UserEducationRecord']
 > = {
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1062,7 +1032,7 @@ export type UserEducationRecordResolvers<
 };
 
 export type UserLanguageRecordResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserLanguageRecord'] = ResolversParentTypes['UserLanguageRecord']
 > = {
   code: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1075,7 +1045,7 @@ export type UserLanguageRecordResolvers<
 };
 
 export type UserSkillRecordResolvers<
-  ContextType = any,
+  ContextType = { user?: User },
   ParentType extends ResolversParentTypes['UserSkillRecord'] = ResolversParentTypes['UserSkillRecord']
 > = {
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1083,9 +1053,8 @@ export type UserSkillRecordResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type Resolvers<ContextType = any> = {
+export type Resolvers<ContextType = { user?: User }> = {
   DateTime: GraphQLScalarType;
-  Token: GraphQLScalarType;
   Mutation: MutationResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
@@ -1119,4 +1088,4 @@ export type Resolvers<ContextType = any> = {
  * @deprecated
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
  */
-export type IResolvers<ContextType = any> = Resolvers<ContextType>;
+export type IResolvers<ContextType = { user?: User }> = Resolvers<ContextType>;

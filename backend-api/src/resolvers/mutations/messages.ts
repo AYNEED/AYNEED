@@ -1,21 +1,23 @@
 import { Resolvers } from 'src/__generated__';
 import { ValidationError } from 'shared';
 import { createMessage } from 'src/helpers/messages';
-import { findUserById, findSenderIdByToken } from 'src/helpers/users';
+import { findUserById } from 'src/helpers/users';
 
 export const messageAdd: Resolvers['Mutation']['messageAdd'] = async (
   parent,
-  { token, targetId, text }
+  { targetId, text },
+  { user }
 ) => {
-  const senderId = await findSenderIdByToken(token);
+  if (!user) {
+    throw new ValidationError('error.user.notFound');
+  }
 
-  const recipient = await findUserById(targetId);
-  const author = await findUserById(senderId);
+  const target = await findUserById(targetId);
 
   // TODO: exclude these checks for messages to the support
   if (
-    recipient.statistics.completeness !== 100 &&
-    author.statistics.completeness !== 100
+    target.statistics.completeness !== 100 &&
+    user.statistics.completeness !== 100
   ) {
     throw new ValidationError('error.user.incompleteProfile');
   }
@@ -24,5 +26,5 @@ export const messageAdd: Resolvers['Mutation']['messageAdd'] = async (
     throw new ValidationError('error.message.empty');
   }
 
-  return createMessage({ text, senderId, targetId });
+  return createMessage({ text, senderId: user.id, targetId });
 };

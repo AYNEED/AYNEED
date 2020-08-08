@@ -1,5 +1,5 @@
 import { User } from 'src/__generated__';
 
-export type TokenToSenderId<T> = Omit<T, 'token'> & {
+export type WithSenderId<T> = T & {
   senderId: User['id'];
 };

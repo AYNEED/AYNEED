@@ -4,6 +4,7 @@ import http from 'http';
 import { ApolloServer } from 'apollo-server-express';
 import { Theme } from '@apollographql/graphql-playground-html/dist/render-playground-page';
 
+import { findUserByToken } from 'src/helpers/users';
 import { resolvers, typeDefs } from 'src/resolvers';
 import { expressServer } from 'src/express';
 import { connect } from 'src/utils/mongodb';
@@ -25,6 +26,16 @@ const server = new ApolloServer({
       'editor.theme': theme,
       'request.credentials': 'same-origin',
     },
+  },
+  context: async ({ req }) => {
+    // TODO: add normal auth
+    const token = req?.headers?.authorization;
+
+    if (!token) {
+      return {};
+    }
+
+    return findUserByToken(token);
   },
 });
 

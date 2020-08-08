@@ -10,7 +10,6 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: string;
-  Token: string;
 };
 
 export type Mutation = {
@@ -54,47 +53,36 @@ export type MutationSignUpEmailArgs = {
   client: UserClient;
 };
 
-export type MutationSignOutArgs = {
-  token: Scalars['Token'];
-};
-
 export type MutationLikeAddArgs = {
-  token: Scalars['Token'];
   targetId: Scalars['ID'];
   targetModel: LikeTargetModel;
   status: LikeStatus;
 };
 
 export type MutationLikeRemoveArgs = {
-  token: Scalars['Token'];
   id: Scalars['ID'];
 };
 
 export type MutationMessageAddArgs = {
-  token: Scalars['Token'];
   targetId: Scalars['ID'];
   text: Scalars['String'];
 };
 
 export type MutationProjectAddArgs = {
-  token: Scalars['Token'];
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
 };
 
 export type MutationProjectRemoveArgs = {
-  token: Scalars['Token'];
   id: Scalars['ID'];
 };
 
 export type MutationSubscriptionToUserAddArgs = {
-  token: Scalars['Token'];
   targetId: Scalars['ID'];
 };
 
 export type MutationSubscriptionToUserRemoveArgs = {
-  token: Scalars['Token'];
   id: Scalars['ID'];
 };
 

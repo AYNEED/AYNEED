@@ -1,5 +1,4 @@
 scalar DateTime
-scalar Token
 
 schema {
   mutation: Mutation
@@ -28,31 +27,25 @@ type Mutation {
     client: USER_CLIENT!
   ): User!
 
-  signOut(token: Token!): Boolean!
+  signOut: Boolean!
 
   likeAdd(
-    token: Token!
     targetId: ID!
     targetModel: LIKE_TARGET_MODEL!
     status: LIKE_STATUS!
   ): Like!
 
-  likeRemove(token: Token!, id: ID!): Boolean!
+  likeRemove(id: ID!): Boolean!
 
-  messageAdd(token: Token!, targetId: ID!, text: String!): Message!
+  messageAdd(targetId: ID!, text: String!): Message!
 
-  projectAdd(
-    token: Token!
-    title: String!
-    problem: String!
-    solution: String!
-  ): Project!
+  projectAdd(title: String!, problem: String!, solution: String!): Project!
 
-  projectRemove(token: Token!, id: ID!): Boolean!
+  projectRemove(id: ID!): Boolean!
 
-  subscriptionToUserAdd(token: Token!, targetId: ID!): SubscriptionUser!
+  subscriptionToUserAdd(targetId: ID!): SubscriptionUser!
 
-  subscriptionToUserRemove(token: Token!, id: ID!): Boolean!
+  subscriptionToUserRemove(id: ID!): Boolean!
 }
 
 type Query {

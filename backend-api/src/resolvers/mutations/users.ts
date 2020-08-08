@@ -150,10 +150,7 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
   return user;
 };
 
-export const signOut: Resolvers['Mutation']['signOut'] = async (
-  parent,
-  { token }
-) => {
+export const signOut: Resolvers['Mutation']['signOut'] = async (parent) => {
   // TODO: delete session
   return true;
 };

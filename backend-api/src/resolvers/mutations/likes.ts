@@ -1,30 +1,32 @@
 import { Resolvers } from 'src/__generated__';
 import { ValidationError } from 'shared';
 import { createLike } from 'src/helpers/likes';
-import { findUserById, findSenderIdByToken } from 'src/helpers/users';
+import { findUserById } from 'src/helpers/users';
 
 export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   parent,
-  { token, targetId, targetModel, status }
+  { targetId, targetModel, status },
+  { user }
 ) => {
-  const senderId = await findSenderIdByToken(token);
+  if (!user) {
+    throw new ValidationError('error.user.notFound');
+  }
 
-  const sender = await findUserById(senderId);
   const target = await findUserById(targetId);
 
   if (
-    sender.statistics.completeness !== 100 &&
+    user.statistics.completeness !== 100 &&
     target.statistics.completeness !== 100
   ) {
     throw new ValidationError('error.user.incompleteProfile');
   }
 
-  return createLike({ senderId, targetId, targetModel, status });
+  return createLike({ senderId: user.id, targetId, targetModel, status });
 };
 
 export const likeRemove: Resolvers['Mutation']['likeRemove'] = async (
   parent,
-  { token, id }
+  { id }
 ) => {
   // TODO: remove like from db
   return true;

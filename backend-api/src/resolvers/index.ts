@@ -31,7 +31,7 @@ import {
   resolveUserSkillRecord,
   resolveUserStatisticsData,
 } from 'src/resolvers/customResolvers';
-import { scalarToken, scalarDateTime } from 'src/resolvers/customScalars';
+import { scalarDateTime } from 'src/resolvers/customScalars';
 
 const schemaPath = process.cwd().concat('/schema.graphql');
 const schemaText = readFileSync(schemaPath, 'utf8');
@@ -45,7 +45,6 @@ export const resolvers: Resolvers = {
 
   // Custom scalars:
   DateTime: scalarDateTime,
-  Token: scalarToken,
 
   // Feeds:
   MessageFeed: resolveMessageFeed,

@@ -1,12 +1,12 @@
 import { MessageRes, MessageModel } from 'src/models/message';
 import { MutationMessageAddArgs } from 'src/__generated__';
-import { TokenToSenderId } from 'src/types';
+import { WithSenderId } from 'src/types';
 
 export const createMessage = async ({
   text,
   senderId,
   targetId,
-}: TokenToSenderId<MutationMessageAddArgs>): Promise<MessageRes> =>
+}: WithSenderId<MutationMessageAddArgs>): Promise<MessageRes> =>
   MessageModel.create({
     info: {
       text,

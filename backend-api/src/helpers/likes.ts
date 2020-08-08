@@ -1,13 +1,13 @@
 import { LikeModel, LikeRes } from 'src/models/like';
 import { MutationLikeAddArgs } from 'src/__generated__';
-import { TokenToSenderId } from 'src/types';
+import { WithSenderId } from 'src/types';
 
 export const createLike = async ({
   senderId,
   targetId,
   targetModel,
   status,
-}: TokenToSenderId<MutationLikeAddArgs>): Promise<LikeRes> =>
+}: WithSenderId<MutationLikeAddArgs>): Promise<LikeRes> =>
   LikeModel.create({
     senderId,
     targetId,

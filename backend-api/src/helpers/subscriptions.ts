@@ -8,7 +8,7 @@ import {
   MutationSubscriptionToUserAddArgs,
 } from 'src/__generated__';
 import { ValidationError } from 'shared';
-import { TokenToSenderId } from 'src/types';
+import { WithSenderId } from 'src/types';
 
 export const findSubscriptionUserById = async (
   id: SubscriptionUser['id']
@@ -25,7 +25,7 @@ export const findSubscriptionUserById = async (
 export const createSubscriptionUser = async ({
   senderId,
   targetId,
-}: TokenToSenderId<MutationSubscriptionToUserAddArgs>): Promise<
+}: WithSenderId<MutationSubscriptionToUserAddArgs>): Promise<
   SubscriptionUserRes
 > =>
   SubscriptionUserModel.create({

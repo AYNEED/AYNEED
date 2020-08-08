@@ -1,7 +1,7 @@
 import { ProjectRes, ProjectModel } from 'src/models/project';
 import { Project, MutationProjectAddArgs } from 'src/__generated__';
 import { ValidationError } from 'shared';
-import { TokenToSenderId } from 'src/types';
+import { WithSenderId } from 'src/types';
 
 export const findProjectById = async (
   id: Project['id']
@@ -20,7 +20,7 @@ export const createProject = async ({
   title,
   problem,
   solution,
-}: TokenToSenderId<MutationProjectAddArgs>): Promise<ProjectRes> =>
+}: WithSenderId<MutationProjectAddArgs>): Promise<ProjectRes> =>
   ProjectModel.create({
     senderId,
     title,
