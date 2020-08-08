@@ -275,7 +275,7 @@ export type MessageUsersData = {
 };
 
 export type MessageVisibleData = {
-  isVisibleAuthor: Scalars['Boolean'];
+  isVisibleSender: Scalars['Boolean'];
   isVisibleAll: Scalars['Boolean'];
 };
 
@@ -894,7 +894,7 @@ export type MessageVisibleDataResolvers<
   ContextType = { user?: User },
   ParentType extends ResolversParentTypes['MessageVisibleData'] = ResolversParentTypes['MessageVisibleData']
 > = {
-  isVisibleAuthor: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isVisibleSender: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   isVisibleAll: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };

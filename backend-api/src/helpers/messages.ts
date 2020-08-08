@@ -17,7 +17,7 @@ export const createMessage = async ({
       targetId,
     },
     visible: {
-      isVisibleAuthor: true,
+      isVisibleSender: true,
       isVisibleAll: true,
     },
     editAt: null,

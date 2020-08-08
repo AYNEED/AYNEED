@@ -268,7 +268,7 @@ export type MessageUsersData = {
 };
 
 export type MessageVisibleData = {
-  isVisibleAuthor: Scalars['Boolean'];
+  isVisibleSender: Scalars['Boolean'];
   isVisibleAll: Scalars['Boolean'];
 };
 

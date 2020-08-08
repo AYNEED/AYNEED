@@ -70,7 +70,7 @@ export const createUser = async ({
 export const findUserByToken = async (
   token: string
 ): Promise<UserRes | undefined> => {
-  // TODO: drop this line and get user fom session
+  // TODO: drop this line and get user from session
   return findUserById(token);
 };
 

@@ -37,13 +37,13 @@ const MessageUsersSchema = new Schema<MessageUsersData>({
 });
 
 const MessageVisibleSchema = new Schema<MessageVisibleData>({
-  // If author delete message only for yourself
-  isVisibleAuthor: {
+  // If sender delete message only for yourself
+  isVisibleSender: {
     type: Boolean,
     required: true,
     default: true,
   },
-  // If author delete message for all
+  // If sender delete message for all
   isVisibleAll: {
     type: Boolean,
     required: true,

@@ -120,7 +120,7 @@ export const resolveMessageUsersData: Resolvers['MessageUsersData'] = {
 };
 
 export const resolveMessageVisibleData: Resolvers['MessageVisibleData'] = {
-  isVisibleAuthor: (parent) => parent.isVisibleAuthor,
+  isVisibleSender: (parent) => parent.isVisibleSender,
   isVisibleAll: (parent) => parent.isVisibleAll,
 };
 

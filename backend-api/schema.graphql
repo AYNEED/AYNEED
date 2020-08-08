@@ -219,7 +219,7 @@ type MessageUsersData {
 }
 
 type MessageVisibleData {
-  isVisibleAuthor: Boolean!
+  isVisibleSender: Boolean!
   isVisibleAll: Boolean!
 }
 
