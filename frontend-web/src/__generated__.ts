@@ -191,6 +191,7 @@ export type UserFeed = {
 };
 
 export type Message = {
+  id: Scalars['ID'];
   info: MessageInfoData;
   users: MessageUsersData;
   visible: MessageVisibleData;

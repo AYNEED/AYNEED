@@ -2,36 +2,33 @@ import { ProjectModel } from 'src/models/project';
 import { SubscriptionUserModel } from 'src/models/subscriptionUser';
 import { Resolvers, SubscriptionStatus } from 'src/__generated__';
 
-export const resolveLike: Resolvers['Like'] = {
-  id: (parent) => parent.id,
-  senderId: (parent) => parent.senderId,
-  targetId: (parent) => parent.targetId,
-  targetModel: (parent) => parent.targetModel,
-  status: (parent) => parent.status,
-  createdAt: (parent) => parent.createdAt,
+// -------------------------- Feeds ---------------------------
+
+export const resolveMessageFeed: Resolvers['MessageFeed'] = {
+  items: (parent) => parent.items,
+  hasMore: (parent) => parent.hasMore,
 };
 
-export const resolveSubscriptionUser: Resolvers['SubscriptionUser'] = {
-  id: (parent) => parent.id,
-  senderId: (parent) => parent.senderId,
-  targetId: (parent) => parent.targetId,
-  status: (parent) => parent.status,
-  createdAt: (parent) => parent.createdAt,
+export const resolveProjectFeed: Resolvers['ProjectFeed'] = {
+  items: (parent) => parent.items,
+  hasMore: (parent) => parent.hasMore,
 };
 
-export const resolveSubscribersUser: Resolvers['SubscriberUser'] = {
-  id: (parent) => parent.id,
-  senderId: (parent) => parent.senderId,
-  targetId: (parent) => parent.targetId,
-  status: (parent) => parent.status,
-  createdAt: (parent) => parent.createdAt,
+export const resolveUserFeed: Resolvers['UserFeed'] = {
+  items: (parent) => parent.items,
+  hasMore: (parent) => parent.hasMore,
 };
 
-export const resolveFriendsUser: Resolvers['FriendUser'] = {
+// -------------------------- Models --------------------------
+
+export const resolveMessage: Resolvers['Message'] = {
   id: (parent) => parent.id,
-  senderId: (parent) => parent.senderId,
-  targetId: (parent) => parent.targetId,
+  info: (parent) => parent.info,
+  users: (parent) => parent.users,
+  visible: (parent) => parent.visible,
   createdAt: (parent) => parent.createdAt,
+  editAt: (parent) => parent.editAt,
+  deleteAt: (parent) => parent.deleteAt,
 };
 
 export const resolveProject: Resolvers['Project'] = {
@@ -41,40 +38,6 @@ export const resolveProject: Resolvers['Project'] = {
   problem: (parent) => parent.problem,
   solution: (parent) => parent.solution,
   createdAt: (parent) => parent.createdAt,
-};
-
-export const resolveProjectFeed: Resolvers['ProjectFeed'] = {
-  items: (parent) => parent.items,
-  hasMore: (parent) => parent.hasMore,
-};
-
-export const resolveMessageFeed: Resolvers['MessageFeed'] = {
-  items: (parent) => parent.items,
-  hasMore: (parent) => parent.hasMore,
-};
-
-export const resolveMessageInfoData: Resolvers['MessageInfoData'] = {
-  text: (parent) => parent.text,
-  isRead: (parent) => parent.isRead,
-};
-
-export const resolveMessageUsersData: Resolvers['MessageUsersData'] = {
-  senderId: (parent) => parent.senderId,
-  targetId: (parent) => parent.targetId,
-};
-
-export const resolveMessageVisibleData: Resolvers['MessageVisibleData'] = {
-  isVisibleAuthor: (parent) => parent.isVisibleAuthor,
-  isVisibleAll: (parent) => parent.isVisibleAll,
-};
-
-export const resolveMessage: Resolvers['Message'] = {
-  info: (parent) => parent.info,
-  users: (parent) => parent.users,
-  visible: (parent) => parent.visible,
-  createdAt: (parent) => parent.createdAt,
-  editAt: (parent) => parent.editAt,
-  deleteAt: (parent) => parent.deleteAt,
 };
 
 export const resolveUser: Resolvers['User'] = {
@@ -110,9 +73,55 @@ export const resolveUser: Resolvers['User'] = {
     }),
 };
 
-export const resolveUserFeed: Resolvers['UserFeed'] = {
-  items: (parent) => parent.items,
-  hasMore: (parent) => parent.hasMore,
+// -------------------- Additional models ---------------------
+
+export const resolveFriendsUser: Resolvers['FriendUser'] = {
+  id: (parent) => parent.id,
+  senderId: (parent) => parent.senderId,
+  targetId: (parent) => parent.targetId,
+  createdAt: (parent) => parent.createdAt,
+};
+
+export const resolveLike: Resolvers['Like'] = {
+  id: (parent) => parent.id,
+  senderId: (parent) => parent.senderId,
+  targetId: (parent) => parent.targetId,
+  targetModel: (parent) => parent.targetModel,
+  status: (parent) => parent.status,
+  createdAt: (parent) => parent.createdAt,
+};
+
+export const resolveSubscribersUser: Resolvers['SubscriberUser'] = {
+  id: (parent) => parent.id,
+  senderId: (parent) => parent.senderId,
+  targetId: (parent) => parent.targetId,
+  status: (parent) => parent.status,
+  createdAt: (parent) => parent.createdAt,
+};
+
+export const resolveSubscriptionUser: Resolvers['SubscriptionUser'] = {
+  id: (parent) => parent.id,
+  senderId: (parent) => parent.senderId,
+  targetId: (parent) => parent.targetId,
+  status: (parent) => parent.status,
+  createdAt: (parent) => parent.createdAt,
+};
+
+// ----------------------- Models data ------------------------
+
+export const resolveMessageInfoData: Resolvers['MessageInfoData'] = {
+  text: (parent) => parent.text,
+  isRead: (parent) => parent.isRead,
+};
+
+export const resolveMessageUsersData: Resolvers['MessageUsersData'] = {
+  senderId: (parent) => parent.senderId,
+  targetId: (parent) => parent.targetId,
+};
+
+export const resolveMessageVisibleData: Resolvers['MessageVisibleData'] = {
+  isVisibleAuthor: (parent) => parent.isVisibleAuthor,
+  isVisibleAll: (parent) => parent.isVisibleAll,
 };
 
 export const resolveUserAboutData: Resolvers['UserAboutData'] = {
@@ -156,6 +165,8 @@ export const resolveUserRegionalData: Resolvers['UserRegionalData'] = {
 export const resolveUserStatisticsData: Resolvers['UserStatisticsData'] = {
   completeness: (parent) => parent.completeness,
 };
+
+// ---------------------- Models records ----------------------
 
 export const resolveUserCareerRecord: Resolvers['UserCareerRecord'] = {
   title: (parent) => parent.title,

@@ -138,6 +138,7 @@ type UserFeed {
 # ########################## models ###########################
 
 type Message {
+  id: ID!
   info: MessageInfoData!
   users: MessageUsersData!
   visible: MessageVisibleData!

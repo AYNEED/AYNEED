@@ -198,6 +198,7 @@ export type UserFeed = {
 };
 
 export type Message = {
+  id: Scalars['ID'];
   info: MessageInfoData;
   users: MessageUsersData;
   visible: MessageVisibleData;
@@ -732,6 +733,7 @@ export type MessageResolvers<
   ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
 > = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   info: Resolver<ResolversTypes['MessageInfoData'], ParentType, ContextType>;
   users: Resolver<ResolversTypes['MessageUsersData'], ParentType, ContextType>;
   visible: Resolver<

@@ -35,7 +35,12 @@ const server = new ApolloServer({
       return {};
     }
 
-    return findUserByToken(token);
+    try {
+      const user = await findUserByToken(token);
+      return { user };
+    } catch (e) {
+      return {};
+    }
   },
 });
 

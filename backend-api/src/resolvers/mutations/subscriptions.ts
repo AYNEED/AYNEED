@@ -12,7 +12,13 @@ export const subscriptionToUserAdd: Resolvers['Mutation']['subscriptionToUserAdd
     throw new ValidationError('error.user.notFound');
   }
 
-  await findUserById(targetId);
+  if (user.id === targetId) {
+    // TODO: throw exception
+  }
+
+  // TODO: if subscription already exists, throw exception
+
+  const target = await findUserById(targetId);
 
   if (user.statistics.completeness !== 100) {
     throw new ValidationError('error.user.incompleteProfile');
@@ -20,7 +26,7 @@ export const subscriptionToUserAdd: Resolvers['Mutation']['subscriptionToUserAdd
 
   return await createSubscriptionUser({
     senderId: user.id,
-    targetId,
+    targetId: target.id,
   });
 };
 

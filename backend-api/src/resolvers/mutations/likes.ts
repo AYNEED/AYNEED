@@ -12,6 +12,12 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
     throw new ValidationError('error.user.notFound');
   }
 
+  if (user.id === targetId) {
+    // TODO: throw exception
+  }
+
+  // TODO: if like already exists, throw exception
+
   const target = await findUserById(targetId);
 
   if (
