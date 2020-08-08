@@ -15,13 +15,13 @@ export const findProjectById = async (
 };
 
 export const createProject = async ({
-  authorId,
+  senderId,
   title,
   problem,
   solution,
 }: MutationAddProjectArgs): Promise<ProjectRes> =>
   ProjectModel.create({
-    authorId,
+    senderId,
     title,
     problem,
     solution,

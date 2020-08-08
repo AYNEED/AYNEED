@@ -1,6 +1,5 @@
 import { LikeModel, LikeRes } from 'src/models/like';
 import { Like, MutationAddLikeArgs } from 'src/__generated__';
-
 import { ValidationError } from 'shared';
 
 export const findLikeById = async (id: Like['id']): Promise<LikeRes> => {
@@ -14,13 +13,13 @@ export const findLikeById = async (id: Like['id']): Promise<LikeRes> => {
 };
 
 export const createLike = async ({
-  owner,
+  senderId,
   targetId,
   targetType,
   statement,
 }: MutationAddLikeArgs): Promise<LikeRes> =>
   LikeModel.create({
-    owner,
+    senderId,
     targetId,
     targetType,
     statement,

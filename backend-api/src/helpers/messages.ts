@@ -3,8 +3,8 @@ import { MutationAddMessageArgs } from 'src/__generated__';
 
 export const createMessage = async ({
   text,
-  authorId,
-  recipientId,
+  senderId,
+  targetId,
 }: MutationAddMessageArgs): Promise<MessageRes> =>
   MessageModel.create({
     info: {
@@ -12,8 +12,8 @@ export const createMessage = async ({
       isRead: false,
     },
     users: {
-      authorId,
-      recipientId,
+      senderId,
+      targetId,
     },
     visible: {
       isVisibleAuthor: true,

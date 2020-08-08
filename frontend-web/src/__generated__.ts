@@ -50,7 +50,7 @@ export type MutationSignUpEmailArgs = {
 };
 
 export type MutationAddProjectArgs = {
-  authorId: Scalars['ID'];
+  senderId: Scalars['ID'];
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
@@ -58,18 +58,18 @@ export type MutationAddProjectArgs = {
 
 export type MutationAddSubscriptionUserArgs = {
   senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  targetId: Scalars['ID'];
   status: StatusStatement;
 };
 
 export type MutationAddMessageArgs = {
-  authorId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
   text: Scalars['String'];
 };
 
 export type MutationAddLikeArgs = {
-  owner: Scalars['ID'];
+  senderId: Scalars['ID'];
   targetId: Scalars['ID'];
   targetType: LikeTargetType;
   statement: LikeStatement;
@@ -170,7 +170,7 @@ export enum LikeStatement {
 
 export type Like = {
   id: Scalars['ID'];
-  owner: Scalars['ID'];
+  senderId: Scalars['ID'];
   targetId: Scalars['ID'];
   targetType: LikeTargetType;
   statement: LikeStatement;
@@ -194,7 +194,7 @@ export type MessageFeed = {
 
 export type Project = {
   id: Scalars['ID'];
-  authorId: Scalars['ID'];
+  senderId: Scalars['ID'];
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
@@ -204,7 +204,7 @@ export type Project = {
 export type SubscriptionUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  targetId: Scalars['ID'];
   status: StatusStatement;
   createdAt: Scalars['DateTime'];
 };
@@ -212,7 +212,7 @@ export type SubscriptionUser = {
 export type SubscriberUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  targetId: Scalars['ID'];
   status: StatusStatement;
   createdAt: Scalars['DateTime'];
 };
@@ -220,7 +220,7 @@ export type SubscriberUser = {
 export type FriendUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  targetId: Scalars['ID'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -323,8 +323,8 @@ export type MessageInfoData = {
 };
 
 export type MessageUsersData = {
-  authorId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
 };
 
 export type MessageVisibleData = {

@@ -28,7 +28,7 @@ type Mutation {
   ): User!
 
   addProject(
-    authorId: ID!
+    senderId: ID!
     title: String!
     problem: String!
     solution: String!
@@ -36,14 +36,14 @@ type Mutation {
 
   addSubscriptionUser(
     senderId: ID!
-    recipientId: ID!
+    targetId: ID!
     status: STATUS_STATEMENT!
   ): SubscriptionUser!
 
-  addMessage(authorId: ID!, recipientId: ID!, text: String!): Message!
+  addMessage(senderId: ID!, targetId: ID!, text: String!): Message!
 
   addLike(
-    owner: ID!
+    senderId: ID!
     targetId: ID!
     targetType: LIKE_TARGET_TYPE!
     statement: LIKE_STATEMENT!
@@ -61,7 +61,7 @@ type Query {
 
   messages(cursor: ID!): MessageFeed!
 
-  like(id: ID!): Like!
+  like(id: ID!): Like! # TODO: this request looks redundant
 }
 
 type Subscription {
@@ -121,7 +121,7 @@ enum LIKE_STATEMENT {
 
 type Like {
   id: ID!
-  owner: ID!
+  senderId: ID!
   targetId: ID!
   targetType: LIKE_TARGET_TYPE!
   statement: LIKE_STATEMENT!
@@ -145,7 +145,7 @@ type MessageFeed {
 
 type Project {
   id: ID!
-  authorId: ID!
+  senderId: ID!
   title: String!
   problem: String!
   solution: String!
@@ -155,7 +155,7 @@ type Project {
 type SubscriptionUser {
   id: ID!
   senderId: ID!
-  recipientId: ID!
+  targetId: ID!
   status: STATUS_STATEMENT!
   createdAt: DateTime!
 }
@@ -163,7 +163,7 @@ type SubscriptionUser {
 type SubscriberUser {
   id: ID!
   senderId: ID!
-  recipientId: ID!
+  targetId: ID!
   status: STATUS_STATEMENT!
   createdAt: DateTime!
 }
@@ -171,7 +171,7 @@ type SubscriberUser {
 type FriendUser {
   id: ID!
   senderId: ID!
-  recipientId: ID!
+  targetId: ID!
   createdAt: DateTime!
 }
 
@@ -274,8 +274,8 @@ type MessageInfoData {
 }
 
 type MessageUsersData {
-  authorId: ID!
-  recipientId: ID!
+  senderId: ID!
+  targetId: ID!
 }
 
 type MessageVisibleData {

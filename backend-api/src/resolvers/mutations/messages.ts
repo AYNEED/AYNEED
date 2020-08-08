@@ -5,13 +5,12 @@ import { findUserById } from 'src/helpers/users';
 
 export const addMessage: Resolvers['Mutation']['addMessage'] = async (
   parent,
-  { text, authorId, recipientId }
+  { text, senderId, targetId }
 ) => {
-  const recipient = await findUserById(recipientId);
-  const author = await findUserById(authorId);
+  const recipient = await findUserById(targetId);
+  const author = await findUserById(senderId);
 
   // TODO: exclude these checks for messages to the support
-
   if (
     recipient.statistics.completeness !== 100 &&
     author.statistics.completeness !== 100
@@ -23,5 +22,5 @@ export const addMessage: Resolvers['Mutation']['addMessage'] = async (
     throw new ValidationError('error.message.empty');
   }
 
-  return createMessage({ text, authorId, recipientId });
+  return createMessage({ text, senderId, targetId });
 };

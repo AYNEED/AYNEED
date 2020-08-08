@@ -25,12 +25,12 @@ const MessageInfoSchema = new Schema<MessageInfoData>({
 });
 
 const MessageUsersSchema = new Schema<MessageUsersData>({
-  authorId: {
+  senderId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-  recipientId: {
+  targetId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,

@@ -13,7 +13,7 @@ const SubscriptionUserScheme = new Schema<SubscriptionUserReq>(
       ref: 'User',
       required: true,
     },
-    recipientId: {
+    targetId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,

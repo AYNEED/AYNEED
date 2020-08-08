@@ -4,7 +4,7 @@ import { Resolvers, StatusStatement } from 'src/__generated__';
 
 export const resolveLike: Resolvers['Like'] = {
   id: (parent) => parent.id,
-  owner: (parent) => parent.owner,
+  senderId: (parent) => parent.senderId,
   targetId: (parent) => parent.targetId,
   targetType: (parent) => parent.targetType,
   statement: (parent) => parent.statement,
@@ -14,7 +14,7 @@ export const resolveLike: Resolvers['Like'] = {
 export const resolveSubscriptionUser: Resolvers['SubscriptionUser'] = {
   id: (parent) => parent.id,
   senderId: (parent) => parent.senderId,
-  recipientId: (parent) => parent.recipientId,
+  targetId: (parent) => parent.targetId,
   status: (parent) => parent.status,
   createdAt: (parent) => parent.createdAt,
 };
@@ -22,7 +22,7 @@ export const resolveSubscriptionUser: Resolvers['SubscriptionUser'] = {
 export const resolveSubscribersUser: Resolvers['SubscriberUser'] = {
   id: (parent) => parent.id,
   senderId: (parent) => parent.senderId,
-  recipientId: (parent) => parent.recipientId,
+  targetId: (parent) => parent.targetId,
   status: (parent) => parent.status,
   createdAt: (parent) => parent.createdAt,
 };
@@ -30,13 +30,13 @@ export const resolveSubscribersUser: Resolvers['SubscriberUser'] = {
 export const resolveFriendsUser: Resolvers['FriendUser'] = {
   id: (parent) => parent.id,
   senderId: (parent) => parent.senderId,
-  recipientId: (parent) => parent.recipientId,
+  targetId: (parent) => parent.targetId,
   createdAt: (parent) => parent.createdAt,
 };
 
 export const resolveProject: Resolvers['Project'] = {
   id: (parent) => parent.id,
-  authorId: (parent) => parent.authorId,
+  senderId: (parent) => parent.senderId,
   title: (parent) => parent.title,
   problem: (parent) => parent.problem,
   solution: (parent) => parent.solution,
@@ -59,8 +59,8 @@ export const resolveMessageInfoData: Resolvers['MessageInfoData'] = {
 };
 
 export const resolveMessageUsersData: Resolvers['MessageUsersData'] = {
-  authorId: (parent) => parent.authorId,
-  recipientId: (parent) => parent.recipientId,
+  senderId: (parent) => parent.senderId,
+  targetId: (parent) => parent.targetId,
 };
 
 export const resolveMessageVisibleData: Resolvers['MessageVisibleData'] = {
@@ -88,7 +88,7 @@ export const resolveUser: Resolvers['User'] = {
   role: (parent) => parent.role,
   createdAt: (parent) => parent.createdAt,
 
-  projects: async (parent) => ProjectModel.find({ authorId: parent.id }),
+  projects: async (parent) => ProjectModel.find({ senderId: parent.id }),
   subscriptions: async (parent) =>
     SubscriptionUserModel.find({
       senderId: parent.id,
@@ -96,12 +96,12 @@ export const resolveUser: Resolvers['User'] = {
     }),
   subscribers: async (parent) =>
     SubscriptionUserModel.find({
-      recipientId: parent.id,
+      targetId: parent.id,
       status: { $in: [StatusStatement.Waiting, StatusStatement.Rejected] },
     }),
   friends: async (parent) =>
     SubscriptionUserModel.find({
-      recipientId: parent.id,
+      targetId: parent.id,
       status: { $in: [StatusStatement.Accepted] },
     }),
 };

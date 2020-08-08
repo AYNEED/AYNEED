@@ -57,7 +57,7 @@ export type MutationSignUpEmailArgs = {
 };
 
 export type MutationAddProjectArgs = {
-  authorId: Scalars['ID'];
+  senderId: Scalars['ID'];
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
@@ -65,18 +65,18 @@ export type MutationAddProjectArgs = {
 
 export type MutationAddSubscriptionUserArgs = {
   senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  targetId: Scalars['ID'];
   status: StatusStatement;
 };
 
 export type MutationAddMessageArgs = {
-  authorId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
   text: Scalars['String'];
 };
 
 export type MutationAddLikeArgs = {
-  owner: Scalars['ID'];
+  senderId: Scalars['ID'];
   targetId: Scalars['ID'];
   targetType: LikeTargetType;
   statement: LikeStatement;
@@ -177,7 +177,7 @@ export enum LikeStatement {
 
 export type Like = {
   id: Scalars['ID'];
-  owner: Scalars['ID'];
+  senderId: Scalars['ID'];
   targetId: Scalars['ID'];
   targetType: LikeTargetType;
   statement: LikeStatement;
@@ -201,7 +201,7 @@ export type MessageFeed = {
 
 export type Project = {
   id: Scalars['ID'];
-  authorId: Scalars['ID'];
+  senderId: Scalars['ID'];
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
@@ -211,7 +211,7 @@ export type Project = {
 export type SubscriptionUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  targetId: Scalars['ID'];
   status: StatusStatement;
   createdAt: Scalars['DateTime'];
 };
@@ -219,7 +219,7 @@ export type SubscriptionUser = {
 export type SubscriberUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  targetId: Scalars['ID'];
   status: StatusStatement;
   createdAt: Scalars['DateTime'];
 };
@@ -227,7 +227,7 @@ export type SubscriberUser = {
 export type FriendUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  targetId: Scalars['ID'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -330,8 +330,8 @@ export type MessageInfoData = {
 };
 
 export type MessageUsersData = {
-  authorId: Scalars['ID'];
-  recipientId: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
 };
 
 export type MessageVisibleData = {
@@ -583,7 +583,7 @@ export type MutationResolvers<
     ContextType,
     RequireFields<
       MutationAddProjectArgs,
-      'authorId' | 'title' | 'problem' | 'solution'
+      'senderId' | 'title' | 'problem' | 'solution'
     >
   >;
   addSubscriptionUser: Resolver<
@@ -592,14 +592,14 @@ export type MutationResolvers<
     ContextType,
     RequireFields<
       MutationAddSubscriptionUserArgs,
-      'senderId' | 'recipientId' | 'status'
+      'senderId' | 'targetId' | 'status'
     >
   >;
   addMessage: Resolver<
     ResolversTypes['Message'],
     ParentType,
     ContextType,
-    RequireFields<MutationAddMessageArgs, 'authorId' | 'recipientId' | 'text'>
+    RequireFields<MutationAddMessageArgs, 'senderId' | 'targetId' | 'text'>
   >;
   addLike: Resolver<
     ResolversTypes['Like'],
@@ -607,7 +607,7 @@ export type MutationResolvers<
     ContextType,
     RequireFields<
       MutationAddLikeArgs,
-      'owner' | 'targetId' | 'targetType' | 'statement'
+      'senderId' | 'targetId' | 'targetType' | 'statement'
     >
   >;
 };
@@ -695,7 +695,7 @@ export type LikeResolvers<
   ParentType extends ResolversParentTypes['Like'] = ResolversParentTypes['Like']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  owner: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   targetType: Resolver<
     ResolversTypes['LIKE_TARGET_TYPE'],
@@ -743,7 +743,7 @@ export type ProjectResolvers<
   ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  authorId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -757,7 +757,7 @@ export type SubscriptionUserResolvers<
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   status: Resolver<ResolversTypes['STATUS_STATEMENT'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
@@ -769,7 +769,7 @@ export type SubscriberUserResolvers<
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   status: Resolver<ResolversTypes['STATUS_STATEMENT'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
@@ -781,7 +781,7 @@ export type FriendUserResolvers<
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -1020,8 +1020,8 @@ export type MessageUsersDataResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['MessageUsersData'] = ResolversParentTypes['MessageUsersData']
 > = {
-  authorId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  recipientId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 

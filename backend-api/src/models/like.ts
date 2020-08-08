@@ -8,7 +8,7 @@ type LikeReq = Omit<LikeRes, 'createdAt'>;
 
 const LikeSchema = new Schema<LikeReq>(
   {
-    owner: {
+    senderId: {
       type: Schema.Types.ObjectId,
       required: true,
     },

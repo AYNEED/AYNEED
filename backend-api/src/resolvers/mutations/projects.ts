@@ -7,16 +7,16 @@ import { send } from 'src/notifications';
 
 export const addProject: Resolvers['Mutation']['addProject'] = async (
   parent,
-  { authorId, title, problem, solution }
+  { senderId, title, problem, solution }
 ) => {
-  const user = await findUserById(authorId);
+  const user = await findUserById(senderId);
 
   if (user.statistics.completeness !== 100) {
     throw new ValidationError('error.user.incompleteProfile');
   }
 
   const project = await createProject({
-    authorId,
+    senderId,
     title,
     problem,
     solution,

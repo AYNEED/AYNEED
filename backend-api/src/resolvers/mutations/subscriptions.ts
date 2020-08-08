@@ -5,9 +5,9 @@ import { ValidationError } from 'shared';
 
 export const addSubscriptionUser: Resolvers['Mutation']['addSubscriptionUser'] = async (
   parent,
-  { senderId, recipientId, status }
+  { senderId, targetId, status }
 ) => {
-  await findUserById(recipientId);
+  await findUserById(targetId);
   const sender = await findUserById(senderId);
 
   if (sender.statistics.completeness !== 100) {
@@ -16,7 +16,7 @@ export const addSubscriptionUser: Resolvers['Mutation']['addSubscriptionUser'] =
 
   return await createSubscriptionUser({
     senderId,
-    recipientId,
+    targetId,
     status,
   });
 };

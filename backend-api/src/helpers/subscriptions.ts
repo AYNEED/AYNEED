@@ -22,11 +22,11 @@ export const findSubscriptionUserById = async (
 
 export const createSubscriptionUser = async ({
   senderId,
-  recipientId,
+  targetId,
   status,
 }: MutationAddSubscriptionUserArgs): Promise<SubscriptionUserRes> =>
   SubscriptionUserModel.create({
     senderId,
-    recipientId,
+    targetId,
     status,
   });
