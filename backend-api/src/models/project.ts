@@ -1,10 +1,10 @@
 import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import { Project } from 'src/__generated__';
+import { Project, ProjectStatus } from 'src/__generated__';
 
 export type ProjectRes = Document & Project;
-type ProjectReq = Omit<ProjectRes, 'createdAt' | 'subscriptions'>;
+type ProjectReq = Omit<ProjectRes, 'createdAt' | 'subscribers'>;
 
 const ProjectSchema = new Schema<ProjectReq>(
   {
@@ -23,6 +23,11 @@ const ProjectSchema = new Schema<ProjectReq>(
     },
     solution: {
       type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: Object.values(ProjectStatus),
       required: true,
     },
   },

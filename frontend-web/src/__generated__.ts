@@ -19,13 +19,12 @@ export type Mutation = {
   signUpEmail: User;
   signOut: Scalars['Boolean'];
   likeAdd: Like;
-  addSubscriptionProject: SubscriptionProject;
   likeRemove: Scalars['Boolean'];
   messageAdd: Message;
   projectAdd: Project;
   projectRemove: Scalars['Boolean'];
-  subscriptionToUserAdd: SubscriptionUser;
-  subscriptionToUserRemove: Scalars['Boolean'];
+  subscriptionAdd: SubscribedUser;
+  subscriptionRemove: Scalars['Boolean'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -60,12 +59,6 @@ export type MutationLikeAddArgs = {
   status: LikeStatus;
 };
 
-export type MutationAddSubscriptionProjectArgs = {
-  owner: Scalars['ID'];
-  targetId: Scalars['ID'];
-  status: ProjectStatus;
-};
-
 export type MutationLikeRemoveArgs = {
   id: Scalars['ID'];
 };
@@ -85,11 +78,12 @@ export type MutationProjectRemoveArgs = {
   id: Scalars['ID'];
 };
 
-export type MutationSubscriptionToUserAddArgs = {
+export type MutationSubscriptionAddArgs = {
   targetId: Scalars['ID'];
+  targetModel: SubscriptionTargetModel;
 };
 
-export type MutationSubscriptionToUserRemoveArgs = {
+export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
 };
 
@@ -145,6 +139,12 @@ export enum LikeTargetModel {
   Project = 'project',
 }
 
+export enum ProjectStatus {
+  Idea = 'idea',
+  Concept = 'concept',
+  Mvp = 'mvp',
+}
+
 export enum SearchTargetModel {
   Candidates = 'candidates',
   Users = 'users',
@@ -157,6 +157,11 @@ export enum SubscriptionStatus {
   Waiting = 'waiting',
   Accepted = 'accepted',
   Rejected = 'rejected',
+}
+
+export enum SubscriptionTargetModel {
+  User = 'user',
+  Project = 'project',
 }
 
 export enum UserLocale {
@@ -180,14 +185,6 @@ export enum UserClient {
 export enum UserRole {
   User = 'user',
   Support = 'support',
-}
-
-export enum ProjectStatus {
-  Beginning = 'beginning',
-  Concept = 'concept',
-  Project = 'project',
-  Idea = 'idea',
-  Mvp = 'mvp',
 }
 
 export type MessageFeed = {
@@ -221,15 +218,8 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-  subscriptions: Array<SubscriptionProject>;
-};
-
-export type SubscriptionProject = {
-  id: Scalars['ID'];
-  owner: Scalars['ID'];
-  targetId: Scalars['ID'];
   status: ProjectStatus;
+  subscribers: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];
 };
 
@@ -242,17 +232,10 @@ export type User = {
   regional: UserRegionalData;
   contacts: UserContactsData;
   statistics: UserStatisticsData;
-  createdAt: Scalars['DateTime'];
   projects: Array<Project>;
-  subscriptions: Array<SubscriptionUser>;
-  subscribers: Array<SubscriberUser>;
-  friends: Array<FriendUser>;
-};
-
-export type FriendUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
+  subscriptions: Array<SubscribedUser>;
+  subscribers: Array<SubscribedUser>;
+  friends: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];
 };
 
@@ -265,18 +248,11 @@ export type Like = {
   createdAt: Scalars['DateTime'];
 };
 
-export type SubscriberUser = {
+export type SubscribedUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
-  status: SubscriptionStatus;
-  createdAt: Scalars['DateTime'];
-};
-
-export type SubscriptionUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
+  targetModel: SubscriptionTargetModel;
   status: SubscriptionStatus;
   createdAt: Scalars['DateTime'];
 };

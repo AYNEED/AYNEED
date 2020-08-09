@@ -35,12 +35,6 @@ type Mutation {
     status: LIKE_STATUS!
   ): Like!
 
-  addSubscriptionProject(
-    owner: ID!
-    targetId: ID!
-    status: PROJECT_STATUS!
-  ): SubscriptionProject!
-
   likeRemove(id: ID!): Boolean!
 
   messageAdd(targetId: ID!, text: String!): Message!
@@ -49,9 +43,12 @@ type Mutation {
 
   projectRemove(id: ID!): Boolean!
 
-  subscriptionToUserAdd(targetId: ID!): SubscriptionUser!
+  subscriptionAdd(
+    targetId: ID!
+    targetModel: SUBSCRIPTION_TARGET_MODEL!
+  ): SubscribedUser!
 
-  subscriptionToUserRemove(id: ID!): Boolean!
+  subscriptionRemove(id: ID!): Boolean!
 }
 
 type Query {
@@ -87,6 +84,12 @@ enum LIKE_TARGET_MODEL {
   project
 }
 
+enum PROJECT_STATUS {
+  idea
+  concept
+  mvp
+}
+
 enum SEARCH_TARGET_MODEL {
   candidates
   users
@@ -99,6 +102,11 @@ enum SUBSCRIPTION_STATUS {
   waiting
   accepted
   rejected
+}
+
+enum SUBSCRIPTION_TARGET_MODEL {
+  user
+  project
 }
 
 enum USER_LOCALE {
@@ -122,14 +130,6 @@ enum USER_CLIENT {
 enum USER_ROLE {
   user
   support
-}
-
-enum PROJECT_STATUS {
-  beginning
-  concept
-  project
-  idea
-  mvp
 }
 
 # ########################### feeds ###########################
@@ -167,15 +167,8 @@ type Project {
   title: String!
   problem: String!
   solution: String!
-  createdAt: DateTime!
-  subscriptions: [SubscriptionProject!]!
-}
-
-type SubscriptionProject {
-  id: ID!
-  owner: ID!
-  targetId: ID!
   status: PROJECT_STATUS!
+  subscribers: [SubscribedUser!]!
   createdAt: DateTime!
 }
 
@@ -188,21 +181,14 @@ type User {
   regional: UserRegionalData!
   contacts: UserContactsData!
   statistics: UserStatisticsData!
-  createdAt: DateTime!
   projects: [Project!]!
-  subscriptions: [SubscriptionUser!]!
-  subscribers: [SubscriberUser!]!
-  friends: [FriendUser!]!
+  subscriptions: [SubscribedUser!]!
+  subscribers: [SubscribedUser!]!
+  friends: [SubscribedUser!]!
+  createdAt: DateTime!
 }
 
 # #################### additional models ######################
-
-type FriendUser {
-  id: ID!
-  senderId: ID!
-  targetId: ID!
-  createdAt: DateTime!
-}
 
 type Like {
   id: ID!
@@ -213,18 +199,11 @@ type Like {
   createdAt: DateTime!
 }
 
-type SubscriberUser {
+type SubscribedUser {
   id: ID!
   senderId: ID!
   targetId: ID!
-  status: SUBSCRIPTION_STATUS!
-  createdAt: DateTime!
-}
-
-type SubscriptionUser {
-  id: ID!
-  senderId: ID!
-  targetId: ID!
+  targetModel: SUBSCRIPTION_TARGET_MODEL!
   status: SUBSCRIPTION_STATUS!
   createdAt: DateTime!
 }
