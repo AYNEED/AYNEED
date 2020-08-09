@@ -13,7 +13,7 @@ export const findSubscriptionById = async (
   const subscription = await SubscriptionModel.findById(id);
 
   if (!subscription) {
-    throw new ValidationError('error.subscription.user.notFound');
+    throw new ValidationError('error.subscription.notFound');
   }
 
   return subscription;
