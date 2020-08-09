@@ -30,8 +30,8 @@ export type Mutation = {
   messageAdd: Message;
   projectAdd: Project;
   projectRemove: Scalars['Boolean'];
-  subscriptionToUserAdd: SubscriptionUser;
-  subscriptionToUserRemove: Scalars['Boolean'];
+  subscriptionAdd: SubscribedUser;
+  subscriptionRemove: Scalars['Boolean'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -85,11 +85,12 @@ export type MutationProjectRemoveArgs = {
   id: Scalars['ID'];
 };
 
-export type MutationSubscriptionToUserAddArgs = {
+export type MutationSubscriptionAddArgs = {
   targetId: Scalars['ID'];
+  targetModel: SubscriptionTargetModel;
 };
 
-export type MutationSubscriptionToUserRemoveArgs = {
+export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
 };
 
@@ -145,6 +146,12 @@ export enum LikeTargetModel {
   Project = 'project',
 }
 
+export enum ProjectStatus {
+  Idea = 'idea',
+  Concept = 'concept',
+  Mvp = 'mvp',
+}
+
 export enum SearchTargetModel {
   Candidates = 'candidates',
   Users = 'users',
@@ -157,6 +164,11 @@ export enum SubscriptionStatus {
   Waiting = 'waiting',
   Accepted = 'accepted',
   Rejected = 'rejected',
+}
+
+export enum SubscriptionTargetModel {
+  User = 'user',
+  Project = 'project',
 }
 
 export enum UserLocale {
@@ -213,6 +225,8 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  status: ProjectStatus;
+  subscribers: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];
 };
 
@@ -225,17 +239,10 @@ export type User = {
   regional: UserRegionalData;
   contacts: UserContactsData;
   statistics: UserStatisticsData;
-  createdAt: Scalars['DateTime'];
   projects: Array<Project>;
-  subscriptions: Array<SubscriptionUser>;
-  subscribers: Array<SubscriberUser>;
-  friends: Array<FriendUser>;
-};
-
-export type FriendUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
+  subscriptions: Array<SubscribedUser>;
+  subscribers: Array<SubscribedUser>;
+  friends: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];
 };
 
@@ -248,18 +255,11 @@ export type Like = {
   createdAt: Scalars['DateTime'];
 };
 
-export type SubscriberUser = {
+export type SubscribedUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
-  status: SubscriptionStatus;
-  createdAt: Scalars['DateTime'];
-};
-
-export type SubscriptionUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
+  targetModel: SubscriptionTargetModel;
   status: SubscriptionStatus;
   createdAt: Scalars['DateTime'];
 };
@@ -471,8 +471,10 @@ export type ResolversTypes = {
   Subscription: ResolverTypeWrapper<{}>;
   LIKE_STATUS: LikeStatus;
   LIKE_TARGET_MODEL: LikeTargetModel;
+  PROJECT_STATUS: ProjectStatus;
   SEARCH_TARGET_MODEL: SearchTargetModel;
   SUBSCRIPTION_STATUS: SubscriptionStatus;
+  SUBSCRIPTION_TARGET_MODEL: SubscriptionTargetModel;
   USER_LOCALE: UserLocale;
   USER_LANGUAGE_LEVEL: UserLanguageLevel;
   USER_CLIENT: UserClient;
@@ -483,10 +485,8 @@ export type ResolversTypes = {
   Message: ResolverTypeWrapper<Message>;
   Project: ResolverTypeWrapper<Project>;
   User: ResolverTypeWrapper<User>;
-  FriendUser: ResolverTypeWrapper<FriendUser>;
   Like: ResolverTypeWrapper<Like>;
-  SubscriberUser: ResolverTypeWrapper<SubscriberUser>;
-  SubscriptionUser: ResolverTypeWrapper<SubscriptionUser>;
+  SubscribedUser: ResolverTypeWrapper<SubscribedUser>;
   MessageInfoData: ResolverTypeWrapper<MessageInfoData>;
   MessageUsersData: ResolverTypeWrapper<MessageUsersData>;
   MessageVisibleData: ResolverTypeWrapper<MessageVisibleData>;
@@ -519,10 +519,8 @@ export type ResolversParentTypes = {
   Message: Message;
   Project: Project;
   User: User;
-  FriendUser: FriendUser;
   Like: Like;
-  SubscriberUser: SubscriberUser;
-  SubscriptionUser: SubscriptionUser;
+  SubscribedUser: SubscribedUser;
   MessageInfoData: MessageInfoData;
   MessageUsersData: MessageUsersData;
   MessageVisibleData: MessageVisibleData;
@@ -616,17 +614,17 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationProjectRemoveArgs, 'id'>
   >;
-  subscriptionToUserAdd: Resolver<
-    ResolversTypes['SubscriptionUser'],
+  subscriptionAdd: Resolver<
+    ResolversTypes['SubscribedUser'],
     ParentType,
     ContextType,
-    RequireFields<MutationSubscriptionToUserAddArgs, 'targetId'>
+    RequireFields<MutationSubscriptionAddArgs, 'targetId' | 'targetModel'>
   >;
-  subscriptionToUserRemove: Resolver<
+  subscriptionRemove: Resolver<
     ResolversTypes['Boolean'],
     ParentType,
     ContextType,
-    RequireFields<MutationSubscriptionToUserRemoveArgs, 'id'>
+    RequireFields<MutationSubscriptionRemoveArgs, 'id'>
   >;
 };
 
@@ -760,6 +758,12 @@ export type ProjectResolvers<
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status: Resolver<ResolversTypes['PROJECT_STATUS'], ParentType, ContextType>;
+  subscribers: Resolver<
+    Array<ResolversTypes['SubscribedUser']>,
+    ParentType,
+    ContextType
+  >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -792,33 +796,22 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
-  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   projects: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>;
   subscriptions: Resolver<
-    Array<ResolversTypes['SubscriptionUser']>,
+    Array<ResolversTypes['SubscribedUser']>,
     ParentType,
     ContextType
   >;
   subscribers: Resolver<
-    Array<ResolversTypes['SubscriberUser']>,
+    Array<ResolversTypes['SubscribedUser']>,
     ParentType,
     ContextType
   >;
   friends: Resolver<
-    Array<ResolversTypes['FriendUser']>,
+    Array<ResolversTypes['SubscribedUser']>,
     ParentType,
     ContextType
   >;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type FriendUserResolvers<
-  ContextType = { user?: User },
-  ParentType extends ResolversParentTypes['FriendUser'] = ResolversParentTypes['FriendUser']
-> = {
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -840,29 +833,18 @@ export type LikeResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
-export type SubscriberUserResolvers<
+export type SubscribedUserResolvers<
   ContextType = { user?: User },
-  ParentType extends ResolversParentTypes['SubscriberUser'] = ResolversParentTypes['SubscriberUser']
+  ParentType extends ResolversParentTypes['SubscribedUser'] = ResolversParentTypes['SubscribedUser']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  status: Resolver<
-    ResolversTypes['SUBSCRIPTION_STATUS'],
+  targetModel: Resolver<
+    ResolversTypes['SUBSCRIPTION_TARGET_MODEL'],
     ParentType,
     ContextType
   >;
-  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type SubscriptionUserResolvers<
-  ContextType = { user?: User },
-  ParentType extends ResolversParentTypes['SubscriptionUser'] = ResolversParentTypes['SubscriptionUser']
-> = {
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   status: Resolver<
     ResolversTypes['SUBSCRIPTION_STATUS'],
     ParentType,
@@ -1066,10 +1048,8 @@ export type Resolvers<ContextType = { user?: User }> = {
   Message: MessageResolvers<ContextType>;
   Project: ProjectResolvers<ContextType>;
   User: UserResolvers<ContextType>;
-  FriendUser: FriendUserResolvers<ContextType>;
   Like: LikeResolvers<ContextType>;
-  SubscriberUser: SubscriberUserResolvers<ContextType>;
-  SubscriptionUser: SubscriptionUserResolvers<ContextType>;
+  SubscribedUser: SubscribedUserResolvers<ContextType>;
   MessageInfoData: MessageInfoDataResolvers<ContextType>;
   MessageUsersData: MessageUsersDataResolvers<ContextType>;
   MessageVisibleData: MessageVisibleDataResolvers<ContextType>;

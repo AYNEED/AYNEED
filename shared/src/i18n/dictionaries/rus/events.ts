@@ -23,6 +23,6 @@ export const events = {
 
   'error.project.notFound': 'Начинание не найдено',
 
-  'error.subscription.notFound': 'Подписка на пользователя не найдена',
+  'error.subscription.notFound': 'Подписка не найдена',
   'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',
 };

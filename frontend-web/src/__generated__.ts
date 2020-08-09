@@ -23,8 +23,8 @@ export type Mutation = {
   messageAdd: Message;
   projectAdd: Project;
   projectRemove: Scalars['Boolean'];
-  subscriptionToUserAdd: SubscriptionUser;
-  subscriptionToUserRemove: Scalars['Boolean'];
+  subscriptionAdd: SubscribedUser;
+  subscriptionRemove: Scalars['Boolean'];
 };
 
 export type MutationForgotPasswordArgs = {
@@ -78,11 +78,12 @@ export type MutationProjectRemoveArgs = {
   id: Scalars['ID'];
 };
 
-export type MutationSubscriptionToUserAddArgs = {
+export type MutationSubscriptionAddArgs = {
   targetId: Scalars['ID'];
+  targetModel: SubscriptionTargetModel;
 };
 
-export type MutationSubscriptionToUserRemoveArgs = {
+export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
 };
 
@@ -138,6 +139,12 @@ export enum LikeTargetModel {
   Project = 'project',
 }
 
+export enum ProjectStatus {
+  Idea = 'idea',
+  Concept = 'concept',
+  Mvp = 'mvp',
+}
+
 export enum SearchTargetModel {
   Candidates = 'candidates',
   Users = 'users',
@@ -150,6 +157,11 @@ export enum SubscriptionStatus {
   Waiting = 'waiting',
   Accepted = 'accepted',
   Rejected = 'rejected',
+}
+
+export enum SubscriptionTargetModel {
+  User = 'user',
+  Project = 'project',
 }
 
 export enum UserLocale {
@@ -206,6 +218,8 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  status: ProjectStatus;
+  subscribers: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];
 };
 
@@ -218,17 +232,10 @@ export type User = {
   regional: UserRegionalData;
   contacts: UserContactsData;
   statistics: UserStatisticsData;
-  createdAt: Scalars['DateTime'];
   projects: Array<Project>;
-  subscriptions: Array<SubscriptionUser>;
-  subscribers: Array<SubscriberUser>;
-  friends: Array<FriendUser>;
-};
-
-export type FriendUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
+  subscriptions: Array<SubscribedUser>;
+  subscribers: Array<SubscribedUser>;
+  friends: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];
 };
 
@@ -241,18 +248,11 @@ export type Like = {
   createdAt: Scalars['DateTime'];
 };
 
-export type SubscriberUser = {
+export type SubscribedUser = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
-  status: SubscriptionStatus;
-  createdAt: Scalars['DateTime'];
-};
-
-export type SubscriptionUser = {
-  id: Scalars['ID'];
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
+  targetModel: SubscriptionTargetModel;
   status: SubscriptionStatus;
   createdAt: Scalars['DateTime'];
 };
