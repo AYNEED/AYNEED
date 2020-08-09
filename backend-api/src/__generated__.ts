@@ -221,6 +221,7 @@ export type Project = {
   problem: Scalars['String'];
   solution: Scalars['String'];
   createdAt: Scalars['DateTime'];
+  subscriptions: Array<SubscriptionProject>;
 };
 
 export type SubscriptionProject = {
@@ -783,6 +784,11 @@ export type ProjectResolvers<
   problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  subscriptions: Resolver<
+    Array<ResolversTypes['SubscriptionProject']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 

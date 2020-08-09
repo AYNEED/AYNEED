@@ -214,6 +214,7 @@ export type Project = {
   problem: Scalars['String'];
   solution: Scalars['String'];
   createdAt: Scalars['DateTime'];
+  subscriptions: Array<SubscriptionProject>;
 };
 
 export type SubscriptionProject = {

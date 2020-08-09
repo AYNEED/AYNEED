@@ -164,6 +164,7 @@ type Project {
   problem: String!
   solution: String!
   createdAt: DateTime!
+  subscriptions: [SubscriptionProject!]!
 }
 
 type SubscriptionProject {

@@ -1,5 +1,6 @@
 import { ProjectModel } from 'src/models/project';
 import { SubscriptionUserModel } from 'src/models/subscriptionUser';
+import { SubscriptionProjectModel } from 'src/models/subscriptionProject';
 import { Resolvers, StatusStatement } from 'src/__generated__';
 
 export const resolveLike: Resolvers['Like'] = {
@@ -49,6 +50,8 @@ export const resolveProject: Resolvers['Project'] = {
   problem: (parent) => parent.problem,
   solution: (parent) => parent.solution,
   createdAt: (parent) => parent.createdAt,
+  subscriptions: async (parent) =>
+    SubscriptionProjectModel.find({ targetId: parent.id }),
 };
 
 export const resolveProjectFeed: Resolvers['ProjectFeed'] = {

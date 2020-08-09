@@ -4,7 +4,7 @@ import { schemaOptions } from 'src/utils/mongodb';
 import { Project } from 'src/__generated__';
 
 export type ProjectRes = Document & Project;
-type ProjectReq = Omit<ProjectRes, 'createdAt'>;
+type ProjectReq = Omit<ProjectRes, 'createdAt' | 'subscriptions'>;
 
 const ProjectSchema = new Schema<ProjectReq>(
   {

@@ -20,9 +20,4 @@ export const createProject = async ({
   problem,
   solution,
 }: MutationAddProjectArgs): Promise<ProjectRes> =>
-  ProjectModel.create({
-    authorId,
-    title,
-    problem,
-    solution,
-  });
+  ProjectModel.create({ authorId, title, problem, solution });
