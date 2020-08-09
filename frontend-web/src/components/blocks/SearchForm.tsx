@@ -12,24 +12,29 @@ import { MsgProps } from 'src/i18n/Msg';
 import { updateHistory } from 'src/navigation';
 import { Search } from 'src/components/icons/Search';
 import { InputText, InputRadio } from 'src/components/ui/forms/Input';
-import { SearchMode } from 'src/__generated__';
+import { SearchTargetModel } from 'src/__generated__';
 
 type Props = {
-  onSubmit: FormikConfig<{ query: string; mode: SearchMode }>['onSubmit'];
+  onSubmit: FormikConfig<{
+    query: string;
+    model: SearchTargetModel;
+  }>['onSubmit'];
   withChangeHistory?: boolean;
 };
 
-const modeToItem: {
-  [key in SearchMode]: MsgProps['id'];
+const modelToItem: {
+  [key in SearchTargetModel]: MsgProps['id'];
 } = {
-  [SearchMode.Candidates]: 'web.components.blocks.SearchForm.mode_candidates',
-  [SearchMode.Users]: 'web.components.blocks.SearchForm.mode_users',
-  [SearchMode.Ideas]: 'web.components.blocks.SearchForm.mode_ideas',
-  [SearchMode.Concepts]: 'web.components.blocks.SearchForm.mode_concepts',
-  [SearchMode.Mvps]: 'web.components.blocks.SearchForm.mode_mvps',
+  [SearchTargetModel.Candidates]:
+    'web.components.blocks.SearchForm.model_candidates',
+  [SearchTargetModel.Users]: 'web.components.blocks.SearchForm.model_users',
+  [SearchTargetModel.Ideas]: 'web.components.blocks.SearchForm.model_ideas',
+  [SearchTargetModel.Concepts]:
+    'web.components.blocks.SearchForm.model_concepts',
+  [SearchTargetModel.Mvps]: 'web.components.blocks.SearchForm.model_mvps',
 };
 
-const modes = Object.values(SearchMode);
+const models = Object.values(SearchTargetModel);
 
 const style: Styles<'container' | 'icon' | 'checked'> = {
   container: () => ({
@@ -93,16 +98,16 @@ export const SearchForm: React.FC<Props> = ({
   const searchParams = useGetParams();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const baseMode = searchParams.get('mode') as any;
+  const baseModel = searchParams.get('model') as any;
   const query = searchParams.get('query') || '';
-  const mode: SearchMode = modes.includes(baseMode)
-    ? baseMode
-    : SearchMode.Candidates;
+  const model: SearchTargetModel = models.includes(baseModel)
+    ? baseModel
+    : SearchTargetModel.Candidates;
 
   const formik = useFormik({
     initialValues: {
       query,
-      mode,
+      model,
     },
     onSubmit,
   });
@@ -140,14 +145,16 @@ export const SearchForm: React.FC<Props> = ({
         />
         <FelaComponent style={style.checked}>
           {({ className }) =>
-            modes.map((mode) => (
+            models.map((model) => (
               <InputRadio
-                className={formik.values.mode === mode ? className : undefined}
-                key={mode}
-                name="mode"
-                value={mode}
-                checked={formik.values.mode === mode}
-                label={{ id: modeToItem[mode as SearchMode] }}
+                className={
+                  formik.values.model === model ? className : undefined
+                }
+                key={model}
+                name="model"
+                value={model}
+                checked={formik.values.model === model}
+                label={{ id: modelToItem[model as SearchTargetModel] }}
                 onChange={formik.handleChange}
               />
             ))

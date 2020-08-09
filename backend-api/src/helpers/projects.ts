@@ -1,6 +1,7 @@
 import { ProjectRes, ProjectModel } from 'src/models/project';
-import { Project, MutationAddProjectArgs } from 'src/__generated__';
+import { Project, MutationProjectAddArgs } from 'src/__generated__';
 import { ValidationError } from 'shared';
+import { WithSenderId } from 'src/types';
 
 export const findProjectById = async (
   id: Project['id']
@@ -15,9 +16,14 @@ export const findProjectById = async (
 };
 
 export const createProject = async ({
-  authorId,
+  senderId,
   title,
   problem,
   solution,
-}: MutationAddProjectArgs): Promise<ProjectRes> =>
-  ProjectModel.create({ authorId, title, problem, solution });
+}: WithSenderId<MutationProjectAddArgs>): Promise<ProjectRes> =>
+  ProjectModel.create({
+    senderId,
+    title,
+    problem,
+    solution,
+  });

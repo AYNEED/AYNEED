@@ -8,11 +8,11 @@ export const base = {
   'web.components.blocks.EnterThrough.title': 'Войти с помощью',
 
   'web.components.blocks.SearchForm.form_search': 'Поиск',
-  'web.components.blocks.SearchForm.mode_candidates': 'Нужны в команду',
-  'web.components.blocks.SearchForm.mode_concepts': 'Концепты',
-  'web.components.blocks.SearchForm.mode_ideas': 'Идеи',
-  'web.components.blocks.SearchForm.mode_mvps': 'MVP',
-  'web.components.blocks.SearchForm.mode_users': 'Люди',
+  'web.components.blocks.SearchForm.model_candidates': 'Нужны в команду',
+  'web.components.blocks.SearchForm.model_concepts': 'Концепты',
+  'web.components.blocks.SearchForm.model_ideas': 'Идеи',
+  'web.components.blocks.SearchForm.model_mvps': 'MVP',
+  'web.components.blocks.SearchForm.model_users': 'Люди',
 
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
 

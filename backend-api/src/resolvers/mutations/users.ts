@@ -31,10 +31,12 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
   // TODO: create session
 
-  await send.update({
-    event: UPDATES.USER_UPDATED,
-    payload: user,
-  });
+  if (user.statistics.completeness >= 100) {
+    await send.update({
+      event: UPDATES.USER_UPDATED,
+      payload: user,
+    });
+  }
 
   return user;
 };
@@ -66,11 +68,6 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   });
 
   // TODO: create session
-
-  await send.update({
-    event: UPDATES.USER_ADDED,
-    payload: user,
-  });
 
   return user;
 };
@@ -143,10 +140,17 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
 
   // TODO: create session
 
-  await send.update({
-    event: UPDATES.USER_UPDATED,
-    payload: user,
-  });
+  if (user.statistics.completeness >= 100) {
+    await send.update({
+      event: UPDATES.USER_UPDATED,
+      payload: user,
+    });
+  }
 
   return user;
+};
+
+export const signOut: Resolvers['Mutation']['signOut'] = async (parent) => {
+  // TODO: delete session
+  return true;
 };

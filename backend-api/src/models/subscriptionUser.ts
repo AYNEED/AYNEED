@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import { SubscriptionUser, StatusStatement } from 'src/__generated__';
+import { SubscriptionUser, SubscriptionStatus } from 'src/__generated__';
 
 export type SubscriptionUserRes = Document & SubscriptionUser;
 type SubscriptionUserReq = Omit<SubscriptionUserRes, 'createdAt'>;
@@ -13,14 +13,14 @@ const SubscriptionUserScheme = new Schema<SubscriptionUserReq>(
       ref: 'User',
       required: true,
     },
-    recipientId: {
+    targetId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
     status: {
       type: String,
-      enum: Object.values(StatusStatement),
+      enum: Object.values(SubscriptionStatus),
       required: true,
       default: 'waiting',
     },

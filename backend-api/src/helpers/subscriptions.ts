@@ -7,12 +7,14 @@ import {
   SubscriptionProjectModel,
 } from 'src/models/subscriptionProject';
 import {
-  SubscriptionUser,
-  MutationAddSubscriptionUserArgs,
   SubscriptionProject,
+  SubscriptionUser,
+  SubscriptionStatus,
+  MutationSubscriptionToUserAddArgs,
   MutationAddSubscriptionProjectArgs,
 } from 'src/__generated__';
 import { ValidationError } from 'shared';
+import { WithSenderId } from 'src/types';
 
 export const findSubscriptionUserById = async (
   id: SubscriptionUser['id']
@@ -28,13 +30,14 @@ export const findSubscriptionUserById = async (
 
 export const createSubscriptionUser = async ({
   senderId,
-  recipientId,
-  status,
-}: MutationAddSubscriptionUserArgs): Promise<SubscriptionUserRes> =>
+  targetId,
+}: WithSenderId<MutationSubscriptionToUserAddArgs>): Promise<
+  SubscriptionUserRes
+> =>
   SubscriptionUserModel.create({
     senderId,
-    recipientId,
-    status,
+    targetId,
+    status: SubscriptionStatus.Waiting,
   });
 
 export const findSubscriptionProjectById = async (

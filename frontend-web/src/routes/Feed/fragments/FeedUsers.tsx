@@ -92,7 +92,7 @@ export const FeedUsers: React.FC = () => {
       ))}
 
       {/* TODO: use auto-loading */}
-      <div onClick={loadMore}>load mode</div>
+      <div onClick={loadMore}>load more</div>
     </>
   );
 };

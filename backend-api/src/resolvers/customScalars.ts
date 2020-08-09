@@ -6,6 +6,5 @@ export const scalarDateTime = new GraphQLScalarType({
 
   serialize: (value) => value,
   parseValue: (value) => value,
-
   parseLiteral: (ast) => (ast.kind === Kind.STRING ? ast.value : null),
 });

@@ -1,14 +1,14 @@
 import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import { Like, LikeTargetType, LikeStatement } from 'src/__generated__';
+import { Like, LikeTargetModel, LikeStatus } from 'src/__generated__';
 
 export type LikeRes = Document & Like;
 type LikeReq = Omit<LikeRes, 'createdAt'>;
 
 const LikeSchema = new Schema<LikeReq>(
   {
-    owner: {
+    senderId: {
       type: Schema.Types.ObjectId,
       required: true,
     },
@@ -16,14 +16,14 @@ const LikeSchema = new Schema<LikeReq>(
       type: Schema.Types.ObjectId,
       required: true,
     },
-    targetType: {
+    targetModel: {
       type: String,
-      enum: Object.values(LikeTargetType),
+      enum: Object.values(LikeTargetModel),
       required: true,
     },
-    statement: {
+    status: {
       type: String,
-      enum: Object.values(LikeStatement),
+      enum: Object.values(LikeStatus),
       required: true,
     },
   },

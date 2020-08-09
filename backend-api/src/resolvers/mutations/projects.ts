@@ -1,22 +1,24 @@
 import { Resolvers } from 'src/__generated__';
-import { findUserById } from 'src/helpers/users';
 import { createProject } from 'src/helpers/projects';
 import { ValidationError } from 'shared';
 import { UPDATES } from 'src/notifications/events';
 import { send } from 'src/notifications';
 
-export const addProject: Resolvers['Mutation']['addProject'] = async (
+export const projectAdd: Resolvers['Mutation']['projectAdd'] = async (
   parent,
-  { authorId, title, problem, solution }
+  { title, problem, solution },
+  { user }
 ) => {
-  const user = await findUserById(authorId);
+  if (!user) {
+    throw new ValidationError('error.user.notFound');
+  }
 
   if (user.statistics.completeness !== 100) {
     throw new ValidationError('error.user.incompleteProfile');
   }
 
   const project = await createProject({
-    authorId,
+    senderId: user.id,
     title,
     problem,
     solution,
@@ -28,4 +30,12 @@ export const addProject: Resolvers['Mutation']['addProject'] = async (
   });
 
   return project;
+};
+
+export const projectRemove: Resolvers['Mutation']['projectRemove'] = async (
+  parent,
+  { id }
+) => {
+  // TODO: remove project from db
+  return true;
 };

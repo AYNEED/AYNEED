@@ -1,22 +1,23 @@
 import { MessageRes, MessageModel } from 'src/models/message';
-import { MutationAddMessageArgs } from 'src/__generated__';
+import { MutationMessageAddArgs } from 'src/__generated__';
+import { WithSenderId } from 'src/types';
 
 export const createMessage = async ({
   text,
-  authorId,
-  recipientId,
-}: MutationAddMessageArgs): Promise<MessageRes> =>
+  senderId,
+  targetId,
+}: WithSenderId<MutationMessageAddArgs>): Promise<MessageRes> =>
   MessageModel.create({
     info: {
       text,
       isRead: false,
     },
     users: {
-      authorId,
-      recipientId,
+      senderId,
+      targetId,
     },
     visible: {
-      isVisibleAuthor: true,
+      isVisibleSender: true,
       isVisibleAll: true,
     },
     editAt: null,

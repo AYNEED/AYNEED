@@ -8,7 +8,7 @@ type ProjectReq = Omit<ProjectRes, 'createdAt' | 'subscriptions'>;
 
 const ProjectSchema = new Schema<ProjectReq>(
   {
-    authorId: {
+    senderId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
