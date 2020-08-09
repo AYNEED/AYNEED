@@ -1,7 +1,7 @@
 import { Schema, Document, model } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import { SubscriptionProject, ProjectStatement } from 'src/__generated__';
+import { SubscriptionProject, ProjectStatus } from 'src/__generated__';
 
 export type SubscriptionProjectRes = Document & SubscriptionProject;
 type SubscriptionProjectReq = Omit<SubscriptionProjectRes, 'createdAt'>;
@@ -20,7 +20,7 @@ const SubscriptionProjectSchema = new Schema<SubscriptionProjectReq>(
     },
     status: {
       type: String,
-      enum: Object.values(ProjectStatement),
+      enum: Object.values(ProjectStatus),
       required: true,
     },
   },
