@@ -25,6 +25,11 @@ const ProjectSchema = new Schema<ProjectReq>(
       type: String,
       required: true,
     },
+    countLike: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
   },
   schemaOptions
 );
