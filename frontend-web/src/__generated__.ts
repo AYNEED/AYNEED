@@ -206,6 +206,7 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  countLike: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 

@@ -213,6 +213,7 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  countLike: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -482,6 +483,7 @@ export type ResolversTypes = {
   UserFeed: ResolverTypeWrapper<UserFeed>;
   Message: ResolverTypeWrapper<Message>;
   Project: ResolverTypeWrapper<Project>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   User: ResolverTypeWrapper<User>;
   FriendUser: ResolverTypeWrapper<FriendUser>;
   Like: ResolverTypeWrapper<Like>;
@@ -496,7 +498,6 @@ export type ResolversTypes = {
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
   UserRegionalData: ResolverTypeWrapper<UserRegionalData>;
   UserStatisticsData: ResolverTypeWrapper<UserStatisticsData>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   UserCareerRecord: ResolverTypeWrapper<UserCareerRecord>;
   UserContactRecord: ResolverTypeWrapper<UserContactRecord>;
   UserEducationRecord: ResolverTypeWrapper<UserEducationRecord>;
@@ -518,6 +519,7 @@ export type ResolversParentTypes = {
   UserFeed: UserFeed;
   Message: Message;
   Project: Project;
+  Int: Scalars['Int'];
   User: User;
   FriendUser: FriendUser;
   Like: Like;
@@ -532,7 +534,6 @@ export type ResolversParentTypes = {
   UserPersonalData: UserPersonalData;
   UserRegionalData: UserRegionalData;
   UserStatisticsData: UserStatisticsData;
-  Int: Scalars['Int'];
   UserCareerRecord: UserCareerRecord;
   UserContactRecord: UserContactRecord;
   UserEducationRecord: UserEducationRecord;
@@ -760,6 +761,7 @@ export type ProjectResolvers<
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  countLike: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };

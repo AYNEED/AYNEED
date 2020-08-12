@@ -37,6 +37,7 @@ export const resolveProject: Resolvers['Project'] = {
   title: (parent) => parent.title,
   problem: (parent) => parent.problem,
   solution: (parent) => parent.solution,
+  countLike: (parent) => parent.countLike,
   createdAt: (parent) => parent.createdAt,
 };
 

@@ -26,4 +26,5 @@ export const createProject = async ({
     title,
     problem,
     solution,
+    countLike: 0,
   });

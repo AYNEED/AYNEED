@@ -2,6 +2,8 @@ import { Resolvers } from 'src/__generated__';
 import { ValidationError } from 'shared';
 import { createLike } from 'src/helpers/likes';
 import { findUserById } from 'src/helpers/users';
+import { LikeModel } from 'src/models/like';
+import { ProjectModel } from 'src/models/project';
 
 export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   parent,
@@ -13,10 +15,16 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   }
 
   if (user.id === targetId) {
-    // TODO: throw exception
+    throw new ValidationError('error.like.myself');
   }
 
-  // TODO: if like already exists, throw exception
+  const check = await LikeModel.exists({
+    senderId: user.id,
+    targetId: targetId,
+  });
+  if (check) {
+    throw new ValidationError('error.like.exists');
+  }
 
   const target = await findUserById(targetId);
 
@@ -26,6 +34,10 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   ) {
     throw new ValidationError('error.user.incompleteProfile');
   }
+  await ProjectModel.findByIdAndUpdate(
+    { _id: targetId },
+    { $inc: { countLike: 1 } }
+  );
 
   return createLike({ senderId: user.id, targetId, targetModel, status });
 };

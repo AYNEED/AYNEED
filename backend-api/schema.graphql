@@ -153,6 +153,7 @@ type Project {
   title: String!
   problem: String!
   solution: String!
+  countLike: Int!
   createdAt: DateTime!
 }
 
