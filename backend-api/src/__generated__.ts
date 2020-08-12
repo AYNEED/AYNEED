@@ -194,6 +194,23 @@ export enum UserRole {
   Support = 'support',
 }
 
+export type ReferencesSpolers = {
+  id: Scalars['ID'];
+  lang: UserLocale;
+  icon: Scalars['String'];
+  title: Scalars['String'];
+  content: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type ReferencesArea = {
+  id: Scalars['ID'];
+  lang: UserLocale;
+  content: Scalars['String'];
+  spolers: Array<ReferencesSpolers>;
+  createdAt: Scalars['DateTime'];
+};
+
 export type MessageFeed = {
   items: Array<Message>;
   hasMore: Scalars['Boolean'];
@@ -479,6 +496,8 @@ export type ResolversTypes = {
   USER_LANGUAGE_LEVEL: UserLanguageLevel;
   USER_CLIENT: UserClient;
   USER_ROLE: UserRole;
+  ReferencesSpolers: ResolverTypeWrapper<ReferencesSpolers>;
+  ReferencesArea: ResolverTypeWrapper<ReferencesArea>;
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
   ProjectFeed: ResolverTypeWrapper<ProjectFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
@@ -513,6 +532,8 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Query: {};
   Subscription: {};
+  ReferencesSpolers: ReferencesSpolers;
+  ReferencesArea: ReferencesArea;
   MessageFeed: MessageFeed;
   ProjectFeed: ProjectFeed;
   UserFeed: UserFeed;
@@ -698,6 +719,35 @@ export type SubscriptionResolvers<
     ParentType,
     ContextType
   >;
+};
+
+export type ReferencesSpolersResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['ReferencesSpolers'] = ResolversParentTypes['ReferencesSpolers']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  lang: Resolver<ResolversTypes['USER_LOCALE'], ParentType, ContextType>;
+  icon: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  content: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type ReferencesAreaResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['ReferencesArea'] = ResolversParentTypes['ReferencesArea']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  lang: Resolver<ResolversTypes['USER_LOCALE'], ParentType, ContextType>;
+  content: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  spolers: Resolver<
+    Array<ResolversTypes['ReferencesSpolers']>,
+    ParentType,
+    ContextType
+  >;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type MessageFeedResolvers<
@@ -1042,6 +1092,8 @@ export type Resolvers<ContextType = { user?: User }> = {
   Mutation: MutationResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
+  ReferencesSpolers: ReferencesSpolersResolvers<ContextType>;
+  ReferencesArea: ReferencesAreaResolvers<ContextType>;
   MessageFeed: MessageFeedResolvers<ContextType>;
   ProjectFeed: ProjectFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;

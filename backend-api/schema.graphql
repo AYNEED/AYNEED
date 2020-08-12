@@ -132,6 +132,25 @@ enum USER_ROLE {
   support
 }
 
+# ###################### references area ######################
+
+type ReferencesSpolers {
+  id: ID!
+  lang: USER_LOCALE!
+  icon: String!
+  title: String!
+  content: String!
+  createdAt: DateTime!
+}
+
+type ReferencesArea {
+  id: ID!
+  lang: USER_LOCALE!
+  content: String!
+  spolers: [ReferencesSpolers!]!
+  createdAt: DateTime!
+}
+
 # ########################### feeds ###########################
 
 type MessageFeed {

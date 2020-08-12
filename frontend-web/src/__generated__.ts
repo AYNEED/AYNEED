@@ -187,6 +187,23 @@ export enum UserRole {
   Support = 'support',
 }
 
+export type ReferencesSpolers = {
+  id: Scalars['ID'];
+  lang: UserLocale;
+  icon: Scalars['String'];
+  title: Scalars['String'];
+  content: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type ReferencesArea = {
+  id: Scalars['ID'];
+  lang: UserLocale;
+  content: Scalars['String'];
+  spolers: Array<ReferencesSpolers>;
+  createdAt: Scalars['DateTime'];
+};
+
 export type MessageFeed = {
   items: Array<Message>;
   hasMore: Scalars['Boolean'];
