@@ -28,6 +28,7 @@ import {
   resolveUserRegionalData,
   resolveUserSkillRecord,
   resolveUserStatisticsData,
+  resolveReferencesArea,
 } from 'src/resolvers/customResolvers';
 import { scalarDateTime } from 'src/resolvers/customScalars';
 
@@ -70,6 +71,7 @@ export const resolvers: Resolvers = {
   UserStatisticsData: resolveUserStatisticsData,
 
   // Models records:
+  ReferencesArea: resolveReferencesArea,
   UserCareerRecord: resolveUserCareerRecord,
   UserContactRecord: resolveUserContactRecord,
   UserEducationRecord: resolveUserEducationRecord,

@@ -101,6 +101,7 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
+  reference: ReferencesArea;
 };
 
 export type QueryProjectArgs = {
@@ -126,6 +127,10 @@ export type QuerySearchArgs = {
 
 export type QueryMessagesArgs = {
   cursor: Scalars['ID'];
+};
+
+export type QueryReferenceArgs = {
+  id: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -193,23 +198,6 @@ export enum UserRole {
   User = 'user',
   Support = 'support',
 }
-
-export type ReferencesSpolers = {
-  id: Scalars['ID'];
-  lang: UserLocale;
-  icon: Scalars['String'];
-  title: Scalars['String'];
-  content: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-};
-
-export type ReferencesArea = {
-  id: Scalars['ID'];
-  lang: UserLocale;
-  content: Scalars['String'];
-  spolers: Array<ReferencesSpolers>;
-  createdAt: Scalars['DateTime'];
-};
 
 export type MessageFeed = {
   items: Array<Message>;
@@ -364,6 +352,14 @@ export type UserSkillRecord = {
   primary: Scalars['Boolean'];
 };
 
+export type ReferencesArea = {
+  id: Scalars['ID'];
+  locale: UserLocale;
+  order: Scalars['Int'];
+  content: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+};
+
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
@@ -496,8 +492,6 @@ export type ResolversTypes = {
   USER_LANGUAGE_LEVEL: UserLanguageLevel;
   USER_CLIENT: UserClient;
   USER_ROLE: UserRole;
-  ReferencesSpolers: ResolverTypeWrapper<ReferencesSpolers>;
-  ReferencesArea: ResolverTypeWrapper<ReferencesArea>;
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
   ProjectFeed: ResolverTypeWrapper<ProjectFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
@@ -521,6 +515,7 @@ export type ResolversTypes = {
   UserEducationRecord: ResolverTypeWrapper<UserEducationRecord>;
   UserLanguageRecord: ResolverTypeWrapper<UserLanguageRecord>;
   UserSkillRecord: ResolverTypeWrapper<UserSkillRecord>;
+  ReferencesArea: ResolverTypeWrapper<ReferencesArea>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -532,8 +527,6 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Query: {};
   Subscription: {};
-  ReferencesSpolers: ReferencesSpolers;
-  ReferencesArea: ReferencesArea;
   MessageFeed: MessageFeed;
   ProjectFeed: ProjectFeed;
   UserFeed: UserFeed;
@@ -557,6 +550,7 @@ export type ResolversParentTypes = {
   UserEducationRecord: UserEducationRecord;
   UserLanguageRecord: UserLanguageRecord;
   UserSkillRecord: UserSkillRecord;
+  ReferencesArea: ReferencesArea;
 };
 
 export interface DateTimeScalarConfig
@@ -689,6 +683,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryMessagesArgs, 'cursor'>
   >;
+  reference: Resolver<
+    ResolversTypes['ReferencesArea'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryReferenceArgs, 'id'>
+  >;
 };
 
 export type SubscriptionResolvers<
@@ -719,35 +719,6 @@ export type SubscriptionResolvers<
     ParentType,
     ContextType
   >;
-};
-
-export type ReferencesSpolersResolvers<
-  ContextType = { user?: User },
-  ParentType extends ResolversParentTypes['ReferencesSpolers'] = ResolversParentTypes['ReferencesSpolers']
-> = {
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  lang: Resolver<ResolversTypes['USER_LOCALE'], ParentType, ContextType>;
-  icon: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  content: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type ReferencesAreaResolvers<
-  ContextType = { user?: User },
-  ParentType extends ResolversParentTypes['ReferencesArea'] = ResolversParentTypes['ReferencesArea']
-> = {
-  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  lang: Resolver<ResolversTypes['USER_LOCALE'], ParentType, ContextType>;
-  content: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  spolers: Resolver<
-    Array<ResolversTypes['ReferencesSpolers']>,
-    ParentType,
-    ContextType
-  >;
-  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
 export type MessageFeedResolvers<
@@ -1087,13 +1058,23 @@ export type UserSkillRecordResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type ReferencesAreaResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['ReferencesArea'] = ResolversParentTypes['ReferencesArea']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  locale: Resolver<ResolversTypes['USER_LOCALE'], ParentType, ContextType>;
+  order: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  content: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type Resolvers<ContextType = { user?: User }> = {
   DateTime: GraphQLScalarType;
   Mutation: MutationResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
-  ReferencesSpolers: ReferencesSpolersResolvers<ContextType>;
-  ReferencesArea: ReferencesAreaResolvers<ContextType>;
   MessageFeed: MessageFeedResolvers<ContextType>;
   ProjectFeed: ProjectFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
@@ -1116,6 +1097,7 @@ export type Resolvers<ContextType = { user?: User }> = {
   UserEducationRecord: UserEducationRecordResolvers<ContextType>;
   UserLanguageRecord: UserLanguageRecordResolvers<ContextType>;
   UserSkillRecord: UserSkillRecordResolvers<ContextType>;
+  ReferencesArea: ReferencesAreaResolvers<ContextType>;
 };
 
 /**

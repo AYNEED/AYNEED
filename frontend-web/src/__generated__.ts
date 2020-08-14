@@ -94,6 +94,7 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
+  reference: ReferencesArea;
 };
 
 export type QueryProjectArgs = {
@@ -119,6 +120,10 @@ export type QuerySearchArgs = {
 
 export type QueryMessagesArgs = {
   cursor: Scalars['ID'];
+};
+
+export type QueryReferenceArgs = {
+  id: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -186,23 +191,6 @@ export enum UserRole {
   User = 'user',
   Support = 'support',
 }
-
-export type ReferencesSpolers = {
-  id: Scalars['ID'];
-  lang: UserLocale;
-  icon: Scalars['String'];
-  title: Scalars['String'];
-  content: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-};
-
-export type ReferencesArea = {
-  id: Scalars['ID'];
-  lang: UserLocale;
-  content: Scalars['String'];
-  spolers: Array<ReferencesSpolers>;
-  createdAt: Scalars['DateTime'];
-};
 
 export type MessageFeed = {
   items: Array<Message>;
@@ -355,6 +343,14 @@ export type UserLanguageRecord = {
 export type UserSkillRecord = {
   title: Scalars['String'];
   primary: Scalars['Boolean'];
+};
+
+export type ReferencesArea = {
+  id: Scalars['ID'];
+  locale: UserLocale;
+  order: Scalars['Int'];
+  content: Scalars['String'];
+  createdAt: Scalars['DateTime'];
 };
 
 export type CommouProjectFieldsFragment = Pick<

@@ -166,6 +166,14 @@ export const resolveUserStatisticsData: Resolvers['UserStatisticsData'] = {
 
 // ---------------------- Models records ----------------------
 
+export const resolveReferencesArea: Resolvers['ReferencesArea'] = {
+  id: (parent) => parent.id,
+  locale: (parent) => parent.locale,
+  order: (parent) => parent.order,
+  content: (parent) => parent.content,
+  createdAt: (parent) => parent.createdAt,
+};
+
 export const resolveUserCareerRecord: Resolvers['UserCareerRecord'] = {
   title: (parent) => parent.title,
   description: (parent) => parent.description,
