@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "People search and collaboration platform",
   "repository": "git@github.com:AYneed/ayneed.git",
-  "author": "AYneed Team <offers@aynd.ru>",
+  "author": "AYneed Team <offers@aynd.me>",
   "private": true,
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

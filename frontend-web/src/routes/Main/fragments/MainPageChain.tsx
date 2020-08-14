@@ -9,7 +9,7 @@ import { Investments } from 'src/components/icons/Investments';
 import { Rocket } from 'src/components/icons/Rocket';
 import { RocketPlume } from 'src/components/icons/RocketPlume';
 import { DashedLine } from 'src/components/icons/DashedLine';
-import { MainPageCircle } from 'src/routes/Main/MainPageCircle';
+import { MainPageCircle } from 'src/routes/Main/fragments/MainPageCircle';
 
 interface CircleProps {
   id: MsgProps['id'];
@@ -54,17 +54,17 @@ const styles: Styles<
 
 const circles: Array<CircleProps> = [
   {
-    id: 'web.routes.Main.MainPageChain.idea',
+    id: 'web.routes.Main.fragments.MainPageChain.idea',
     circleStyle: styles.idea,
     childNode: Idea,
   },
   {
-    id: 'web.routes.Main.MainPageChain.command',
+    id: 'web.routes.Main.fragments.MainPageChain.command',
     circleStyle: styles.command,
     childNode: Command,
   },
   {
-    id: 'web.routes.Main.MainPageChain.investments',
+    id: 'web.routes.Main.fragments.MainPageChain.investments',
     circleStyle: styles.investments,
     childNode: Investments,
   },

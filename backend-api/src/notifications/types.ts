@@ -1,9 +1,9 @@
 import {
   EVENTS,
   USER_UPDATES,
-  BEGINNING_UPDATES,
+  PROJECT_UPDATES,
 } from 'src/notifications/events';
-import { User, Beginning } from 'src/__generated__';
+import { User, Project } from 'src/__generated__';
 
 export type Event = keyof typeof EVENTS;
 
@@ -21,6 +21,6 @@ export type Update =
       payload: User;
     }
   | {
-      event: keyof typeof BEGINNING_UPDATES;
-      payload: Beginning;
+      event: keyof typeof PROJECT_UPDATES;
+      payload: Project;
     };

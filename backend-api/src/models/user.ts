@@ -3,15 +3,15 @@ import { Schema, model, Document } from 'mongoose';
 import { schemaOptions } from 'src/utils/mongodb';
 import {
   Maybe,
-  Locale,
-  LanguageLevel,
-  Role,
   User,
-  UserSkillRecord,
   UserCareerRecord,
-  UserEducationRecord,
-  UserLanguageRecord,
   UserContactRecord,
+  UserEducationRecord,
+  UserLanguageLevel,
+  UserLanguageRecord,
+  UserLocale,
+  UserRole,
+  UserSkillRecord,
 } from 'src/__generated__';
 
 export type UserPassword = {
@@ -26,11 +26,21 @@ type UserRecovery = {
 
 export type UserComplete = Omit<
   User,
-  'id' | 'beginnings' | 'subscriptions' | 'network' | 'statistics' | 'createdAt'
+  | 'id'
+  | 'projects'
+  | 'subscribers'
+  | 'subscriptions'
+  | 'friends'
+  | 'network'
+  | 'statistics'
+  | 'createdAt'
 >;
 
 export type UserRes = Document &
-  Omit<User, 'beginnings' | 'subscriptions' | 'network'> & {
+  Omit<
+    User,
+    'projects' | 'subscriptions' | 'subscribers' | 'friends' | 'network'
+  > & {
     private: {
       password: UserPassword;
       recovery: Maybe<UserRecovery>;
@@ -79,7 +89,7 @@ const UserLanguageSchema = new Schema<UserLanguageRecord>({
   },
   level: {
     type: String,
-    enum: Object.values(LanguageLevel),
+    enum: Object.values(UserLanguageLevel),
     required: true,
   },
 });
@@ -162,7 +172,7 @@ const UserSchema = new Schema<UserReq>(
       },
       locale: {
         type: String,
-        enum: Object.values(Locale),
+        enum: Object.values(UserLocale),
         required: true,
       },
       languages: {
@@ -201,7 +211,7 @@ const UserSchema = new Schema<UserReq>(
     },
     role: {
       type: String,
-      enum: Object.values(Role),
+      enum: Object.values(UserRole),
       required: true,
     },
     private: {

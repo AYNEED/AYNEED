@@ -6,27 +6,28 @@ import { subscription } from 'src/resolvers/subscriptions';
 import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
-  resolveSubscriptionUser,
-  resolveBeginning,
-  resolveBeginningFeed,
+  resolveLike,
+  resolveMessage,
+  resolveMessageFeed,
+  resolveMessageInfoData,
+  resolveMessageUsersData,
+  resolveMessageVisibleData,
+  resolveProject,
+  resolveProjectFeed,
+  resolveSubscribedUser,
   resolveUser,
-  resolveUserFeed,
   resolveUserAboutData,
+  resolveUserCareerRecord,
+  resolveUserContactRecord,
   resolveUserContactsData,
+  resolveUserEducationRecord,
+  resolveUserFeed,
+  resolveUserLanguageRecord,
   resolveUserNetworkData,
   resolveUserPersonalData,
   resolveUserRegionalData,
-  resolveUserStatisticsData,
-  resolveUserCareerRecord,
-  resolveUserContactRecord,
-  resolveUserEducationRecord,
-  resolveUserLanguageRecord,
   resolveUserSkillRecord,
-  resolveMessageFeed,
-  resolveMessageVisibleData,
-  resolveMessageUsersData,
-  resolveMessageInfoData,
-  resolveMessage,
+  resolveUserStatisticsData,
 } from 'src/resolvers/customResolvers';
 import { scalarDateTime } from 'src/resolvers/customScalars';
 
@@ -43,23 +44,32 @@ export const resolvers: Resolvers = {
   // Custom scalars:
   DateTime: scalarDateTime,
 
-  // Custom resolvers:
-  SubscriptionUser: resolveSubscriptionUser,
-  Beginning: resolveBeginning,
-  BeginningFeed: resolveBeginningFeed,
-  Message: resolveMessage,
+  // Feeds:
   MessageFeed: resolveMessageFeed,
+  ProjectFeed: resolveProjectFeed,
+  UserFeed: resolveUserFeed,
+
+  // Models:
+  Message: resolveMessage,
+  Project: resolveProject,
+  User: resolveUser,
+
+  // Additional models:
+  Like: resolveLike,
+  SubscribedUser: resolveSubscribedUser,
+
+  // Models data:
   MessageInfoData: resolveMessageInfoData,
   MessageUsersData: resolveMessageUsersData,
   MessageVisibleData: resolveMessageVisibleData,
-  User: resolveUser,
-  UserFeed: resolveUserFeed,
   UserAboutData: resolveUserAboutData,
   UserContactsData: resolveUserContactsData,
   UserNetwotkData: resolveUserNetworkData,
   UserPersonalData: resolveUserPersonalData,
   UserRegionalData: resolveUserRegionalData,
   UserStatisticsData: resolveUserStatisticsData,
+
+  // Models records:
   UserCareerRecord: resolveUserCareerRecord,
   UserContactRecord: resolveUserContactRecord,
   UserEducationRecord: resolveUserEducationRecord,

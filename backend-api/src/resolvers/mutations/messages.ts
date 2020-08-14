@@ -3,15 +3,28 @@ import { ValidationError } from 'shared';
 import { createMessage } from 'src/helpers/messages';
 import { findUserById } from 'src/helpers/users';
 
-export const addMessage: Resolvers['Mutation']['addMessage'] = async (
+export const messageAdd: Resolvers['Mutation']['messageAdd'] = async (
   parent,
-  { text, authorId, recipientId }
+  { targetId, text },
+  { user }
 ) => {
-  findUserById(recipientId);
+  if (!user) {
+    throw new ValidationError('error.user.notFound');
+  }
+
+  const target = await findUserById(targetId);
+
+  // TODO: exclude these checks for messages to the support
+  if (
+    target.statistics.completeness !== 100 &&
+    user.statistics.completeness !== 100
+  ) {
+    throw new ValidationError('error.user.incompleteProfile');
+  }
 
   if (!text) {
     throw new ValidationError('error.message.empty');
   }
 
-  return createMessage({ text, authorId, recipientId });
+  return createMessage({ text, senderId: user.id, targetId });
 };

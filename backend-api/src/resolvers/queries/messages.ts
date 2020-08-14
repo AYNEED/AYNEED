@@ -7,7 +7,7 @@ export const getMessages: Resolvers['Query']['messages'] = async (
   query
 ) => {
   const data = await MessageModel.find(
-    query.cursor ? { 'users.authorId': query.cursor } : {},
+    query.cursor ? { 'users.senderId': query.cursor } : {},
     null,
     { sort: { createdAt: 'desc' }, limit: FEED_LIMIT }
   );
@@ -18,7 +18,7 @@ export const getMessages: Resolvers['Query']['messages'] = async (
 
   if (last) {
     count = await MessageModel.count({
-      'users.authorId': last.id,
+      'users.senderId': last.id,
     });
   }
 
