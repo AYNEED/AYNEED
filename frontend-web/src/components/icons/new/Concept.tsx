@@ -8,7 +8,7 @@ type Props = {
   height?: number;
 };
 
-export const Rocket: React.FC<Props> = ({ 
+export const Concept: React.FC<Props> = ({ 
   fill = COLOR.PRIMARY_500 ,
   width=24,
   height=24
