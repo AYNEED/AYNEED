@@ -18,7 +18,7 @@ export enum COLOR {
   WHITE = '#FFFFFF',
   TRANSPARENT = 'transparent',
 
-  RED = '#EB5757', // удалить, если будет не нужен
+  RED = '#EB5757', // check if it needs to be removed
 }
 
 // gradient colors
