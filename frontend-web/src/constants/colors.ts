@@ -18,8 +18,7 @@ export enum COLOR {
   GRADIENT_HORIZONTAL = 'linear-gradient(90deg, #015496 0%, #09BDD0 100%)',
   GRADIENT_VERTICAL_SUNSET = 'linear-gradient(180deg, #09BDD0 0%, #015496 100%)',
   GRADIENT_VERTICAL_DAWN = 'linear-gradient(180deg, #015496 0%, #09BDD0 100%)',
-  BASE_GRADIENT = 'linear-gradient(90deg, #C6EBEF 0%, #E7F3F5 100%)',
-
+  GRADIENT = 'linear-gradient(90deg, #C6EBEF 0%, #E7F3F5 100%)',
 
 // others colors 
   ERROR = '#ED5432',
@@ -27,5 +26,4 @@ export enum COLOR {
   TRANSPARENT = 'transparent',
 
   RED = '#EB5757', // удалить, если будет не нужен
-
 }
