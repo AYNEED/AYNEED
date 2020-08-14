@@ -7,6 +7,7 @@ type Props = {
   width?: number;
   height?: number;
 };
+
 export const Idea: React.FC<Props> = ({ 
   fill = COLOR.PRIMARY_500 ,
   width=24,
