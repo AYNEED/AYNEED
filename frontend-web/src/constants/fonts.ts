@@ -4,7 +4,7 @@ export enum FONT_SIZE {
   M = '14px',
   L = '16px',
   XL = '18px',
-  XXL = '24px'
+  XXL = '24px',
 }
 
 const LineHeight: { [TKey in FONT_SIZE]: string } = {

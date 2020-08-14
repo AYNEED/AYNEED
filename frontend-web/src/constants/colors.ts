@@ -13,23 +13,18 @@ export enum COLOR {
   SECONDARY_400 = '#E4E9F0',
   SECONDARY_500 = '#FAFBFC',
 
-  // gradient colors
-  GRADIENT_HORIZONTAL = 'linear-gradient(90deg, #015496 0%, #09BDD0 100%)',
-  GRADIENT_VERTICAL_SUNSET = 'linear-gradient(180deg, #09BDD0 0%, #015496 100%)',
-  GRADIENT_VERTICAL_DAWN = 'linear-gradient(180deg, #015496 0%, #09BDD0 100%)',
-  GRADIENT = 'linear-gradient(90deg, #C6EBEF 0%, #E7F3F5 100%)',
-
   // others colors
   ERROR = '#ED5432',
   WHITE = '#FFFFFF',
   TRANSPARENT = 'transparent',
 
   RED = '#EB5757', // удалить, если будет не нужен
-
-
-
-
-
-
-  
 }
+
+// gradient colors
+export const GRADIENTS = {
+  HORIZONTAL: `linear-gradient(90deg, ${COLOR.PRIMARY_100} 0%, #09BDD0 100%)`,
+  VERTICAL_SUNSET: `linear-gradient(180deg, #09BDD0 0%, ${COLOR.PRIMARY_100} 100%)`,
+  VERTICAL_DAWN: `linear-gradient(180deg, ${COLOR.PRIMARY_100} 0%, #09BDD0 100%)`,
+  DEFAULT: `linear-gradient(90deg, ${COLOR.PRIMARY_400} 0%, ${COLOR.PRIMARY_500} 100%)`,
+} as const;
