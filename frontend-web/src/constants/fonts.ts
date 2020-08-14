@@ -4,16 +4,16 @@ export enum FONT_SIZE {
   M = '14px',
   L = '16px',
   XL = '18px',
-  XXL = '24px'
+  XXL = '24px',
 }
 
 const LineHeight: { [TKey in FONT_SIZE]: string } = {
   [FONT_SIZE.XS]: '10px',
   [FONT_SIZE.S]: '12px',
-  [FONT_SIZE.M]: '14px',
-  [FONT_SIZE.L]: '16px',
-  [FONT_SIZE.XL]: '28px',
-  [FONT_SIZE.XXL]: '24px',
+  [FONT_SIZE.M]: '24px',
+  [FONT_SIZE.L]: '24px',
+  [FONT_SIZE.XL]: '22px',
+  [FONT_SIZE.XXL]: '29px',
 };
 
 export enum FONT_WEIGHT {
