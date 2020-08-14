@@ -23,7 +23,6 @@ export enum FONT_WEIGHT {
   BOLD = 700,
 }
 
-
 export const font = (
   fontSize: FONT_SIZE = FONT_SIZE.M,
   fontWeight: FONT_WEIGHT = FONT_WEIGHT.REGULAR
