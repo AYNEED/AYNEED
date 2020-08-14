@@ -156,6 +156,8 @@ renderer.renderKeyframe(buttonKeyframe, {})
 
 interface AugmentedStyle extends IStyle {
   ':hover'?: IStyle;
+  ':after'?: IStyle;
+  ':before'?: IStyle;
   '> a'?: IStyle;
   '> input'?: IStyle;
   '> label'?: IStyle;

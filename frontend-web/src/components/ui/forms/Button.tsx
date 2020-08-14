@@ -5,8 +5,7 @@ import { useFela } from 'react-fela';
 import { Styles, PropsStyle } from 'src/utils/fela';
 import { Link } from 'src/components/ui/Link';
 import { Scheme } from 'src/navigation';
-import { COLOR } from 'src/constants/colors';
-import { FONT_SIZE, FONT_WEIGHT, font } from 'src/constants/fonts';
+import { COLOR, GRADIENTS } from 'src/constants/colors';
 
 
 
@@ -18,13 +17,13 @@ type ButtonSubmitProps = {
   disabled?: boolean;
 };
 
-const styles: Styles<'border'> = {
+const styles: Styles<'border' | 'text'> = {
   border: {
     position: 'relative',
     height: '50px',
     minWidth: '200px',
     padding: '2px',
-    backgroundColor: `${COLOR.GRADIENT_HORIZONTAL} !important`,
+    background: `${GRADIENTS.HORIZONTAL} !important`,
     // color: 
     borderRadius: '8px',
 
@@ -33,6 +32,9 @@ const styles: Styles<'border'> = {
       color: `${COLOR.PRIMARY_300}`
     }
   },
+  text: {
+
+  }
 };
 
 
@@ -48,7 +50,10 @@ const buttonRule: PropsStyle = () => ({
   display: 'flex !important',
   justifyContent: 'center',
   alignItems: 'center',
-  ...font(FONT_SIZE.L, FONT_WEIGHT.SEMIBOLD),
+  fontStyle: 'normal',
+  fontWeight: 600,
+  fontSize: '16px',
+  lineHeight: '24px',
   textTransform: 'uppercase',
   cursor: 'pointer',
 })
@@ -70,7 +75,9 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
     <Link url={url} onMouseDown={tabHandler}>
       <FelaComponent style={styles.border}>
         <div className={css(buttonRule)} ref={buttonLink}>
-          {children}
+          <FelaComponent style={styles.text}>
+            {children}
+          </FelaComponent>
         </div>
       </FelaComponent>
     </Link>
