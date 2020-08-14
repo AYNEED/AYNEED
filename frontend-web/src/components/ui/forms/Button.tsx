@@ -1,8 +1,8 @@
 import React from 'react';
-import { FelaComponent } from 'react-fela';
+// import { FelaComponent } from 'react-fela';
 import { useFela } from 'react-fela';
 
-import { Styles, PropsStyle } from 'src/utils/fela';
+import { PropsStyle } from 'src/utils/fela';
 import { Link } from 'src/components/ui/Link';
 import { Scheme } from 'src/navigation';
 import { COLOR, GRADIENTS } from 'src/constants/colors';
@@ -17,35 +17,36 @@ type ButtonSubmitProps = {
   disabled?: boolean;
 };
 
-const styles: Styles<'border' | 'text'> = {
-  border: {
-    position: 'relative',
-    height: '50px',
-    minWidth: '200px',
-    padding: '2px',
-    background: `${GRADIENTS.HORIZONTAL} !important`,
-    // color: 
-    borderRadius: '8px',
+// const styles: Styles<'border' | 'text'> = {
+//   border: {
+//     position: 'relative',
+//     height: '50px',
+//     minWidth: '200px',
+//     padding: '2px',
+//     background: `${GRADIENTS.HORIZONTAL} !important`,
+//     // color: 
+//     borderRadius: '8px',
 
-    ':hover': {
-      background: `${COLOR.PRIMARY_300}`,
-      color: `${COLOR.PRIMARY_300}`
-    }
-  },
-  text: {
+//     ':hover': {
+//       background: `${COLOR.PRIMARY_300}`,
+//       color: `${COLOR.PRIMARY_300}`
+//     }
+//   },
+//   text: {
 
-  }
-};
+//   }
+// };
 
 
 const buttonRule: PropsStyle = () => ({
   position: 'relative',
-  height: '100%',
-  width: '100%',
+  height: '50px',
+  minWidth: '200px',
   padding: '2px',
   backgroundColor: COLOR.WHITE,
-  // border: '2px solid',
-  // borderColor: 'linear-gradient(180deg, #09BDD0 0%, #015496 100%)',
+  border: '2px solid',
+  borderImageSlice: 1,
+  borderImageSource: `${GRADIENTS.HORIZONTAL}`,
   borderRadius: '8px',
   display: 'flex !important',
   justifyContent: 'center',
@@ -56,13 +57,17 @@ const buttonRule: PropsStyle = () => ({
   lineHeight: '24px',
   textTransform: 'uppercase',
   cursor: 'pointer',
+
+  ':hover': {
+    borderImageSource: `${COLOR.PRIMARY_300}`,
+    color: `${COLOR.PRIMARY_300}`
+  }
 })
 
 
 export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
   const { css } = useFela()
   const buttonLink: React.RefObject<HTMLDivElement> = React.createRef()
-
 
   const tabHandler = () => {
     if (buttonLink.current !== null) {
@@ -73,13 +78,9 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
   
   return(
     <Link url={url} onMouseDown={tabHandler}>
-      <FelaComponent style={styles.border}>
-        <div className={css(buttonRule)} ref={buttonLink}>
-          <FelaComponent style={styles.text}>
-            {children}
-          </FelaComponent>
-        </div>
-      </FelaComponent>
+      <div className={css(buttonRule)} ref={buttonLink}>
+        {children}
+      </div>
     </Link>
   )
 };
