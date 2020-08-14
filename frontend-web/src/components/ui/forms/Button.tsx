@@ -25,7 +25,6 @@ const styles: Styles<'text'> = {
     fontWeight: 600,
     fontSize: '16px',
     lineHeight: '20px',
-    zIndex: 10,
   },
 };
 
@@ -43,9 +42,8 @@ const buttonRule: PropsStyle = () => ({
   alignItems: 'center',
   cursor: 'pointer',
   ':hover': {
-    border: '2px solid #09BCCF',
-    borderRadius: '8px',
-    color: '#09BCCF'
+    border: `2px solid ${COLOR.PRIMARY_300}`,
+    color: `${COLOR.PRIMARY_300}`
   }
 })
 
@@ -56,14 +54,12 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
 
 
   const onMouseDownHandler = () => {
-
     if (buttonLink.current !== null) {
-      buttonLink.current.style.borderColor = "#047CAC"
-      buttonLink.current.style.color = "#047CAC"
+      buttonLink.current.style.borderColor = `${COLOR.PRIMARY_200}`
+      buttonLink.current.style.color = `${COLOR.PRIMARY_200}`
     }
   }
   
-
   return(
     <Link url={url} onMouseDown={onMouseDownHandler}>
       <div className={css(buttonRule)} ref={buttonLink}>
