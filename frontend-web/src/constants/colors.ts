@@ -25,5 +25,8 @@ export enum COLOR {
   WHITE = '#FFFFFF',
   TRANSPARENT = 'transparent',
 
+
+  
+
   RED = '#EB5757', // удалить, если будет не нужен
 }
