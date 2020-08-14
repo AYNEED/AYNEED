@@ -16,7 +16,7 @@ import { ROUTES, validators } from 'shared';
 import { Link } from 'src/components/ui/Link';
 import { client } from 'src/utils/fela';
 import {
-  Locale,
+  UserLocale,
   SignUpEmailDocument,
   SignUpEmailMutationResult,
   SignUpEmailMutationVariables,
@@ -48,7 +48,7 @@ const SignUpEmail: React.FC = () => {
         variables: {
           ...variables,
           client,
-          locale: Locale.Rus, // TODO: automatic language detection
+          locale: UserLocale.Rus, // TODO: automatic language detection
         },
       }),
   });

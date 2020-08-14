@@ -7,8 +7,8 @@ import { Page } from 'src/components/wrappers/Page';
 import { ButtonLink } from 'src/components/ui/forms/Button';
 import { Msg } from 'src/i18n/Msg';
 import { ROUTES } from 'shared';
-import { MainPageNetworks } from 'src/routes/Main/MainPageNetworks';
-import { MainPageChain } from 'src/routes/Main/MainPageChain';
+import { MainPageNetworks } from 'src/routes/Main/fragments/MainPageNetworks';
+import { MainPageChain } from 'src/routes/Main/fragments/MainPageChain';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 

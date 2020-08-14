@@ -5,7 +5,7 @@ import namedKeys from 'fela-plugin-named-keys';
 import prefixer from 'fela-plugin-prefixer';
 import unit from 'fela-plugin-unit';
 
-import { Client } from 'src/__generated__';
+import { UserClient } from 'src/__generated__';
 
 const mediaQueries = {
   desktop: '@media (min-width: 1024px)',
@@ -17,8 +17,8 @@ const mediaQueries = {
 export const client = window.matchMedia(
   mediaQueries.desktop.replace('@media ', '')
 ).matches
-  ? Client.Desktop
-  : Client.Mobile;
+  ? UserClient.Desktop
+  : UserClient.Mobile;
 
 export const renderer = createRenderer({
   plugins: [
@@ -154,14 +154,14 @@ const buttonKeyframe = () => ({
 
 renderer.renderKeyframe(buttonKeyframe, {})
 
-interface IAugmentedStyle extends IStyle {
+interface AugmentedStyle extends IStyle {
   ':hover'?: IStyle;
   '> a'?: IStyle;
   '> input'?: IStyle;
   '> label'?: IStyle;
 }
 
-type FelaSheet = IAugmentedStyle;
+type FelaSheet = AugmentedStyle;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FelaSheetFunction = (props: any) => FelaSheet;
 export type PropsStyle = FelaSheet | FelaSheetFunction;

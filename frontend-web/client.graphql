@@ -1,4 +1,4 @@
-fragment commouBeginningFields on Beginning {
+fragment commouProjectFields on Project {
   id
   title
   problem
@@ -24,10 +24,10 @@ fragment commouUserFields on User {
   }
 }
 
-query GetBeginnings($cursor: ID) {
-  beginnings(cursor: $cursor) {
+query GetProjects($cursor: ID) {
+  projects(cursor: $cursor) {
     items {
-      ...commouBeginningFields
+      ...commouProjectFields
     }
     hasMore
   }
@@ -42,15 +42,15 @@ query GetUsers($cursor: ID) {
   }
 }
 
-subscription onBeginningAdded {
-  beginningAdded {
-    ...commouBeginningFields
+subscription onProjectAdded {
+  projectAdded {
+    ...commouProjectFields
   }
 }
 
-subscription onBeginningUpdated {
-  beginningUpdated {
-    ...commouBeginningFields
+subscription onProjectUpdated {
+  projectUpdated {
+    ...commouProjectFields
   }
 }
 
@@ -70,7 +70,11 @@ mutation ForgotPassword($email: String!) {
   forgotPassword(email: $email)
 }
 
-mutation SignInEmail($email: String!, $password: String!, $client: CLIENT!) {
+mutation SignInEmail(
+  $email: String!
+  $password: String!
+  $client: USER_CLIENT!
+) {
   signInEmail(email: $email, password: $password, client: $client) {
     ...commouUserFields
   }
@@ -81,9 +85,9 @@ mutation SignUpEmail(
   $password: String!
   $firstName: String!
   $lastName: String!
-  $locale: LOCALE!
+  $locale: USER_LOCALE!
   $isAgree: Boolean!
-  $client: CLIENT!
+  $client: USER_CLIENT!
 ) {
   signUpEmail(
     email: $email

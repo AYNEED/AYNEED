@@ -12,54 +12,108 @@ type Mutation {
   forgotPasswordChange(
     password: String!
     recoveryCode: String!
-    client: CLIENT!
+    client: USER_CLIENT!
   ): User!
 
-  signInEmail(email: String!, password: String!, client: CLIENT!): User!
+  signInEmail(email: String!, password: String!, client: USER_CLIENT!): User!
 
   signUpEmail(
     email: String!
     password: String!
     firstName: String!
     lastName: String!
-    locale: LOCALE!
+    locale: USER_LOCALE!
     isAgree: Boolean!
-    client: CLIENT!
+    client: USER_CLIENT!
   ): User!
 
-  addBeginning(
-    authorId: ID!
-    title: String!
-    problem: String!
-    solution: String!
-  ): Beginning!
+  signOut: Boolean!
+
+  likeAdd(
+    targetId: ID!
+    targetModel: LIKE_TARGET_MODEL!
+    status: LIKE_STATUS!
+  ): Like!
+
+  likeRemove(id: ID!): Boolean!
+
+  messageAdd(targetId: ID!, text: String!): Message!
+
+  projectAdd(title: String!, problem: String!, solution: String!): Project!
+
+  projectRemove(id: ID!): Boolean!
+
+  subscriptionAdd(
+    targetId: ID!
+    targetModel: SUBSCRIPTION_TARGET_MODEL!
+  ): SubscribedUser!
+
+  subscriptionRemove(id: ID!): Boolean!
 }
 
 type Query {
-  beginning(id: ID!): Beginning!
-  beginnings(cursor: ID): BeginningFeed!
+  project(id: ID!): Project!
+  projects(cursor: ID): ProjectFeed!
 
   user(id: ID!): User!
   users(cursor: ID): UserFeed!
 
-  search(query: String!, mode: SEARCH_MODE!): UserFeed!
+  search(query: String!, targetModel: SEARCH_TARGET_MODEL!): UserFeed!
 
   messages(cursor: ID!): MessageFeed!
 }
 
 type Subscription {
-  beginningAdded: Beginning!
-  beginningUpdated: Beginning!
+  projectAdded: Project!
+  projectUpdated: Project!
 
   userAdded: User!
   userUpdated: User!
 }
 
-enum LOCALE {
+# ########################### enums ###########################
+
+enum LIKE_STATUS {
+  like
+  dislike
+}
+
+enum LIKE_TARGET_MODEL {
+  user
+  comment
+  project
+}
+
+enum PROJECT_STATUS {
+  idea
+  concept
+  mvp
+}
+
+enum SEARCH_TARGET_MODEL {
+  candidates
+  users
+  ideas
+  concepts
+  mvps
+}
+
+enum SUBSCRIPTION_STATUS {
+  waiting
+  accepted
+  rejected
+}
+
+enum SUBSCRIPTION_TARGET_MODEL {
+  user
+  project
+}
+
+enum USER_LOCALE {
   rus
 }
 
-enum LANGUAGE_LEVEL {
+enum USER_LANGUAGE_LEVEL {
   beginner
   elementary
   intermediate
@@ -68,25 +122,25 @@ enum LANGUAGE_LEVEL {
   proficiency
 }
 
-enum CLIENT {
+enum USER_CLIENT {
   mobile
   desktop
 }
 
-enum SEARCH_MODE {
-  candidates
-  users
-  ideas
-  concepts
-  mvps
-}
-
-enum ROLE {
+enum USER_ROLE {
   user
+  support
 }
 
-type BeginningFeed {
-  items: [Beginning!]!
+# ########################### feeds ###########################
+
+type MessageFeed {
+  items: [Message!]!
+  hasMore: Boolean!
+}
+
+type ProjectFeed {
+  items: [Project!]!
   hasMore: Boolean!
 }
 
@@ -95,34 +149,10 @@ type UserFeed {
   hasMore: Boolean!
 }
 
-type MessageFeed {
-  items: [Message!]!
-  hasMore: Boolean!
-}
-
-type Beginning {
-  id: ID!
-  authorId: ID!
-  title: String!
-  problem: String!
-  solution: String!
-  createdAt: DateTime!
-}
-
-type User {
-  id: ID!
-  role: ROLE!
-  network: UserNetwotkData!
-  about: UserAboutData!
-  personal: UserPersonalData!
-  regional: UserRegionalData!
-  contacts: UserContactsData!
-  statistics: UserStatisticsData!
-  createdAt: DateTime!
-  beginnings: [Beginning!]!
-}
+# ########################## models ###########################
 
 type Message {
+  id: ID!
   info: MessageInfoData!
   users: MessageUsersData!
   visible: MessageVisibleData!
@@ -131,9 +161,68 @@ type Message {
   deleteAt: DateTime
 }
 
-type UserNetwotkData {
-  isOnline: Boolean!
-  client: CLIENT!
+type Project {
+  id: ID!
+  senderId: ID!
+  title: String!
+  problem: String!
+  solution: String!
+  status: PROJECT_STATUS!
+  subscribers: [SubscribedUser!]!
+  createdAt: DateTime!
+}
+
+type User {
+  id: ID!
+  role: USER_ROLE!
+  network: UserNetwotkData!
+  about: UserAboutData!
+  personal: UserPersonalData!
+  regional: UserRegionalData!
+  contacts: UserContactsData!
+  statistics: UserStatisticsData!
+  projects: [Project!]!
+  subscriptions: [SubscribedUser!]!
+  subscribers: [SubscribedUser!]!
+  friends: [SubscribedUser!]!
+  createdAt: DateTime!
+}
+
+# #################### additional models ######################
+
+type Like {
+  id: ID!
+  senderId: ID!
+  targetId: ID!
+  targetModel: LIKE_TARGET_MODEL! # TODO: hide this field
+  status: LIKE_STATUS!
+  createdAt: DateTime!
+}
+
+type SubscribedUser {
+  id: ID!
+  senderId: ID!
+  targetId: ID!
+  targetModel: SUBSCRIPTION_TARGET_MODEL! # TODO: hide this field
+  status: SUBSCRIPTION_STATUS!
+  createdAt: DateTime!
+}
+
+# ######################## models data ########################
+
+type MessageInfoData {
+  text: String!
+  isRead: Boolean!
+}
+
+type MessageUsersData {
+  senderId: ID!
+  targetId: ID!
+}
+
+type MessageVisibleData {
+  isVisibleSender: Boolean!
+  isVisibleAll: Boolean!
 }
 
 type UserAboutData {
@@ -141,6 +230,21 @@ type UserAboutData {
   skills: [UserSkillRecord!]!
   career: [UserCareerRecord!]!
   education: [UserEducationRecord!]!
+}
+
+type UserContactsData {
+  email: UserContactRecord!
+  phone: UserContactRecord
+  vkontakte: UserContactRecord
+  facebook: UserContactRecord
+  instagram: UserContactRecord
+  telegram: UserContactRecord
+  linkedin: UserContactRecord
+}
+
+type UserNetwotkData {
+  isOnline: Boolean!
+  client: USER_CLIENT!
 }
 
 type UserPersonalData {
@@ -155,32 +259,25 @@ type UserRegionalData {
   city: String
   state: String
   country: String
-  locale: LOCALE!
+  locale: USER_LOCALE!
   languages: [UserLanguageRecord!]!
-}
-
-type UserContactsData {
-  email: UserContactRecord!
-  phone: UserContactRecord
-  vkontakte: UserContactRecord
-  facebook: UserContactRecord
-  instagram: UserContactRecord
-  telegram: UserContactRecord
-  linkedin: UserContactRecord
 }
 
 type UserStatisticsData {
   completeness: Int!
 }
 
-type UserSkillRecord {
-  title: String!
-  primary: Boolean!
-}
+# ###################### models records #######################
 
 type UserCareerRecord {
   title: String!
   description: String!
+}
+
+type UserContactRecord {
+  value: String!
+  isVisible: Boolean!
+  isVerified: Boolean!
 }
 
 type UserEducationRecord {
@@ -190,26 +287,10 @@ type UserEducationRecord {
 
 type UserLanguageRecord {
   code: String!
-  level: LANGUAGE_LEVEL!
+  level: USER_LANGUAGE_LEVEL!
 }
 
-type UserContactRecord {
-  value: String!
-  isVisible: Boolean!
-  isVerified: Boolean!
-}
-
-type MessageInfoData {
-  text: String!
-  isRead: Boolean!
-}
-
-type MessageUsersData {
-  authorId: ID!
-  recipientId: ID!
-}
-
-type MessageVisibleData {
-  isVisibleAuthor: Boolean!
-  isVisibleAll: Boolean!
+type UserSkillRecord {
+  title: String!
+  primary: Boolean!
 }

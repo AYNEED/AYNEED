@@ -78,7 +78,7 @@ export const FeedUsers: React.FC = () => {
   return (
     <>
       <h2>
-        <Msg id="web.routes.Feed.FeedUsers.title" />
+        <Msg id="web.routes.Feed.fragments.FeedUsers.title" />
       </h2>
 
       {error && <p>Error</p>}
@@ -92,7 +92,7 @@ export const FeedUsers: React.FC = () => {
       ))}
 
       {/* TODO: use auto-loading */}
-      <div onClick={loadMore}>load mode</div>
+      <div onClick={loadMore}>load more</div>
     </>
   );
 };

@@ -1,15 +1,12 @@
 import { Resolvers } from 'src/__generated__';
-import {
-  getBeginningById,
-  getBeginnings,
-} from 'src/resolvers/queries/beginnings';
+import { getProjectById, getProjects } from 'src/resolvers/queries/projects';
 import { getUserById, getUsers } from 'src/resolvers/queries/users';
 import { getSearchResults } from 'src/resolvers/queries/search';
 import { getMessages } from './messages';
 
 export const query: Resolvers['Query'] = {
-  beginning: getBeginningById,
-  beginnings: getBeginnings,
+  project: getProjectById,
+  projects: getProjects,
 
   user: getUserById,
   users: getUsers,

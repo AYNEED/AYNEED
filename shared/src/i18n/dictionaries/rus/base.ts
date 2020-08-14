@@ -8,23 +8,24 @@ export const base = {
   'web.components.blocks.EnterThrough.title': 'Войти с помощью',
 
   'web.components.blocks.SearchForm.form_search': 'Поиск',
-  'web.components.blocks.SearchForm.mode_candidates': 'Нужны в команду',
-  'web.components.blocks.SearchForm.mode_concepts': 'Концепты',
-  'web.components.blocks.SearchForm.mode_ideas': 'Идеи',
-  'web.components.blocks.SearchForm.mode_mvps': 'MVP',
-  'web.components.blocks.SearchForm.mode_users': 'Люди',
+  'web.components.blocks.SearchForm.model_candidates': 'Нужны в команду',
+  'web.components.blocks.SearchForm.model_concepts': 'Концепты',
+  'web.components.blocks.SearchForm.model_ideas': 'Идеи',
+  'web.components.blocks.SearchForm.model_mvps': 'MVP',
+  'web.components.blocks.SearchForm.model_users': 'Люди',
 
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
+
+  'web.components.ui.CardProject.problem': 'Проблема',
+  'web.components.ui.CardProject.solution': 'Решение',
 
   'web.components.ui.Logo.title': 'AY Need',
 
   'web.routes.Error404.title': '404 Не найдено',
 
   'web.routes.Feed.title': 'Лента активности',
-  'web.routes.Feed.FeedBeginnings.title': 'Идеи',
-  'web.routes.Feed.FeedBeginnings.problem': 'Проблема',
-  'web.routes.Feed.FeedBeginnings.solution': 'Решение',
-  'web.routes.Feed.FeedUsers.title': 'Люди',
+  'web.routes.Feed.fragments.FeedProjects.title': 'Идеи',
+  'web.routes.Feed.fragments.FeedUsers.title': 'Люди',
 
   'web.routes.ForgotPassword.form_email': 'E-mail',
   'web.routes.ForgotPassword.form_submit': 'Сменить пароль',
@@ -39,10 +40,10 @@ export const base = {
   'web.routes.Main.button_start': 'Start',
   'web.routes.Main.description': 'Объединяет людей для создания IT-продуктов',
   'web.routes.Main.title': 'AY Need',
-  'web.routes.Main.MainPageChain.command': 'Команда',
-  'web.routes.Main.MainPageChain.idea': 'Идея',
-  'web.routes.Main.MainPageChain.investments': 'Инвестиции',
-  'web.routes.Main.MainPageNetworks.title': 'Мы в социальных сетях',
+  'web.routes.Main.fragments.MainPageChain.command': 'Команда',
+  'web.routes.Main.fragments.MainPageChain.idea': 'Идея',
+  'web.routes.Main.fragments.MainPageChain.investments': 'Инвестиции',
+  'web.routes.Main.fragments.MainPageNetworks.title': 'Мы в социальных сетях',
 
   'web.routes.SignInEmail.form_email': 'E-mail',
   'web.routes.SignInEmail.form_password': 'Пароль',

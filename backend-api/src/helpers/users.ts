@@ -1,7 +1,7 @@
 import { UserRes, UserComplete, UserModel } from 'src/models/user';
 import { createPasswordHash, createRandomString } from 'src/utils/password';
 import { profileCompleteness } from 'src/utils/profileCompleteness';
-import { User, MutationSignUpEmailArgs, Role } from 'src/__generated__';
+import { MutationSignUpEmailArgs, User, UserRole } from 'src/__generated__';
 import { ValidationError } from 'shared';
 
 export const createUser = async ({
@@ -16,7 +16,7 @@ export const createUser = async ({
   const hash = createPasswordHash(password, salt);
 
   const userComplete: UserComplete = {
-    role: Role.User,
+    role: UserRole.User,
     about: {
       bio: null,
       skills: [],
@@ -65,6 +65,13 @@ export const createUser = async ({
       recovery: null,
     },
   });
+};
+
+export const findUserByToken = async (
+  token: string
+): Promise<UserRes | undefined> => {
+  // TODO: drop this line and get user from session
+  return findUserById(token);
 };
 
 export const findUserById = async (id: User['id']): Promise<UserRes> => {
