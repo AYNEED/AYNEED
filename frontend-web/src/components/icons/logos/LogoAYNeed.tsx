@@ -3,8 +3,8 @@ import React from 'react';
 import { COLOR } from 'src/constants/colors';
 
 type Props = {
-  firstGradientColor?: COLOR;
-  secondGradientColor?: COLOR;
+  firstColor?: COLOR;
+  secondColor?: COLOR;
   width?: number;
   height?: number;
   cropped?: boolean;
@@ -12,8 +12,8 @@ type Props = {
 
 
 export const LogoAYNeed: React.FC<Props> = ({
-  firstGradientColor = COLOR.PRIMARY_100, 
-  secondGradientColor = '#09BDD0',
+  firstColor = COLOR.PRIMARY_100, 
+  secondColor = '#09BDD0',
   width = 96,
   height = 18,
   cropped = false
@@ -55,8 +55,8 @@ export const LogoAYNeed: React.FC<Props> = ({
           y2="9" 
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color={firstGradientColor}/>
-          <stop offset="1" stop-color={secondGradientColor}/>
+          <stop stop-color={firstColor}/>
+          <stop offset="1" stop-color={secondColor}/>
         </linearGradient>
       </defs>
     </svg>

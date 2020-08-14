@@ -3,7 +3,7 @@ import { FelaComponent } from 'react-fela';
 
 import { Styles, PropsStyle } from 'src/utils/fela';
 import { MsgProps } from 'src/i18n/Msg';
-import { Idea } from 'src/components/icons/Idea';
+import { Idea } from 'src/components/icons/new/Idea';
 import { Command } from 'src/components/icons/Command';
 import { Investments } from 'src/components/icons/Investments';
 import { Rocket } from 'src/components/icons/Rocket';
