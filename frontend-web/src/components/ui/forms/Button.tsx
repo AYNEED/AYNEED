@@ -18,7 +18,8 @@ type ButtonSubmitProps = {
 
 const styles: Styles<'text'> = {
   text: {
-    color: COLOR.PRIMARY_500,
+    // color: COLOR.PRIMARY_500,
+    color: 'linear-gradient(90deg, #015496 0%, #09BDD0 100%) !important',
     textTransform: 'uppercase',
     fontStyle: 'normal',
     fontWeight: 600,
@@ -33,98 +34,45 @@ const buttonRule: PropsStyle = () => ({
   height: '50px',
   width: '200px',
   backgroundColor: COLOR.TRANSPARENT,
-  border: `2px solid ${COLOR.PRIMARY_500}`,
+  border: '2px solid',
+  borderColor: 'linear-gradient(180deg, #09BDD0 0%, #015496 100%)',
+  borderRadius: '8px',
+  // border: `2px solid ${COLOR.PRIMARY_500}`,
   display: 'flex !important',
   justifyContent: 'center',
   alignItems: 'center',
   cursor: 'pointer',
-  overflow: 'hidden',
+  ':hover': {
+    border: '2px solid #09BCCF',
+    borderRadius: '8px',
+    color: '#09BCCF'
+  }
 })
-
-const rippleHover: string = (`
-  position: absolute; 
-  width: 2px; 
-  height: 2px; 
-  border-radius: 40px; 
-  background: linear-gradient(0deg, #D4EFDF 28.02%, rgba(212, 239, 223, 0) 100%); 
-  animation: .5s k1 ease-out; 
-  zIndex: 5;
-`)
-
-const rippleClick: string = (`
-  position: absolute; 
-  width: 2px; 
-  height: 2px; 
-  border-radius: 40px; 
-  background: radial-gradient(50% 50% at 50% 50%, #27AE60 0%, rgba(39, 174, 96, 0) 100%); 
-  animation: .5s k1 ease-out; 
-  zIndex: 5;
-`)
 
 
 export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
   const { css } = useFela()
-
   const buttonLink: React.RefObject<HTMLDivElement> = React.createRef()
-   
-  const onMouseOverHandler = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+
+
+  const onMouseDownHandler = () => {
 
     if (buttonLink.current !== null) {
-      const y = event.pageY - buttonLink.current.offsetTop
-      const x = event.pageX - buttonLink.current.offsetLeft
-      const w = buttonLink.current.offsetWidth / 2
-      
-      const ripple: HTMLElement = document.createElement('span')
-        
-      ripple.setAttribute('style', rippleHover)
-      ripple.style.top = y + "px"
-      ripple.style.left = x + "px"
-      ripple.style.setProperty('--scale', String(w));
-      
-      buttonLink.current.appendChild(ripple)
-    
-      setTimeout(() => {
-        if (ripple !== null && ripple.parentNode !== null) {
-          ripple.parentNode.removeChild(ripple)
-        }
-      }, 500)
+      buttonLink.current.style.borderColor = "#047CAC"
+      buttonLink.current.style.color = "#047CAC"
     }
   }
-
-  const onMouseDownHandler = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-
-    if (buttonLink.current !== null) {
-      const y = event.pageY - buttonLink.current.offsetTop
-      const x = event.pageX - buttonLink.current.offsetLeft
-      const w = buttonLink.current.offsetWidth / 2
-      
-      const ripple: HTMLElement = document.createElement('span')
-        
-      ripple.setAttribute('style', rippleClick)
-      ripple.style.top = y + "px"
-      ripple.style.left = x + "px"
-      ripple.style.setProperty('--scale', String(w));
-      
-      // buttonLink.current.removeEventListener('mouseover', onMouseOverHandler)
-      buttonLink.current.appendChild(ripple)
-    
-      setTimeout(() => {
-        if (ripple !== null && ripple.parentNode !== null) {
-          ripple.parentNode.removeChild(ripple)
-        }
-      }, 500)
-    }
-  }
-
+  
 
   return(
-    <Link onMouseOver={onMouseOverHandler} onMouseDown={onMouseDownHandler} url={url}>
+    <Link url={url} onMouseDown={onMouseDownHandler}>
       <div className={css(buttonRule)} ref={buttonLink}>
         <FelaComponent style={styles.text}>{children}</FelaComponent>
       </div>
     </Link>
   )
 };
+
 
 export const ButtonSubmit: React.FC<ButtonSubmitProps> = ({
   disabled,
