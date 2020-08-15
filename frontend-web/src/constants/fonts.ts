@@ -26,7 +26,11 @@ export enum FONT_WEIGHT {
 export const font = (
   fontSize: FONT_SIZE = FONT_SIZE.M,
   fontWeight: FONT_WEIGHT = FONT_WEIGHT.REGULAR
-) => ({
+): {
+  fontSize: string;
+  fontWeight: number;
+  lineHeight: string;
+} => ({
   fontSize,
   fontWeight,
   lineHeight: LineHeight[fontSize],
