@@ -27,6 +27,7 @@ export type Mutation = {
   projectRemove: Scalars['Boolean'];
   subscriptionAdd: SubscribedUser;
   subscriptionRemove: Scalars['Boolean'];
+  commentAdd: Comment;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -89,6 +90,17 @@ export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
 };
 
+export type MutationCommentAddArgs = {
+  commentId: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  content: Scalars['String'];
+  likeCount: Scalars['Int'];
+  dislikeCount: Scalars['Int'];
+  commentCount: Scalars['Int'];
+};
+
 export type Query = {
   project: Project;
   projects: ProjectFeed;
@@ -129,6 +141,10 @@ export type Subscription = {
   userAdded: User;
   userUpdated: User;
 };
+
+export enum CommentTargetModel {
+  Project = 'project',
+}
 
 export enum LikeStatus {
   Like = 'like',
@@ -238,6 +254,19 @@ export type User = {
   subscriptions: Array<SubscribedUser>;
   subscribers: Array<SubscribedUser>;
   friends: Array<SubscribedUser>;
+  createdAt: Scalars['DateTime'];
+};
+
+export type Comment = {
+  id: Scalars['ID'];
+  commentId: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  content: Scalars['String'];
+  likeCount: Scalars['Int'];
+  dislikeCount: Scalars['Int'];
+  commentCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 

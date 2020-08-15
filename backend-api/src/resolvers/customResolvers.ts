@@ -25,6 +25,19 @@ export const resolveUserFeed: Resolvers['UserFeed'] = {
 
 // -------------------------- Models --------------------------
 
+export const resolveComment: Resolvers['Comment'] = {
+  id: (parent) => parent.id,
+  commentId: (parent) => parent.commentId,
+  senderId: (parent) => parent.senderId,
+  targetId: (parent) => parent.targetId,
+  targetModel: (parent) => parent.targetModel,
+  content: (parent) => parent.content,
+  likeCount: (parent) => parent.likeCount,
+  dislikeCount: (parent) => parent.dislikeCount,
+  commentCount: (parent) => parent.commentCount,
+  createdAt: (parent) => parent.createdAt,
+};
+
 export const resolveMessage: Resolvers['Message'] = {
   id: (parent) => parent.id,
   info: (parent) => parent.info,

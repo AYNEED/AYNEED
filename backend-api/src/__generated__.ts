@@ -34,6 +34,7 @@ export type Mutation = {
   projectRemove: Scalars['Boolean'];
   subscriptionAdd: SubscribedUser;
   subscriptionRemove: Scalars['Boolean'];
+  commentAdd: Comment;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -96,6 +97,17 @@ export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
 };
 
+export type MutationCommentAddArgs = {
+  commentId: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  content: Scalars['String'];
+  likeCount: Scalars['Int'];
+  dislikeCount: Scalars['Int'];
+  commentCount: Scalars['Int'];
+};
+
 export type Query = {
   project: Project;
   projects: ProjectFeed;
@@ -136,6 +148,10 @@ export type Subscription = {
   userAdded: User;
   userUpdated: User;
 };
+
+export enum CommentTargetModel {
+  Project = 'project',
+}
 
 export enum LikeStatus {
   Like = 'like',
@@ -245,6 +261,19 @@ export type User = {
   subscriptions: Array<SubscribedUser>;
   subscribers: Array<SubscribedUser>;
   friends: Array<SubscribedUser>;
+  createdAt: Scalars['DateTime'];
+};
+
+export type Comment = {
+  id: Scalars['ID'];
+  commentId: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  content: Scalars['String'];
+  likeCount: Scalars['Int'];
+  dislikeCount: Scalars['Int'];
+  commentCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -469,8 +498,10 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   String: ResolverTypeWrapper<Scalars['String']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
+  COMMENT_TARGET_MODEL: CommentTargetModel;
   LIKE_STATUS: LikeStatus;
   LIKE_TARGET_MODEL: LikeTargetModel;
   PROJECT_STATUS: ProjectStatus;
@@ -487,6 +518,7 @@ export type ResolversTypes = {
   Message: ResolverTypeWrapper<Message>;
   Project: ResolverTypeWrapper<Project>;
   User: ResolverTypeWrapper<User>;
+  Comment: ResolverTypeWrapper<Comment>;
   Like: ResolverTypeWrapper<Like>;
   SubscribedUser: ResolverTypeWrapper<SubscribedUser>;
   MessageInfoData: ResolverTypeWrapper<MessageInfoData>;
@@ -498,7 +530,6 @@ export type ResolversTypes = {
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
   UserRegionalData: ResolverTypeWrapper<UserRegionalData>;
   UserStatisticsData: ResolverTypeWrapper<UserStatisticsData>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   UserCareerRecord: ResolverTypeWrapper<UserCareerRecord>;
   UserContactRecord: ResolverTypeWrapper<UserContactRecord>;
   UserEducationRecord: ResolverTypeWrapper<UserEducationRecord>;
@@ -513,6 +544,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   String: Scalars['String'];
   ID: Scalars['ID'];
+  Int: Scalars['Int'];
   Query: {};
   Subscription: {};
   MessageFeed: MessageFeed;
@@ -521,6 +553,7 @@ export type ResolversParentTypes = {
   Message: Message;
   Project: Project;
   User: User;
+  Comment: Comment;
   Like: Like;
   SubscribedUser: SubscribedUser;
   MessageInfoData: MessageInfoData;
@@ -532,7 +565,6 @@ export type ResolversParentTypes = {
   UserPersonalData: UserPersonalData;
   UserRegionalData: UserRegionalData;
   UserStatisticsData: UserStatisticsData;
-  Int: Scalars['Int'];
   UserCareerRecord: UserCareerRecord;
   UserContactRecord: UserContactRecord;
   UserEducationRecord: UserEducationRecord;
@@ -627,6 +659,22 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationSubscriptionRemoveArgs, 'id'>
+  >;
+  commentAdd: Resolver<
+    ResolversTypes['Comment'],
+    ParentType,
+    ContextType,
+    RequireFields<
+      MutationCommentAddArgs,
+      | 'commentId'
+      | 'senderId'
+      | 'targetId'
+      | 'targetModel'
+      | 'content'
+      | 'likeCount'
+      | 'dislikeCount'
+      | 'commentCount'
+    >
   >;
 };
 
@@ -814,6 +862,27 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type CommentResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  commentId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetModel: Resolver<
+    ResolversTypes['COMMENT_TARGET_MODEL'],
+    ParentType,
+    ContextType
+  >;
+  content: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  likeCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dislikeCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  commentCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -1050,6 +1119,7 @@ export type Resolvers<ContextType = { user?: User }> = {
   Message: MessageResolvers<ContextType>;
   Project: ProjectResolvers<ContextType>;
   User: UserResolvers<ContextType>;
+  Comment: CommentResolvers<ContextType>;
   Like: LikeResolvers<ContextType>;
   SubscribedUser: SubscribedUserResolvers<ContextType>;
   MessageInfoData: MessageInfoDataResolvers<ContextType>;

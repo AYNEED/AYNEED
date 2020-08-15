@@ -6,6 +6,7 @@ import { subscription } from 'src/resolvers/subscriptions';
 import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
+  resolveComment,
   resolveLike,
   resolveMessage,
   resolveMessageFeed,
@@ -55,6 +56,7 @@ export const resolvers: Resolvers = {
   User: resolveUser,
 
   // Additional models:
+  Comment: resolveComment,
   Like: resolveLike,
   SubscribedUser: resolveSubscribedUser,
 
