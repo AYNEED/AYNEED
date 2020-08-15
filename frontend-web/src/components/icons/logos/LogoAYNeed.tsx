@@ -13,7 +13,7 @@ type Props = {
 
 export const LogoAYNeed: React.FC<Props> = ({
   firstColor = COLOR.PRIMARY_100, 
-  secondColor = '#09BDD0',
+  secondColor = COLOR.PRIMARY_300,
   width = 96,
   height = 18,
   cropped = false

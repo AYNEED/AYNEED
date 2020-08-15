@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const MVPStatus: React.FC<Props> = ({ 
-  fill = COLOR.PRIMARY_500 ,
+  fill = COLOR.SECONDARY_100,
   width=24,
   height=24
 }) => (

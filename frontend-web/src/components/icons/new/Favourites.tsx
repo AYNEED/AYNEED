@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const Favourites: React.FC<Props> = ({ 
-  fill = COLOR.PRIMARY_500 ,
+  fill = COLOR.SECONDARY_100,
   width=26,
   height=24
 }) => (

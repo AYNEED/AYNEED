@@ -23,8 +23,8 @@ export enum COLOR {
 
 // gradient colors
 export const GRADIENTS = {
-  HORIZONTAL: `linear-gradient(90deg, ${COLOR.PRIMARY_100} 0%, #09BDD0 100%)`,
-  VERTICAL_SUNSET: `linear-gradient(180deg, #09BDD0 0%, ${COLOR.PRIMARY_100} 100%)`,
-  VERTICAL_DAWN: `linear-gradient(180deg, ${COLOR.PRIMARY_100} 0%, #09BDD0 100%)`,
+  HORIZONTAL: `linear-gradient(90deg, ${COLOR.PRIMARY_100} 0%, ${COLOR.PRIMARY_300} 100%)`,
+  VERTICAL_SUNSET: `linear-gradient(180deg, ${COLOR.PRIMARY_300} 0%, ${COLOR.PRIMARY_100} 100%)`,
+  VERTICAL_DAWN: `linear-gradient(180deg, ${COLOR.PRIMARY_100} 0%, ${COLOR.PRIMARY_300} 100%)`,
   DEFAULT: `linear-gradient(90deg, ${COLOR.PRIMARY_400} 0%, ${COLOR.PRIMARY_500} 100%)`,
 } as const;
