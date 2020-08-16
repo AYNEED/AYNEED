@@ -1,7 +1,15 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers, SubscriptionTargetModel } from 'src/__generated__';
 import { findUserById } from 'src/helpers/users';
+import { findSubscriptionById } from 'src/helpers/subscriptions';
 import { createSubscription } from 'src/helpers/subscriptions';
 import { ValidationError } from 'shared';
+
+const targetModelToHelper: {
+  [key in SubscriptionTargetModel]: (targetId: string) => any;
+} = {
+  [SubscriptionTargetModel.User]: findUserById,
+  [SubscriptionTargetModel.Project]: findSubscriptionById,
+};
 
 export const subscriptionAdd: Resolvers['Mutation']['subscriptionAdd'] = async (
   parent,
@@ -18,7 +26,7 @@ export const subscriptionAdd: Resolvers['Mutation']['subscriptionAdd'] = async (
 
   // TODO: if subscription already exists, throw exception
 
-  const target = await findUserById(targetId);
+  const target = await targetModelToHelper[targetModel](targetId);
 
   if (user.statistics.completeness !== 100) {
     throw new ValidationError('error.user.incompleteProfile');
