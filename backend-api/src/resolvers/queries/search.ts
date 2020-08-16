@@ -1,24 +1,27 @@
-import { Client, Resolvers, SearchMode, UserFeed } from 'src/__generated__';
+import {
+  UserClient,
+  Resolvers,
+  SearchTargetModel,
+  UserFeed,
+  QuerySearchArgs,
+} from 'src/__generated__';
 import { UserModel } from 'src/models/user';
 import { SEARCH_LIMIT } from 'src/constants';
 import { userDriver } from 'src/resolvers/drivers';
 
-export const getSearchResults: Resolvers['Query']['search'] = async (
-  parent,
-  query
-) => {
-  const count = 0;
-  let items: any;
-
-  return await searchModeToHandler[query.mode](query.query, count, items);
-};
-
 const searchModeToHandler: {
-  [key in SearchMode]: (...args: any) => Promise<UserFeed>;
+  [key in SearchTargetModel]: (query: QuerySearchArgs) => Promise<UserFeed>;
 } = {
-  [SearchMode.Users]: async (query: string, count: number, items: any) => {
+  [SearchTargetModel.Users]: async (query) => {
+    let count = 0;
+
     const data = await UserModel.find(
-      { 'personal.firstName': { $regex: '^' + query + '.*' } },
+      {
+        $and: [
+          query.cursor ? { _id: { $lt: query.cursor } } : {},
+          { 'personal.firstName': { $regex: '^' + query.query + '.*' } },
+        ],
+      },
       null,
       { sort: { createdAt: 'desc' }, limit: SEARCH_LIMIT }
     );
@@ -27,13 +30,16 @@ const searchModeToHandler: {
 
     if (last) {
       count = await UserModel.count({
-        'personal.firstName': { $regex: '^' + query + '.*' },
+        $and: [
+          { _id: { $lt: last.id } },
+          { 'personal.firstName': { $regex: '^' + query.query + '.*' } },
+        ],
       });
     }
 
-    items = data.map((user) =>
+    const items = data.map((user) =>
       userDriver(user, {
-        network: { isOnline: false, client: Client.Desktop },
+        network: { isOnline: false, client: UserClient.Desktop },
       })
     );
 
@@ -43,11 +49,18 @@ const searchModeToHandler: {
     };
   },
 
-  [SearchMode.Candidates]: async () => ({ items: [], hasMore: false }),
+  [SearchTargetModel.Candidates]: async () => ({ items: [], hasMore: false }),
 
-  [SearchMode.Concepts]: async () => ({ items: [], hasMore: false }),
+  [SearchTargetModel.Concepts]: async () => ({ items: [], hasMore: false }),
 
-  [SearchMode.Ideas]: async () => ({ items: [], hasMore: false }),
+  [SearchTargetModel.Ideas]: async () => ({ items: [], hasMore: false }),
 
-  [SearchMode.Mvps]: async () => ({ items: [], hasMore: false }),
+  [SearchTargetModel.Mvps]: async () => ({ items: [], hasMore: false }),
+};
+
+export const getSearchResults: Resolvers['Query']['search'] = async (
+  parent,
+  query
+) => {
+  return await searchModeToHandler[query.targetModel](query);
 };
