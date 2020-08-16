@@ -205,8 +205,9 @@ export type UserFeed = {
 
 export type Message = {
   id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
   info: MessageInfoData;
-  users: MessageUsersData;
   visible: MessageVisibleData;
   createdAt: Scalars['DateTime'];
   editAt: Maybe<Scalars['DateTime']>;
@@ -261,11 +262,6 @@ export type SubscribedUser = {
 export type MessageInfoData = {
   text: Scalars['String'];
   isRead: Scalars['Boolean'];
-};
-
-export type MessageUsersData = {
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
 };
 
 export type MessageVisibleData = {
