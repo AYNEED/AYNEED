@@ -1,7 +1,15 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers, LikeTargetModel } from 'src/__generated__';
 import { ValidationError } from 'shared';
 import { createLike } from 'src/helpers/likes';
 import { findUserById } from 'src/helpers/users';
+import { findProjectById } from 'src/helpers/projects';
+
+const targetModelToHelper: {
+  [key in LikeTargetModel]: (targetId: string) => any;
+} = {
+  [LikeTargetModel.User]: findUserById,
+  [LikeTargetModel.Project]: findProjectById,
+};
 
 export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   parent,
@@ -18,10 +26,14 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
 
   // TODO: if like already exists, throw exception
 
-  const target = await findUserById(targetId);
+  const target = await targetModelToHelper[targetModel](targetId);
+
+  if (user.statistics.completeness !== 100) {
+    throw new ValidationError('error.user.incompleteProfile');
+  }
 
   if (
-    user.statistics.completeness !== 100 &&
+    targetModel === LikeTargetModel.User &&
     target.statistics.completeness !== 100
   ) {
     throw new ValidationError('error.user.incompleteProfile');
