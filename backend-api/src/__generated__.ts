@@ -128,7 +128,7 @@ export type QuerySearchArgs = {
 };
 
 export type QueryMessagesArgs = {
-  cursor: Scalars['ID'];
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type Subscription = {
@@ -656,13 +656,13 @@ export type QueryResolvers<
     ResolversTypes['UserFeed'],
     ParentType,
     ContextType,
-    RequireFields<QuerySearchArgs, 'query' | 'targetModel' | 'cursor'>
+    RequireFields<QuerySearchArgs, 'query' | 'targetModel'>
   >;
   messages: Resolver<
     ResolversTypes['MessageFeed'],
     ParentType,
     ContextType,
-    RequireFields<QueryMessagesArgs, 'cursor'>
+    RequireFields<QueryMessagesArgs, never>
   >;
 };
 

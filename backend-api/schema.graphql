@@ -64,7 +64,7 @@ type Query {
     cursor: ID
   ): UserFeed!
 
-  messages(cursor: ID!): MessageFeed!
+  messages(cursor: ID): MessageFeed!
 }
 
 type Subscription {

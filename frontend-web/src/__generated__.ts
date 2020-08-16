@@ -121,7 +121,7 @@ export type QuerySearchArgs = {
 };
 
 export type QueryMessagesArgs = {
-  cursor: Scalars['ID'];
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type Subscription = {
