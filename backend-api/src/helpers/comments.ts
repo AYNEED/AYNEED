@@ -3,19 +3,19 @@ import { MutationCommentAddArgs } from 'src/__generated__';
 import { WithSenderId } from 'src/types';
 
 export const createComment = async ({
-  commentId,
+  parentId,
   senderId,
   targetId,
   targetModel,
-  content,
+  text,
 }: WithSenderId<MutationCommentAddArgs>): Promise<CommentRes> =>
   CommentModel.create({
-    commentId,
+    parentId,
     senderId,
     targetId,
     targetModel,
-    content,
-    likeCount: 0,
-    dislikeCount: 0,
-    commentCount: 0,
+    text,
+    likesCount: 0,
+    dislikesCount: 0,
+    commentsCount: 0,
   });

@@ -29,14 +29,14 @@ export const resolveUserFeed: Resolvers['UserFeed'] = {
 
 export const resolveComment: Resolvers['Comment'] = {
   id: (parent) => parent.id,
-  commentId: (parent) => parent.commentId,
+  parentId: (parent) => parent.parentId,
   senderId: (parent) => parent.senderId,
   targetId: (parent) => parent.targetId,
   targetModel: (parent) => parent.targetModel,
-  content: (parent) => parent.content,
-  likeCount: (parent) => parent.likeCount,
-  dislikeCount: (parent) => parent.dislikeCount,
-  commentCount: (parent) => parent.commentCount,
+  text: (parent) => parent.text,
+  likesCount: (parent) => parent.likesCount,
+  dislikesCount: (parent) => parent.dislikesCount,
+  commentsCount: (parent) => parent.commentsCount,
   createdAt: (parent) => parent.createdAt,
 };
 

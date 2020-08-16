@@ -91,14 +91,10 @@ export type MutationSubscriptionRemoveArgs = {
 };
 
 export type MutationCommentAddArgs = {
-  commentId: Scalars['ID'];
-  senderId: Scalars['ID'];
+  parentId: Scalars['ID'];
   targetId: Scalars['ID'];
   targetModel: CommentTargetModel;
-  content: Scalars['String'];
-  likeCount: Scalars['Int'];
-  dislikeCount: Scalars['Int'];
-  commentCount: Scalars['Int'];
+  text: Scalars['String'];
 };
 
 export type Query = {
@@ -261,14 +257,14 @@ export type User = {
 
 export type Comment = {
   id: Scalars['ID'];
-  commentId: Scalars['ID'];
+  parentId: Scalars['ID'];
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
   targetModel: CommentTargetModel;
-  content: Scalars['String'];
-  likeCount: Scalars['Int'];
-  dislikeCount: Scalars['Int'];
-  commentCount: Scalars['Int'];
+  text: Scalars['String'];
+  likesCount: Scalars['Int'];
+  dislikesCount: Scalars['Int'];
+  commentsCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 

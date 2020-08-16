@@ -51,14 +51,10 @@ type Mutation {
   subscriptionRemove(id: ID!): Boolean!
 
   commentAdd(
-    commentId: ID!
-    senderId: ID!
+    parentId: ID!
     targetId: ID!
     targetModel: COMMENT_TARGET_MODEL!
-    content: String!
-    likeCount: Int!
-    dislikeCount: Int!
-    commentCount: Int!
+    text: String!
   ): Comment!
 }
 
@@ -209,14 +205,14 @@ type User {
 
 type Comment {
   id: ID!
-  commentId: ID!
+  parentId: ID!
   senderId: ID!
   targetId: ID!
   targetModel: COMMENT_TARGET_MODEL!
-  content: String!
-  likeCount: Int!
-  dislikeCount: Int!
-  commentCount: Int!
+  text: String!
+  likesCount: Int!
+  dislikesCount: Int!
+  commentsCount: Int!
   createdAt: DateTime!
 }
 

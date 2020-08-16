@@ -8,12 +8,7 @@ type CommentReq = Omit<CommentRes, 'createdAt'>;
 
 const CommentSchema = new Schema<CommentRes>(
   {
-    id: {
-      type: Schema.Types.ObjectId,
-      required: true,
-    },
-    commentId: {
-      // under question
+    parentId: {
       type: Schema.Types.ObjectId,
       required: false,
     },
@@ -32,21 +27,21 @@ const CommentSchema = new Schema<CommentRes>(
       enum: Object.values(CommentTargetModel),
       required: true,
     },
-    content: {
+    text: {
       type: String,
       required: true,
     },
-    likeCount: {
+    likesCount: {
       type: Number,
       required: false,
       default: 0,
     },
-    dislikeCount: {
+    dislikesCount: {
       type: Number,
       required: false,
       default: 0,
     },
-    commentCount: {
+    commentsCount: {
       type: Number,
       required: false,
       default: 0,
