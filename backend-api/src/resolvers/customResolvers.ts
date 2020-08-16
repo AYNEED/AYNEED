@@ -1,4 +1,4 @@
-import {CommentModel} from 'src/models/comment'
+import { CommentModel } from 'src/models/comment';
 import { ProjectModel } from 'src/models/project';
 import { SubscriptionModel } from 'src/models/subscription';
 import {
@@ -62,8 +62,12 @@ export const resolveProject: Resolvers['Project'] = {
       targetId: parent.id,
       targetModel: SubscriptionTargetModel.Project,
     }),
-  comments: async (parent) => CommentModel.find({targetId: parent.id, targetModel: CommentTargetModel.Project}),
-  commentCount: parent => parent.commentCount,
+  comments: async (parent) =>
+    CommentModel.find({
+      targetId: parent.id,
+      targetModel: CommentTargetModel.Project,
+    }),
+  commentCount: (parent) => parent.commentCount,
   createdAt: (parent) => parent.createdAt,
 };
 

@@ -8,13 +8,14 @@ export const createComment = async ({
   targetId,
   targetModel,
   content,
-}: WithSenderId<MutationCommentAddArgs>): Promise<CommentRes> => CommentModel.create({
-  commentId,
-  senderId,
-  targetId,
-  targetModel,
-  content,
-  likeCount: 0,
-  dislikeCount: 0,
-  commentCount: 0,
-});
+}: WithSenderId<MutationCommentAddArgs>): Promise<CommentRes> =>
+  CommentModel.create({
+    commentId,
+    senderId,
+    targetId,
+    targetModel,
+    content,
+    likeCount: 0,
+    dislikeCount: 0,
+    commentCount: 0,
+  });

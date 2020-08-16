@@ -33,8 +33,8 @@ const ProjectSchema = new Schema<ProjectReq>(
     commentCount: {
       type: Number,
       required: false,
-      default: 0
-    }
+      default: 0,
+    },
   },
   schemaOptions
 );
