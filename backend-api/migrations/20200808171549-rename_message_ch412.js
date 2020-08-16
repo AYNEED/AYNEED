@@ -23,6 +23,5 @@ module.exports = {
         },
       }
     );
-    console.log('BLYAD');
   },
 };

@@ -4,7 +4,6 @@ import { schemaOptions } from 'src/utils/mongodb';
 import {
   Message,
   MessageInfoData,
-  MessageUsersData,
   MessageVisibleData,
 } from 'src/__generated__';
 
@@ -20,19 +19,6 @@ const MessageInfoSchema = new Schema<MessageInfoData>({
     type: Boolean,
     required: true,
     default: false,
-  },
-});
-
-const MessageUsersSchema = new Schema<MessageUsersData>({
-  senderId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  targetId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
   },
 });
 
@@ -53,12 +39,18 @@ const MessageVisibleSchema = new Schema<MessageVisibleData>({
 
 const MessageSchema = new Schema(
   {
-    info: {
-      type: MessageInfoSchema,
+    senderId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
-    users: {
-      type: MessageUsersSchema,
+    targetId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    info: {
+      type: MessageInfoSchema,
       required: true,
     },
     visible: {

@@ -154,8 +154,9 @@ type UserFeed {
 
 type Message {
   id: ID!
+  senderId: ID!
+  targetId: ID!
   info: MessageInfoData!
-  users: MessageUsersData!
   visible: MessageVisibleData!
   createdAt: DateTime!
   editAt: DateTime
@@ -214,11 +215,6 @@ type SubscribedUser {
 type MessageInfoData {
   text: String!
   isRead: Boolean!
-}
-
-type MessageUsersData {
-  senderId: ID!
-  targetId: ID!
 }
 
 type MessageVisibleData {
