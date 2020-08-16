@@ -4,8 +4,8 @@ import { likeAdd, likeRemove } from 'src/resolvers/mutations/likes';
 import { messageAdd } from 'src/resolvers/mutations/messages';
 import { projectAdd, projectRemove } from 'src/resolvers/mutations/projects';
 import {
-  subscriptionToUserAdd,
-  subscriptionToUserRemove,
+  subscriptionAdd,
+  subscriptionRemove,
 } from 'src/resolvers/mutations/subscriptions';
 import {
   forgotPassword,
@@ -26,6 +26,6 @@ export const mutation: Resolvers['Mutation'] = {
   messageAdd,
   projectAdd,
   projectRemove,
-  subscriptionToUserAdd,
-  subscriptionToUserRemove,
+  subscriptionAdd,
+  subscriptionRemove,
 };

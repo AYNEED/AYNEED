@@ -1,5 +1,9 @@
 import { ProjectRes, ProjectModel } from 'src/models/project';
-import { Project, MutationProjectAddArgs } from 'src/__generated__';
+import {
+  Project,
+  ProjectStatus,
+  MutationProjectAddArgs,
+} from 'src/__generated__';
 import { ValidationError } from 'shared';
 import { WithSenderId } from 'src/types';
 
@@ -27,4 +31,5 @@ export const createProject = async ({
     problem,
     solution,
     countLike: 0,
+    status: ProjectStatus.Idea,
   });

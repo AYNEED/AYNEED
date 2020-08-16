@@ -7,7 +7,6 @@ import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
   resolveLike,
-  resolveFriendsUser,
   resolveMessage,
   resolveMessageFeed,
   resolveMessageInfoData,
@@ -15,8 +14,7 @@ import {
   resolveMessageVisibleData,
   resolveProject,
   resolveProjectFeed,
-  resolveSubscribersUser,
-  resolveSubscriptionUser,
+  resolveSubscribedUser,
   resolveUser,
   resolveUserAboutData,
   resolveUserCareerRecord,
@@ -57,10 +55,8 @@ export const resolvers: Resolvers = {
   User: resolveUser,
 
   // Additional models:
-  FriendUser: resolveFriendsUser,
   Like: resolveLike,
-  SubscriberUser: resolveSubscribersUser,
-  SubscriptionUser: resolveSubscriptionUser,
+  SubscribedUser: resolveSubscribedUser,
 
   // Models data:
   MessageInfoData: resolveMessageInfoData,

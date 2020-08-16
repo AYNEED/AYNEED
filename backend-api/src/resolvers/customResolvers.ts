@@ -1,6 +1,10 @@
 import { ProjectModel } from 'src/models/project';
-import { SubscriptionUserModel } from 'src/models/subscriptionUser';
-import { Resolvers, SubscriptionStatus } from 'src/__generated__';
+import { SubscriptionModel } from 'src/models/subscription';
+import {
+  Resolvers,
+  SubscriptionStatus,
+  SubscriptionTargetModel,
+} from 'src/__generated__';
 
 // -------------------------- Feeds ---------------------------
 
@@ -38,6 +42,12 @@ export const resolveProject: Resolvers['Project'] = {
   problem: (parent) => parent.problem,
   solution: (parent) => parent.solution,
   countLike: (parent) => parent.countLike,
+  status: (parent) => parent.status,
+  subscribers: async (parent) =>
+    SubscriptionModel.find({
+      targetId: parent.id,
+      targetModel: SubscriptionTargetModel.Project,
+    }),
   createdAt: (parent) => parent.createdAt,
 };
 
@@ -50,38 +60,33 @@ export const resolveUser: Resolvers['User'] = {
   contacts: (parent) => parent.contacts,
   statistics: (parent) => parent.statistics,
   role: (parent) => parent.role,
-  createdAt: (parent) => parent.createdAt,
-
   projects: async (parent) => ProjectModel.find({ senderId: parent.id }),
   subscriptions: async (parent) =>
-    SubscriptionUserModel.find({
+    SubscriptionModel.find({
       senderId: parent.id,
+      targetModel: SubscriptionTargetModel.User,
       status: {
         $in: [SubscriptionStatus.Waiting, SubscriptionStatus.Rejected],
       },
     }),
   subscribers: async (parent) =>
-    SubscriptionUserModel.find({
+    SubscriptionModel.find({
       targetId: parent.id,
+      targetModel: SubscriptionTargetModel.User,
       status: {
         $in: [SubscriptionStatus.Waiting, SubscriptionStatus.Rejected],
       },
     }),
   friends: async (parent) =>
-    SubscriptionUserModel.find({
+    SubscriptionModel.find({
       targetId: parent.id,
-      status: { $in: [SubscriptionStatus.Accepted] },
+      targetModel: SubscriptionTargetModel.User,
+      status: SubscriptionStatus.Accepted,
     }),
+  createdAt: (parent) => parent.createdAt,
 };
 
 // -------------------- Additional models ---------------------
-
-export const resolveFriendsUser: Resolvers['FriendUser'] = {
-  id: (parent) => parent.id,
-  senderId: (parent) => parent.senderId,
-  targetId: (parent) => parent.targetId,
-  createdAt: (parent) => parent.createdAt,
-};
 
 export const resolveLike: Resolvers['Like'] = {
   id: (parent) => parent.id,
@@ -92,18 +97,11 @@ export const resolveLike: Resolvers['Like'] = {
   createdAt: (parent) => parent.createdAt,
 };
 
-export const resolveSubscribersUser: Resolvers['SubscriberUser'] = {
+export const resolveSubscribedUser: Resolvers['SubscribedUser'] = {
   id: (parent) => parent.id,
   senderId: (parent) => parent.senderId,
   targetId: (parent) => parent.targetId,
-  status: (parent) => parent.status,
-  createdAt: (parent) => parent.createdAt,
-};
-
-export const resolveSubscriptionUser: Resolvers['SubscriptionUser'] = {
-  id: (parent) => parent.id,
-  senderId: (parent) => parent.senderId,
-  targetId: (parent) => parent.targetId,
+  targetModel: (parent) => parent.targetModel,
   status: (parent) => parent.status,
   createdAt: (parent) => parent.createdAt,
 };

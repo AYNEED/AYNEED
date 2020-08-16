@@ -1,19 +1,16 @@
+import { SubscriptionRes, SubscriptionModel } from 'src/models/subscription';
 import {
-  SubscriptionUserRes,
-  SubscriptionUserModel,
-} from 'src/models/subscriptionUser';
-import {
-  SubscriptionUser,
+  SubscribedUser,
   SubscriptionStatus,
-  MutationSubscriptionToUserAddArgs,
+  MutationSubscriptionAddArgs,
 } from 'src/__generated__';
 import { ValidationError } from 'shared';
 import { WithSenderId } from 'src/types';
 
-export const findSubscriptionUserById = async (
-  id: SubscriptionUser['id']
-): Promise<SubscriptionUserRes> => {
-  const subscription = await SubscriptionUserModel.findById(id);
+export const findSubscriptionById = async (
+  id: SubscribedUser['id']
+): Promise<SubscriptionRes> => {
+  const subscription = await SubscriptionModel.findById(id);
 
   if (!subscription) {
     throw new ValidationError('error.subscription.notFound');
@@ -22,14 +19,14 @@ export const findSubscriptionUserById = async (
   return subscription;
 };
 
-export const createSubscriptionUser = async ({
+export const createSubscription = async ({
   senderId,
   targetId,
-}: WithSenderId<MutationSubscriptionToUserAddArgs>): Promise<
-  SubscriptionUserRes
-> =>
-  SubscriptionUserModel.create({
+  targetModel,
+}: WithSenderId<MutationSubscriptionAddArgs>): Promise<SubscriptionRes> =>
+  SubscriptionModel.create({
     senderId,
     targetId,
+    targetModel,
     status: SubscriptionStatus.Waiting,
   });

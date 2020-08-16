@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApolloError } from 'apollo-client';
+import { ApolloError } from '@apollo/client';
 
 import { defaultDictionary } from 'shared';
 import { Msg } from 'src/i18n/Msg';
