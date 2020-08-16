@@ -24,7 +24,7 @@ const ProjectSchema = new Schema<ProjectReq>({
     type: String,
     required: true,
   },
-  countLike: {
+  likesCount: {
     type: Number,
     required: true,
     default: 0,

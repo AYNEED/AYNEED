@@ -167,7 +167,7 @@ type Project {
   title: String!
   problem: String!
   solution: String!
-  countLike: Int!
+  likesCount: Int!
   status: PROJECT_STATUS!
   subscribers: [SubscribedUser!]!
   createdAt: DateTime!

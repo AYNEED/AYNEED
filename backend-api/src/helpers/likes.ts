@@ -15,6 +15,5 @@ export const createLike = async ({
     status,
   });
 
-export const deleteLike = async ({ id }: LikeRes['id']) => {
-  return LikeModel.findByIdAndDelete({ _id: id });
-};
+export const deleteLike = async ({ id }: LikeRes['id']) =>
+  LikeModel.findByIdAndDelete({ _id: id });

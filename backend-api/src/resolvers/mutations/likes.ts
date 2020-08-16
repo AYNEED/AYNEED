@@ -19,14 +19,17 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   }
 
   const target = await findUserById(targetId);
+
   if (!target) {
     throw new ValidationError('error.like.targetNotExists');
   }
 
   const check = await LikeModel.exists({
     senderId: user.id,
-    targetId: targetId,
+    targetId,
+    targetModel,
   });
+
   if (check) {
     throw new ValidationError('error.like.exists');
   }
@@ -39,7 +42,7 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   }
   await ProjectModel.findByIdAndUpdate(
     { _id: targetId },
-    { $inc: { countLike: 1 } }
+    { $inc: { likesCount: 1 } }
   );
 
   return createLike({ senderId: user.id, targetId, targetModel, status });
@@ -56,7 +59,7 @@ export const likeRemove: Resolvers['Mutation']['likeRemove'] = async (
 
   await ProjectModel.findByIdAndUpdate(
     { _id: like.targetId },
-    { $inc: { countLike: -1 } }
+    { $inc: { likesCount: -1 } }
   );
 
   await deleteLike({ id });

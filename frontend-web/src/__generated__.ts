@@ -1,9 +1,7 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import gql from 'graphql-tag';
+import * as ApolloReactCommon from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
+export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -220,7 +218,7 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
-  countLike: Scalars['Int'];
+  likesCount: Scalars['Int'];
   status: ProjectStatus;
   subscribers: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];
@@ -465,7 +463,7 @@ export const GetProjectsDocument = gql`
   }
   ${CommouProjectFieldsFragmentDoc}
 `;
-export type GetProjectsQueryResult = Apollo.QueryResult<
+export type GetProjectsQueryResult = ApolloReactCommon.QueryResult<
   GetProjectsQuery,
   GetProjectsQueryVariables
 >;
@@ -480,7 +478,7 @@ export const GetUsersDocument = gql`
   }
   ${CommouUserFieldsFragmentDoc}
 `;
-export type GetUsersQueryResult = Apollo.QueryResult<
+export type GetUsersQueryResult = ApolloReactCommon.QueryResult<
   GetUsersQuery,
   GetUsersQueryVariables
 >;
@@ -492,7 +490,7 @@ export const OnProjectAddedDocument = gql`
   }
   ${CommouProjectFieldsFragmentDoc}
 `;
-export type OnProjectAddedSubscriptionResult = Apollo.SubscriptionResult<
+export type OnProjectAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
   OnProjectAddedSubscription
 >;
 export const OnProjectUpdatedDocument = gql`
@@ -503,7 +501,7 @@ export const OnProjectUpdatedDocument = gql`
   }
   ${CommouProjectFieldsFragmentDoc}
 `;
-export type OnProjectUpdatedSubscriptionResult = Apollo.SubscriptionResult<
+export type OnProjectUpdatedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
   OnProjectUpdatedSubscription
 >;
 export const OnUserAddedDocument = gql`
@@ -514,7 +512,7 @@ export const OnUserAddedDocument = gql`
   }
   ${CommouUserFieldsFragmentDoc}
 `;
-export type OnUserAddedSubscriptionResult = Apollo.SubscriptionResult<
+export type OnUserAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
   OnUserAddedSubscription
 >;
 export const OnUserUpdatedDocument = gql`
@@ -525,7 +523,7 @@ export const OnUserUpdatedDocument = gql`
   }
   ${CommouUserFieldsFragmentDoc}
 `;
-export type OnUserUpdatedSubscriptionResult = Apollo.SubscriptionResult<
+export type OnUserUpdatedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
   OnUserUpdatedSubscription
 >;
 export const ForgotPasswordDocument = gql`
@@ -533,14 +531,14 @@ export const ForgotPasswordDocument = gql`
     forgotPassword(email: $email)
   }
 `;
-export type ForgotPasswordMutationFn = Apollo.MutationFunction<
+export type ForgotPasswordMutationFn = ApolloReactCommon.MutationFunction<
   ForgotPasswordMutation,
   ForgotPasswordMutationVariables
 >;
-export type ForgotPasswordMutationResult = Apollo.MutationResult<
+export type ForgotPasswordMutationResult = ApolloReactCommon.MutationResult<
   ForgotPasswordMutation
 >;
-export type ForgotPasswordMutationOptions = Apollo.BaseMutationOptions<
+export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
   ForgotPasswordMutation,
   ForgotPasswordMutationVariables
 >;
@@ -556,14 +554,14 @@ export const SignInEmailDocument = gql`
   }
   ${CommouUserFieldsFragmentDoc}
 `;
-export type SignInEmailMutationFn = Apollo.MutationFunction<
+export type SignInEmailMutationFn = ApolloReactCommon.MutationFunction<
   SignInEmailMutation,
   SignInEmailMutationVariables
 >;
-export type SignInEmailMutationResult = Apollo.MutationResult<
+export type SignInEmailMutationResult = ApolloReactCommon.MutationResult<
   SignInEmailMutation
 >;
-export type SignInEmailMutationOptions = Apollo.BaseMutationOptions<
+export type SignInEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<
   SignInEmailMutation,
   SignInEmailMutationVariables
 >;
@@ -591,14 +589,14 @@ export const SignUpEmailDocument = gql`
   }
   ${CommouUserFieldsFragmentDoc}
 `;
-export type SignUpEmailMutationFn = Apollo.MutationFunction<
+export type SignUpEmailMutationFn = ApolloReactCommon.MutationFunction<
   SignUpEmailMutation,
   SignUpEmailMutationVariables
 >;
-export type SignUpEmailMutationResult = Apollo.MutationResult<
+export type SignUpEmailMutationResult = ApolloReactCommon.MutationResult<
   SignUpEmailMutation
 >;
-export type SignUpEmailMutationOptions = Apollo.BaseMutationOptions<
+export type SignUpEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<
   SignUpEmailMutation,
   SignUpEmailMutationVariables
 >;
