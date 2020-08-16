@@ -143,9 +143,8 @@ export enum LikeStatus {
 }
 
 export enum LikeTargetModel {
-  User = 'user',
-  Comment = 'comment',
-  Project = 'project',
+  User = 'User',
+  Project = 'Project',
 }
 
 export enum ProjectStatus {
@@ -169,8 +168,8 @@ export enum SubscriptionStatus {
 }
 
 export enum SubscriptionTargetModel {
-  User = 'user',
-  Project = 'project',
+  User = 'User',
+  Project = 'Project',
 }
 
 export enum UserLocale {

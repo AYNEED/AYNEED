@@ -79,9 +79,9 @@ enum LIKE_STATUS {
 }
 
 enum LIKE_TARGET_MODEL {
-  user
-  comment
-  project
+  User
+  # comment
+  Project
 }
 
 enum PROJECT_STATUS {
@@ -91,6 +91,7 @@ enum PROJECT_STATUS {
 }
 
 enum SEARCH_TARGET_MODEL {
+  # TODO: rename this fields
   candidates
   users
   ideas
@@ -105,8 +106,8 @@ enum SUBSCRIPTION_STATUS {
 }
 
 enum SUBSCRIPTION_TARGET_MODEL {
-  user
-  project
+  User
+  Project
 }
 
 enum USER_LOCALE {
