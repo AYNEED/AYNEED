@@ -1,10 +1,8 @@
-import ApolloClient, { DefaultOptions } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient, DefaultOptions, split, HttpLink } from '@apollo/client';
+import { InMemoryCache } from '@apollo/client/cache';
 import { PersistedData, PersistentStorage } from 'apollo-cache-persist/types';
-import { split } from 'apollo-link';
-import { WebSocketLink } from 'apollo-link-ws';
-import { HttpLink } from 'apollo-link-http';
-import { getMainDefinition } from 'apollo-utilities';
+import { WebSocketLink } from '@apollo/client/link/ws';
+import { getMainDefinition } from '@apollo/client/utilities';
 import localForage from 'localforage';
 
 import { getAPIUrl } from 'src/utils/lib';
