@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 
 import { LogoAYNeed } from 'src/components/icons/logos/LogoAYNeed';
-import { Treds } from 'src/components/icons/messengers/Treds';
+import { Size } from 'src/components/icons/new/Size';
 import { Link } from 'src/components/ui/Link';
 import { ROUTES } from 'shared';
 import { msg } from 'src/i18n/Msg';
@@ -17,7 +17,7 @@ const Logo: React.FC = () => {
       title={msg(intl, { id: 'web.components.ui.Logo.title' })}
     >
       <LogoAYNeed />
-      <Treds />
+      <Size />
     </Link>
   );
 };
