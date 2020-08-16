@@ -28,4 +28,6 @@ export const events = {
 
   'error.like.exists': 'Вы уже оценили это',
   'error.like.myself': 'Вы пытаетесь оценить себя',
+  'error.like.targetNotExists': 'Невозможно оценить несуществующий объект',
+  'error.like.likeNotExists': 'Оценки не существует',
 };
