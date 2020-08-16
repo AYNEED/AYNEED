@@ -28,7 +28,8 @@ export const resolveUserFeed: Resolvers['UserFeed'] = {
 export const resolveMessage: Resolvers['Message'] = {
   id: (parent) => parent.id,
   info: (parent) => parent.info,
-  users: (parent) => parent.users,
+  senderId: (parent) => parent.senderId,
+  targetId: (parent) => parent.targetId,
   visible: (parent) => parent.visible,
   createdAt: (parent) => parent.createdAt,
   editAt: (parent) => parent.editAt,
@@ -110,11 +111,6 @@ export const resolveSubscribedUser: Resolvers['SubscribedUser'] = {
 export const resolveMessageInfoData: Resolvers['MessageInfoData'] = {
   text: (parent) => parent.text,
   isRead: (parent) => parent.isRead,
-};
-
-export const resolveMessageUsersData: Resolvers['MessageUsersData'] = {
-  senderId: (parent) => parent.senderId,
-  targetId: (parent) => parent.targetId,
 };
 
 export const resolveMessageVisibleData: Resolvers['MessageVisibleData'] = {
