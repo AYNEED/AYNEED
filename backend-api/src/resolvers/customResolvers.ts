@@ -1,9 +1,11 @@
+import {CommentModel} from 'src/models/comment'
 import { ProjectModel } from 'src/models/project';
 import { SubscriptionModel } from 'src/models/subscription';
 import {
   Resolvers,
   SubscriptionStatus,
   SubscriptionTargetModel,
+  CommentTargetModel,
 } from 'src/__generated__';
 
 // -------------------------- Feeds ---------------------------
@@ -60,6 +62,8 @@ export const resolveProject: Resolvers['Project'] = {
       targetId: parent.id,
       targetModel: SubscriptionTargetModel.Project,
     }),
+  comments: async (parent) => CommentModel.find({targetId: parent.id, targetModel: CommentTargetModel.Project}),
+  commentCount: parent => parent.commentCount,
   createdAt: (parent) => parent.createdAt,
 };
 

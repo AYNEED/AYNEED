@@ -184,6 +184,8 @@ type Project {
   solution: String!
   status: PROJECT_STATUS!
   subscribers: [SubscribedUser!]!
+  comments: [Comment!]!
+  commentCount: Int!
   createdAt: DateTime!
 }
 

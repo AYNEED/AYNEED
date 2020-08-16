@@ -238,6 +238,8 @@ export type Project = {
   solution: Scalars['String'];
   status: ProjectStatus;
   subscribers: Array<SubscribedUser>;
+  comments: Array<Comment>;
+  commentCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 

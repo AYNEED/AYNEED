@@ -245,6 +245,8 @@ export type Project = {
   solution: Scalars['String'];
   status: ProjectStatus;
   subscribers: Array<SubscribedUser>;
+  comments: Array<Comment>;
+  commentCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -814,6 +816,8 @@ export type ProjectResolvers<
     ParentType,
     ContextType
   >;
+  comments: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType>;
+  commentCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };

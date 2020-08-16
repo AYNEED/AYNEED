@@ -31,4 +31,5 @@ export const createProject = async ({
     problem,
     solution,
     status: ProjectStatus.Idea,
+    commentCount: 0
   });
