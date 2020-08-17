@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
-    "@types/bounds.js": "^1.0.0",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-cache-persist": "^0.1.1",
     "apollo-client": "^2.6.10",
@@ -38,6 +37,7 @@
     "@testing-library/jest-dom": "^5.11.1",
     "@testing-library/react": "^10.4.7",
     "@testing-library/user-event": "^12.0.14",
+    "@types/bounds.js": "^1.0.0",
     "@types/intl": "^1.2.0",
     "@types/jest": "^24.9.0",
     "@types/node": "^12.12.6",

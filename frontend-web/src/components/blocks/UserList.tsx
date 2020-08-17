@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-
 import Bound from 'bounds.js';
 
 import { VirtualizedLoader } from 'src/utils/bounds';
@@ -37,7 +36,7 @@ export const UserList: React.FC<Props> = ({ data, callback }) => {
     <>
       {data.map((user, index, arr) => (
         <div
-          key={index}
+          key={user.id}
           ref={arr.length - 1 === index ? activateRef : undefined}
         >
           <VirtualizedLoader
@@ -52,10 +51,8 @@ export const UserList: React.FC<Props> = ({ data, callback }) => {
 
 export const UserListItem: React.FC<{ user: CommouUserFieldsFragment }> = ({
   user,
-}) => {
-  return (
-    <div>
-      <CardUser {...user} />
-    </div>
-  );
-};
+}) => (
+  <div>
+    <CardUser {...user} />
+  </div>
+);
