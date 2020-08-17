@@ -10,10 +10,12 @@ const LikeSchema = new Schema<LikeReq>(
   {
     senderId: {
       type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     targetId: {
       type: Schema.Types.ObjectId,
+      refPath: 'targetModel',
       required: true,
     },
     targetModel: {
