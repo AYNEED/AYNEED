@@ -115,10 +115,11 @@ export type QueryUsersArgs = {
 export type QuerySearchArgs = {
   query: Scalars['String'];
   targetModel: SearchTargetModel;
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type QueryMessagesArgs = {
-  cursor: Scalars['ID'];
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type Subscription = {
@@ -134,9 +135,8 @@ export enum LikeStatus {
 }
 
 export enum LikeTargetModel {
-  User = 'user',
-  Comment = 'comment',
-  Project = 'project',
+  User = 'User',
+  Project = 'Project',
 }
 
 export enum ProjectStatus {
@@ -160,8 +160,8 @@ export enum SubscriptionStatus {
 }
 
 export enum SubscriptionTargetModel {
-  User = 'user',
-  Project = 'project',
+  User = 'User',
+  Project = 'Project',
 }
 
 export enum UserLocale {
@@ -204,8 +204,9 @@ export type UserFeed = {
 
 export type Message = {
   id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
   info: MessageInfoData;
-  users: MessageUsersData;
   visible: MessageVisibleData;
   createdAt: Scalars['DateTime'];
   editAt: Maybe<Scalars['DateTime']>;
@@ -261,11 +262,6 @@ export type SubscribedUser = {
 export type MessageInfoData = {
   text: Scalars['String'];
   isRead: Scalars['Boolean'];
-};
-
-export type MessageUsersData = {
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
 };
 
 export type MessageVisibleData = {

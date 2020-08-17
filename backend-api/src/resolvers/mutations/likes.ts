@@ -1,9 +1,17 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers, LikeTargetModel } from 'src/__generated__';
 import { ValidationError } from 'shared';
 import { createLike, deleteLike } from 'src/helpers/likes';
 import { findUserById } from 'src/helpers/users';
 import { LikeModel } from 'src/models/like';
 import { ProjectModel } from 'src/models/project';
+import { findProjectById } from 'src/helpers/projects';
+
+const targetModelToHelper: {
+  [key in LikeTargetModel]: (targetId: string) => any;
+} = {
+  [LikeTargetModel.User]: findUserById,
+  [LikeTargetModel.Project]: findProjectById,
+};
 
 export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   parent,
@@ -18,7 +26,11 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
     throw new ValidationError('error.like.myself');
   }
 
-  const target = await findUserById(targetId);
+  const target = await targetModelToHelper[targetModel](targetId);
+
+  if (user.statistics.completeness !== 100) {
+    throw new ValidationError('error.user.incompleteProfile');
+  }
 
   if (!target) {
     throw new ValidationError('error.like.targetNotExists');
@@ -35,7 +47,7 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   }
 
   if (
-    user.statistics.completeness !== 100 &&
+    targetModel === LikeTargetModel.User &&
     target.statistics.completeness !== 100
   ) {
     throw new ValidationError('error.user.incompleteProfile');
