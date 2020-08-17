@@ -58,9 +58,13 @@ type Query {
   user(id: ID!): User!
   users(cursor: ID): UserFeed!
 
-  search(query: String!, targetModel: SEARCH_TARGET_MODEL!): UserFeed!
+  search(
+    query: String!
+    targetModel: SEARCH_TARGET_MODEL!
+    cursor: ID
+  ): UserFeed!
 
-  messages(cursor: ID!): MessageFeed!
+  messages(cursor: ID): MessageFeed!
 }
 
 type Subscription {

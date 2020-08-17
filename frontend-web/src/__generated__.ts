@@ -117,10 +117,11 @@ export type QueryUsersArgs = {
 export type QuerySearchArgs = {
   query: Scalars['String'];
   targetModel: SearchTargetModel;
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type QueryMessagesArgs = {
-  cursor: Scalars['ID'];
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type Subscription = {
