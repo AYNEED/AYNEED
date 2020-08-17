@@ -28,12 +28,13 @@ const ProjectSchema = new Schema<ProjectReq>({
     type: Number,
     required: true,
     default: 0,
-    status: {
-      type: String,
-      enum: Object.values(ProjectStatus),
-      required: true,
-    },
   },
+  status: {
+    type: String,
+    enum: Object.values(ProjectStatus),
+    required: true,
+  },
+
   schemaOptions,
 });
 

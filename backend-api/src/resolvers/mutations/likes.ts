@@ -52,6 +52,7 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   ) {
     throw new ValidationError('error.user.incompleteProfile');
   }
+
   await ProjectModel.findByIdAndUpdate(
     { _id: targetId },
     { $inc: { likesCount: 1 } }
@@ -65,6 +66,7 @@ export const likeRemove: Resolvers['Mutation']['likeRemove'] = async (
   { id }
 ) => {
   const like = await LikeModel.findById({ _id: id });
+
   if (!like) {
     throw new ValidationError('error.like.likeNotExists');
   }
