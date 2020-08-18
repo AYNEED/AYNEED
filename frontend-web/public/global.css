@@ -1,0 +1,27 @@
+html {
+  background-color: #ffffff;
+  font-size: 14px;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+}
+
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-block-start: 0;
+  padding-block-end: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-size: 100%;
+}
