@@ -83,7 +83,6 @@ enum LIKE_STATUS {
 }
 
 enum LIKE_TARGET_MODEL {
-  User
   # comment
   Project
 }
@@ -173,6 +172,7 @@ type Project {
   title: String!
   problem: String!
   solution: String!
+  likesCount: Int!
   status: PROJECT_STATUS!
   subscribers: [SubscribedUser!]!
   createdAt: DateTime!
