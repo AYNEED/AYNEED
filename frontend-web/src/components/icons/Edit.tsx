@@ -3,7 +3,7 @@ import React from 'react';
 import { COLOR } from 'src/constants/colors';
 import { IconBaseProps } from 'src/types';
 
-export const Search: React.FC<IconBaseProps> = ({
+export const Edit: React.FC<IconBaseProps> = ({
   fill = COLOR.SECONDARY_100,
   width = 24,
   height = 24,
@@ -12,7 +12,7 @@ export const Search: React.FC<IconBaseProps> = ({
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M15.9 15.2a9 9 0 10-.7.7l2 2v.7l5.2 5.2 1.4-1.4-5.2-5.2h-.7l-2-2zm-6.7 1a7 7 0 100-14 7 7 0 000 14z"
+      d="M16 3.4l4.6 4.7 2.3-2.3c.5-.5.5-1.3 0-1.8l-3-2.9c-.4-.5-1.2-.5-1.7 0l-2.3 2.3zm3.3 6l-4.7-4.7L.8 18.6v4.6h4.6L19.3 9.4zm-2.9 0L4.6 21.2H2.8v-1.8L14.6 7.6l1.8 1.8z"
       fill={fill}
     />
   </svg>

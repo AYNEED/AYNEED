@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
+import { IconBaseProps } from 'src/types';
 
-type Props = {
-  fill?: COLOR;
-};
-
-export const Investments: React.FC<Props> = ({ fill = COLOR.PRIMARY_500 }) => (
-  <svg width="36" height="44" viewBox="0 0 36 44" fill="none">
+export const Investments: React.FC<IconBaseProps> = ({
+  fill = COLOR.PRIMARY_500,
+  width = 36,
+  height = 44,
+}) => (
+  <svg width={width} height={height} viewBox="0 0 36 44" fill="none">
     <mask
       id="path-1-outside-1"
       maskUnits="userSpaceOnUse"

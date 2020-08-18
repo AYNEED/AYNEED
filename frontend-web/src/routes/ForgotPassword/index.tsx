@@ -36,7 +36,7 @@ const ForgotPassword: React.FC = () => {
   });
 
   return (
-    <Page gray>
+    <Page>
       <Logo />
       <EnterThrough />
 
