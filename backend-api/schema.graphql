@@ -58,9 +58,13 @@ type Query {
   user(id: ID!): User!
   users(cursor: ID): UserFeed!
 
-  search(query: String!, targetModel: SEARCH_TARGET_MODEL!): UserFeed!
+  search(
+    query: String!
+    targetModel: SEARCH_TARGET_MODEL!
+    cursor: ID
+  ): UserFeed!
 
-  messages(cursor: ID!): MessageFeed!
+  messages(cursor: ID): MessageFeed!
 }
 
 type Subscription {
@@ -79,9 +83,9 @@ enum LIKE_STATUS {
 }
 
 enum LIKE_TARGET_MODEL {
-  user
-  comment
-  project
+  User
+  # comment
+  Project
 }
 
 enum PROJECT_STATUS {
@@ -91,6 +95,7 @@ enum PROJECT_STATUS {
 }
 
 enum SEARCH_TARGET_MODEL {
+  # TODO: rename this fields
   candidates
   users
   ideas
@@ -105,8 +110,8 @@ enum SUBSCRIPTION_STATUS {
 }
 
 enum SUBSCRIPTION_TARGET_MODEL {
-  user
-  project
+  User
+  Project
 }
 
 enum USER_LOCALE {
@@ -153,8 +158,9 @@ type UserFeed {
 
 type Message {
   id: ID!
+  senderId: ID!
+  targetId: ID!
   info: MessageInfoData!
-  users: MessageUsersData!
   visible: MessageVisibleData!
   createdAt: DateTime!
   editAt: DateTime
@@ -213,11 +219,6 @@ type SubscribedUser {
 type MessageInfoData {
   text: String!
   isRead: Boolean!
-}
-
-type MessageUsersData {
-  senderId: ID!
-  targetId: ID!
 }
 
 type MessageVisibleData {

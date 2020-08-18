@@ -16,8 +16,8 @@ export const messageAdd: Resolvers['Mutation']['messageAdd'] = async (
 
   // TODO: exclude these checks for messages to the support
   if (
-    target.statistics.completeness !== 100 &&
-    user.statistics.completeness !== 100
+    user.statistics.completeness !== 100 ||
+    target.statistics.completeness !== 100
   ) {
     throw new ValidationError('error.user.incompleteProfile');
   }

@@ -16,7 +16,7 @@ type Props = {
 
 const style: Styles<'page'> = {
   page: ({ gray }: { gray: Props['gray'] }) => ({
-    backgroundColor: gray ? COLOR.SECONDARY_100 : COLOR.WHITE,
+    backgroundColor: gray ? COLOR.SECONDARY_500 : COLOR.WHITE,
     minHeight: '100vh',
   }),
 };
