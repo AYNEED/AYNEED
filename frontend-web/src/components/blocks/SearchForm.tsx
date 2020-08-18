@@ -10,7 +10,7 @@ import { ROUTES } from 'shared';
 import { useGetParams } from 'src/hooks/useGetParams';
 import { MsgProps } from 'src/i18n/Msg';
 import { updateHistory } from 'src/navigation';
-import { Search } from 'src/components/icons/new/Search';
+import { Search } from 'src/components/icons/Search';
 import { InputText, InputRadio } from 'src/components/ui/forms/Input';
 import { SearchTargetModel } from 'src/__generated__';
 

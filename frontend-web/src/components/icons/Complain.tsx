@@ -1,14 +1,9 @@
 import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
+import { IconBaseProps } from 'src/types';
 
-type Props = {
-  fill?: COLOR;
-  width?: number;
-  height?: number;
-};
-
-export const Complain: React.FC<Props> = ({
+export const Complain: React.FC<IconBaseProps> = ({
   fill = COLOR.SECONDARY_100,
   width = 24,
   height = 24,
