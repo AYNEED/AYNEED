@@ -1,0 +1,73 @@
+.layout {
+  display: flex;
+}
+
+/* стили для страниц входа, регистрации, 404 и тп */
+.layout--register-entry {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* стили для прочих страниц */
+.layout--main-page {
+  --menu-desktop-width: 68px;
+  --menu-desktop-width--open: 18.29rem;
+  --menu-mobile-height: 50px;
+}
+
+.header--mobile {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .header--mobile {
+    display: flex;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    min-height: var(--menu-mobile-height);
+    width: 100vw;
+    background-color: #ffffff;
+  }
+}
+
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex: 0 0 auto;
+  width: var(--menu-desktop-width);
+}
+
+/* класс для открытого бокового меню */
+.main-nav--open {
+  width: var(--menu-desktop-width--open);
+}
+
+@media (max-width: 480px) {
+  .main-nav {
+    position: fixed;
+    z-index: 10;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    height: var(--menu-mobile-height);
+    width: 100vw;
+    background-color: #ffffff;
+  }
+}
+
+.main-content {
+  position: absolute;
+  top: 0;
+  left: var(--menu-desktop-width--open);
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    top: var(--menu-mobile-height);
+    left: 0;
+  }
+}
