@@ -49,8 +49,8 @@ export const Settings: React.FC<Props> = ({
           y2="24"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color={firstColor} />
-          <stop offset="1" stop-color={secondColor} />
+          <stop stopColor={firstColor} />
+          <stop offset="1" stopColor={secondColor} />
         </linearGradient>
       </defs>
     </svg>
