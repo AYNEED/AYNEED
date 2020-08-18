@@ -36,7 +36,6 @@ const ProjectSchema = new Schema<ProjectReq>(
       required: true,
     },
   },
-
   schemaOptions
 );
 
