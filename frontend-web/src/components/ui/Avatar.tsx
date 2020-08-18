@@ -2,9 +2,9 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
 import { Badge } from 'src/components/ui/Badge';
-import { Desktop } from 'src/components/icons/Desktop';
-import { Mobile } from 'src/components/icons/Mobile';
-import { NoPhoto } from 'src/components/icons/NoPhoto';
+import { Desktop } from 'src/components/icons/old_design/Desktop';
+import { Mobile } from 'src/components/icons/old_design/Mobile';
+import { NoPhoto } from 'src/components/icons/old_design/NoPhoto';
 import { Msg } from 'src/i18n/Msg';
 import { COLOR } from 'src/constants/colors';
 import { User, UserClient } from 'src/__generated__';
