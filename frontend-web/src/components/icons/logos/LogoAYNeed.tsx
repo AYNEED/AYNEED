@@ -25,7 +25,7 @@ export const LogoAYNeed: React.FC<Props> = ({
       height={height}
       viewBox="0 0 96 18"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+
     >
       <path
         d="M13.3 14H5l-1.3 3a1.5 1.5 0 11-2.7-1.2L7.1 2.2A2 2 0 018.9 1h.5a2 2 0 011.8 1.2l6.1 13.6a1.5 1.5 0 11-2.7 1.2l-1.3-3zm-1-2.5L9 4.1l-3.2 7.4h6.4z"

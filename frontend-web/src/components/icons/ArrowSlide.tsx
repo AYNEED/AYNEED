@@ -13,7 +13,7 @@ export const ArrowSlide: React.FC<IconBaseProps> = ({
     height={height}
     fill="none"
     viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
+
   >
     <path
       d="M9 2.5a1 1 0 011.4.3l5 8.7a1 1 0 010 1l-5 8.7a1 1 0 11-1.8-1l4.7-8.2-4.7-8.2A1 1 0 019 2.5z"

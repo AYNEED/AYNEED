@@ -13,7 +13,7 @@ export const Smiley: React.FC<IconBaseProps> = ({
     height={height}
     fill="none"
     viewBox="0 0 25 24"
-    xmlns="http://www.w3.org/2000/svg"
+
   >
     <path
       d="M7.5 10C8.32843 10 9 9.32843 9 8.5C9 7.67157 8.32843 7 7.5 7C6.67157 7 6 7.67157 6 8.5C6 9.32843 6.67157 10 7.5 10Z"
