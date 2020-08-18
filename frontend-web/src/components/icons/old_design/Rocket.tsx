@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
+import { IconBaseProps } from 'src/types';
 
-type Props = {
-  fill?: COLOR;
-};
-
-export const Rocket: React.FC<Props> = ({ fill = COLOR.PRIMARY_500 }) => (
-  <svg width="38" height="46" viewBox="0 0 38 46" fill="none">
+export const Rocket: React.FC<IconBaseProps> = ({
+  fill = COLOR.PRIMARY_500,
+  width = 38,
+  height = 46,
+}) => (
+  <svg width={width} height={height} viewBox="0 0 38 46" fill="none">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
