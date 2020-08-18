@@ -6,37 +6,39 @@ import { Project, ProjectStatus } from 'src/__generated__';
 export type ProjectRes = Document & Project;
 type ProjectReq = Omit<ProjectRes, 'createdAt' | 'subscribers'>;
 
-const ProjectSchema = new Schema<ProjectReq>({
-  senderId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  problem: {
-    type: String,
-    required: true,
-  },
-  solution: {
-    type: String,
-    required: true,
-  },
-  likesCount: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
-  status: {
-    type: String,
-    enum: Object.values(ProjectStatus),
-    required: true,
+const ProjectSchema = new Schema<ProjectReq>(
+  {
+    senderId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    problem: {
+      type: String,
+      required: true,
+    },
+    solution: {
+      type: String,
+      required: true,
+    },
+    likesCount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    status: {
+      type: String,
+      enum: Object.values(ProjectStatus),
+      required: true,
+    },
   },
 
-  schemaOptions,
-});
+  schemaOptions
+);
 
 export const ProjectModel = model<ProjectReq, ProjectRes>(
   'Project',
