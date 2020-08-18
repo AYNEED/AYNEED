@@ -23,8 +23,8 @@ export const client = window.matchMedia(
 export const renderer = createRenderer({
   plugins: [
     typescript(),
-    fallbackValue(),
     prefixer(),
+    fallbackValue(),
     unit(),
     namedKeys(mediaQueries),
   ],

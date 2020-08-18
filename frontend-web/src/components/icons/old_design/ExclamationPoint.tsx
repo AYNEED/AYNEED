@@ -4,7 +4,7 @@ import { COLOR } from 'src/constants/colors';
 import { IconBaseProps } from 'src/types';
 
 export const ExclamationPoint: React.FC<IconBaseProps> = ({
-  fill = COLOR.RED,
+  fill = COLOR.ERROR,
   width = 16,
   height = 16,
 }) => (

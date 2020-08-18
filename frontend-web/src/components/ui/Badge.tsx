@@ -5,7 +5,7 @@ import { COLOR } from 'src/constants/colors';
 type Props = {
   value: JSX.Element | number;
   borderColor: COLOR.WHITE | COLOR.TRANSPARENT;
-  backgroundColor: COLOR.PRIMARY_500 | COLOR.RED | COLOR.TRANSPARENT;
+  backgroundColor: COLOR.PRIMARY_500 | COLOR.ERROR | COLOR.TRANSPARENT;
   position: 'leftCenter' | 'rightCenter' | 'rightBottom';
 };
 

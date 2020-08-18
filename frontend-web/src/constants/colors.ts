@@ -17,12 +17,10 @@ export enum COLOR {
   ERROR = '#ED5432',
   WHITE = '#FFFFFF',
   TRANSPARENT = 'transparent',
-
-  RED = '#EB5757', // check if it needs to be removed
 }
 
 // gradient colors
-export const GRADIENTS = {
+export const GRADIENT = {
   HORIZONTAL: `linear-gradient(90deg, ${COLOR.PRIMARY_100} 0%, ${COLOR.PRIMARY_300} 100%)`,
   VERTICAL_SUNSET: `linear-gradient(180deg, ${COLOR.PRIMARY_300} 0%, ${COLOR.PRIMARY_100} 100%)`,
   VERTICAL_DAWN: `linear-gradient(180deg, ${COLOR.PRIMARY_100} 0%, ${COLOR.PRIMARY_300} 100%)`,
