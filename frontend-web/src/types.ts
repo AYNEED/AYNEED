@@ -4,4 +4,4 @@ export type IconBaseProps = {
   fill?: COLOR;
   width?: number;
   height?: number;
-}
+};

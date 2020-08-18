@@ -8,13 +8,7 @@ export const Smiley: React.FC<IconBaseProps> = ({
   width = 25,
   height = 24,
 }) => (
-  <svg
-    width={width}
-    height={height}
-    fill="none"
-    viewBox="0 0 25 24"
-
-  >
+  <svg width={width} height={height} fill="none" viewBox="0 0 25 24">
     <path
       d="M7.5 10C8.32843 10 9 9.32843 9 8.5C9 7.67157 8.32843 7 7.5 7C6.67157 7 6 7.67157 6 8.5C6 9.32843 6.67157 10 7.5 10Z"
       fill={fill}

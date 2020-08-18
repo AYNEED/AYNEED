@@ -8,13 +8,7 @@ export const MVPStatus: React.FC<IconBaseProps> = ({
   width = 24,
   height = 24,
 }) => (
-  <svg
-    width={width}
-    height={height}
-    fill="none"
-    viewBox="0 0 24 24"
-
-  >
+  <svg width={width} height={height} fill="none" viewBox="0 0 24 24">
     <path
       fillRule="evenodd"
       clipRule="evenodd"

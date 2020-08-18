@@ -8,13 +8,7 @@ export const Dislike: React.FC<IconBaseProps> = ({
   width = 25,
   height = 24,
 }) => (
-  <svg
-    width={width}
-    height={height}
-    fill="none"
-    viewBox="0 0 25 24"
-
-  >
+  <svg width={width} height={height} fill="none" viewBox="0 0 25 24">
     <path
       fillRule="evenodd"
       clipRule="evenodd"

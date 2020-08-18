@@ -20,13 +20,7 @@ export const Settings: React.FC<Props> = ({
   width = cropped ? 50 : width;
 
   return (
-    <svg
-      width={width}
-      height={height}
-      fill="none"
-      viewBox="0 0 24 24"
-
-    >
+    <svg width={width} height={height} fill="none" viewBox="0 0 24 24">
       <path
         fillRule="evenodd"
         clipRule="evenodd"

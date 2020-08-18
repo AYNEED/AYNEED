@@ -8,13 +8,7 @@ export const Correctly: React.FC<IconBaseProps> = ({
   width = 18,
   height = 18,
 }) => (
-  <svg
-    width={width}
-    height={height}
-    fill="none"
-    viewBox="0 0 18 18"
-
-  >
+  <svg width={width} height={height} fill="none" viewBox="0 0 18 18">
     <path
       fillRule="evenodd"
       clipRule="evenodd"

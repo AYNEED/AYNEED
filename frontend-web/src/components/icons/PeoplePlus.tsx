@@ -8,13 +8,7 @@ export const PeoplePlus: React.FC<IconBaseProps> = ({
   width = 30,
   height = 24,
 }) => (
-  <svg
-    width={width}
-    height={height}
-    fill="none"
-    viewBox="0 0 30 24"
-
-  >
+  <svg width={width} height={height} fill="none" viewBox="0 0 30 24">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
