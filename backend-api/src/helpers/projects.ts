@@ -30,5 +30,6 @@ export const createProject = async ({
     title,
     problem,
     solution,
+    likesCount: 0,
     status: ProjectStatus.Idea,
   });

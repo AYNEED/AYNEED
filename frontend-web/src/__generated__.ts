@@ -137,7 +137,6 @@ export enum LikeStatus {
 }
 
 export enum LikeTargetModel {
-  User = 'User',
   Project = 'Project',
 }
 
@@ -221,6 +220,7 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  likesCount: Scalars['Int'];
   status: ProjectStatus;
   subscribers: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];

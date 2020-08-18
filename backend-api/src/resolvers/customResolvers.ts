@@ -42,6 +42,7 @@ export const resolveProject: Resolvers['Project'] = {
   title: (parent) => parent.title,
   problem: (parent) => parent.problem,
   solution: (parent) => parent.solution,
+  likesCount: (parent) => parent.likesCount,
   status: (parent) => parent.status,
   subscribers: async (parent) =>
     SubscriptionModel.find({

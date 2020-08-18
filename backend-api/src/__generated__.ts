@@ -144,7 +144,6 @@ export enum LikeStatus {
 }
 
 export enum LikeTargetModel {
-  User = 'User',
   Project = 'Project',
 }
 
@@ -228,6 +227,7 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  likesCount: Scalars['Int'];
   status: ProjectStatus;
   subscribers: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];
@@ -482,6 +482,7 @@ export type ResolversTypes = {
   UserFeed: ResolverTypeWrapper<UserFeed>;
   Message: ResolverTypeWrapper<Message>;
   Project: ResolverTypeWrapper<Project>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   User: ResolverTypeWrapper<User>;
   Like: ResolverTypeWrapper<Like>;
   SubscribedUser: ResolverTypeWrapper<SubscribedUser>;
@@ -493,7 +494,6 @@ export type ResolversTypes = {
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
   UserRegionalData: ResolverTypeWrapper<UserRegionalData>;
   UserStatisticsData: ResolverTypeWrapper<UserStatisticsData>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   UserCareerRecord: ResolverTypeWrapper<UserCareerRecord>;
   UserContactRecord: ResolverTypeWrapper<UserContactRecord>;
   UserEducationRecord: ResolverTypeWrapper<UserEducationRecord>;
@@ -515,6 +515,7 @@ export type ResolversParentTypes = {
   UserFeed: UserFeed;
   Message: Message;
   Project: Project;
+  Int: Scalars['Int'];
   User: User;
   Like: Like;
   SubscribedUser: SubscribedUser;
@@ -526,7 +527,6 @@ export type ResolversParentTypes = {
   UserPersonalData: UserPersonalData;
   UserRegionalData: UserRegionalData;
   UserStatisticsData: UserStatisticsData;
-  Int: Scalars['Int'];
   UserCareerRecord: UserCareerRecord;
   UserContactRecord: UserContactRecord;
   UserEducationRecord: UserEducationRecord;
@@ -755,6 +755,7 @@ export type ProjectResolvers<
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  likesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   status: Resolver<ResolversTypes['PROJECT_STATUS'], ParentType, ContextType>;
   subscribers: Resolver<
     Array<ResolversTypes['SubscribedUser']>,

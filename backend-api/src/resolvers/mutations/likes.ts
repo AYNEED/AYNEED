@@ -1,13 +1,13 @@
 import { Resolvers, LikeTargetModel } from 'src/__generated__';
 import { ValidationError } from 'shared';
-import { createLike } from 'src/helpers/likes';
-import { findUserById } from 'src/helpers/users';
+import { createLike, deleteLike } from 'src/helpers/likes';
+import { LikeModel } from 'src/models/like';
+import { ProjectModel } from 'src/models/project';
 import { findProjectById } from 'src/helpers/projects';
 
 const targetModelToHelper: {
   [key in LikeTargetModel]: (targetId: string) => any;
 } = {
-  [LikeTargetModel.User]: findUserById,
   [LikeTargetModel.Project]: findProjectById,
 };
 
@@ -21,23 +21,33 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   }
 
   if (user.id === targetId) {
-    // TODO: throw exception
+    throw new ValidationError('error.like.myself');
   }
-
-  // TODO: if like already exists, throw exception
-
-  const target = await targetModelToHelper[targetModel](targetId);
 
   if (user.statistics.completeness !== 100) {
     throw new ValidationError('error.user.incompleteProfile');
   }
 
-  if (
-    targetModel === LikeTargetModel.User &&
-    target.statistics.completeness !== 100
-  ) {
-    throw new ValidationError('error.user.incompleteProfile');
+  const target = await targetModelToHelper[targetModel](targetId);
+
+  if (!target) {
+    throw new ValidationError('error.like.targetNotExists');
   }
+
+  const check = await LikeModel.exists({
+    senderId: user.id,
+    targetId,
+    targetModel,
+  });
+
+  if (check) {
+    throw new ValidationError('error.like.exists');
+  }
+
+  await ProjectModel.findByIdAndUpdate(
+    { _id: targetId },
+    { $inc: { likesCount: 1 } }
+  );
 
   return createLike({ senderId: user.id, targetId, targetModel, status });
 };
@@ -46,6 +56,18 @@ export const likeRemove: Resolvers['Mutation']['likeRemove'] = async (
   parent,
   { id }
 ) => {
-  // TODO: remove like from db
+  const like = await LikeModel.findById({ _id: id });
+
+  if (!like) {
+    throw new ValidationError('error.like.likeNotExists');
+  }
+
+  await ProjectModel.findByIdAndUpdate(
+    { _id: like.targetId },
+    { $inc: { likesCount: -1 } }
+  );
+
+  await deleteLike({ id });
+
   return true;
 };
