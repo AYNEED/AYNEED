@@ -20,8 +20,8 @@ export const Help: React.FC<IconBaseProps> = ({
       fill={fill}
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M24 12a12 12 0 11-24 0 12 12 0 0124 0zm-2 0a10 10 0 11-20 0 10 10 0 0120 0z"
       fill={fill}
     />

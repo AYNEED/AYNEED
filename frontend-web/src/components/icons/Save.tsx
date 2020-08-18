@@ -16,8 +16,8 @@ export const Save: React.FC<IconBaseProps> = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M.3 9.5a1 1 0 000 1.5l8.5 8.4c.4.4 1 .4 1.4 0L23.7 6a1 1 0 00-1.4-1.4L9.5 17.3 1.7 9.5a1 1 0 00-1.4 0z"
       fill={fill}
     />

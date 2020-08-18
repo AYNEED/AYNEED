@@ -16,8 +16,8 @@ export const Microphone: React.FC<IconBaseProps> = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M8.98438 5C8.98438 2.79086 10.7752 1 12.9844 1C15.1935 1 16.9844 2.79086 16.9844 5V12C16.9844 14.2091 15.1935 16 12.9844 16C10.7752 16 8.98438 14.2091 8.98438 12V5ZM12.9844 3C11.8798 3 10.9844 3.89543 10.9844 5V12C10.9844 13.1046 11.8798 14 12.9844 14C14.0889 14 14.9844 13.1046 14.9844 12V5C14.9844 3.89543 14.0889 3 12.9844 3Z"
       fill={fill}
     />

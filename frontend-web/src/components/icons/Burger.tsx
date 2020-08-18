@@ -16,8 +16,8 @@ export const Burger: React.FC<IconBaseProps> = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M0 4c0-.6.4-1 1-1h22a1 1 0 110 2H1a1 1 0 01-1-1zM0 12c0-.6.4-1 1-1h22a1 1 0 110 2H1a1 1 0 01-1-1zM1 19a1 1 0 100 2h22a1 1 0 100-2H1z"
       fill={fill}
     />
