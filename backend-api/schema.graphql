@@ -83,7 +83,6 @@ enum LIKE_STATUS {
 }
 
 enum LIKE_TARGET_MODEL {
-  User
   # comment
   Project
 }

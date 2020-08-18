@@ -144,7 +144,6 @@ export enum LikeStatus {
 }
 
 export enum LikeTargetModel {
-  User = 'User',
   Project = 'Project',
 }
 
