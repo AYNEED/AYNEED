@@ -11,7 +11,6 @@ import {
   resolveMessage,
   resolveMessageFeed,
   resolveMessageInfoData,
-  resolveMessageUsersData,
   resolveMessageVisibleData,
   resolveProject,
   resolveProjectFeed,
@@ -62,7 +61,6 @@ export const resolvers: Resolvers = {
 
   // Models data:
   MessageInfoData: resolveMessageInfoData,
-  MessageUsersData: resolveMessageUsersData,
   MessageVisibleData: resolveMessageVisibleData,
   UserAboutData: resolveUserAboutData,
   UserContactsData: resolveUserContactsData,

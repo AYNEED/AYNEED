@@ -25,6 +25,11 @@ const ProjectSchema = new Schema<ProjectReq>(
       type: String,
       required: true,
     },
+    likesCount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     status: {
       type: String,
       enum: Object.values(ProjectStatus),

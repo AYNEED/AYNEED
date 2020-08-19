@@ -25,4 +25,9 @@ export const events = {
 
   'error.subscription.notFound': 'Подписка не найдена',
   'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',
+
+  'error.like.exists': 'Вы уже оценили это',
+  'error.like.myself': 'Вы пытаетесь оценить себя',
+  'error.like.targetNotExists': 'Невозможно оценить несуществующий объект',
+  'error.like.likeNotExists': 'Оценки не существует',
 };

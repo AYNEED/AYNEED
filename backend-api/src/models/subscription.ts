@@ -19,7 +19,7 @@ const SubscriptionScheme = new Schema<SubscriptionReq>(
     },
     targetId: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      refPath: 'targetModel',
       required: true,
     },
     targetModel: {

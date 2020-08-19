@@ -130,10 +130,11 @@ export type QueryUsersArgs = {
 export type QuerySearchArgs = {
   query: Scalars['String'];
   targetModel: SearchTargetModel;
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type QueryMessagesArgs = {
-  cursor: Scalars['ID'];
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type Subscription = {
@@ -153,9 +154,7 @@ export enum LikeStatus {
 }
 
 export enum LikeTargetModel {
-  User = 'user',
-  Comment = 'comment',
-  Project = 'project',
+  Project = 'Project',
 }
 
 export enum ProjectStatus {
@@ -179,8 +178,8 @@ export enum SubscriptionStatus {
 }
 
 export enum SubscriptionTargetModel {
-  User = 'user',
-  Project = 'project',
+  User = 'User',
+  Project = 'Project',
 }
 
 export enum UserLocale {
@@ -223,8 +222,9 @@ export type UserFeed = {
 
 export type Message = {
   id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
   info: MessageInfoData;
-  users: MessageUsersData;
   visible: MessageVisibleData;
   createdAt: Scalars['DateTime'];
   editAt: Maybe<Scalars['DateTime']>;
@@ -237,6 +237,7 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  likesCount: Scalars['Int'];
   status: ProjectStatus;
   subscribers: Array<SubscribedUser>;
   comments: Array<Comment>;
@@ -294,11 +295,6 @@ export type SubscribedUser = {
 export type MessageInfoData = {
   text: Scalars['String'];
   isRead: Scalars['Boolean'];
-};
-
-export type MessageUsersData = {
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
 };
 
 export type MessageVisibleData = {
@@ -518,7 +514,6 @@ export type ResolversTypes = {
   Like: ResolverTypeWrapper<Like>;
   SubscribedUser: ResolverTypeWrapper<SubscribedUser>;
   MessageInfoData: ResolverTypeWrapper<MessageInfoData>;
-  MessageUsersData: ResolverTypeWrapper<MessageUsersData>;
   MessageVisibleData: ResolverTypeWrapper<MessageVisibleData>;
   UserAboutData: ResolverTypeWrapper<UserAboutData>;
   UserContactsData: ResolverTypeWrapper<UserContactsData>;
@@ -553,7 +548,6 @@ export type ResolversParentTypes = {
   Like: Like;
   SubscribedUser: SubscribedUser;
   MessageInfoData: MessageInfoData;
-  MessageUsersData: MessageUsersData;
   MessageVisibleData: MessageVisibleData;
   UserAboutData: UserAboutData;
   UserContactsData: UserContactsData;
@@ -705,7 +699,7 @@ export type QueryResolvers<
     ResolversTypes['MessageFeed'],
     ParentType,
     ContextType,
-    RequireFields<QueryMessagesArgs, 'cursor'>
+    RequireFields<QueryMessagesArgs, never>
   >;
 };
 
@@ -771,8 +765,9 @@ export type MessageResolvers<
   ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   info: Resolver<ResolversTypes['MessageInfoData'], ParentType, ContextType>;
-  users: Resolver<ResolversTypes['MessageUsersData'], ParentType, ContextType>;
   visible: Resolver<
     ResolversTypes['MessageVisibleData'],
     ParentType,
@@ -797,6 +792,7 @@ export type ProjectResolvers<
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  likesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   status: Resolver<ResolversTypes['PROJECT_STATUS'], ParentType, ContextType>;
   subscribers: Resolver<
     Array<ResolversTypes['SubscribedUser']>,
@@ -922,15 +918,6 @@ export type MessageInfoDataResolvers<
 > = {
   text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   isRead: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type MessageUsersDataResolvers<
-  ContextType = { user?: User },
-  ParentType extends ResolversParentTypes['MessageUsersData'] = ResolversParentTypes['MessageUsersData']
-> = {
-  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -1114,7 +1101,6 @@ export type Resolvers<ContextType = { user?: User }> = {
   Like: LikeResolvers<ContextType>;
   SubscribedUser: SubscribedUserResolvers<ContextType>;
   MessageInfoData: MessageInfoDataResolvers<ContextType>;
-  MessageUsersData: MessageUsersDataResolvers<ContextType>;
   MessageVisibleData: MessageVisibleDataResolvers<ContextType>;
   UserAboutData: UserAboutDataResolvers<ContextType>;
   UserContactsData: UserContactsDataResolvers<ContextType>;

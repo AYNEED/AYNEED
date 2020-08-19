@@ -7,7 +7,7 @@ import { ROUTES } from 'shared';
 import { updateHistory } from 'src/navigation';
 import { Page } from 'src/components/wrappers/Page';
 import { SearchForm } from 'src/components/blocks/SearchForm';
-import { Error404 as Error404Icon } from 'src/components/icons/Error404';
+import { Error404 as Error404Icon } from 'src/components/icons/old_design/Error404';
 
 const Logo = React.lazy(() => import('src/components/ui/Logo'));
 
