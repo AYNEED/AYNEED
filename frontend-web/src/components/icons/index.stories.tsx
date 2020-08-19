@@ -1,9 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-// Logos
-import { LogoAYNeed } from 'src/components/icons/logos/LogoAYNeed';
-
 // Projects
 import { Concept } from 'src/components/icons/projects/Concept';
 import { Idea } from 'src/components/icons/projects/Idea';
@@ -62,12 +59,6 @@ import { Treds } from 'src/components/icons/messengers/Treds';
 export default {
   title: 'Documentation/Icons',
 } as Meta;
-
-export const Logos: Story = () => (
-  <>
-    <LogoAYNeed />
-  </>
-);
 
 export const Projects: Story = () => (
   <>

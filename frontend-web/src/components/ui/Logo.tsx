@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
-import { LogoAYNeed } from 'src/components/icons/logos/LogoAYNeed';
+import { LogoAYNeed } from 'src/components/logos/LogoAYNeed';
 import { Link } from 'src/components/ui/Link';
 import { ROUTES } from 'shared';
 import { msg } from 'src/i18n/Msg';
