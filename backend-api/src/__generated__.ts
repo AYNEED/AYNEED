@@ -4,9 +4,7 @@ import {
   GraphQLScalarTypeConfig,
 } from 'graphql';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
+export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 export type RequireFields<T, K extends keyof T> = {
   [X in Exclude<keyof T, K>]?: T[X];
 } &
@@ -242,7 +240,7 @@ export type Project = {
   status: ProjectStatus;
   subscribers: Array<SubscribedUser>;
   comments: Array<Comment>;
-  commentCount: Scalars['Int'];
+  commentsCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -806,7 +804,7 @@ export type ProjectResolvers<
     ContextType
   >;
   comments: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType>;
-  commentCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  commentsCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };

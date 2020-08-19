@@ -67,7 +67,7 @@ export const resolveProject: Resolvers['Project'] = {
       targetId: parent.id,
       targetModel: CommentTargetModel.Project,
     }),
-  commentCount: (parent) => parent.commentCount,
+  commentsCount: (parent) => parent.commentsCount,
   createdAt: (parent) => parent.createdAt,
 };
 

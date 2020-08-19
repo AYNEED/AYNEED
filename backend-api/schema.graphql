@@ -181,7 +181,7 @@ type Project {
   status: PROJECT_STATUS!
   subscribers: [SubscribedUser!]!
   comments: [Comment!]!
-  commentCount: Int!
+  commentsCount: Int!
   createdAt: DateTime!
 }
 
