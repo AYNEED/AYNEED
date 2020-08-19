@@ -21,13 +21,18 @@ export const events = {
   'error.user.incompleteProfile':
     'Профиль заполнен не полностью. Заполните и повторите попытку',
 
+  'error.comment.notFound': 'Комментарий не найден',
+  'error.comment.targetNotExists':
+    'Невозможно прокомментировать несуществующий объект',
+
   'error.project.notFound': 'Начинание не найдено',
 
   'error.subscription.notFound': 'Подписка не найдена',
   'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',
 
   'error.like.exists': 'Вы уже оценили это',
-  'error.like.myself': 'Вы пытаетесь оценить себя',
   'error.like.targetNotExists': 'Невозможно оценить несуществующий объект',
   'error.like.likeNotExists': 'Оценки не существует',
+  'error.like.dislikeNotSupported':
+    'Дизлайк можно поставить только комментарию',
 };
