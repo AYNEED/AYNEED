@@ -19,7 +19,7 @@ const CommentSchema = new Schema<CommentRes>(
     },
     targetId: {
       type: Schema.Types.ObjectId,
-      // @todo ref to model
+      refPath: 'targetModel',
       required: true,
     },
     targetModel: {
