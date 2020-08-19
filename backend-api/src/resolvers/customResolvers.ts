@@ -1,9 +1,11 @@
+import { CommentModel } from 'src/models/comment';
 import { ProjectModel } from 'src/models/project';
 import { SubscriptionModel } from 'src/models/subscription';
 import {
   Resolvers,
   SubscriptionStatus,
   SubscriptionTargetModel,
+  CommentTargetModel,
 } from 'src/__generated__';
 
 // -------------------------- Feeds ---------------------------
@@ -24,6 +26,19 @@ export const resolveUserFeed: Resolvers['UserFeed'] = {
 };
 
 // -------------------------- Models --------------------------
+
+export const resolveComment: Resolvers['Comment'] = {
+  id: (parent) => parent.id,
+  parentId: (parent) => parent.parentId,
+  senderId: (parent) => parent.senderId,
+  targetId: (parent) => parent.targetId,
+  targetModel: (parent) => parent.targetModel,
+  text: (parent) => parent.text,
+  likesCount: (parent) => parent.likesCount,
+  dislikesCount: (parent) => parent.dislikesCount,
+  commentsCount: (parent) => parent.commentsCount,
+  createdAt: (parent) => parent.createdAt,
+};
 
 export const resolveMessage: Resolvers['Message'] = {
   id: (parent) => parent.id,
@@ -49,6 +64,12 @@ export const resolveProject: Resolvers['Project'] = {
       targetId: parent.id,
       targetModel: SubscriptionTargetModel.Project,
     }),
+  comments: async (parent) =>
+    CommentModel.find({
+      targetId: parent.id,
+      targetModel: CommentTargetModel.Project,
+    }),
+  commentsCount: (parent) => parent.commentsCount,
   createdAt: (parent) => parent.createdAt,
 };
 
