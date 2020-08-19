@@ -10,6 +10,7 @@ const CommentSchema = new Schema<CommentRes>(
   {
     parentId: {
       type: Schema.Types.ObjectId,
+      ref: 'Comment',
       required: false,
     },
     senderId: {

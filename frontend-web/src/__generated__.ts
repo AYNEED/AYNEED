@@ -1,7 +1,9 @@
-import gql from 'graphql-tag';
-import * as ApolloReactCommon from '@apollo/client';
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -18,6 +20,8 @@ export type Mutation = {
   signInEmail: User;
   signUpEmail: User;
   signOut: Scalars['Boolean'];
+  commentAdd: Comment;
+  commentRemove: Scalars['Boolean'];
   likeAdd: Like;
   likeRemove: Scalars['Boolean'];
   messageAdd: Message;
@@ -25,7 +29,6 @@ export type Mutation = {
   projectRemove: Scalars['Boolean'];
   subscriptionAdd: SubscribedUser;
   subscriptionRemove: Scalars['Boolean'];
-  commentAdd: Comment;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -52,6 +55,17 @@ export type MutationSignUpEmailArgs = {
   locale: UserLocale;
   isAgree: Scalars['Boolean'];
   client: UserClient;
+};
+
+export type MutationCommentAddArgs = {
+  parentId: Maybe<Scalars['ID']>;
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  text: Scalars['String'];
+};
+
+export type MutationCommentRemoveArgs = {
+  id: Scalars['ID'];
 };
 
 export type MutationLikeAddArgs = {
@@ -86,13 +100,6 @@ export type MutationSubscriptionAddArgs = {
 
 export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
-};
-
-export type MutationCommentAddArgs = {
-  parentId: Scalars['ID'];
-  targetId: Scalars['ID'];
-  targetModel: CommentTargetModel;
-  text: Scalars['String'];
 };
 
 export type Query = {
@@ -138,7 +145,7 @@ export type Subscription = {
 };
 
 export enum CommentTargetModel {
-  Project = 'project',
+  Project = 'Project',
 }
 
 export enum LikeStatus {
@@ -147,6 +154,7 @@ export enum LikeStatus {
 }
 
 export enum LikeTargetModel {
+  Comment = 'Comment',
   Project = 'Project',
 }
 
@@ -256,7 +264,7 @@ export type User = {
 
 export type Comment = {
   id: Scalars['ID'];
-  parentId: Scalars['ID'];
+  parentId: Maybe<Scalars['ID']>;
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
   targetModel: CommentTargetModel;
@@ -485,7 +493,7 @@ export const GetProjectsDocument = gql`
   }
   ${CommouProjectFieldsFragmentDoc}
 `;
-export type GetProjectsQueryResult = ApolloReactCommon.QueryResult<
+export type GetProjectsQueryResult = Apollo.QueryResult<
   GetProjectsQuery,
   GetProjectsQueryVariables
 >;
@@ -500,7 +508,7 @@ export const GetUsersDocument = gql`
   }
   ${CommouUserFieldsFragmentDoc}
 `;
-export type GetUsersQueryResult = ApolloReactCommon.QueryResult<
+export type GetUsersQueryResult = Apollo.QueryResult<
   GetUsersQuery,
   GetUsersQueryVariables
 >;
@@ -512,7 +520,7 @@ export const OnProjectAddedDocument = gql`
   }
   ${CommouProjectFieldsFragmentDoc}
 `;
-export type OnProjectAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
+export type OnProjectAddedSubscriptionResult = Apollo.SubscriptionResult<
   OnProjectAddedSubscription
 >;
 export const OnProjectUpdatedDocument = gql`
@@ -523,7 +531,7 @@ export const OnProjectUpdatedDocument = gql`
   }
   ${CommouProjectFieldsFragmentDoc}
 `;
-export type OnProjectUpdatedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
+export type OnProjectUpdatedSubscriptionResult = Apollo.SubscriptionResult<
   OnProjectUpdatedSubscription
 >;
 export const OnUserAddedDocument = gql`
@@ -534,7 +542,7 @@ export const OnUserAddedDocument = gql`
   }
   ${CommouUserFieldsFragmentDoc}
 `;
-export type OnUserAddedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
+export type OnUserAddedSubscriptionResult = Apollo.SubscriptionResult<
   OnUserAddedSubscription
 >;
 export const OnUserUpdatedDocument = gql`
@@ -545,7 +553,7 @@ export const OnUserUpdatedDocument = gql`
   }
   ${CommouUserFieldsFragmentDoc}
 `;
-export type OnUserUpdatedSubscriptionResult = ApolloReactCommon.SubscriptionResult<
+export type OnUserUpdatedSubscriptionResult = Apollo.SubscriptionResult<
   OnUserUpdatedSubscription
 >;
 export const ForgotPasswordDocument = gql`
@@ -553,14 +561,14 @@ export const ForgotPasswordDocument = gql`
     forgotPassword(email: $email)
   }
 `;
-export type ForgotPasswordMutationFn = ApolloReactCommon.MutationFunction<
+export type ForgotPasswordMutationFn = Apollo.MutationFunction<
   ForgotPasswordMutation,
   ForgotPasswordMutationVariables
 >;
-export type ForgotPasswordMutationResult = ApolloReactCommon.MutationResult<
+export type ForgotPasswordMutationResult = Apollo.MutationResult<
   ForgotPasswordMutation
 >;
-export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
+export type ForgotPasswordMutationOptions = Apollo.BaseMutationOptions<
   ForgotPasswordMutation,
   ForgotPasswordMutationVariables
 >;
@@ -576,14 +584,14 @@ export const SignInEmailDocument = gql`
   }
   ${CommouUserFieldsFragmentDoc}
 `;
-export type SignInEmailMutationFn = ApolloReactCommon.MutationFunction<
+export type SignInEmailMutationFn = Apollo.MutationFunction<
   SignInEmailMutation,
   SignInEmailMutationVariables
 >;
-export type SignInEmailMutationResult = ApolloReactCommon.MutationResult<
+export type SignInEmailMutationResult = Apollo.MutationResult<
   SignInEmailMutation
 >;
-export type SignInEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<
+export type SignInEmailMutationOptions = Apollo.BaseMutationOptions<
   SignInEmailMutation,
   SignInEmailMutationVariables
 >;
@@ -611,14 +619,14 @@ export const SignUpEmailDocument = gql`
   }
   ${CommouUserFieldsFragmentDoc}
 `;
-export type SignUpEmailMutationFn = ApolloReactCommon.MutationFunction<
+export type SignUpEmailMutationFn = Apollo.MutationFunction<
   SignUpEmailMutation,
   SignUpEmailMutationVariables
 >;
-export type SignUpEmailMutationResult = ApolloReactCommon.MutationResult<
+export type SignUpEmailMutationResult = Apollo.MutationResult<
   SignUpEmailMutation
 >;
-export type SignUpEmailMutationOptions = ApolloReactCommon.BaseMutationOptions<
+export type SignUpEmailMutationOptions = Apollo.BaseMutationOptions<
   SignUpEmailMutation,
   SignUpEmailMutationVariables
 >;

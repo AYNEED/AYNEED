@@ -1,14 +1,32 @@
-import { Resolvers, LikeTargetModel } from 'src/__generated__';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { UModel, Document } from 'mongoose';
+
+import { Resolvers, LikeTargetModel, LikeStatus } from 'src/__generated__';
 import { ValidationError } from 'shared';
 import { createLike, deleteLike } from 'src/helpers/likes';
 import { LikeModel } from 'src/models/like';
 import { ProjectModel } from 'src/models/project';
+import { CommentModel } from 'src/models/comment';
 import { findProjectById } from 'src/helpers/projects';
+import { findCommentById } from 'src/helpers/comments';
 
 const targetModelToHelper: {
-  [key in LikeTargetModel]: (targetId: string) => any;
+  [key in LikeTargetModel]: {
+    helper: (targetId: string) => Promise<any>;
+    model: UModel<
+      any,
+      Document & { likesCount: number; dislikesCount?: number }
+    >;
+  };
 } = {
-  [LikeTargetModel.Project]: findProjectById,
+  [LikeTargetModel.Comment]: {
+    helper: findCommentById,
+    model: CommentModel,
+  },
+  [LikeTargetModel.Project]: {
+    helper: findProjectById,
+    model: ProjectModel,
+  },
 };
 
 export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
@@ -20,15 +38,19 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
     throw new ValidationError('error.user.notFound');
   }
 
-  if (user.id === targetId) {
-    throw new ValidationError('error.like.myself');
+  if (
+    targetModel !== LikeTargetModel.Comment &&
+    status === LikeStatus.Dislike
+  ) {
+    throw new ValidationError('error.like.dislikeNotSupported');
   }
 
   if (user.statistics.completeness !== 100) {
     throw new ValidationError('error.user.incompleteProfile');
   }
 
-  const target = await targetModelToHelper[targetModel](targetId);
+  const targetHelper = targetModelToHelper[targetModel];
+  const target = await targetHelper.helper(targetId);
 
   if (!target) {
     throw new ValidationError('error.like.targetNotExists');
@@ -44,9 +66,13 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
     throw new ValidationError('error.like.exists');
   }
 
-  await ProjectModel.findByIdAndUpdate(
+  const field = status === LikeStatus.Dislike ? 'dislikesCount' : 'likesCount';
+
+  // TODO: toggle likes/dislikes
+
+  await targetHelper.model.findByIdAndUpdate(
     { _id: targetId },
-    { $inc: { likesCount: 1 } }
+    { $inc: { [field]: 1 } }
   );
 
   return createLike({ senderId: user.id, targetId, targetModel, status });
@@ -62,9 +88,13 @@ export const likeRemove: Resolvers['Mutation']['likeRemove'] = async (
     throw new ValidationError('error.like.likeNotExists');
   }
 
-  await ProjectModel.findByIdAndUpdate(
+  const targetHelper = targetModelToHelper[like.targetModel];
+  const field =
+    like.status === LikeStatus.Dislike ? 'dislikesCount' : 'likesCount';
+
+  await targetHelper.model.findByIdAndUpdate(
     { _id: like.targetId },
-    { $inc: { likesCount: -1 } }
+    { $inc: { [field]: -1 } }
   );
 
   await deleteLike({ id });

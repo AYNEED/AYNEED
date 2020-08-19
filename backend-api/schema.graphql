@@ -29,6 +29,15 @@ type Mutation {
 
   signOut: Boolean!
 
+  commentAdd(
+    parentId: ID
+    targetId: ID!
+    targetModel: COMMENT_TARGET_MODEL!
+    text: String!
+  ): Comment!
+
+  commentRemove(id: ID!): Boolean!
+
   likeAdd(
     targetId: ID!
     targetModel: LIKE_TARGET_MODEL!
@@ -49,13 +58,6 @@ type Mutation {
   ): SubscribedUser!
 
   subscriptionRemove(id: ID!): Boolean!
-
-  commentAdd(
-    parentId: ID!
-    targetId: ID!
-    targetModel: COMMENT_TARGET_MODEL!
-    text: String!
-  ): Comment!
 }
 
 type Query {
@@ -85,7 +87,7 @@ type Subscription {
 # ########################### enums ###########################
 
 enum COMMENT_TARGET_MODEL {
-  project
+  Project
 }
 
 enum LIKE_STATUS {
@@ -94,7 +96,7 @@ enum LIKE_STATUS {
 }
 
 enum LIKE_TARGET_MODEL {
-  # comment
+  Comment
   Project
 }
 
@@ -211,7 +213,7 @@ type User {
 
 type Comment {
   id: ID!
-  parentId: ID!
+  parentId: ID
   senderId: ID!
   targetId: ID!
   targetModel: COMMENT_TARGET_MODEL!

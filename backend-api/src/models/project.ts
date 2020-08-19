@@ -30,15 +30,15 @@ const ProjectSchema = new Schema<ProjectReq>(
       required: true,
       default: 0,
     },
+    commentsCount: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
     status: {
       type: String,
       enum: Object.values(ProjectStatus),
       required: true,
-    },
-    commentCount: {
-      type: Number,
-      required: false,
-      default: 0,
     },
   },
   schemaOptions

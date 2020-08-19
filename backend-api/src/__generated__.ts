@@ -4,7 +4,9 @@ import {
   GraphQLScalarTypeConfig,
 } from 'graphql';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
 export type RequireFields<T, K extends keyof T> = {
   [X in Exclude<keyof T, K>]?: T[X];
 } &
@@ -25,6 +27,8 @@ export type Mutation = {
   signInEmail: User;
   signUpEmail: User;
   signOut: Scalars['Boolean'];
+  commentAdd: Comment;
+  commentRemove: Scalars['Boolean'];
   likeAdd: Like;
   likeRemove: Scalars['Boolean'];
   messageAdd: Message;
@@ -32,7 +36,6 @@ export type Mutation = {
   projectRemove: Scalars['Boolean'];
   subscriptionAdd: SubscribedUser;
   subscriptionRemove: Scalars['Boolean'];
-  commentAdd: Comment;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -59,6 +62,17 @@ export type MutationSignUpEmailArgs = {
   locale: UserLocale;
   isAgree: Scalars['Boolean'];
   client: UserClient;
+};
+
+export type MutationCommentAddArgs = {
+  parentId: Maybe<Scalars['ID']>;
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  text: Scalars['String'];
+};
+
+export type MutationCommentRemoveArgs = {
+  id: Scalars['ID'];
 };
 
 export type MutationLikeAddArgs = {
@@ -93,13 +107,6 @@ export type MutationSubscriptionAddArgs = {
 
 export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
-};
-
-export type MutationCommentAddArgs = {
-  parentId: Scalars['ID'];
-  targetId: Scalars['ID'];
-  targetModel: CommentTargetModel;
-  text: Scalars['String'];
 };
 
 export type Query = {
@@ -145,7 +152,7 @@ export type Subscription = {
 };
 
 export enum CommentTargetModel {
-  Project = 'project',
+  Project = 'Project',
 }
 
 export enum LikeStatus {
@@ -154,6 +161,7 @@ export enum LikeStatus {
 }
 
 export enum LikeTargetModel {
+  Comment = 'Comment',
   Project = 'Project',
 }
 
@@ -263,7 +271,7 @@ export type User = {
 
 export type Comment = {
   id: Scalars['ID'];
-  parentId: Scalars['ID'];
+  parentId: Maybe<Scalars['ID']>;
   senderId: Scalars['ID'];
   targetId: Scalars['ID'];
   targetModel: CommentTargetModel;
@@ -608,6 +616,18 @@ export type MutationResolvers<
     >
   >;
   signOut: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  commentAdd: Resolver<
+    ResolversTypes['Comment'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCommentAddArgs, 'targetId' | 'targetModel' | 'text'>
+  >;
+  commentRemove: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCommentRemoveArgs, 'id'>
+  >;
   likeAdd: Resolver<
     ResolversTypes['Like'],
     ParentType,
@@ -649,15 +669,6 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationSubscriptionRemoveArgs, 'id'>
-  >;
-  commentAdd: Resolver<
-    ResolversTypes['Comment'],
-    ParentType,
-    ContextType,
-    RequireFields<
-      MutationCommentAddArgs,
-      'parentId' | 'targetId' | 'targetModel' | 'text'
-    >
   >;
 };
 
@@ -858,7 +869,7 @@ export type CommentResolvers<
   ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  parentId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  parentId: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   targetModel: Resolver<
