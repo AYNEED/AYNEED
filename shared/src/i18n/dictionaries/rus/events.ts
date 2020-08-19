@@ -22,7 +22,8 @@ export const events = {
     'Профиль заполнен не полностью. Заполните и повторите попытку',
 
   'error.comment.notFound': 'Комментарий не найден',
-  'error.comment.targetNotExists': 'Невозможно прокомментировать несуществующий объект',
+  'error.comment.targetNotExists':
+    'Невозможно прокомментировать несуществующий объект',
 
   'error.project.notFound': 'Начинание не найдено',
 
@@ -32,5 +33,6 @@ export const events = {
   'error.like.exists': 'Вы уже оценили это',
   'error.like.targetNotExists': 'Невозможно оценить несуществующий объект',
   'error.like.likeNotExists': 'Оценки не существует',
-  'error.like.dislikeNotSupported': 'Дизлайк можно поставить только комментарию'
+  'error.like.dislikeNotSupported':
+    'Дизлайк можно поставить только комментарию',
 };
