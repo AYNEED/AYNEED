@@ -1,5 +1,6 @@
 import { Resolvers } from 'src/__generated__';
 
+import { helpAdd, helpItemAdd } from 'src/resolvers/mutations/helps';
 import { likeAdd, likeRemove } from 'src/resolvers/mutations/likes';
 import { messageAdd } from 'src/resolvers/mutations/messages';
 import { projectAdd, projectRemove } from 'src/resolvers/mutations/projects';
@@ -16,6 +17,8 @@ import {
 } from 'src/resolvers/mutations/users';
 
 export const mutation: Resolvers['Mutation'] = {
+  helpAdd,
+  helpItemAdd,
   forgotPassword,
   forgotPasswordChange,
   signInEmail,

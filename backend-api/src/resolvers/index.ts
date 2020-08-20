@@ -6,6 +6,8 @@ import { subscription } from 'src/resolvers/subscriptions';
 import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
+  resolveHelp,
+  resolveHelpItem,
   resolveLike,
   resolveMessage,
   resolveMessageFeed,
@@ -28,7 +30,6 @@ import {
   resolveUserRegionalData,
   resolveUserSkillRecord,
   resolveUserStatisticsData,
-  resolveReferencesArea,
 } from 'src/resolvers/customResolvers';
 import { scalarDateTime } from 'src/resolvers/customScalars';
 
@@ -71,7 +72,8 @@ export const resolvers: Resolvers = {
   UserStatisticsData: resolveUserStatisticsData,
 
   // Models records:
-  ReferencesArea: resolveReferencesArea,
+  Help: resolveHelp,
+  HelpItem: resolveHelpItem,
   UserCareerRecord: resolveUserCareerRecord,
   UserContactRecord: resolveUserContactRecord,
   UserEducationRecord: resolveUserEducationRecord,

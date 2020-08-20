@@ -25,6 +25,8 @@ export type Mutation = {
   projectRemove: Scalars['Boolean'];
   subscriptionAdd: SubscribedUser;
   subscriptionRemove: Scalars['Boolean'];
+  helpAdd: Maybe<Help>;
+  helpItemAdd: Maybe<HelpItem>;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -87,6 +89,19 @@ export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
 };
 
+export type MutationHelpAddArgs = {
+  locale: UserLocale;
+  text: Scalars['String'];
+};
+
+export type MutationHelpItemAddArgs = {
+  order: Scalars['Int'];
+  locale: UserLocale;
+  icon: Scalars['String'];
+  title: Scalars['String'];
+  text: Scalars['String'];
+};
+
 export type Query = {
   project: Project;
   projects: ProjectFeed;
@@ -94,7 +109,8 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
-  reference: ReferencesArea;
+  help: Help;
+  helpItem: HelpItem;
 };
 
 export type QueryProjectArgs = {
@@ -122,7 +138,11 @@ export type QueryMessagesArgs = {
   cursor: Scalars['ID'];
 };
 
-export type QueryReferenceArgs = {
+export type QueryHelpArgs = {
+  id: Scalars['ID'];
+};
+
+export type QueryHelpItemArgs = {
   id: Scalars['ID'];
 };
 
@@ -244,6 +264,24 @@ export type User = {
   createdAt: Scalars['DateTime'];
 };
 
+export type HelpItem = {
+  id: Scalars['ID'];
+  order: Scalars['Int'];
+  locale: UserLocale;
+  icon: Scalars['String'];
+  title: Scalars['String'];
+  text: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type Help = {
+  id: Scalars['ID'];
+  locale: UserLocale;
+  text: Scalars['String'];
+  items: Array<HelpItem>;
+  createdAt: Scalars['DateTime'];
+};
+
 export type Like = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
@@ -343,14 +381,6 @@ export type UserLanguageRecord = {
 export type UserSkillRecord = {
   title: Scalars['String'];
   primary: Scalars['Boolean'];
-};
-
-export type ReferencesArea = {
-  id: Scalars['ID'];
-  locale: UserLocale;
-  order: Scalars['Int'];
-  content: Scalars['String'];
-  createdAt: Scalars['DateTime'];
 };
 
 export type CommouProjectFieldsFragment = Pick<

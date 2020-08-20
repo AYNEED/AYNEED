@@ -26,5 +26,6 @@ export const events = {
   'error.subscription.notFound': 'Подписка не найдена',
   'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',
 
-  'error.reference.notFound': 'Контент справочного раздела не найден',
+  'error.help.notFound': 'Справочный раздел пока пуст',
+  'error.helpItem.notFound': 'Справочный элемент не найден',
 };

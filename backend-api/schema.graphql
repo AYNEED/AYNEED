@@ -49,6 +49,16 @@ type Mutation {
   ): SubscribedUser!
 
   subscriptionRemove(id: ID!): Boolean!
+
+  helpAdd(locale: USER_LOCALE!, text: String!): Help
+
+  helpItemAdd(
+    order: Int!
+    locale: USER_LOCALE!
+    icon: String!
+    title: String!
+    text: String!
+  ): HelpItem
 }
 
 type Query {
@@ -62,7 +72,8 @@ type Query {
 
   messages(cursor: ID!): MessageFeed!
 
-  reference(id: ID!): ReferencesArea!
+  help(id: ID!): Help!
+  helpItem(id: ID!): HelpItem!
 }
 
 type Subscription {
@@ -192,6 +203,24 @@ type User {
 
 # #################### additional models ######################
 
+type HelpItem {
+  id: ID!
+  order: Int!
+  locale: USER_LOCALE!
+  icon: String!
+  title: String!
+  text: String!
+  createdAt: DateTime!
+}
+
+type Help {
+  id: ID!
+  locale: USER_LOCALE!
+  text: String!
+  items: [HelpItem!]!
+  createdAt: DateTime!
+}
+
 type Like {
   id: ID!
   senderId: ID!
@@ -295,12 +324,4 @@ type UserLanguageRecord {
 type UserSkillRecord {
   title: String!
   primary: Boolean!
-}
-
-type ReferencesArea {
-  id: ID!
-  locale: USER_LOCALE!
-  order: Int!
-  content: String!
-  createdAt: DateTime!
 }

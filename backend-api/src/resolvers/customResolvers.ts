@@ -1,3 +1,4 @@
+import { HelpItemModel } from 'src/models/helps';
 import { ProjectModel } from 'src/models/project';
 import { SubscriptionModel } from 'src/models/subscription';
 import {
@@ -166,11 +167,22 @@ export const resolveUserStatisticsData: Resolvers['UserStatisticsData'] = {
 
 // ---------------------- Models records ----------------------
 
-export const resolveReferencesArea: Resolvers['ReferencesArea'] = {
+export const resolveHelp: Resolvers['Help'] = {
   id: (parent) => parent.id,
   locale: (parent) => parent.locale,
+  text: (parent) => parent.text,
+  items: async (parent) =>
+    HelpItemModel.find({ locale: parent.locale }).sort({ order: 1 }),
+  createdAt: (parent) => parent.createdAt,
+};
+
+export const resolveHelpItem: Resolvers['HelpItem'] = {
+  id: (parent) => parent.id,
   order: (parent) => parent.order,
-  content: (parent) => parent.content,
+  locale: (parent) => parent.locale,
+  icon: (parent) => parent.icon,
+  title: (parent) => parent.title,
+  text: (parent) => parent.text,
   createdAt: (parent) => parent.createdAt,
 };
 
