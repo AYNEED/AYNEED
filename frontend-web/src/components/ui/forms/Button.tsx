@@ -1,5 +1,4 @@
 import React from 'react';
-// import { FelaComponent } from 'react-fela';
 import { useFela } from 'react-fela';
 
 import { PropsStyle } from 'src/utils/fela';

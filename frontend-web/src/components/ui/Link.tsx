@@ -2,6 +2,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useFela } from 'react-fela';
 
+import { PropsStyle } from 'src/utils/fela';
 import { makeURL, Scheme } from 'src/navigation';
 
 interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -10,7 +11,7 @@ interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   innerRef?: React.Ref<HTMLAnchorElement>;
 }
 
-const linkStyle: object = () => ({
+const linkStyle: PropsStyle = () => ({
   textDecoration: 'none',
 });
 
