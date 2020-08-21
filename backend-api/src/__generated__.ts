@@ -143,7 +143,7 @@ export type QuerySearchArgs = {
 };
 
 export type QueryMessagesArgs = {
-  cursor: Scalars['ID'];
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type QueryHelpArgs = {
@@ -742,7 +742,7 @@ export type QueryResolvers<
     ResolversTypes['MessageFeed'],
     ParentType,
     ContextType,
-    RequireFields<QueryMessagesArgs, 'cursor'>
+    RequireFields<QueryMessagesArgs, never>
   >;
   help: Resolver<
     ResolversTypes['Help'],

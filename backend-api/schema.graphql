@@ -73,7 +73,7 @@ type Query {
     cursor: ID
   ): UserFeed!
 
-  messages(cursor: ID!): MessageFeed!
+  messages(cursor: ID): MessageFeed!
 
   help(id: ID!): Help!
   helpItem(id: ID!): HelpItem!
