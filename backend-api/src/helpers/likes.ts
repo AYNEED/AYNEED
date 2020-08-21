@@ -17,15 +17,11 @@ export const createLike = async ({
 
 export const updateLike = async ({
   id,
-  status
-}: LikeRes['id'|'status']): Promise<LikeRes | null> =>
-  LikeModel.findByIdAndUpdate(
-    { _id: id },
-    { status: status }
-  );
+  status,
+}: LikeRes['id' | 'status']): Promise<LikeRes | null> =>
+  LikeModel.findByIdAndUpdate({ _id: id }, { status: status });
 
 export const deleteLike = async ({
   id,
 }: LikeRes['id']): Promise<LikeRes | null> =>
   LikeModel.findByIdAndDelete({ _id: id });
-

@@ -63,7 +63,6 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
   });
 
   if (check) {
-
     const like = await LikeModel.findOne({
       senderId: user.id,
       targetId,
@@ -71,38 +70,29 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
     });
 
     if (like && like.status !== status) {
-
       const condition = status === LikeStatus.Dislike;
 
       await targetHelper.model.findByIdAndUpdate(
         { _id: targetId },
-        { $inc: {
-
-          [LikeStatus.Dislike]: condition ? 1 : -1 ,
-          [LikeStatus.Like]: condition ? -1 : 1
-
-          } }
+        {
+          $inc: {
+            [LikeStatus.Dislike]: condition ? 1 : -1,
+            [LikeStatus.Like]: condition ? -1 : 1,
+          },
+        }
       );
 
       const id = like._id;
-      const res = await updateLike({id, status});
+      const res = await updateLike({ id, status });
 
       if (res !== null) {
-
         return res;
-
       } else {
-
         throw new ValidationError('error.like.targetNotExists');
-
       }
-
     } else {
-
       throw new ValidationError('error.like.exists');
-
     }
-
   }
 
   const field = status === LikeStatus.Dislike ? 'dislikesCount' : 'likesCount';
