@@ -23,8 +23,8 @@ export const client = window.matchMedia(
 export const renderer = createRenderer({
   plugins: [
     typescript(),
-    fallbackValue(),
     prefixer(),
+    fallbackValue(),
     unit(),
     namedKeys(mediaQueries),
   ],
@@ -159,6 +159,7 @@ interface AugmentedStyle extends IStyle {
   ':after'?: IStyle;
   ':before'?: IStyle;
   '> a'?: IStyle;
+  '> p'?: IStyle;
   '> input'?: IStyle;
   '> label'?: IStyle;
 }

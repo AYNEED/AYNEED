@@ -17,50 +17,45 @@ type ButtonSubmitProps = {
   disabled?: boolean;
 };
 
-// const styles: Styles<'border' | 'text'> = {
-//   border: {
-//     position: 'relative',
-//     height: '50px',
-//     minWidth: '200px',
-//     padding: '2px',
-//     background: `${GRADIENTS.HORIZONTAL} !important`,
-//     // color: 
-//     borderRadius: '8px',
 
-//     ':hover': {
-//       background: `${COLOR.PRIMARY_300}`,
-//       color: `${COLOR.PRIMARY_300}`
-//     }
-//   },
-//   text: {
 
-//   }
-// };
-
+const textRule: PropsStyle = () => ({
+  fontStyle: 'normal',
+  width: '100%',
+  height: '100%',
+  display: 'flex !important',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontWeight: 600,
+  fontSize: '16px',
+  lineHeight: '24px',
+  textTransform: 'uppercase',
+  background: `${COLOR.WHITE}`,
+  borderRadius: '8px',
+  mixBlendMode: 'lighten',
+})
 
 const buttonRule: PropsStyle = () => ({
   position: 'relative',
   height: '50px',
   minWidth: '200px',
   padding: '2px',
-  backgroundColor: COLOR.WHITE,
-  border: '2px solid',
-  borderImageSlice: 1,
-  borderImageSource: `${GRADIENTS.HORIZONTAL}`,
   borderRadius: '8px',
-  display: 'flex !important',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontStyle: 'normal',
-  fontWeight: 600,
-  fontSize: '16px',
-  lineHeight: '24px',
-  textTransform: 'uppercase',
   cursor: 'pointer',
+  background: `${GRADIENTS.HORIZONTAL}`,
 
   ':hover': {
-    borderImageSource: `${COLOR.PRIMARY_300}`,
-    color: `${COLOR.PRIMARY_300}`
+    background: `${COLOR.PRIMARY_300}`,
+    '> p' : {
+      color: `${COLOR.PRIMARY_300}`,
+    }
+  },
+
+  ':active': {
+    background: `${COLOR.PRIMARY_200}`,
+    '> p' : {
+      color: `${COLOR.PRIMARY_200}`,
+    }
   }
 })
 
@@ -69,17 +64,11 @@ export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => {
   const { css } = useFela()
   const buttonLink: React.RefObject<HTMLDivElement> = React.createRef()
 
-  const tabHandler = () => {
-    if (buttonLink.current !== null) {
-      buttonLink.current.style.borderColor = `${COLOR.PRIMARY_200}`
-      buttonLink.current.style.color = `${COLOR.PRIMARY_200}`
-    }
-  }
   
   return(
-    <Link url={url} onMouseDown={tabHandler}>
+    <Link url={url} >
       <div className={css(buttonRule)} ref={buttonLink}>
-        {children}
+        <p className={css(textRule)}>{children}</p>
       </div>
     </Link>
   )
