@@ -144,15 +144,15 @@ renderer.renderStatic(`
 const buttonKeyframe = () => ({
   '0%': {
     transform: 'scale(0)',
-    opacity: 1
+    opacity: 1,
   },
   '100%': {
     transform: 'scale(var(--scale))',
     opacity: 0,
-  }
-})
+  },
+});
 
-renderer.renderKeyframe(buttonKeyframe, {})
+renderer.renderKeyframe(buttonKeyframe, {});
 
 interface AugmentedStyle extends IStyle {
   ':hover'?: IStyle;

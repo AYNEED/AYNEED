@@ -12,12 +12,11 @@ interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 
 const linkStyle: object = () => ({
   textDecoration: 'none',
-})
-
+});
 
 export const Link: React.FC<Props> = (props) => {
   const to = makeURL(props.url);
-  const { css } = useFela()
+  const { css } = useFela();
 
   if (!to) {
     return null;
