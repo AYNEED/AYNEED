@@ -234,7 +234,6 @@ type Comment {
 
 type HelpItem {
   id: ID!
-  order: Int!
   icon: String!
   title: String!
   text: String!

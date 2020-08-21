@@ -295,7 +295,6 @@ export type Comment = {
 
 export type HelpItem = {
   id: Scalars['ID'];
-  order: Scalars['Int'];
   icon: Scalars['String'];
   title: Scalars['String'];
   text: Scalars['String'];
@@ -930,7 +929,6 @@ export type HelpItemResolvers<
   ParentType extends ResolversParentTypes['HelpItem'] = ResolversParentTypes['HelpItem']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  order: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   icon: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   text: Resolver<ResolversTypes['String'], ParentType, ContextType>;

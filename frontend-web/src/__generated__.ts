@@ -288,7 +288,6 @@ export type Comment = {
 
 export type HelpItem = {
   id: Scalars['ID'];
-  order: Scalars['Int'];
   icon: Scalars['String'];
   title: Scalars['String'];
   text: Scalars['String'];
