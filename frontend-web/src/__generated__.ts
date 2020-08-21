@@ -29,8 +29,6 @@ export type Mutation = {
   projectRemove: Scalars['Boolean'];
   subscriptionAdd: SubscribedUser;
   subscriptionRemove: Scalars['Boolean'];
-  helpAdd: Maybe<Help>;
-  helpItemAdd: Maybe<HelpItem>;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -102,19 +100,6 @@ export type MutationSubscriptionAddArgs = {
 
 export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
-};
-
-export type MutationHelpAddArgs = {
-  locale: UserLocale;
-  text: Scalars['String'];
-};
-
-export type MutationHelpItemAddArgs = {
-  order: Scalars['Int'];
-  locale: UserLocale;
-  icon: Scalars['String'];
-  title: Scalars['String'];
-  text: Scalars['String'];
 };
 
 export type Query = {

@@ -36,8 +36,6 @@ export type Mutation = {
   projectRemove: Scalars['Boolean'];
   subscriptionAdd: SubscribedUser;
   subscriptionRemove: Scalars['Boolean'];
-  helpAdd: Maybe<Help>;
-  helpItemAdd: Maybe<HelpItem>;
 };
 
 export type MutationForgotPasswordArgs = {
@@ -109,19 +107,6 @@ export type MutationSubscriptionAddArgs = {
 
 export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
-};
-
-export type MutationHelpAddArgs = {
-  locale: UserLocale;
-  text: Scalars['String'];
-};
-
-export type MutationHelpItemAddArgs = {
-  order: Scalars['Int'];
-  locale: UserLocale;
-  icon: Scalars['String'];
-  title: Scalars['String'];
-  text: Scalars['String'];
 };
 
 export type Query = {
@@ -541,7 +526,6 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   String: ResolverTypeWrapper<Scalars['String']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
   COMMENT_TARGET_MODEL: CommentTargetModel;
@@ -560,6 +544,7 @@ export type ResolversTypes = {
   UserFeed: ResolverTypeWrapper<UserFeed>;
   Message: ResolverTypeWrapper<Message>;
   Project: ResolverTypeWrapper<Project>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   User: ResolverTypeWrapper<User>;
   HelpItem: ResolverTypeWrapper<HelpItem>;
   Help: ResolverTypeWrapper<Help>;
@@ -588,7 +573,6 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   String: Scalars['String'];
   ID: Scalars['ID'];
-  Int: Scalars['Int'];
   Query: {};
   Subscription: {};
   MessageFeed: MessageFeed;
@@ -596,6 +580,7 @@ export type ResolversParentTypes = {
   UserFeed: UserFeed;
   Message: Message;
   Project: Project;
+  Int: Scalars['Int'];
   User: User;
   HelpItem: HelpItem;
   Help: Help;
@@ -716,21 +701,6 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationSubscriptionRemoveArgs, 'id'>
-  >;
-  helpAdd: Resolver<
-    Maybe<ResolversTypes['Help']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationHelpAddArgs, 'locale' | 'text'>
-  >;
-  helpItemAdd: Resolver<
-    Maybe<ResolversTypes['HelpItem']>,
-    ParentType,
-    ContextType,
-    RequireFields<
-      MutationHelpItemAddArgs,
-      'order' | 'locale' | 'icon' | 'title' | 'text'
-    >
   >;
 };
 

@@ -58,16 +58,6 @@ type Mutation {
   ): SubscribedUser!
 
   subscriptionRemove(id: ID!): Boolean!
-
-  helpAdd(locale: USER_LOCALE!, text: String!): Help
-
-  helpItemAdd(
-    order: Int!
-    locale: USER_LOCALE!
-    icon: String!
-    title: String!
-    text: String!
-  ): HelpItem
 }
 
 type Query {

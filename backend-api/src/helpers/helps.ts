@@ -7,8 +7,6 @@ import {
 import {
   Help,
   HelpItem,
-  MutationHelpAddArgs,
-  MutationHelpItemAddArgs,
 } from 'src/__generated__';
 
 import { ValidationError } from 'shared';
@@ -34,18 +32,3 @@ export const findHelpItemById = async (
 
   return helpItem;
 };
-
-export const createHelp = async ({
-  locale,
-  text,
-}: MutationHelpAddArgs): Promise<HelpRes> =>
-  HelpsModel.create({ locale, text });
-
-export const createHelpItem = async ({
-  order,
-  locale,
-  icon,
-  title,
-  text,
-}: MutationHelpItemAddArgs): Promise<HelpItemRes> =>
-  HelpItemModel.create({ order, locale, icon, title, text });
