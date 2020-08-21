@@ -14,7 +14,7 @@
         "typescript-react-apollo"
       ],
       "config": {
-        "reactApolloVersion": 2,
+        "reactApolloVersion": 3,
         "withComponent": false,
         "withHOC": false,
         "withHooks": false

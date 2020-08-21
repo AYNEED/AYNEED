@@ -8,11 +8,11 @@ import { query } from 'src/resolvers/queries';
 import {
   resolveHelp,
   resolveHelpItem,
+  resolveComment,
   resolveLike,
   resolveMessage,
   resolveMessageFeed,
   resolveMessageInfoData,
-  resolveMessageUsersData,
   resolveMessageVisibleData,
   resolveProject,
   resolveProjectFeed,
@@ -57,12 +57,12 @@ export const resolvers: Resolvers = {
   User: resolveUser,
 
   // Additional models:
+  Comment: resolveComment,
   Like: resolveLike,
   SubscribedUser: resolveSubscribedUser,
 
   // Models data:
   MessageInfoData: resolveMessageInfoData,
-  MessageUsersData: resolveMessageUsersData,
   MessageVisibleData: resolveMessageVisibleData,
   UserAboutData: resolveUserAboutData,
   UserContactsData: resolveUserContactsData,

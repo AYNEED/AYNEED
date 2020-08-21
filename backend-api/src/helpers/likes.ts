@@ -14,3 +14,8 @@ export const createLike = async ({
     targetModel,
     status,
   });
+
+export const deleteLike = async ({
+  id,
+}: LikeRes['id']): Promise<LikeRes | null> =>
+  LikeModel.findByIdAndDelete({ _id: id });

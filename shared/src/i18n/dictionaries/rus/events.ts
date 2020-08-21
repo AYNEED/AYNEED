@@ -21,6 +21,10 @@ export const events = {
   'error.user.incompleteProfile':
     'Профиль заполнен не полностью. Заполните и повторите попытку',
 
+  'error.comment.notFound': 'Комментарий не найден',
+  'error.comment.targetNotExists':
+    'Невозможно прокомментировать несуществующий объект',
+
   'error.project.notFound': 'Начинание не найдено',
 
   'error.subscription.notFound': 'Подписка не найдена',
@@ -28,4 +32,10 @@ export const events = {
 
   'error.help.notFound': 'Справочный раздел пока пуст',
   'error.helpItem.notFound': 'Справочный элемент не найден',
+
+  'error.like.exists': 'Вы уже оценили это',
+  'error.like.targetNotExists': 'Невозможно оценить несуществующий объект',
+  'error.like.likeNotExists': 'Оценки не существует',
+  'error.like.dislikeNotSupported':
+    'Дизлайк можно поставить только комментарию',
 };

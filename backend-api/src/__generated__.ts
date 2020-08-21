@@ -4,7 +4,9 @@ import {
   GraphQLScalarTypeConfig,
 } from 'graphql';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
 export type RequireFields<T, K extends keyof T> = {
   [X in Exclude<keyof T, K>]?: T[X];
 } &
@@ -25,6 +27,8 @@ export type Mutation = {
   signInEmail: User;
   signUpEmail: User;
   signOut: Scalars['Boolean'];
+  commentAdd: Comment;
+  commentRemove: Scalars['Boolean'];
   likeAdd: Like;
   likeRemove: Scalars['Boolean'];
   messageAdd: Message;
@@ -60,6 +64,17 @@ export type MutationSignUpEmailArgs = {
   locale: UserLocale;
   isAgree: Scalars['Boolean'];
   client: UserClient;
+};
+
+export type MutationCommentAddArgs = {
+  parentId: Maybe<Scalars['ID']>;
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  text: Scalars['String'];
+};
+
+export type MutationCommentRemoveArgs = {
+  id: Scalars['ID'];
 };
 
 export type MutationLikeAddArgs = {
@@ -139,6 +154,7 @@ export type QueryUsersArgs = {
 export type QuerySearchArgs = {
   query: Scalars['String'];
   targetModel: SearchTargetModel;
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type QueryMessagesArgs = {
@@ -160,15 +176,18 @@ export type Subscription = {
   userUpdated: User;
 };
 
+export enum CommentTargetModel {
+  Project = 'Project',
+}
+
 export enum LikeStatus {
   Like = 'like',
   Dislike = 'dislike',
 }
 
 export enum LikeTargetModel {
-  User = 'user',
-  Comment = 'comment',
-  Project = 'project',
+  Comment = 'Comment',
+  Project = 'Project',
 }
 
 export enum ProjectStatus {
@@ -192,8 +211,8 @@ export enum SubscriptionStatus {
 }
 
 export enum SubscriptionTargetModel {
-  User = 'user',
-  Project = 'project',
+  User = 'User',
+  Project = 'Project',
 }
 
 export enum UserLocale {
@@ -236,8 +255,9 @@ export type UserFeed = {
 
 export type Message = {
   id: Scalars['ID'];
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
   info: MessageInfoData;
-  users: MessageUsersData;
   visible: MessageVisibleData;
   createdAt: Scalars['DateTime'];
   editAt: Maybe<Scalars['DateTime']>;
@@ -250,8 +270,11 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  likesCount: Scalars['Int'];
   status: ProjectStatus;
   subscribers: Array<SubscribedUser>;
+  comments: Array<Comment>;
+  commentsCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -289,6 +312,19 @@ export type Help = {
   createdAt: Scalars['DateTime'];
 };
 
+export type Comment = {
+  id: Scalars['ID'];
+  parentId: Maybe<Scalars['ID']>;
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  text: Scalars['String'];
+  likesCount: Scalars['Int'];
+  dislikesCount: Scalars['Int'];
+  commentsCount: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+};
+
 export type Like = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
@@ -310,11 +346,6 @@ export type SubscribedUser = {
 export type MessageInfoData = {
   text: Scalars['String'];
   isRead: Scalars['Boolean'];
-};
-
-export type MessageUsersData = {
-  senderId: Scalars['ID'];
-  targetId: Scalars['ID'];
 };
 
 export type MessageVisibleData = {
@@ -513,6 +544,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
+  COMMENT_TARGET_MODEL: CommentTargetModel;
   LIKE_STATUS: LikeStatus;
   LIKE_TARGET_MODEL: LikeTargetModel;
   PROJECT_STATUS: ProjectStatus;
@@ -531,10 +563,10 @@ export type ResolversTypes = {
   User: ResolverTypeWrapper<User>;
   HelpItem: ResolverTypeWrapper<HelpItem>;
   Help: ResolverTypeWrapper<Help>;
+  Comment: ResolverTypeWrapper<Comment>;
   Like: ResolverTypeWrapper<Like>;
   SubscribedUser: ResolverTypeWrapper<SubscribedUser>;
   MessageInfoData: ResolverTypeWrapper<MessageInfoData>;
-  MessageUsersData: ResolverTypeWrapper<MessageUsersData>;
   MessageVisibleData: ResolverTypeWrapper<MessageVisibleData>;
   UserAboutData: ResolverTypeWrapper<UserAboutData>;
   UserContactsData: ResolverTypeWrapper<UserContactsData>;
@@ -567,10 +599,10 @@ export type ResolversParentTypes = {
   User: User;
   HelpItem: HelpItem;
   Help: Help;
+  Comment: Comment;
   Like: Like;
   SubscribedUser: SubscribedUser;
   MessageInfoData: MessageInfoData;
-  MessageUsersData: MessageUsersData;
   MessageVisibleData: MessageVisibleData;
   UserAboutData: UserAboutData;
   UserContactsData: UserContactsData;
@@ -631,6 +663,18 @@ export type MutationResolvers<
     >
   >;
   signOut: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  commentAdd: Resolver<
+    ResolversTypes['Comment'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCommentAddArgs, 'targetId' | 'targetModel' | 'text'>
+  >;
+  commentRemove: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCommentRemoveArgs, 'id'>
+  >;
   likeAdd: Resolver<
     ResolversTypes['Like'],
     ParentType,
@@ -806,8 +850,9 @@ export type MessageResolvers<
   ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
 > = {
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   info: Resolver<ResolversTypes['MessageInfoData'], ParentType, ContextType>;
-  users: Resolver<ResolversTypes['MessageUsersData'], ParentType, ContextType>;
   visible: Resolver<
     ResolversTypes['MessageVisibleData'],
     ParentType,
@@ -832,12 +877,15 @@ export type ProjectResolvers<
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  likesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   status: Resolver<ResolversTypes['PROJECT_STATUS'], ParentType, ContextType>;
   subscribers: Resolver<
     Array<ResolversTypes['SubscribedUser']>,
     ParentType,
     ContextType
   >;
+  comments: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType>;
+  commentsCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -916,6 +964,27 @@ export type HelpResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type CommentResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  parentId: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetModel: Resolver<
+    ResolversTypes['COMMENT_TARGET_MODEL'],
+    ParentType,
+    ContextType
+  >;
+  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  likesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dislikesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  commentsCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type LikeResolvers<
   ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Like'] = ResolversParentTypes['Like']
@@ -960,15 +1029,6 @@ export type MessageInfoDataResolvers<
 > = {
   text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   isRead: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
-};
-
-export type MessageUsersDataResolvers<
-  ContextType = { user?: User },
-  ParentType extends ResolversParentTypes['MessageUsersData'] = ResolversParentTypes['MessageUsersData']
-> = {
-  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -1150,10 +1210,10 @@ export type Resolvers<ContextType = { user?: User }> = {
   User: UserResolvers<ContextType>;
   HelpItem: HelpItemResolvers<ContextType>;
   Help: HelpResolvers<ContextType>;
+  Comment: CommentResolvers<ContextType>;
   Like: LikeResolvers<ContextType>;
   SubscribedUser: SubscribedUserResolvers<ContextType>;
   MessageInfoData: MessageInfoDataResolvers<ContextType>;
-  MessageUsersData: MessageUsersDataResolvers<ContextType>;
   MessageVisibleData: MessageVisibleDataResolvers<ContextType>;
   UserAboutData: UserAboutDataResolvers<ContextType>;
   UserContactsData: UserContactsDataResolvers<ContextType>;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { persistCache } from 'apollo-cache-persist';
-import { ApolloProvider as Provider } from '@apollo/react-hooks';
+import { ApolloProvider as Provider } from '@apollo/client';
 
 import { cache, client, storage } from 'src/utils/graphql';
 import { fallback } from 'src/components/wrappers/Router';

@@ -1,21 +1,30 @@
 export enum COLOR {
-  PRIMARY_100 = '#6EF5A7',
-  PRIMARY_200 = '#5DE496',
-  PRIMARY_300 = '#4BD284',
-  PRIMARY_400 = '#39C072',
-  PRIMARY_500 = '#27AE60',
-  PRIMARY_600 = '#159C4E',
-  PRIMARY_700 = '#038A3C',
-  PRIMARY_800 = '#00782A',
-  PRIMARY_900 = '#006719',
+  // primary colors
+  PRIMARY_100 = '#015496',
+  PRIMARY_200 = '#047CAC',
+  PRIMARY_300 = '#09BCCF',
+  PRIMARY_400 = '#C6EBEF',
+  PRIMARY_500 = '#E7F3F5',
 
-  SECONDARY_100 = '#F5F6F8',
-  SECONDARY_200 = '#E4E9F0',
-  SECONDARY_300 = '#C2CFE0',
-  SECONDARY_400 = '#90A0B7',
-  SECONDARY_500 = '#334D6E',
+  // secondary colors
+  SECONDARY_100 = '#334D6E',
+  SECONDARY_200 = '#86A3C6',
+  SECONDARY_300 = '#C7D9EB',
+  SECONDARY_400 = '#E4E9F0',
+  SECONDARY_500 = '#FAFBFC',
 
-  RED = '#EB5757',
-  TRANSPARENT = 'transparent',
+  // others colors
+  ERROR = '#ED5432',
   WHITE = '#FFFFFF',
+  TRANSPARENT = 'transparent',
+
+  RED = '#EB5757', // check if it needs to be removed
 }
+
+// gradient colors
+export const GRADIENTS = {
+  HORIZONTAL: `linear-gradient(90deg, ${COLOR.PRIMARY_100} 0%, ${COLOR.PRIMARY_300} 100%)`,
+  VERTICAL_SUNSET: `linear-gradient(180deg, ${COLOR.PRIMARY_300} 0%, ${COLOR.PRIMARY_100} 100%)`,
+  VERTICAL_DAWN: `linear-gradient(180deg, ${COLOR.PRIMARY_100} 0%, ${COLOR.PRIMARY_300} 100%)`,
+  DEFAULT: `linear-gradient(90deg, ${COLOR.PRIMARY_400} 0%, ${COLOR.PRIMARY_500} 100%)`,
+} as const;
