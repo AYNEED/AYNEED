@@ -1,6 +1,5 @@
 import { HelpsModel, HelpRes } from 'src/models/helps';
 import { Help } from 'src/__generated__';
-
 import { ValidationError } from 'shared';
 
 export const findHelpByLocale = async (
