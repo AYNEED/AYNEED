@@ -110,7 +110,6 @@ export type Query = {
   search: UserFeed;
   messages: MessageFeed;
   help: Help;
-  helpItem: HelpItem;
 };
 
 export type QueryProjectArgs = {
@@ -140,11 +139,7 @@ export type QueryMessagesArgs = {
 };
 
 export type QueryHelpArgs = {
-  id: Scalars['ID'];
-};
-
-export type QueryHelpItemArgs = {
-  id: Scalars['ID'];
+  locale: UserLocale;
 };
 
 export type Subscription = {
@@ -231,6 +226,12 @@ export type UserFeed = {
   hasMore: Scalars['Boolean'];
 };
 
+export type Help = {
+  locale: UserLocale;
+  text: Scalars['String'];
+  items: Array<HelpItem>;
+};
+
 export type Message = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
@@ -272,24 +273,6 @@ export type User = {
   createdAt: Scalars['DateTime'];
 };
 
-export type HelpItem = {
-  id: Scalars['ID'];
-  order: Scalars['Int'];
-  locale: UserLocale;
-  icon: Scalars['String'];
-  title: Scalars['String'];
-  text: Scalars['String'];
-  createdAt: Scalars['DateTime'];
-};
-
-export type Help = {
-  id: Scalars['ID'];
-  locale: UserLocale;
-  text: Scalars['String'];
-  items: Array<HelpItem>;
-  createdAt: Scalars['DateTime'];
-};
-
 export type Comment = {
   id: Scalars['ID'];
   parentId: Maybe<Scalars['ID']>;
@@ -300,6 +283,15 @@ export type Comment = {
   likesCount: Scalars['Int'];
   dislikesCount: Scalars['Int'];
   commentsCount: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type HelpItem = {
+  id: Scalars['ID'];
+  order: Scalars['Int'];
+  icon: Scalars['String'];
+  title: Scalars['String'];
+  text: Scalars['String'];
   createdAt: Scalars['DateTime'];
 };
 

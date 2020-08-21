@@ -186,18 +186,15 @@ export const resolveUserStatisticsData: Resolvers['UserStatisticsData'] = {
 // ---------------------- Models records ----------------------
 
 export const resolveHelp: Resolvers['Help'] = {
-  id: (parent) => parent.id,
   locale: (parent) => parent.locale,
   text: (parent) => parent.text,
   items: async (parent) =>
     HelpItemModel.find({ locale: parent.locale }).sort({ order: 1 }),
-  createdAt: (parent) => parent.createdAt,
 };
 
 export const resolveHelpItem: Resolvers['HelpItem'] = {
   id: (parent) => parent.id,
   order: (parent) => parent.order,
-  locale: (parent) => parent.locale,
   icon: (parent) => parent.icon,
   title: (parent) => parent.title,
   text: (parent) => parent.text,
