@@ -76,7 +76,7 @@ const Content: React.FC = () => (
 );
 
 const Main: React.FC = () => (
-  <Page gray>
+  <Page>
     <FelaComponent style={styles.pageWrapper}>
       <Logo />
 

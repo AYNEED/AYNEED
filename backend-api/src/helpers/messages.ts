@@ -8,13 +8,11 @@ export const createMessage = async ({
   targetId,
 }: WithSenderId<MutationMessageAddArgs>): Promise<MessageRes> =>
   MessageModel.create({
+    senderId,
+    targetId,
     info: {
       text,
       isRead: false,
-    },
-    users: {
-      senderId,
-      targetId,
     },
     visible: {
       isVisibleSender: true,

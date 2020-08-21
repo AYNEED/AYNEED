@@ -29,6 +29,15 @@ type Mutation {
 
   signOut: Boolean!
 
+  commentAdd(
+    parentId: ID
+    targetId: ID!
+    targetModel: COMMENT_TARGET_MODEL!
+    text: String!
+  ): Comment!
+
+  commentRemove(id: ID!): Boolean!
+
   likeAdd(
     targetId: ID!
     targetModel: LIKE_TARGET_MODEL!
@@ -58,9 +67,13 @@ type Query {
   user(id: ID!): User!
   users(cursor: ID): UserFeed!
 
-  search(query: String!, targetModel: SEARCH_TARGET_MODEL!): UserFeed!
+  search(
+    query: String!
+    targetModel: SEARCH_TARGET_MODEL!
+    cursor: ID
+  ): UserFeed!
 
-  messages(cursor: ID!): MessageFeed!
+  messages(cursor: ID): MessageFeed!
 }
 
 type Subscription {
@@ -73,15 +86,18 @@ type Subscription {
 
 # ########################### enums ###########################
 
+enum COMMENT_TARGET_MODEL {
+  Project
+}
+
 enum LIKE_STATUS {
   like
   dislike
 }
 
 enum LIKE_TARGET_MODEL {
-  user
-  comment
-  project
+  Comment
+  Project
 }
 
 enum PROJECT_STATUS {
@@ -91,6 +107,7 @@ enum PROJECT_STATUS {
 }
 
 enum SEARCH_TARGET_MODEL {
+  # TODO: rename this fields
   candidates
   users
   ideas
@@ -105,8 +122,8 @@ enum SUBSCRIPTION_STATUS {
 }
 
 enum SUBSCRIPTION_TARGET_MODEL {
-  user
-  project
+  User
+  Project
 }
 
 enum USER_LOCALE {
@@ -153,8 +170,9 @@ type UserFeed {
 
 type Message {
   id: ID!
+  senderId: ID!
+  targetId: ID!
   info: MessageInfoData!
-  users: MessageUsersData!
   visible: MessageVisibleData!
   createdAt: DateTime!
   editAt: DateTime
@@ -167,8 +185,11 @@ type Project {
   title: String!
   problem: String!
   solution: String!
+  likesCount: Int!
   status: PROJECT_STATUS!
   subscribers: [SubscribedUser!]!
+  comments: [Comment!]!
+  commentsCount: Int!
   createdAt: DateTime!
 }
 
@@ -189,6 +210,19 @@ type User {
 }
 
 # #################### additional models ######################
+
+type Comment {
+  id: ID!
+  parentId: ID
+  senderId: ID!
+  targetId: ID!
+  targetModel: COMMENT_TARGET_MODEL!
+  text: String!
+  likesCount: Int!
+  dislikesCount: Int!
+  commentsCount: Int!
+  createdAt: DateTime!
+}
 
 type Like {
   id: ID!
@@ -213,11 +247,6 @@ type SubscribedUser {
 type MessageInfoData {
   text: String!
   isRead: Boolean!
-}
-
-type MessageUsersData {
-  senderId: ID!
-  targetId: ID!
 }
 
 type MessageVisibleData {
