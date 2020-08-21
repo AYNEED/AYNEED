@@ -116,6 +116,7 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
+  help: Help;
 };
 
 export type QueryProjectArgs = {
@@ -142,6 +143,10 @@ export type QuerySearchArgs = {
 
 export type QueryMessagesArgs = {
   cursor: Maybe<Scalars['ID']>;
+};
+
+export type QueryHelpArgs = {
+  locale: UserLocale;
 };
 
 export type Subscription = {
@@ -228,6 +233,12 @@ export type UserFeed = {
   hasMore: Scalars['Boolean'];
 };
 
+export type Help = {
+  locale: UserLocale;
+  text: Scalars['String'];
+  items: Array<HelpItem>;
+};
+
 export type Message = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
@@ -279,6 +290,14 @@ export type Comment = {
   likesCount: Scalars['Int'];
   dislikesCount: Scalars['Int'];
   commentsCount: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type HelpItem = {
+  id: Scalars['ID'];
+  icon: Scalars['String'];
+  title: Scalars['String'];
+  text: Scalars['String'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -514,11 +533,13 @@ export type ResolversTypes = {
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
   ProjectFeed: ResolverTypeWrapper<ProjectFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
+  Help: ResolverTypeWrapper<Help>;
   Message: ResolverTypeWrapper<Message>;
   Project: ResolverTypeWrapper<Project>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   User: ResolverTypeWrapper<User>;
   Comment: ResolverTypeWrapper<Comment>;
+  HelpItem: ResolverTypeWrapper<HelpItem>;
   Like: ResolverTypeWrapper<Like>;
   SubscribedUser: ResolverTypeWrapper<SubscribedUser>;
   MessageInfoData: ResolverTypeWrapper<MessageInfoData>;
@@ -548,11 +569,13 @@ export type ResolversParentTypes = {
   MessageFeed: MessageFeed;
   ProjectFeed: ProjectFeed;
   UserFeed: UserFeed;
+  Help: Help;
   Message: Message;
   Project: Project;
   Int: Scalars['Int'];
   User: User;
   Comment: Comment;
+  HelpItem: HelpItem;
   Like: Like;
   SubscribedUser: SubscribedUser;
   MessageInfoData: MessageInfoData;
@@ -712,6 +735,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryMessagesArgs, never>
   >;
+  help: Resolver<
+    ResolversTypes['Help'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryHelpArgs, 'locale'>
+  >;
 };
 
 export type SubscriptionResolvers<
@@ -768,6 +797,16 @@ export type UserFeedResolvers<
 > = {
   items: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   hasMore: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type HelpResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['Help'] = ResolversParentTypes['Help']
+> = {
+  locale: Resolver<ResolversTypes['USER_LOCALE'], ParentType, ContextType>;
+  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  items: Resolver<Array<ResolversTypes['HelpItem']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -881,6 +920,18 @@ export type CommentResolvers<
   likesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   dislikesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   commentsCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type HelpItemResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['HelpItem'] = ResolversParentTypes['HelpItem']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  icon: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -1105,10 +1156,12 @@ export type Resolvers<ContextType = { user?: User }> = {
   MessageFeed: MessageFeedResolvers<ContextType>;
   ProjectFeed: ProjectFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
+  Help: HelpResolvers<ContextType>;
   Message: MessageResolvers<ContextType>;
   Project: ProjectResolvers<ContextType>;
   User: UserResolvers<ContextType>;
   Comment: CommentResolvers<ContextType>;
+  HelpItem: HelpItemResolvers<ContextType>;
   Like: LikeResolvers<ContextType>;
   SubscribedUser: SubscribedUserResolvers<ContextType>;
   MessageInfoData: MessageInfoDataResolvers<ContextType>;

@@ -109,6 +109,7 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
+  help: Help;
 };
 
 export type QueryProjectArgs = {
@@ -135,6 +136,10 @@ export type QuerySearchArgs = {
 
 export type QueryMessagesArgs = {
   cursor: Maybe<Scalars['ID']>;
+};
+
+export type QueryHelpArgs = {
+  locale: UserLocale;
 };
 
 export type Subscription = {
@@ -221,6 +226,12 @@ export type UserFeed = {
   hasMore: Scalars['Boolean'];
 };
 
+export type Help = {
+  locale: UserLocale;
+  text: Scalars['String'];
+  items: Array<HelpItem>;
+};
+
 export type Message = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
@@ -272,6 +283,14 @@ export type Comment = {
   likesCount: Scalars['Int'];
   dislikesCount: Scalars['Int'];
   commentsCount: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type HelpItem = {
+  id: Scalars['ID'];
+  icon: Scalars['String'];
+  title: Scalars['String'];
+  text: Scalars['String'];
   createdAt: Scalars['DateTime'];
 };
 
