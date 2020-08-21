@@ -1,5 +1,5 @@
 import {
-  HelpModel,
+  HelpsModel,
   HelpRes,
   HelpItemRes,
   HelpItemModel,
@@ -14,7 +14,7 @@ import {
 import { ValidationError } from 'shared';
 
 export const findHelpById = async (id: Help['id']): Promise<HelpRes> => {
-  const help = await HelpModel.findById(id);
+  const help = await HelpsModel.findById(id);
 
   if (!help) {
     throw new ValidationError('error.help.notFound');
@@ -38,7 +38,8 @@ export const findHelpItemById = async (
 export const createHelp = async ({
   locale,
   text,
-}: MutationHelpAddArgs): Promise<HelpRes> => HelpModel.create({ locale, text });
+}: MutationHelpAddArgs): Promise<HelpRes> =>
+  HelpsModel.create({ locale, text });
 
 export const createHelpItem = async ({
   order,

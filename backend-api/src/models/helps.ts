@@ -58,4 +58,4 @@ export const HelpItemModel = model<HelpItemReq, HelpItemRes>(
   HelpItemSchema
 );
 
-export const HelpModel = model<HelpReq, HelpRes>('Help', HelpSchema);
+export const HelpsModel = model<HelpReq, HelpRes>('Help', HelpSchema);
