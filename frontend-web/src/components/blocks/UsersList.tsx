@@ -17,7 +17,7 @@ export const UsersList: React.FC<Props> = ({ data, callback }) => {
   useEffect(() => {
     const boundary = Bound();
 
-    boundary.watch(activateRef.current, (ratio: any) => {
+    boundary.watch(activateRef.current, (ratio) => {
       if (ratio !== null) {
         callback();
       }
@@ -26,7 +26,7 @@ export const UsersList: React.FC<Props> = ({ data, callback }) => {
     return () => {
       boundary.clear();
     };
-  }, [data]);
+  }, [data, callback]);
 
   if (!data) {
     return <p>Loading...</p>;
@@ -41,18 +41,10 @@ export const UsersList: React.FC<Props> = ({ data, callback }) => {
         >
           <VirtualizedLoader
             height={100}
-            children={<UsersListItem user={user} />}
+            children={<CardUser {...user} />}
           />
         </div>
       ))}
     </>
   );
 };
-
-export const UsersListItem: React.FC<{ user: CommonUserFieldsFragment }> = ({
-  user,
-}) => (
-  <div>
-    <CardUser {...user} />
-  </div>
-);

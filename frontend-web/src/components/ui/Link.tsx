@@ -16,8 +16,13 @@ export const Link: React.FC<Props> = (props) => {
     return null;
   }
 
+  const newProps = {
+    ...props,
+    url: undefined,
+  };
+
   return (
-    <RouterLink to={to} {...props}>
+    <RouterLink to={to} {...newProps}>
       {props.children}
     </RouterLink>
   );

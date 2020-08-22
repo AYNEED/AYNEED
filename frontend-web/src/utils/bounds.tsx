@@ -21,8 +21,6 @@ export const VirtualizedLoader: React.FC<Props> = ({
 }) => {
   const [position, setPosition] = useState<BOUNDARY>(BOUNDARY.INSIDE);
   const root = useRef(null);
-  const notVisiblePlaceholder =
-    position === BOUNDARY.OUTSIDE ? null : placeholder;
 
   useEffect(() => {
     let timeoutId: NodeJS.Timer | null = null;
@@ -34,23 +32,25 @@ export const VirtualizedLoader: React.FC<Props> = ({
       },
     });
 
-    preloaderBoundary.watch(
-      root.current,
-      () => {
-        timeoutId = setTimeout(() => {
+    const onEnter = (): void => {
+      timeoutId = setTimeout(
+        () =>
           setPosition(
             preloaderBoundary.check(root.current)
               ? BOUNDARY.INSIDE
               : BOUNDARY.OUTSIDE
-          );
-        }, 300);
-      },
-      () => {
-        setPosition(BOUNDARY.OUTSIDE);
-      }
-    );
+          ),
+        300
+      );
+    };
+
+    const onLeave = (): void => setPosition(BOUNDARY.OUTSIDE);
+
+    preloaderBoundary.watch(root.current, onEnter, onLeave);
+
     return () => {
       preloaderBoundary.clear();
+
       if (timeoutId !== null) {
         clearTimeout(timeoutId);
       }
@@ -59,7 +59,11 @@ export const VirtualizedLoader: React.FC<Props> = ({
 
   return (
     <div ref={root} style={{ height }}>
-      {position === BOUNDARY.INSIDE ? children : notVisiblePlaceholder}
+      {position === BOUNDARY.INSIDE
+        ? children
+        : position === BOUNDARY.OUTSIDE
+        ? null
+        : placeholder}
     </div>
   );
 };
