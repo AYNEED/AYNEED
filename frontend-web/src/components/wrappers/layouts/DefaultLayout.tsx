@@ -48,20 +48,24 @@ export const DefaultLayout: React.FC<LayoutProps> = ({
   backgroundColor,
 }) => (
   <FelaComponent style={style.root} backgroundColor={backgroundColor}>
-    <FelaComponent style={style.nav} as="nav" width={256}>
-      <FelaComponent style={style.logo}>
-        <Logo />
-      </FelaComponent>
-    </FelaComponent>
-
-    <FelaComponent style={style.main} as="main">
-      {title && (
-        <FelaComponent style={style.title} as="h1">
-          {title}
+    {({ className }) => (
+      <div data-testid="page" className={className}>
+        <FelaComponent style={style.nav} as="nav" width={256}>
+          <FelaComponent style={style.logo}>
+            <Logo />
+          </FelaComponent>
         </FelaComponent>
-      )}
 
-      {children}
-    </FelaComponent>
+        <FelaComponent style={style.main} as="main">
+          {title && (
+            <FelaComponent style={style.title} as="h1">
+              {title}
+            </FelaComponent>
+          )}
+
+          {children}
+        </FelaComponent>
+      </div>
+    )}
   </FelaComponent>
 );

@@ -35,16 +35,20 @@ export const EntryLayout: React.FC<LayoutProps> = ({
   backgroundColor,
 }) => (
   <FelaComponent style={style.root} backgroundColor={backgroundColor}>
-    <FelaComponent style={style.logo}>
-      <Logo />
-    </FelaComponent>
+    {({ className }) => (
+      <div data-testid="page" className={className}>
+        <FelaComponent style={style.logo}>
+          <Logo />
+        </FelaComponent>
 
-    {title && (
-      <FelaComponent style={style.title} as="h1">
-        {title}
-      </FelaComponent>
+        {title && (
+          <FelaComponent style={style.title} as="h1">
+            {title}
+          </FelaComponent>
+        )}
+
+        {children}
+      </div>
     )}
-
-    {children}
   </FelaComponent>
 );
