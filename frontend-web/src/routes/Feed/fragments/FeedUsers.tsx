@@ -1,8 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { UserList } from 'src/components/blocks/UserList';
-
+import { UsersList } from 'src/components/blocks/UsersList';
 import {
   GetUsersDocument,
   GetUsersQuery,
@@ -83,7 +82,7 @@ export const FeedUsers: React.FC = () => {
 
       {error && <p>Error</p>}
 
-      <UserList callback={loadMore} data={data.users.items} />
+      <UsersList callback={loadMore} data={data.users.items} />
     </>
   );
 };

@@ -2,16 +2,16 @@ import React, { useRef, useEffect } from 'react';
 import Bound from 'bounds.js';
 
 import { VirtualizedLoader } from 'src/utils/bounds';
-import { CommouUserFieldsFragment } from 'src/__generated__';
+import { CommonUserFieldsFragment } from 'src/__generated__';
 
 const CardUser = React.lazy(() => import('src/components/ui/CardUser'));
 
 type Props = {
-  data: CommouUserFieldsFragment[];
+  data: CommonUserFieldsFragment[];
   callback: () => void;
 };
 
-export const UserList: React.FC<Props> = ({ data, callback }) => {
+export const UsersList: React.FC<Props> = ({ data, callback }) => {
   const activateRef = useRef(null);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const UserList: React.FC<Props> = ({ data, callback }) => {
         >
           <VirtualizedLoader
             height={100}
-            children={<UserListItem user={user} />}
+            children={<UsersListItem user={user} />}
           />
         </div>
       ))}
@@ -49,7 +49,7 @@ export const UserList: React.FC<Props> = ({ data, callback }) => {
   );
 };
 
-export const UserListItem: React.FC<{ user: CommouUserFieldsFragment }> = ({
+export const UsersListItem: React.FC<{ user: CommonUserFieldsFragment }> = ({
   user,
 }) => (
   <div>
