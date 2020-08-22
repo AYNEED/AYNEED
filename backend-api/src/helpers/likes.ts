@@ -15,6 +15,12 @@ export const createLike = async ({
     status,
   });
 
+export const updateLike = async ({
+  id,
+  status,
+}: LikeRes['id' | 'status']): Promise<LikeRes | null> =>
+  LikeModel.findByIdAndUpdate({ _id: id }, { status });
+
 export const deleteLike = async ({
   id,
 }: LikeRes['id']): Promise<LikeRes | null> =>

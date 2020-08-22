@@ -3,7 +3,7 @@ import { UModel, Document } from 'mongoose';
 
 import { Resolvers, LikeTargetModel, LikeStatus } from 'src/__generated__';
 import { ValidationError } from 'shared';
-import { createLike, deleteLike } from 'src/helpers/likes';
+import { createLike, deleteLike, updateLike } from 'src/helpers/likes';
 import { LikeModel } from 'src/models/like';
 import { ProjectModel } from 'src/models/project';
 import { CommentModel } from 'src/models/comment';
@@ -56,26 +56,40 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
     throw new ValidationError('error.like.targetNotExists');
   }
 
-  const check = await LikeModel.exists({
+  const like = await LikeModel.findOne({
     senderId: user.id,
     targetId,
     targetModel,
   });
 
-  if (check) {
+  if (like && like.status === status) {
     throw new ValidationError('error.like.exists');
   }
 
-  const field = status === LikeStatus.Dislike ? 'dislikesCount' : 'likesCount';
-
-  // TODO: toggle likes/dislikes
+  const condition = status === LikeStatus.Like;
+  const field = condition ? 'likesCount' : 'dislikesCount';
 
   await targetHelper.model.findByIdAndUpdate(
     { _id: targetId },
-    { $inc: { [field]: 1 } }
+    {
+      $inc: like
+        ? {
+            likesCount: condition ? 1 : -1,
+            dislikesCount: condition ? -1 : 1,
+          }
+        : { [field]: 1 },
+    }
   );
 
-  return createLike({ senderId: user.id, targetId, targetModel, status });
+  const result = await (like
+    ? updateLike({ id: like.id, status })
+    : createLike({ senderId: user.id, targetId, targetModel, status }));
+
+  if (!result) {
+    throw new ValidationError('error.like.targetNotExists');
+  }
+
+  return result;
 };
 
 export const likeRemove: Resolvers['Mutation']['likeRemove'] = async (
