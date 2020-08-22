@@ -56,20 +56,14 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
     throw new ValidationError('error.like.targetNotExists');
   }
 
-  const check = await LikeModel.exists({
+  const like = await LikeModel.findOne({
     senderId: user.id,
     targetId,
     targetModel,
   });
 
-  if (check) {
-    const like = await LikeModel.findOne({
-      senderId: user.id,
-      targetId,
-      targetModel,
-    });
-
-    if (like && like.status !== status) {
+  if (like) {
+    if (like.status !== status) {
       const condition = status === LikeStatus.Dislike;
 
       await targetHelper.model.findByIdAndUpdate(
