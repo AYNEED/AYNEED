@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
+import { IconBaseProps } from 'src/types';
 
-type Props = {
-  fill?: COLOR;
-};
-
-export const RocketPlume: React.FC<Props> = ({ fill = COLOR.PRIMARY_500 }) => (
-  <svg width="8" height="15" viewBox="0 0 8 15" fill="none">
+export const RocketPlume: React.FC<IconBaseProps> = ({
+  fill = COLOR.PRIMARY_500,
+  width = 8,
+  height = 15,
+}) => (
+  <svg width={width} height={height} viewBox="0 0 8 15" fill="none">
     <path
       fillRule="evenodd"
       clipRule="evenodd"

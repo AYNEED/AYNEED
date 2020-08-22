@@ -29,6 +29,15 @@ type Mutation {
 
   signOut: Boolean!
 
+  commentAdd(
+    parentId: ID
+    targetId: ID!
+    targetModel: COMMENT_TARGET_MODEL!
+    text: String!
+  ): Comment!
+
+  commentRemove(id: ID!): Boolean!
+
   likeAdd(
     targetId: ID!
     targetModel: LIKE_TARGET_MODEL!
@@ -65,6 +74,8 @@ type Query {
   ): UserFeed!
 
   messages(cursor: ID): MessageFeed!
+
+  help(locale: USER_LOCALE!): Help!
 }
 
 type Subscription {
@@ -77,14 +88,17 @@ type Subscription {
 
 # ########################### enums ###########################
 
+enum COMMENT_TARGET_MODEL {
+  Project
+}
+
 enum LIKE_STATUS {
   like
   dislike
 }
 
 enum LIKE_TARGET_MODEL {
-  User
-  # comment
+  Comment
   Project
 }
 
@@ -156,6 +170,12 @@ type UserFeed {
 
 # ########################## models ###########################
 
+type Help {
+  locale: USER_LOCALE!
+  text: String!
+  items: [HelpItem!]!
+}
+
 type Message {
   id: ID!
   senderId: ID!
@@ -173,8 +193,11 @@ type Project {
   title: String!
   problem: String!
   solution: String!
+  likesCount: Int!
   status: PROJECT_STATUS!
   subscribers: [SubscribedUser!]!
+  comments: [Comment!]!
+  commentsCount: Int!
   createdAt: DateTime!
 }
 
@@ -195,6 +218,27 @@ type User {
 }
 
 # #################### additional models ######################
+
+type Comment {
+  id: ID!
+  parentId: ID
+  senderId: ID!
+  targetId: ID!
+  targetModel: COMMENT_TARGET_MODEL!
+  text: String!
+  likesCount: Int!
+  dislikesCount: Int!
+  commentsCount: Int!
+  createdAt: DateTime!
+}
+
+type HelpItem {
+  id: ID!
+  icon: String!
+  title: String!
+  text: String!
+  createdAt: DateTime!
+}
 
 type Like {
   id: ID!

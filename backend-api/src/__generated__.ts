@@ -27,6 +27,8 @@ export type Mutation = {
   signInEmail: User;
   signUpEmail: User;
   signOut: Scalars['Boolean'];
+  commentAdd: Comment;
+  commentRemove: Scalars['Boolean'];
   likeAdd: Like;
   likeRemove: Scalars['Boolean'];
   messageAdd: Message;
@@ -60,6 +62,17 @@ export type MutationSignUpEmailArgs = {
   locale: UserLocale;
   isAgree: Scalars['Boolean'];
   client: UserClient;
+};
+
+export type MutationCommentAddArgs = {
+  parentId: Maybe<Scalars['ID']>;
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  text: Scalars['String'];
+};
+
+export type MutationCommentRemoveArgs = {
+  id: Scalars['ID'];
 };
 
 export type MutationLikeAddArgs = {
@@ -103,6 +116,7 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
+  help: Help;
 };
 
 export type QueryProjectArgs = {
@@ -131,6 +145,10 @@ export type QueryMessagesArgs = {
   cursor: Maybe<Scalars['ID']>;
 };
 
+export type QueryHelpArgs = {
+  locale: UserLocale;
+};
+
 export type Subscription = {
   projectAdded: Project;
   projectUpdated: Project;
@@ -138,13 +156,17 @@ export type Subscription = {
   userUpdated: User;
 };
 
+export enum CommentTargetModel {
+  Project = 'Project',
+}
+
 export enum LikeStatus {
   Like = 'like',
   Dislike = 'dislike',
 }
 
 export enum LikeTargetModel {
-  User = 'User',
+  Comment = 'Comment',
   Project = 'Project',
 }
 
@@ -211,6 +233,12 @@ export type UserFeed = {
   hasMore: Scalars['Boolean'];
 };
 
+export type Help = {
+  locale: UserLocale;
+  text: Scalars['String'];
+  items: Array<HelpItem>;
+};
+
 export type Message = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
@@ -228,8 +256,11 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  likesCount: Scalars['Int'];
   status: ProjectStatus;
   subscribers: Array<SubscribedUser>;
+  comments: Array<Comment>;
+  commentsCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -246,6 +277,27 @@ export type User = {
   subscriptions: Array<SubscribedUser>;
   subscribers: Array<SubscribedUser>;
   friends: Array<SubscribedUser>;
+  createdAt: Scalars['DateTime'];
+};
+
+export type Comment = {
+  id: Scalars['ID'];
+  parentId: Maybe<Scalars['ID']>;
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  text: Scalars['String'];
+  likesCount: Scalars['Int'];
+  dislikesCount: Scalars['Int'];
+  commentsCount: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type HelpItem = {
+  id: Scalars['ID'];
+  icon: Scalars['String'];
+  title: Scalars['String'];
+  text: Scalars['String'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -467,6 +519,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
+  COMMENT_TARGET_MODEL: CommentTargetModel;
   LIKE_STATUS: LikeStatus;
   LIKE_TARGET_MODEL: LikeTargetModel;
   PROJECT_STATUS: ProjectStatus;
@@ -480,9 +533,13 @@ export type ResolversTypes = {
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
   ProjectFeed: ResolverTypeWrapper<ProjectFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
+  Help: ResolverTypeWrapper<Help>;
   Message: ResolverTypeWrapper<Message>;
   Project: ResolverTypeWrapper<Project>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   User: ResolverTypeWrapper<User>;
+  Comment: ResolverTypeWrapper<Comment>;
+  HelpItem: ResolverTypeWrapper<HelpItem>;
   Like: ResolverTypeWrapper<Like>;
   SubscribedUser: ResolverTypeWrapper<SubscribedUser>;
   MessageInfoData: ResolverTypeWrapper<MessageInfoData>;
@@ -493,7 +550,6 @@ export type ResolversTypes = {
   UserPersonalData: ResolverTypeWrapper<UserPersonalData>;
   UserRegionalData: ResolverTypeWrapper<UserRegionalData>;
   UserStatisticsData: ResolverTypeWrapper<UserStatisticsData>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   UserCareerRecord: ResolverTypeWrapper<UserCareerRecord>;
   UserContactRecord: ResolverTypeWrapper<UserContactRecord>;
   UserEducationRecord: ResolverTypeWrapper<UserEducationRecord>;
@@ -513,9 +569,13 @@ export type ResolversParentTypes = {
   MessageFeed: MessageFeed;
   ProjectFeed: ProjectFeed;
   UserFeed: UserFeed;
+  Help: Help;
   Message: Message;
   Project: Project;
+  Int: Scalars['Int'];
   User: User;
+  Comment: Comment;
+  HelpItem: HelpItem;
   Like: Like;
   SubscribedUser: SubscribedUser;
   MessageInfoData: MessageInfoData;
@@ -526,7 +586,6 @@ export type ResolversParentTypes = {
   UserPersonalData: UserPersonalData;
   UserRegionalData: UserRegionalData;
   UserStatisticsData: UserStatisticsData;
-  Int: Scalars['Int'];
   UserCareerRecord: UserCareerRecord;
   UserContactRecord: UserContactRecord;
   UserEducationRecord: UserEducationRecord;
@@ -580,6 +639,18 @@ export type MutationResolvers<
     >
   >;
   signOut: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  commentAdd: Resolver<
+    ResolversTypes['Comment'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCommentAddArgs, 'targetId' | 'targetModel' | 'text'>
+  >;
+  commentRemove: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationCommentRemoveArgs, 'id'>
+  >;
   likeAdd: Resolver<
     ResolversTypes['Like'],
     ParentType,
@@ -664,6 +735,12 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryMessagesArgs, never>
   >;
+  help: Resolver<
+    ResolversTypes['Help'],
+    ParentType,
+    ContextType,
+    RequireFields<QueryHelpArgs, 'locale'>
+  >;
 };
 
 export type SubscriptionResolvers<
@@ -723,6 +800,16 @@ export type UserFeedResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
+export type HelpResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['Help'] = ResolversParentTypes['Help']
+> = {
+  locale: Resolver<ResolversTypes['USER_LOCALE'], ParentType, ContextType>;
+  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  items: Resolver<Array<ResolversTypes['HelpItem']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
 export type MessageResolvers<
   ContextType = { user?: User },
   ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
@@ -755,12 +842,15 @@ export type ProjectResolvers<
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   problem: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  likesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   status: Resolver<ResolversTypes['PROJECT_STATUS'], ParentType, ContextType>;
   subscribers: Resolver<
     Array<ResolversTypes['SubscribedUser']>,
     ParentType,
     ContextType
   >;
+  comments: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType>;
+  commentsCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -809,6 +899,39 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type CommentResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['Comment'] = ResolversParentTypes['Comment']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  parentId: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  senderId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetId: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  targetModel: Resolver<
+    ResolversTypes['COMMENT_TARGET_MODEL'],
+    ParentType,
+    ContextType
+  >;
+  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  likesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dislikesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  commentsCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type HelpItemResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['HelpItem'] = ResolversParentTypes['HelpItem']
+> = {
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  icon: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
@@ -1033,9 +1156,12 @@ export type Resolvers<ContextType = { user?: User }> = {
   MessageFeed: MessageFeedResolvers<ContextType>;
   ProjectFeed: ProjectFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
+  Help: HelpResolvers<ContextType>;
   Message: MessageResolvers<ContextType>;
   Project: ProjectResolvers<ContextType>;
   User: UserResolvers<ContextType>;
+  Comment: CommentResolvers<ContextType>;
+  HelpItem: HelpItemResolvers<ContextType>;
   Like: LikeResolvers<ContextType>;
   SubscribedUser: SubscribedUserResolvers<ContextType>;
   MessageInfoData: MessageInfoDataResolvers<ContextType>;

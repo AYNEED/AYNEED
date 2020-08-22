@@ -1,9 +1,12 @@
+import { HelpItemModel } from 'src/models/helps';
+import { CommentModel } from 'src/models/comment';
 import { ProjectModel } from 'src/models/project';
 import { SubscriptionModel } from 'src/models/subscription';
 import {
   Resolvers,
   SubscriptionStatus,
   SubscriptionTargetModel,
+  CommentTargetModel,
 } from 'src/__generated__';
 
 // -------------------------- Feeds ---------------------------
@@ -25,6 +28,13 @@ export const resolveUserFeed: Resolvers['UserFeed'] = {
 
 // -------------------------- Models --------------------------
 
+export const resolveHelp: Resolvers['Help'] = {
+  locale: (parent) => parent.locale,
+  text: (parent) => parent.text,
+  items: async (parent) =>
+    HelpItemModel.find({ locale: parent.locale }).sort({ order: 1 }),
+};
+
 export const resolveMessage: Resolvers['Message'] = {
   id: (parent) => parent.id,
   info: (parent) => parent.info,
@@ -42,12 +52,19 @@ export const resolveProject: Resolvers['Project'] = {
   title: (parent) => parent.title,
   problem: (parent) => parent.problem,
   solution: (parent) => parent.solution,
+  likesCount: (parent) => parent.likesCount,
   status: (parent) => parent.status,
   subscribers: async (parent) =>
     SubscriptionModel.find({
       targetId: parent.id,
       targetModel: SubscriptionTargetModel.Project,
     }),
+  comments: async (parent) =>
+    CommentModel.find({
+      targetId: parent.id,
+      targetModel: CommentTargetModel.Project,
+    }),
+  commentsCount: (parent) => parent.commentsCount,
   createdAt: (parent) => parent.createdAt,
 };
 
@@ -87,6 +104,27 @@ export const resolveUser: Resolvers['User'] = {
 };
 
 // -------------------- Additional models ---------------------
+
+export const resolveComment: Resolvers['Comment'] = {
+  id: (parent) => parent.id,
+  parentId: (parent) => parent.parentId,
+  senderId: (parent) => parent.senderId,
+  targetId: (parent) => parent.targetId,
+  targetModel: (parent) => parent.targetModel,
+  text: (parent) => parent.text,
+  likesCount: (parent) => parent.likesCount,
+  dislikesCount: (parent) => parent.dislikesCount,
+  commentsCount: (parent) => parent.commentsCount,
+  createdAt: (parent) => parent.createdAt,
+};
+
+export const resolveHelpItem: Resolvers['HelpItem'] = {
+  id: (parent) => parent.id,
+  icon: (parent) => parent.icon,
+  title: (parent) => parent.title,
+  text: (parent) => parent.text,
+  createdAt: (parent) => parent.createdAt,
+};
 
 export const resolveLike: Resolvers['Like'] = {
   id: (parent) => parent.id,

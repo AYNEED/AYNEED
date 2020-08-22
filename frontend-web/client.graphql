@@ -1,11 +1,11 @@
-fragment commouProjectFields on Project {
+fragment commonProjectFields on Project {
   id
   title
   problem
   solution
 }
 
-fragment commouUserFields on User {
+fragment commonUserFields on User {
   id
   network {
     isOnline
@@ -27,7 +27,7 @@ fragment commouUserFields on User {
 query GetProjects($cursor: ID) {
   projects(cursor: $cursor) {
     items {
-      ...commouProjectFields
+      ...commonProjectFields
     }
     hasMore
   }
@@ -36,7 +36,7 @@ query GetProjects($cursor: ID) {
 query GetUsers($cursor: ID) {
   users(cursor: $cursor) {
     items {
-      ...commouUserFields
+      ...commonUserFields
     }
     hasMore
   }
@@ -44,25 +44,25 @@ query GetUsers($cursor: ID) {
 
 subscription onProjectAdded {
   projectAdded {
-    ...commouProjectFields
+    ...commonProjectFields
   }
 }
 
 subscription onProjectUpdated {
   projectUpdated {
-    ...commouProjectFields
+    ...commonProjectFields
   }
 }
 
 subscription onUserAdded {
   userAdded {
-    ...commouUserFields
+    ...commonUserFields
   }
 }
 
 subscription onUserUpdated {
   userUpdated {
-    ...commouUserFields
+    ...commonUserFields
   }
 }
 
@@ -76,7 +76,7 @@ mutation SignInEmail(
   $client: USER_CLIENT!
 ) {
   signInEmail(email: $email, password: $password, client: $client) {
-    ...commouUserFields
+    ...commonUserFields
   }
 }
 
@@ -98,6 +98,6 @@ mutation SignUpEmail(
     isAgree: $isAgree
     client: $client
   ) {
-    ...commouUserFields
+    ...commonUserFields
   }
 }

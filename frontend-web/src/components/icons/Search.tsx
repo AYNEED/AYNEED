@@ -1,15 +1,18 @@
 import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
+import { IconBaseProps } from 'src/types';
 
-type Props = {
-  fill?: COLOR;
-};
-
-export const Search: React.FC<Props> = ({ fill = COLOR.SECONDARY_400 }) => (
-  <svg width="20" height="21" fill="none">
+export const Search: React.FC<IconBaseProps> = ({
+  fill = COLOR.SECONDARY_100,
+  width = 24,
+  height = 24,
+}) => (
+  <svg width={width} height={height} fill="none" viewBox="0 0 24 24">
     <path
-      d="M14.294 13.079h-.904l-.32-.31a7.4 7.4 0 001.796-4.836 7.433 7.433 0 10-7.433 7.433 7.4 7.4 0 004.837-1.796l.309.32v.904l5.717 5.706L20 18.796l-5.706-5.717zm-6.861 0a5.139 5.139 0 01-5.146-5.146 5.139 5.139 0 015.146-5.146 5.139 5.139 0 015.146 5.146 5.139 5.139 0 01-5.146 5.146z"
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M15.9 15.2a9 9 0 10-.7.7l2 2v.7l5.2 5.2 1.4-1.4-5.2-5.2h-.7l-2-2zm-6.7 1a7 7 0 100-14 7 7 0 000 14z"
       fill={fill}
     />
   </svg>

@@ -4,7 +4,7 @@ import { schemaOptions } from 'src/utils/mongodb';
 import { Project, ProjectStatus } from 'src/__generated__';
 
 export type ProjectRes = Document & Project;
-type ProjectReq = Omit<ProjectRes, 'createdAt' | 'subscribers'>;
+type ProjectReq = Omit<ProjectRes, 'createdAt' | 'subscribers' | 'comments'>;
 
 const ProjectSchema = new Schema<ProjectReq>(
   {
@@ -24,6 +24,16 @@ const ProjectSchema = new Schema<ProjectReq>(
     solution: {
       type: String,
       required: true,
+    },
+    likesCount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    commentsCount: {
+      type: Number,
+      required: false,
+      default: 0,
     },
     status: {
       type: String,
