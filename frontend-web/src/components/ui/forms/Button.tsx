@@ -39,17 +39,19 @@ const buttonRule: PropsStyle = () => ({
   background: `${GRADIENTS.HORIZONTAL}`,
   cursor: 'pointer',
 
-  ':hover': {
-    background: `${COLOR.PRIMARY_300}`,
-    '> div': {
-      color: `${COLOR.PRIMARY_300}`,
+  nested: {
+    ':hover': {
+      background: `${COLOR.PRIMARY_300}`,
+      '> div': {
+        color: `${COLOR.PRIMARY_300}`,
+      },
     },
-  },
 
-  ':active': {
-    background: `${COLOR.PRIMARY_200}`,
-    '> div': {
-      color: `${COLOR.PRIMARY_200}`,
+    ':active': {
+      background: `${COLOR.PRIMARY_200}`,
+      '> div': {
+        color: `${COLOR.PRIMARY_200}`,
+      },
     },
   },
 });
