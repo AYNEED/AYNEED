@@ -50,35 +50,37 @@ const style: Styles<'container' | 'icon' | 'checked'> = {
     backgroundColor: COLOR.WHITE,
     paddingRight: '10px',
 
-    ':hover': {
-      borderColor: COLOR.SECONDARY_300,
-    },
-
-    '> input': {
-      cursor: 'text',
-      fontSize: '18px',
-      lineHeight: '150%',
-      backgroundColor: 'transparent',
-      color: COLOR.SECONDARY_500,
-      outline: '0',
-      flex: 1,
-      width: '100%',
-      height: '100%',
-      border: 'none',
-      '::placeholder': {
-        color: COLOR.SECONDARY_300,
+    nested: {
+      ':hover': {
+        borderColor: COLOR.SECONDARY_300,
       },
-    },
 
-    '> label': {
-      cursor: 'pointer',
-      padding: '16px',
-      fontSize: '18px',
-      lineHeight: '150%',
-      color: COLOR.SECONDARY_300,
+      '> input': {
+        cursor: 'text',
+        fontSize: '18px',
+        lineHeight: '150%',
+        backgroundColor: 'transparent',
+        color: COLOR.SECONDARY_500,
+        outline: '0',
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        border: 'none',
+        '::placeholder': {
+          color: COLOR.SECONDARY_300,
+        },
+      },
 
-      '> input[type="radio"]': {
-        display: 'none',
+      '> label': {
+        cursor: 'pointer',
+        padding: '16px',
+        fontSize: '18px',
+        lineHeight: '150%',
+        color: COLOR.SECONDARY_300,
+
+        '> input[type="radio"]': {
+          display: 'none',
+        },
       },
     },
   }),
