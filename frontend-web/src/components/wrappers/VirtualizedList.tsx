@@ -13,7 +13,7 @@ enum BOUNDARY {
   OUTSIDE,
 }
 
-export const VirtualizedLoader: React.FC<Props> = ({
+export const VirtualizedList: React.FC<Props> = ({
   height,
   children,
   placeholder = null,

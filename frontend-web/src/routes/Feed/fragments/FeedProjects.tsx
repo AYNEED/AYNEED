@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 
+import { LazyList } from 'src/components/wrappers/LazyList';
 import {
   GetProjectsDocument,
   GetProjectsQuery,
@@ -8,6 +9,7 @@ import {
   OnProjectAddedSubscription,
   OnProjectUpdatedDocument,
   OnProjectUpdatedSubscription,
+  CommonProjectFieldsFragment,
 } from 'src/__generated__';
 import { Msg } from 'src/i18n/Msg';
 
@@ -86,16 +88,11 @@ export const FeedProjects: React.FC = () => {
 
       {error && <p>Error</p>}
 
-      {data.projects.items.map((project) => (
-        <div key={project.id}>
-          <CardProject {...project} />
-
-          <hr />
-        </div>
-      ))}
-
-      {/* TODO: use auto-loading */}
-      <div onClick={loadMore}>load more</div>
+      <LazyList<CommonProjectFieldsFragment>
+        callback={loadMore}
+        data={data.projects.items}
+        children={CardProject}
+      />
     </>
   );
 };
