@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
+import { IconBaseProps } from 'src/types';
 
-type Props = {
-  fill?: COLOR;
-};
-
-export const ExclamationPoint: React.FC<Props> = ({ fill = COLOR.RED }) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+export const ExclamationPoint: React.FC<IconBaseProps> = ({
+  fill = COLOR.RED,
+  width = 16,
+  height = 16,
+}) => (
+  <svg width={width} height={height} viewBox="0 0 16 16" fill="none">
     <path
       d="M9.1964 3.84H6.8156L7.2124 9.6896H8.7996L9.1964 3.84Z"
       fill={fill}

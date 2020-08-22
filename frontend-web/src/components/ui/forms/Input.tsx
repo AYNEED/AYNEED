@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 
 import { MsgProps, Msg, msg } from 'src/i18n/Msg';
 import { Tooltip } from 'src/components/ui/Tooltip';
-import { ExclamationPoint } from 'src/components/icons/ExclamationPoint';
+import { ExclamationPoint } from 'src/components/icons/old_design/ExclamationPoint';
 
 interface CommonProps {
   name: string;

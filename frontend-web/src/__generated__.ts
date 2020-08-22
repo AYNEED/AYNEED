@@ -20,6 +20,8 @@ export type Mutation = {
   signInEmail: User;
   signUpEmail: User;
   signOut: Scalars['Boolean'];
+  commentAdd: Comment;
+  commentRemove: Scalars['Boolean'];
   likeAdd: Like;
   likeRemove: Scalars['Boolean'];
   messageAdd: Message;
@@ -53,6 +55,17 @@ export type MutationSignUpEmailArgs = {
   locale: UserLocale;
   isAgree: Scalars['Boolean'];
   client: UserClient;
+};
+
+export type MutationCommentAddArgs = {
+  parentId: Maybe<Scalars['ID']>;
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  text: Scalars['String'];
+};
+
+export type MutationCommentRemoveArgs = {
+  id: Scalars['ID'];
 };
 
 export type MutationLikeAddArgs = {
@@ -96,6 +109,7 @@ export type Query = {
   users: UserFeed;
   search: UserFeed;
   messages: MessageFeed;
+  help: Help;
 };
 
 export type QueryProjectArgs = {
@@ -117,10 +131,15 @@ export type QueryUsersArgs = {
 export type QuerySearchArgs = {
   query: Scalars['String'];
   targetModel: SearchTargetModel;
+  cursor: Maybe<Scalars['ID']>;
 };
 
 export type QueryMessagesArgs = {
-  cursor: Scalars['ID'];
+  cursor: Maybe<Scalars['ID']>;
+};
+
+export type QueryHelpArgs = {
+  locale: UserLocale;
 };
 
 export type Subscription = {
@@ -130,13 +149,17 @@ export type Subscription = {
   userUpdated: User;
 };
 
+export enum CommentTargetModel {
+  Project = 'Project',
+}
+
 export enum LikeStatus {
   Like = 'like',
   Dislike = 'dislike',
 }
 
 export enum LikeTargetModel {
-  User = 'User',
+  Comment = 'Comment',
   Project = 'Project',
 }
 
@@ -203,6 +226,12 @@ export type UserFeed = {
   hasMore: Scalars['Boolean'];
 };
 
+export type Help = {
+  locale: UserLocale;
+  text: Scalars['String'];
+  items: Array<HelpItem>;
+};
+
 export type Message = {
   id: Scalars['ID'];
   senderId: Scalars['ID'];
@@ -220,8 +249,11 @@ export type Project = {
   title: Scalars['String'];
   problem: Scalars['String'];
   solution: Scalars['String'];
+  likesCount: Scalars['Int'];
   status: ProjectStatus;
   subscribers: Array<SubscribedUser>;
+  comments: Array<Comment>;
+  commentsCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
 };
 
@@ -238,6 +270,27 @@ export type User = {
   subscriptions: Array<SubscribedUser>;
   subscribers: Array<SubscribedUser>;
   friends: Array<SubscribedUser>;
+  createdAt: Scalars['DateTime'];
+};
+
+export type Comment = {
+  id: Scalars['ID'];
+  parentId: Maybe<Scalars['ID']>;
+  senderId: Scalars['ID'];
+  targetId: Scalars['ID'];
+  targetModel: CommentTargetModel;
+  text: Scalars['String'];
+  likesCount: Scalars['Int'];
+  dislikesCount: Scalars['Int'];
+  commentsCount: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+};
+
+export type HelpItem = {
+  id: Scalars['ID'];
+  icon: Scalars['String'];
+  title: Scalars['String'];
+  text: Scalars['String'];
   createdAt: Scalars['DateTime'];
 };
 

@@ -3,12 +3,12 @@ import { FelaComponent } from 'react-fela';
 
 import { Styles, PropsStyle } from 'src/utils/fela';
 import { MsgProps } from 'src/i18n/Msg';
-import { Idea } from 'src/components/icons/Idea';
-import { Command } from 'src/components/icons/Command';
-import { Investments } from 'src/components/icons/Investments';
-import { Rocket } from 'src/components/icons/Rocket';
-import { RocketPlume } from 'src/components/icons/RocketPlume';
-import { DashedLine } from 'src/components/icons/DashedLine';
+import { Idea } from 'src/components/icons/statuses/Idea';
+import { Command } from 'src/components/icons/old_design/Command';
+import { Investments } from 'src/components/icons/old_design/Investments';
+import { Rocket } from 'src/components/icons/old_design/Rocket';
+import { RocketPlume } from 'src/components/icons/old_design/RocketPlume';
+import { DashedLine } from 'src/components/icons/old_design/DashedLine';
 import { MainPageCircle } from 'src/routes/Main/fragments/MainPageCircle';
 
 interface CircleProps {
