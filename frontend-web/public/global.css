@@ -23,6 +23,7 @@ html {
 .sb-show-main #root {
   justify-content: flex-start;
   align-items: flex-start;
+  min-height: calc(100vh - 16px);
 }
 
 html,

@@ -5,7 +5,6 @@ export default {
   title: 'Documentation/Atoms',
 } as Meta;
 
-export const Badges: Story = () => <>TODO</>;
 
 export const Spinner: Story = () => <div className="spinner" />;
 

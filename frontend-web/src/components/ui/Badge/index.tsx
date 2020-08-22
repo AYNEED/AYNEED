@@ -2,7 +2,7 @@ import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
 
-type Props = {
+export type Props = {
   value: JSX.Element | number;
   borderColor: COLOR.WHITE | COLOR.TRANSPARENT;
   backgroundColor: COLOR.PRIMARY_500 | COLOR.ERROR | COLOR.TRANSPARENT;
