@@ -30,7 +30,7 @@ const styles: Styles<'title' | 'linksWrapper'> = {
     width: '90px',
     height: '18px',
     marginTop: '13px',
-    display: 'flex !important',
+    display: 'flex',
     justifyContent: 'space-between',
   },
 };

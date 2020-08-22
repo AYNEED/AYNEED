@@ -15,7 +15,6 @@ import {
   ForgotPasswordMutationVariables,
 } from 'src/__generated__';
 
-const Logo = React.lazy(() => import('src/components/ui/Logo'));
 const EnterThrough = React.lazy(() =>
   import('src/components/blocks/EnterThrough')
 );
@@ -36,13 +35,8 @@ const ForgotPassword: React.FC = () => {
   });
 
   return (
-    <Page>
-      <Logo />
+    <Page layout="entry" withTitle>
       <EnterThrough />
-
-      <h1>
-        <Msg id="web.routes.ForgotPassword.title" />
-      </h1>
 
       <p>
         <Msg id="web.routes.ForgotPassword.description" />

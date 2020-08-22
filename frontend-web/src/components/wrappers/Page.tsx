@@ -1,27 +1,25 @@
 import React, { useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { useRouteMatch } from 'react-router-dom';
-import { FelaComponent } from 'react-fela';
 
 import { ROUTES } from 'shared';
 import { COLOR } from 'src/constants/colors';
 import { config } from 'src/navigation';
 import { msg, Msg } from 'src/i18n/Msg';
-import { Styles } from 'src/utils/fela';
+import { Layout, layoutToComponent } from 'src/components/wrappers/layouts';
 
 type Props = {
+  title?: string;
   withTitle?: boolean;
-  gray?: boolean;
+  layout?: Layout;
 };
 
-const style: Styles<'page'> = {
-  page: ({ gray }: { gray: Props['gray'] }) => ({
-    backgroundColor: gray ? COLOR.SECONDARY_500 : COLOR.WHITE,
-    minHeight: '100vh',
-  }),
-};
-
-export const Page: React.FC<Props> = ({ children, withTitle, gray }) => {
+export const Page: React.FC<Props> = ({
+  children,
+  title,
+  withTitle,
+  layout = 'default',
+}) => {
   const intl = useIntl();
   const match = useRouteMatch();
 
@@ -29,22 +27,28 @@ export const Page: React.FC<Props> = ({ children, withTitle, gray }) => {
   const msgProps = id ? { id } : undefined;
 
   useEffect(() => {
-    document.title = msgProps ? msg(intl, msgProps) : 'AYneed';
-  }, [msgProps, intl]);
+    document.title = title || (msgProps ? msg(intl, msgProps) : 'AYneed');
+  }, [title, msgProps, intl]);
+
+  let renderedTitle = null;
+
+  if (withTitle) {
+    if (title) {
+      renderedTitle = <>{title}</>;
+    } else if (msgProps) {
+      renderedTitle = <Msg {...msgProps} />;
+    }
+  }
+
+  const LayoutComponent = layoutToComponent[layout];
+  const backgroundColor =
+    layout === 'notFound' || layout === 'default'
+      ? COLOR.SECONDARY_500
+      : COLOR.WHITE;
 
   return (
-    <FelaComponent style={style.page} gray={gray}>
-      {({ className }) => (
-        <div data-testid="page" className={className}>
-          {!!(withTitle && msgProps) && (
-            <h1>
-              <Msg {...msgProps} />
-            </h1>
-          )}
-
-          {children}
-        </div>
-      )}
-    </FelaComponent>
+    <LayoutComponent title={renderedTitle} backgroundColor={backgroundColor}>
+      {children}
+    </LayoutComponent>
   );
 };
