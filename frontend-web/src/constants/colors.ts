@@ -25,4 +25,5 @@ export const GRADIENT = {
   VERTICAL_SUNSET: `linear-gradient(180deg, ${COLOR.PRIMARY_300} 0%, ${COLOR.PRIMARY_100} 100%)`,
   VERTICAL_DAWN: `linear-gradient(180deg, ${COLOR.PRIMARY_100} 0%, ${COLOR.PRIMARY_300} 100%)`,
   DEFAULT: `linear-gradient(90deg, ${COLOR.PRIMARY_400} 0%, ${COLOR.PRIMARY_500} 100%)`,
+  GRAY_HORIZONTAL: `linear-gradient(90deg, ${COLOR.SECONDARY_200} 0%, ${COLOR.SECONDARY_400} 100%)`,
 } as const;

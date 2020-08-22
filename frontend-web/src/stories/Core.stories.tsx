@@ -149,7 +149,7 @@ const colorsTable: ColorsTableItem[][] = [
     null,
   ],
   [
-    null,
+    { key: 'GRAY_HORIZONTAL', type: 'gradient' },
     { key: 'PRIMARY_500', type: 'color' },
     { key: 'SECONDARY_500', type: 'color' },
     null,
