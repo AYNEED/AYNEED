@@ -28,7 +28,12 @@ export const events = {
   'error.project.notFound': 'Начинание не найдено',
 
   'error.subscription.notFound': 'Подписка не найдена',
+  'error.subscription.myself': 'Невозможно подписатся на себя',
+  'error.subscription.exists': 'Вы уже подписаны на это',
+
   'error.message.empty': 'Вы пытаетесь отправить пустое сообщение',
+
+  'error.help.notFound': 'Справочный раздел пока пуст',
 
   'error.like.exists': 'Вы уже оценили это',
   'error.like.targetNotExists': 'Невозможно оценить несуществующий объект',

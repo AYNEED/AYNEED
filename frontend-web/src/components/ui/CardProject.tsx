@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Msg } from 'src/i18n/Msg';
-import { CommouProjectFieldsFragment } from 'src/__generated__';
+import { CommonProjectFieldsFragment } from 'src/__generated__';
 
-type Props = CommouProjectFieldsFragment;
+type Props = CommonProjectFieldsFragment;
 
 const CardProject: React.FC<Props> = ({ title, problem, solution }) => (
   <>

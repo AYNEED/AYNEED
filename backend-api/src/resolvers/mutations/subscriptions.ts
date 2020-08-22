@@ -1,5 +1,6 @@
 import { Resolvers, SubscriptionTargetModel } from 'src/__generated__';
 import { findUserById } from 'src/helpers/users';
+import { SubscriptionModel } from 'src/models/subscription';
 import { findSubscriptionById } from 'src/helpers/subscriptions';
 import { createSubscription } from 'src/helpers/subscriptions';
 import { ValidationError } from 'shared';
@@ -21,10 +22,18 @@ export const subscriptionAdd: Resolvers['Mutation']['subscriptionAdd'] = async (
   }
 
   if (user.id === targetId) {
-    // TODO: throw exception
+    throw new ValidationError('error.subscription.myself');
   }
 
-  // TODO: if subscription already exists, throw exception
+  const check = await SubscriptionModel.exists({
+    senderId: user.id,
+    targetId,
+    targetModel,
+  });
+
+  if (check) {
+    throw new ValidationError('error.subscription.exists');
+  }
 
   const target = await targetModelToHelper[targetModel](targetId);
 
