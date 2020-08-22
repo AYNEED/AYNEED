@@ -74,8 +74,8 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
     {
       $inc: like
         ? {
-            [LikeStatus.Like]: condition ? 1 : -1,
-            [LikeStatus.Dislike]: condition ? -1 : 1,
+            likesCount: condition ? 1 : -1,
+            dislikesCount: condition ? -1 : 1,
           }
         : { [field]: 1 },
     }
