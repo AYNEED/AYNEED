@@ -14,7 +14,7 @@ type Props = {
 const styles: Styles<'circle' | 'icon' | 'text'> = {
   circle: {
     position: 'absolute',
-    display: 'flex !important',
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -25,7 +25,7 @@ const styles: Styles<'circle' | 'icon' | 'text'> = {
     height: '71px',
     borderRadius: '50%',
     backgroundColor: COLOR.WHITE,
-    display: 'flex !important',
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.15)',

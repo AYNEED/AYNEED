@@ -22,7 +22,6 @@ import {
   SignUpEmailMutationVariables,
 } from 'src/__generated__';
 
-const Logo = React.lazy(() => import('src/components/ui/Logo'));
 const EnterThrough = React.lazy(() =>
   import('src/components/blocks/EnterThrough')
 );
@@ -54,13 +53,8 @@ const SignUpEmail: React.FC = () => {
   });
 
   return (
-    <Page>
-      <Logo />
+    <Page layout="entry" withTitle>
       <EnterThrough />
-
-      <h1>
-        <Msg id="web.routes.SignUpEmail.title" />
-      </h1>
 
       <form onSubmit={formik.handleSubmit}>
         <Notification error={result.error} />

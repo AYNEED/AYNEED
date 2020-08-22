@@ -39,7 +39,7 @@ const models = Object.values(SearchTargetModel);
 const style: Styles<'container' | 'icon' | 'checked'> = {
   container: () => ({
     position: 'relative',
-    display: 'flex !important',
+    display: 'flex',
     flexDirection: 'row',
     width: '80vw',
     height: '59px',
