@@ -2149,6 +2149,11 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/bounds.js@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/bounds.js/-/bounds.js-1.0.0.tgz#3bf5bbfe1daab87ec98b523a6d85c94132bf78eb"
+  integrity sha512-6iSOzYksRnDZvP4vsT+m7KYvzAUAqm4WnA+DrYMeGJVmR0pOs1e0sw1y/vC3nKtS1d8iMo1JVriFqa2/AkrNyQ==
+
 "@types/bson@*":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@types/bson/-/bson-4.0.2.tgz#7accb85942fc39bbdb7515d4de437c04f698115f"
@@ -3846,6 +3851,11 @@ boolify@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/boolify/-/boolify-1.0.1.tgz#b5c09e17cacd113d11b7bb3ed384cc012994d86b"
   integrity sha1-tcCeF8rNET0Rt7s+04TMASmU2Gs=
+
+bounds.js@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/bounds.js/-/bounds.js-1.0.4.tgz#e2cfdb3209cb140b05486d4d177b724c98dad8cc"
+  integrity sha512-teCQmUuF0WPqi0PO0IS8wjqKgYRYqbkKftDrnHpp0SLlUbBG3MM4x+rcoU25JaVIhjeBK3k7Xr7zL57uVuzQLQ==
 
 brace-expansion@^1.1.7:
   version "1.1.11"

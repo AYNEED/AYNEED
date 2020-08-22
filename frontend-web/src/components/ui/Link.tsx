@@ -23,8 +23,13 @@ export const Link: React.FC<Props> = (props) => {
     return null;
   }
 
+  const newProps = {
+    ...props,
+    url: undefined,
+  };
+
   return (
-    <RouterLink to={to} className={css(linkStyle)} {...props}>
+    <RouterLink to={to} className={css(linkStyle)} {...newProps}>
       {props.children}
     </RouterLink>
   );

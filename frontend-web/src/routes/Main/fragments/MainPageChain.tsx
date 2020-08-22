@@ -32,7 +32,7 @@ const styles: Styles<
     top: '-75px',
     width: '63px',
     height: '64px',
-    display: 'flex !important',
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',

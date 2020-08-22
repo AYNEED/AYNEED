@@ -74,6 +74,8 @@ type Query {
   ): UserFeed!
 
   messages(cursor: ID): MessageFeed!
+
+  help(locale: USER_LOCALE!): Help!
 }
 
 type Subscription {
@@ -168,6 +170,12 @@ type UserFeed {
 
 # ########################## models ###########################
 
+type Help {
+  locale: USER_LOCALE!
+  text: String!
+  items: [HelpItem!]!
+}
+
 type Message {
   id: ID!
   senderId: ID!
@@ -221,6 +229,14 @@ type Comment {
   likesCount: Int!
   dislikesCount: Int!
   commentsCount: Int!
+  createdAt: DateTime!
+}
+
+type HelpItem {
+  id: ID!
+  icon: String!
+  title: String!
+  text: String!
   createdAt: DateTime!
 }
 

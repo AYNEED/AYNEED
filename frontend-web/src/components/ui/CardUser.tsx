@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Avatar } from 'src/components/ui/Avatar';
-import { CommouUserFieldsFragment } from 'src/__generated__';
+import { CommonUserFieldsFragment } from 'src/__generated__';
 
-type Props = CommouUserFieldsFragment;
+type Props = CommonUserFieldsFragment;
 
 const CardUser: React.FC<Props> = ({ id, network, about, personal }) => (
   <>

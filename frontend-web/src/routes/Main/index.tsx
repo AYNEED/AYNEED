@@ -10,18 +10,11 @@ import { ROUTES } from 'shared';
 import { MainPageNetworks } from 'src/routes/Main/fragments/MainPageNetworks';
 import { MainPageChain } from 'src/routes/Main/fragments/MainPageChain';
 
-const Logo = React.lazy(() => import('src/components/ui/Logo'));
-
 const styles: Styles<
-  'pageWrapper' | 'title' | 'content' | 'leftContent' | 'network'
+  'root' | 'title' | 'content' | 'leftContent' | 'network'
 > = {
-  pageWrapper: {
-    width: '100%',
-    height: '100%',
-    padding: '308px 419px 277px 350px',
-    display: 'flex !important',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+  root: {
+    padding: '0 400px',
   },
   title: {
     width: '95px',
@@ -34,13 +27,13 @@ const styles: Styles<
     width: '100%',
     height: '216px',
     marginTop: '60px',
-    display: 'flex !important',
+    display: 'flex',
     alignItems: 'flex-start',
   },
   leftContent: {
     height: '97%',
     width: '206px',
-    display: 'flex !important',
+    display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
@@ -76,10 +69,8 @@ const Content: React.FC = () => (
 );
 
 const Main: React.FC = () => (
-  <Page>
-    <FelaComponent style={styles.pageWrapper}>
-      <Logo />
-
+  <Page layout="entry">
+    <FelaComponent style={styles.root}>
       <Content />
 
       <MainPageNetworks style={styles.network} />
