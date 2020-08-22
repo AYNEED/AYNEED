@@ -62,41 +62,34 @@ export const likeAdd: Resolvers['Mutation']['likeAdd'] = async (
     targetModel,
   });
 
-  if (like) {
-    if (like.status !== status) {
-      const condition = status === LikeStatus.Dislike;
-
-      await targetHelper.model.findByIdAndUpdate(
-        { _id: targetId },
-        {
-          $inc: {
-            [LikeStatus.Dislike]: condition ? 1 : -1,
-            [LikeStatus.Like]: condition ? -1 : 1,
-          },
-        }
-      );
-
-      const id = like._id;
-      const res = await updateLike({ id, status });
-
-      if (res !== null) {
-        return res;
-      } else {
-        throw new ValidationError('error.like.targetNotExists');
-      }
-    } else {
-      throw new ValidationError('error.like.exists');
-    }
+  if (like && like.status === status) {
+    throw new ValidationError('error.like.exists');
   }
 
-  const field = status === LikeStatus.Dislike ? 'dislikesCount' : 'likesCount';
+  const condition = status === LikeStatus.Like;
+  const field = condition ? 'likesCount' : 'dislikesCount';
 
   await targetHelper.model.findByIdAndUpdate(
     { _id: targetId },
-    { $inc: { [field]: 1 } }
+    {
+      $inc: like
+        ? {
+            [LikeStatus.Like]: condition ? 1 : -1,
+            [LikeStatus.Dislike]: condition ? -1 : 1,
+          }
+        : { [field]: 1 },
+    }
   );
 
-  return createLike({ senderId: user.id, targetId, targetModel, status });
+  const result = await (like
+    ? updateLike({ id: like.id, status })
+    : createLike({ senderId: user.id, targetId, targetModel, status }));
+
+  if (!result) {
+    throw new ValidationError('error.like.targetNotExists');
+  }
+
+  return result;
 };
 
 export const likeRemove: Resolvers['Mutation']['likeRemove'] = async (
