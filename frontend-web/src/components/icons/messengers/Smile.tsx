@@ -3,7 +3,7 @@ import React from 'react';
 import { COLOR } from 'src/constants/colors';
 import { IconBaseProps } from 'src/types';
 
-export const Smiley: React.FC<IconBaseProps> = ({
+export const Smile: React.FC<IconBaseProps> = ({
   fill = COLOR.SECONDARY_100,
   width = 25,
   height = 24,

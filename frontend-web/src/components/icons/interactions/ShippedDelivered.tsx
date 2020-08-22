@@ -5,8 +5,8 @@ import { IconBaseProps } from 'src/types';
 
 export const ShippedDelivered: React.FC<IconBaseProps> = ({
   fill = COLOR.SECONDARY_100,
-  width = 19,
-  height = 10,
+  width = 24,
+  height = 13,
 }) => (
   <svg width={width} height={height} fill="none" viewBox="0 0 19 10">
     <path

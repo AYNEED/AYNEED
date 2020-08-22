@@ -6,42 +6,13 @@ import { Styles, renderer } from 'src/utils/fela';
 import { COLOR, GRADIENT } from 'src/constants/colors';
 import { SHADOW } from 'src/constants/effects';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
+import { card, bordered, commonStyle } from 'src/utils/storybook';
 
 export default {
   title: 'Documentation/Core',
 } as Meta;
 
-const bordered = {
-  borderWidth: 1,
-  borderStyle: 'solid',
-  borderColor: COLOR.SECONDARY_400,
-};
-
-const card = {
-  borderRadius: 8,
-  width: 230,
-  height: 80,
-  marginTop: 10,
-  marginRight: 30,
-};
-
-const style: Styles<'thead' | 'code' | 'text' | 'palette' | 'shadow'> = {
-  thead: {
-    ...font(FONT_SIZE.M, FONT_WEIGHT.SEMIBOLD),
-    textAlign: 'left',
-  },
-  code: {
-    ...bordered,
-    ...font(FONT_SIZE.XS, FONT_WEIGHT.REGULAR),
-    display: 'inline-block',
-    borderRadius: 3,
-    padding: 5,
-    marginTop: 10,
-    marginRight: 15,
-    marginBottom: 10,
-    backgroundColor: COLOR.SECONDARY_500,
-    whiteSpace: 'nowrap',
-  },
+const style: Styles<'text' | 'palette' | 'shadow'> = {
   text: ({
     fontSize,
     fontWeight,
@@ -162,7 +133,7 @@ export const Fonts: Story = () => (
   <RendererProvider renderer={renderer}>
     <table style={{ width: '100%' }}>
       <thead>
-        <FelaComponent style={style.thead} as="tr">
+        <FelaComponent style={commonStyle.thead} as="tr">
           <th>Regular</th>
           <th>Medium</th>
           <th>SemiBold</th>
@@ -185,7 +156,7 @@ export const Fonts: Story = () => (
                   <div style={{ color: COLOR.SECONDARY_100 }}>{cell.text}</div>
                   <div style={{ color: COLOR.SECONDARY_200 }}>{cell.text}</div>
                   <div style={{ color: COLOR.SECONDARY_300 }}>{cell.text}</div>
-                  <FelaComponent style={style.code} as="code">
+                  <FelaComponent style={commonStyle.code} as="code">
                     ...font(FONT_SIZE.{cell.fsKey}, FONT_WEIGHT.{cell.fwKey})
                   </FelaComponent>
                 </FelaComponent>
@@ -204,7 +175,7 @@ export const Colors: Story = () => (
   <RendererProvider renderer={renderer}>
     <table>
       <thead>
-        <FelaComponent style={style.thead} as="tr">
+        <FelaComponent style={commonStyle.thead} as="tr">
           <th>Gradient</th>
           <th>Primary</th>
           <th>Secondary</th>
@@ -225,7 +196,7 @@ export const Colors: Story = () => (
                         : COLOR[cell.key]
                     }
                   />
-                  <FelaComponent style={style.code} as="code">
+                  <FelaComponent style={commonStyle.code} as="code">
                     {(cell.type === 'gradient'
                       ? 'background: GRADIENT.'
                       : 'backgroundColor: COLOR.') + cell.key}
@@ -246,7 +217,7 @@ export const Shadows: Story = () => (
   <RendererProvider renderer={renderer}>
     <table>
       <thead>
-        <FelaComponent style={style.thead} as="tr">
+        <FelaComponent style={commonStyle.thead} as="tr">
           <th>Messager</th>
           <th>Cards</th>
           <th>Avatar</th>
@@ -258,7 +229,7 @@ export const Shadows: Story = () => (
           {shadowsTable.map((item) => (
             <td key={item}>
               <FelaComponent style={style.shadow} boxShadow={SHADOW[item]} />
-              <FelaComponent style={style.code} as="code">
+              <FelaComponent style={commonStyle.code} as="code">
                 boxShadow: SHADOW.{item}
               </FelaComponent>
             </td>

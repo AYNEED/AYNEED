@@ -1,53 +1,25 @@
 import React from 'react';
 
 import { COLOR } from 'src/constants/colors';
+import { IconBaseProps } from 'src/types';
 
-type Props = {
-  firstColor?: COLOR;
-  secondColor?: COLOR;
-  width?: number;
-  height?: number;
-  cropped?: boolean;
-};
-
-export const Settings: React.FC<Props> = ({
-  firstColor = COLOR.PRIMARY_100,
-  secondColor = COLOR.PRIMARY_300,
-  width = 96,
-  height = 18,
-  cropped = false,
+export const Settings: React.FC<IconBaseProps> = ({
+  fill = COLOR.SECONDARY_100,
+  width = 24,
+  height = 24,
 }) => (
-  <svg
-    width={cropped ? 50 : width}
-    height={height}
-    fill="none"
-    viewBox="0 0 24 24"
-  >
+  <svg width={width} height={height} fill="none">
     <path
       fillRule="evenodd"
       clipRule="evenodd"
       d="M17 12a5 5 0 11-10 0 5 5 0 0110 0zm-2 0a3 3 0 11-6 0 3 3 0 016 0z"
-      fill="url(#paint_linear)"
+      fill={fill}
     />
     <path
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M11 0a3 3 0 00-3 3v.2l-1.7 1V4A3 3 0 002 5.1L1.1 7a3 3 0 001.1 4l.1.1v2A3 3 0 001 17.1l1 1.8a3 3 0 004.1 1h.1l1.7 1v.1a3 3 0 003 3h2a3 3 0 003-3v-.2l1.7-1v.2a3 3 0 004.2-1.1l1-1.8a3 3 0 00-1.1-4l-.1-.1v-2A3 3 0 0023 6.9l-1-1.8a3 3 0 00-4.1-1h-.1l-1.7-1V3a3 3 0 00-3-3h-2zm-1 3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v.7c0 .4.2.7.5.9l2.7 1.5c.3.2.7.2 1 0l.6-.3a1 1 0 011.4.3l1 1.8c.2.4 0 1-.4 1.3l-.6.4a1 1 0 00-.5.9v3c0 .4.2.7.5.9l.6.4c.5.2.6.9.4 1.3l-1 1.8a1 1 0 01-1.4.3l-.6-.3a1 1 0 00-1 0l-2.7 1.5a1 1 0 00-.5.9v.7c0 .6-.4 1-1 1h-2a1 1 0 01-1-1v-.7a1 1 0 00-.5-.9l-2.7-1.5a1 1 0 00-1 0l-.6.3a1 1 0 01-1.4-.3l-1-1.8a1 1 0 01.4-1.3l.6-.4c.4-.2.5-.5.5-.9v-3a1 1 0 00-.5-.9l-.6-.4A1 1 0 012.8 8l1-1.8a1 1 0 011.4-.3l.6.3c.3.2.7.2 1 0l2.7-1.5c.3-.2.5-.5.5-.9V3z"
-      fill="url(#paint_linear)"
+      d="M11 0a3 3 0 00-3 3v.155l-1.66.959-.134-.078a3 3 0 00-4.098 1.098l-1 1.732a3 3 0 001.098 4.098l.135.078v1.917l-.135.077a3 3 0 00-1.098 4.098l1 1.732a3 3 0 004.098 1.099l.135-.078 1.66.958V21a3 3 0 003 3h2a3 3 0 003-3v-.155l1.66-.958.133.078a3 3 0 004.098-1.099l1-1.732a3 3 0 00-1.098-4.098l-.133-.076V11.04l.133-.077a3 3 0 001.098-4.098l-1-1.732a3 3 0 00-4.098-1.098l-.133.077-1.66-.958V3a3 3 0 00-3-3h-2zm-1 3a1 1 0 011-1h2a1 1 0 011 1v.732a1 1 0 00.5.866l2.661 1.536a1 1 0 001 0l.633-.366a1 1 0 011.366.366l1 1.732a1 1 0 01-.366 1.366l-.633.366a1 1 0 00-.5.866v3.073a1 1 0 00.5.866l.633.365a1 1 0 01.366 1.366l-1 1.732a1 1 0 01-1.366.367l-.634-.367a1 1 0 00-1 0l-2.66 1.536a1 1 0 00-.5.866V21a1 1 0 01-1 1h-2a1 1 0 01-1-1v-.732a1 1 0 00-.5-.866l-2.66-1.536a1 1 0 00-1 0l-.634.367a1 1 0 01-1.366-.367l-1-1.732a1 1 0 01.366-1.366l.635-.366a1 1 0 00.5-.866v-3.071a1 1 0 00-.5-.866l-.635-.367a1 1 0 01-.366-1.366l1-1.732a1 1 0 011.366-.366l.634.366a1 1 0 001 0L9.5 4.598a1 1 0 00.5-.866V3z"
+      fill={fill}
     />
-
-    <defs>
-      <linearGradient
-        id="paint_linear"
-        x1="12"
-        y1="0"
-        x2="12"
-        y2="24"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor={firstColor} />
-        <stop offset="1" stopColor={secondColor} />
-      </linearGradient>
-    </defs>
   </svg>
 );
