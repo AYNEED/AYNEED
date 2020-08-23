@@ -7,8 +7,6 @@ export default {
 
 export const Spinner: Story = () => <div className="spinner" />;
 
-export const Divider: Story = () => <>TODO</>;
-
 export const Time: Story = () => <>TODO</>;
 
 export const Date: Story = () => <>TODO</>;

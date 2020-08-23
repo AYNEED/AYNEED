@@ -13,6 +13,7 @@ export const Logo: React.FC = () => {
     <Link
       url={{ scheme: ROUTES.MAIN }}
       title={msg(intl, { id: 'web.components.ui.Logo.title' })}
+      mode="wrapper"
     >
       <LogoAYNeed />
     </Link>

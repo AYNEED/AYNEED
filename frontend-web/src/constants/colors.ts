@@ -14,7 +14,8 @@ export enum COLOR {
   SECONDARY_500 = '#FAFBFC',
 
   // others colors
-  ERROR = '#ED5432',
+  RED = '#ED5432',
+  PURPLE = '#9668CF',
   WHITE = '#FFFFFF',
   TRANSPARENT = 'transparent',
 }
@@ -27,3 +28,10 @@ export const GRADIENT = {
   DEFAULT: `linear-gradient(90deg, ${COLOR.PRIMARY_400} 0%, ${COLOR.PRIMARY_500} 100%)`,
   GRAY_HORIZONTAL: `linear-gradient(90deg, ${COLOR.SECONDARY_200} 0%, ${COLOR.SECONDARY_400} 100%)`,
 } as const;
+
+export const gradient = (background?: string): {} => ({
+  background: background || COLOR.TRANSPARENT,
+  backgroundClip: background ? 'text' : 'border-box',
+  '-webkit-background-clip': background ? 'text' : 'border-box',
+  '-webkit-text-fill-color': background ? COLOR.TRANSPARENT : 'currentcolor',
+});

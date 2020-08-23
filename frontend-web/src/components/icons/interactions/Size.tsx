@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { COLOR } from 'src/constants/colors';
 import { IconBaseProps } from 'src/types';
 
 export const Size: React.FC<IconBaseProps> = ({
-  fill = COLOR.SECONDARY_100,
+  fill,
   width = 24,
   height = 24,
 }) => (
-  <svg width={width} height={height} fill="none" viewBox="0 0 18 18">
+  <svg width={width} height={height} viewBox="0 0 18 18">
     <path
       d="M4.5 18C3.67157 18 3 17.3284 3 16.5C3 15.6716 3.67157 15 4.5 15C5.32843 15 6 15.6716 6 16.5C6 17.3284 5.32843 18 4.5 18Z"
       fill={fill}

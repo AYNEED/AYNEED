@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { COLOR } from 'src/constants/colors';
 import { IconBaseProps } from 'src/types';
 
 export const Settings: React.FC<IconBaseProps> = ({
-  fill = COLOR.SECONDARY_100,
+  fill,
   width = 24,
   height = 24,
 }) => (
-  <svg width={width} height={height} fill="none">
+  <svg width={width} height={height}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"

@@ -20,6 +20,12 @@ export const commonStyle: Styles<'thead' | 'code'> = {
   thead: {
     ...font(FONT_SIZE.M, FONT_WEIGHT.SEMIBOLD),
     textAlign: 'left',
+
+    nested: {
+      '> th': {
+        paddingRight: 10,
+      },
+    },
   },
   code: {
     ...bordered,

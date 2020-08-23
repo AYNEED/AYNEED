@@ -72,7 +72,11 @@ const Linked: React.FC<{ id: Props['id'] }> = ({ id, children }) => {
     return <>{children}</>;
   }
 
-  return <Link url={{ scheme: ROUTES.USER, params: { id } }}>{children}</Link>;
+  return (
+    <Link url={{ scheme: ROUTES.USER, params: { id } }} mode="wrapper">
+      {children}
+    </Link>
+  );
 };
 
 export const Avatar: React.FC<Props> = ({

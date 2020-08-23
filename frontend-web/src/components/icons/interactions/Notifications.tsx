@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { COLOR } from 'src/constants/colors';
 import { IconPropsWithFilled } from 'src/types';
 
 export const Notifications: React.FC<IconPropsWithFilled> = ({
-  fill = COLOR.SECONDARY_100,
+  fill,
   width = 22,
   height = 24,
   filled = false,

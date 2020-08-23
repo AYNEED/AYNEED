@@ -46,13 +46,13 @@ const colorsTable: ColorsTableItem[][] = [
     { key: 'VERTICAL_DAWN', type: 'gradient' },
     { key: 'PRIMARY_300', type: 'color' },
     { key: 'SECONDARY_300', type: 'color' },
-    { key: 'ERROR', type: 'color' },
+    { key: 'RED', type: 'color' },
   ],
   [
     { key: 'DEFAULT', type: 'gradient' },
     { key: 'PRIMARY_400', type: 'color' },
     { key: 'SECONDARY_400', type: 'color' },
-    null,
+    { key: 'PURPLE', type: 'color' },
   ],
   [
     { key: 'GRAY_HORIZONTAL', type: 'gradient' },

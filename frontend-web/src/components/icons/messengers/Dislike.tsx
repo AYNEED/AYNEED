@@ -1,15 +1,14 @@
 import React from 'react';
 
-import { COLOR } from 'src/constants/colors';
 import { IconPropsWithFilled } from 'src/types';
 
 export const Dislike: React.FC<IconPropsWithFilled> = ({
-  fill = COLOR.SECONDARY_100,
+  fill,
   width = 25,
   height = 24,
   filled = false,
 }) => (
-  <svg width={width} height={height} fill="none">
+  <svg width={width} height={height}>
     <path
       d={
         filled

@@ -1,23 +1,21 @@
 import React from 'react';
 
-import { COLOR } from 'src/constants/colors';
 import { IconPropsWithFilled } from 'src/types';
 
 export const Message: React.FC<IconPropsWithFilled> = ({
-  fill = COLOR.SECONDARY_100,
+  fill,
   width = 26,
   height = 24,
   filled = false,
 }) => (
-  <svg
-    width={width}
-    height={height}
-    fill={filled ? COLOR.SECONDARY_100 : 'none'}
-  >
+  <svg width={width} height={height} viewBox="0 0 24 24">
     <path
-      d="M16.095 21.276l-.31-.088-.303.11a10.182 10.182 0 01-3.482.608c-5.78 0-10.467-4.709-10.467-10.466C1.533 5.687 6.241 1 12 1s10.466 4.687 10.466 10.44c0 1.31-.24 2.579-.681 3.81a11.33 11.33 0 01-1.587 2.704l-.36.454.214.538 1.548 3.891-5.505-1.56z"
-      stroke={fill}
-      strokeWidth="2"
+      d={
+        filled
+          ? 'M22.94 11.44a11.47 11.47 0 10-11.47 11.47 11.26 11.26 0 003.82-.67L21.47 24h.11a.74.74 0 00.51-.21.67.67 0 00.16-.62l-1.78-4.59a12.56 12.56 0 001.74-3 12.3 12.3 0 00.73-4.14z'
+          : 'M15.7 20.1l4.2 1.2-1.2-3.1.7-.9c.6-.7 1.1-1.6 1.4-2.4.4-1.1.6-2.3.6-3.5C21.5 6.2 17.2 2 12 2s-9.5 4.2-9.5 9.4 4.2 9.5 9.5 9.5c1.1 0 2.1-.2 3.1-.5l.6-.3zm7-4.5c-.4 1-1 2.1-1.7 3l1.8 4.6c.1.2 0 .5-.2.6-.1.1-.3.2-.5.2H22l-6.2-1.8c-1.3.5-2.5.7-3.8.7C5.7 22.9.5 17.7.5 11.4S5.7 0 12 0s11.5 5.1 11.5 11.4c0 1.5-.3 2.9-.8 4.2z'
+      }
+      fill={fill}
     />
   </svg>
 );

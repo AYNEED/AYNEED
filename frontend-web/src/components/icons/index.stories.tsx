@@ -2,6 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { RendererProvider, FelaComponent } from 'react-fela';
 
+import { COLOR } from 'src/constants/colors';
 import { Styles, renderer } from 'src/utils/fela';
 import { commonStyle } from 'src/utils/storybook';
 import { IconBaseProps } from 'src/types';
@@ -80,22 +81,55 @@ const style: Styles<'codeWrapper'> = {
 const IconsTable: React.FC<{ icons: Icons[] }> = ({ icons }) => (
   <RendererProvider renderer={renderer}>
     <table>
+      <thead>
+        <FelaComponent style={commonStyle.thead} as="tr">
+          <th colSpan={2}>Default</th>
+          <th colSpan={2}>Default filled</th>
+          <th colSpan={2}>Colorized</th>
+          <th colSpan={2}>Colorized filled</th>
+        </FelaComponent>
+      </thead>
       <tbody>
         {icons.map((icon) => (
           <tr key={icon.icon.name}>
             <td>
               <icon.icon />
             </td>
+
             <FelaComponent style={style.codeWrapper} as="td">
               <FelaComponent style={commonStyle.code} as="code">
                 {`<${icon.icon.name} />`}
               </FelaComponent>
             </FelaComponent>
+
             <td>{icon.filled && <icon.icon filled />}</td>
+
             <FelaComponent style={style.codeWrapper} as="td">
               {icon.filled && (
                 <FelaComponent style={commonStyle.code} as="code">
                   {`<${icon.icon.name} filled />`}
+                </FelaComponent>
+              )}
+            </FelaComponent>
+
+            <td>
+              <icon.icon fill={COLOR.PRIMARY_300} />
+            </td>
+
+            <FelaComponent style={style.codeWrapper} as="td">
+              <FelaComponent style={commonStyle.code} as="code">
+                {`<${icon.icon.name} fill={COLOR.PRIMARY_300} />`}
+              </FelaComponent>
+            </FelaComponent>
+
+            <td>
+              {icon.filled && <icon.icon filled fill={COLOR.PRIMARY_300} />}
+            </td>
+
+            <FelaComponent style={style.codeWrapper} as="td">
+              {icon.filled && (
+                <FelaComponent style={commonStyle.code} as="code">
+                  {`<${icon.icon.name} filled fill={COLOR.PRIMARY_300} />`}
                 </FelaComponent>
               )}
             </FelaComponent>
