@@ -21,10 +21,7 @@ import {
   SignUpEmailMutationResult,
   SignUpEmailMutationVariables,
 } from 'src/__generated__';
-
-const EnterThrough = React.lazy(() =>
-  import('src/components/blocks/EnterThrough')
-);
+import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
 const SignUpEmail: React.FC = () => {
   const [signUpEmail, result] = useMutation<

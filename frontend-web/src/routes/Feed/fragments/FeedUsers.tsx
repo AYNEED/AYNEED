@@ -12,8 +12,7 @@ import {
   CommonUserFieldsFragment,
 } from 'src/__generated__';
 import { Msg } from 'src/i18n/Msg';
-
-const CardUser = React.lazy(() => import('src/components/ui/CardUser'));
+import { CardUser } from 'src/components/ui/CardUser';
 
 export const FeedUsers: React.FC = () => {
   const { error, data, fetchMore, subscribeToMore } = useQuery<GetUsersQuery>(
