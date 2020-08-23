@@ -71,7 +71,7 @@ type Query {
     query: String!
     targetModel: SEARCH_TARGET_MODEL!
     cursor: ID
-  ): UserFeed!
+  ): SearchResult!
 
   messages(cursor: ID): MessageFeed!
 
@@ -150,6 +150,8 @@ enum USER_ROLE {
   user
   support
 }
+
+union SearchResult = MessageFeed | ProjectFeed | UserFeed
 
 # ########################### feeds ###########################
 

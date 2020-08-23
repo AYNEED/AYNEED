@@ -107,7 +107,7 @@ export type Query = {
   projects: ProjectFeed;
   user: User;
   users: UserFeed;
-  search: UserFeed;
+  search: SearchResult;
   messages: MessageFeed;
   help: Help;
 };
@@ -210,6 +210,8 @@ export enum UserRole {
   User = 'user',
   Support = 'support',
 }
+
+export type SearchResult = MessageFeed | ProjectFeed | UserFeed;
 
 export type MessageFeed = {
   items: Array<Message>;

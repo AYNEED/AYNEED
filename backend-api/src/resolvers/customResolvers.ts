@@ -11,6 +11,10 @@ import {
 
 // -------------------------- Feeds ---------------------------
 
+export const resolveSearchResult: Resolvers['SearchResult'] = {
+  //
+};
+
 export const resolveMessageFeed: Resolvers['MessageFeed'] = {
   items: (parent) => parent.items,
   hasMore: (parent) => parent.hasMore,

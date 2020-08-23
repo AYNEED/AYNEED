@@ -1,16 +1,18 @@
 import {
   UserClient,
+  ProjectStatus,
   Resolvers,
   SearchTargetModel,
-  UserFeed,
+  SearchResult,
   QuerySearchArgs,
 } from 'src/__generated__';
+import { ProjectModel } from 'src/models/project';
 import { UserModel } from 'src/models/user';
-import { FEED_LIMIT } from 'src/constants';
+import { FEED_LIMIT, SEARCH_RESULT_LIMIT } from 'src/constants';
 import { userDriver } from 'src/resolvers/drivers';
 
 const searchModeToHandler: {
-  [key in SearchTargetModel]: (query: QuerySearchArgs) => Promise<UserFeed>;
+  [key in SearchTargetModel]: (query: QuerySearchArgs) => Promise<SearchResult>;
 } = {
   [SearchTargetModel.Users]: async ({ query, cursor }) => {
     const data = await UserModel.find(
@@ -49,11 +51,74 @@ const searchModeToHandler: {
 
   [SearchTargetModel.Candidates]: async () => ({ items: [], hasMore: false }),
 
-  [SearchTargetModel.Concepts]: async () => ({ items: [], hasMore: false }),
+  [SearchTargetModel.Concepts]: async ({ query }) => {
+    const data = await ProjectModel.find(
+      { title: /query/i, status: ProjectStatus.Concept },
+      null,
+      { sort: { createdAt: 'desc' }, limit: SEARCH_RESULT_LIMIT }
+    );
 
-  [SearchTargetModel.Ideas]: async () => ({ items: [], hasMore: false }),
+    const last = data[data.length - 1];
 
-  [SearchTargetModel.Mvps]: async () => ({ items: [], hasMore: false }),
+    let count = 0;
+
+    if (last) {
+      count = await ProjectModel.count({
+        title: /query/i,
+        status: ProjectStatus.Concept,
+      });
+    }
+
+    return { items: data, hasMore: !!count };
+  },
+
+  [SearchTargetModel.Ideas]: async ({ query }) => {
+    const data = await ProjectModel.find(
+      {
+        title: /query/i,
+        status: ProjectStatus.Idea,
+      },
+      null,
+      { sort: { createdAt: 'desc' }, limit: SEARCH_RESULT_LIMIT }
+    );
+
+    const last = data[data.length - 1];
+
+    let count = 0;
+
+    if (last) {
+      count = await ProjectModel.count({
+        title: /query/i,
+        status: ProjectStatus.Idea,
+      });
+    }
+
+    return { items: data, hasMore: !!count };
+  },
+
+  [SearchTargetModel.Mvps]: async ({ query }) => {
+    const data = await ProjectModel.find(
+      {
+        title: /query/i,
+        status: ProjectStatus.Mvp,
+      },
+      null,
+      { sort: { createdAt: 'desc' }, limit: SEARCH_RESULT_LIMIT }
+    );
+
+    const last = data[data.length - 1];
+
+    let count = 0;
+
+    if (last) {
+      count = await ProjectModel.count({
+        title: /query/i,
+        status: ProjectStatus.Mvp,
+      });
+    }
+
+    return { items: data, hasMore: !!count };
+  },
 };
 
 export const getSearchResults: Resolvers['Query']['search'] = async (

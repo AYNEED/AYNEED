@@ -114,7 +114,7 @@ export type Query = {
   projects: ProjectFeed;
   user: User;
   users: UserFeed;
-  search: UserFeed;
+  search: SearchResult;
   messages: MessageFeed;
   help: Help;
 };
@@ -217,6 +217,8 @@ export enum UserRole {
   User = 'user',
   Support = 'support',
 }
+
+export type SearchResult = MessageFeed | ProjectFeed | UserFeed;
 
 export type MessageFeed = {
   items: Array<Message>;
@@ -530,6 +532,10 @@ export type ResolversTypes = {
   USER_LANGUAGE_LEVEL: UserLanguageLevel;
   USER_CLIENT: UserClient;
   USER_ROLE: UserRole;
+  SearchResult:
+    | ResolversTypes['MessageFeed']
+    | ResolversTypes['ProjectFeed']
+    | ResolversTypes['UserFeed'];
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
   ProjectFeed: ResolverTypeWrapper<ProjectFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
@@ -566,6 +572,10 @@ export type ResolversParentTypes = {
   ID: Scalars['ID'];
   Query: {};
   Subscription: {};
+  SearchResult:
+    | ResolversParentTypes['MessageFeed']
+    | ResolversParentTypes['ProjectFeed']
+    | ResolversParentTypes['UserFeed'];
   MessageFeed: MessageFeed;
   ProjectFeed: ProjectFeed;
   UserFeed: UserFeed;
@@ -724,7 +734,7 @@ export type QueryResolvers<
     RequireFields<QueryUsersArgs, never>
   >;
   search: Resolver<
-    ResolversTypes['UserFeed'],
+    ResolversTypes['SearchResult'],
     ParentType,
     ContextType,
     RequireFields<QuerySearchArgs, 'query' | 'targetModel'>
@@ -768,6 +778,17 @@ export type SubscriptionResolvers<
   userUpdated: SubscriptionResolver<
     ResolversTypes['User'],
     'userUpdated',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type SearchResultResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['SearchResult'] = ResolversParentTypes['SearchResult']
+> = {
+  __resolveType: TypeResolveFn<
+    'MessageFeed' | 'ProjectFeed' | 'UserFeed',
     ParentType,
     ContextType
   >;
@@ -1153,6 +1174,7 @@ export type Resolvers<ContextType = { user?: User }> = {
   Mutation: MutationResolvers<ContextType>;
   Query: QueryResolvers<ContextType>;
   Subscription: SubscriptionResolvers<ContextType>;
+  SearchResult: SearchResultResolvers<ContextType>;
   MessageFeed: MessageFeedResolvers<ContextType>;
   ProjectFeed: ProjectFeedResolvers<ContextType>;
   UserFeed: UserFeedResolvers<ContextType>;
