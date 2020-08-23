@@ -7,7 +7,7 @@ import { Scheme } from 'src/navigation';
 type CommonProps = {
   disabled?: boolean;
   theme?: Theme;
-  children?: JSX.Element;
+  children?: string;
 };
 
 export type ButtonLinkProps = CommonProps & {
