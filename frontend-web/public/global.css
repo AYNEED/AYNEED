@@ -1,11 +1,29 @@
-html {
-  background-color: #ffffff;
-  font-size: 14px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body {
-  height: 100%;
+body,
+html {
   width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+#root {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.sb-show-main #root {
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: calc(100vh - 16px);
 }
 
 html,
@@ -69,9 +87,6 @@ h6 {
   position: relative;
   width: 20px;
   height: 20px;
-  margin-top: 47vh;
-  margin-right: auto;
-  margin-left: auto;
   border: 2px solid #09bccf;
   border-radius: 50%;
   -webkit-animation: spin 1s linear infinite;

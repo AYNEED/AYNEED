@@ -28,6 +28,7 @@ const Error404: React.FC = () => {
         <Error404Icon />
       </FelaComponent>
       <SearchForm
+        mode="general"
         onSubmit={(values) => updateHistory(history, ROUTES.FEED, values)}
       />
     </Page>

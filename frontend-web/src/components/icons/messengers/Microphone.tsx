@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { COLOR } from 'src/constants/colors';
 import { IconBaseProps } from 'src/types';
 
 export const Microphone: React.FC<IconBaseProps> = ({
-  fill = COLOR.SECONDARY_100,
+  fill,
   width = 25,
   height = 24,
 }) => (
-  <svg width={width} height={height} fill="none" viewBox="0 0 25 24">
+  <svg width={width} height={height} viewBox="0 0 25 24">
     <path
       fillRule="evenodd"
       clipRule="evenodd"

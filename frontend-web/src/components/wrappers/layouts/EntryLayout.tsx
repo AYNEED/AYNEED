@@ -8,8 +8,7 @@ import {
   LayoutProps,
   LayoutStyleProps,
 } from 'src/components/wrappers/layouts/types';
-
-const Logo = React.lazy(() => import('src/components/ui/Logo'));
+import { Logo } from 'src/components/ui/Logo';
 
 const style: Styles<'root' | 'logo' | 'title'> = {
   root: ({ backgroundColor }: LayoutStyleProps) => ({
