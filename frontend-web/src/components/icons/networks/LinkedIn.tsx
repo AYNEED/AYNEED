@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { COLOR } from 'src/constants/colors';
 import { IconBaseProps } from 'src/types';
 
 export const LinkedIn: React.FC<IconBaseProps> = ({
-  fill = COLOR.SECONDARY_100,
+  fill,
   width = 24,
   height = 24,
 }) => (
-  <svg width={width} height={height} fill="none" viewBox="0 0 24 24">
+  <svg width={width} height={height} viewBox="0 0 24 24">
     <path
       d="M4.75048 7.39822C5.97509 7.60666 7.04336 7.00739 7.30391 5.96517C7.64263 4.58424 6.67858 3.41174 5.21948 3.4378C4.25543 3.41174 3.49982 3.88074 3.18716 4.6624C2.71816 5.91306 3.44771 7.18978 4.75048 7.39822Z"
       fill={fill}

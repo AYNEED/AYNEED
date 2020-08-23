@@ -12,7 +12,7 @@ type ButtonSubmitProps = {
 };
 
 export const ButtonLink: React.FC<ButtonLinkProps> = ({ url, children }) => (
-  <Link url={url}>
+  <Link url={url} mode="wrapper">
     <button type="button">{children}</button>
   </Link>
 );

@@ -10,11 +10,12 @@ import { ROUTES } from 'shared';
 import { useGetParams } from 'src/hooks/useGetParams';
 import { MsgProps } from 'src/i18n/Msg';
 import { updateHistory } from 'src/navigation';
-import { Search } from 'src/components/icons/Search';
+import { Search } from 'src/components/icons/interactions/Search';
 import { InputText, InputRadio } from 'src/components/ui/forms/Input';
 import { SearchTargetModel } from 'src/__generated__';
 
-type Props = {
+export type Props = {
+  mode: 'general' | 'single';
   onSubmit: FormikConfig<{
     query: string;
     model: SearchTargetModel;
@@ -60,7 +61,7 @@ const style: Styles<'container' | 'icon' | 'checked'> = {
         fontSize: '18px',
         lineHeight: '150%',
         backgroundColor: 'transparent',
-        color: COLOR.SECONDARY_500,
+        color: COLOR.SECONDARY_100,
         outline: '0',
         flex: 1,
         width: '100%',
@@ -92,19 +93,22 @@ const style: Styles<'container' | 'icon' | 'checked'> = {
   },
 };
 
+const getModel = (params: URLSearchParams): SearchTargetModel => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const baseModel = params.get('model') as any;
+  return models.includes(baseModel) ? baseModel : SearchTargetModel.Candidates;
+};
+
 export const SearchForm: React.FC<Props> = ({
+  mode,
   onSubmit,
   withChangeHistory,
 }) => {
   const history = useHistory();
   const searchParams = useGetParams();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const baseModel = searchParams.get('model') as any;
   const query = searchParams.get('query') || '';
-  const model: SearchTargetModel = models.includes(baseModel)
-    ? baseModel
-    : SearchTargetModel.Candidates;
+  const model = getModel(searchParams);
 
   const formik = useFormik({
     initialValues: {
@@ -145,23 +149,25 @@ export const SearchForm: React.FC<Props> = ({
           onChange={formik.handleChange}
           maxLength={80}
         />
-        <FelaComponent style={style.checked}>
-          {({ className }) =>
-            models.map((model) => (
-              <InputRadio
-                className={
-                  formik.values.model === model ? className : undefined
-                }
-                key={model}
-                name="model"
-                value={model}
-                checked={formik.values.model === model}
-                label={{ id: modelToItem[model as SearchTargetModel] }}
-                onChange={formik.handleChange}
-              />
-            ))
-          }
-        </FelaComponent>
+        {mode === 'general' && (
+          <FelaComponent style={style.checked}>
+            {({ className }) =>
+              models.map((model) => (
+                <InputRadio
+                  className={
+                    formik.values.model === model ? className : undefined
+                  }
+                  key={model}
+                  name="model"
+                  value={model}
+                  checked={formik.values.model === model}
+                  label={{ id: modelToItem[model as SearchTargetModel] }}
+                  onChange={formik.handleChange}
+                />
+              ))
+            }
+          </FelaComponent>
+        )}
       </FelaComponent>
     </form>
   );

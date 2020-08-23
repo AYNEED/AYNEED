@@ -5,7 +5,7 @@ import { CommonProjectFieldsFragment } from 'src/__generated__';
 
 type Props = CommonProjectFieldsFragment;
 
-const CardProject: React.FC<Props> = ({ title, problem, solution }) => (
+export const CardProject: React.FC<Props> = ({ title, problem, solution }) => (
   <>
     <h3>{title}</h3>
 
@@ -20,5 +20,3 @@ const CardProject: React.FC<Props> = ({ title, problem, solution }) => (
     <p>{solution}</p>
   </>
 );
-
-export default CardProject;

@@ -6,7 +6,7 @@ import { Google } from 'src/components/icons/networks/Google';
 import { Facebook } from 'src/components/icons/networks/Facebook';
 import { VK } from 'src/components/icons/networks/VK';
 
-const EnterThrough: React.FC = () => {
+export const EnterThrough: React.FC = () => {
   const intl = useIntl();
 
   return (
@@ -33,5 +33,3 @@ const EnterThrough: React.FC = () => {
     </>
   );
 };
-
-export default EnterThrough;

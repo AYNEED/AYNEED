@@ -7,7 +7,7 @@ import { FeedUsers } from 'src/routes/Feed/fragments/FeedUsers';
 
 const Feed: React.FC = () => (
   <Page>
-    <SearchForm onSubmit={console.log} withChangeHistory />
+    <SearchForm mode="general" onSubmit={console.log} withChangeHistory />
 
     <FeedProjects />
     <FeedUsers />
