@@ -2,9 +2,8 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 export default {
-  title: 'Documentation/Atoms',
+  title: 'Atoms',
 } as Meta;
-
 
 export const Spinner: Story = () => <div className="spinner" />;
 

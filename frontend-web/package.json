@@ -54,7 +54,6 @@
     "start": "react-scripts start",
     "start:storybook": "start-storybook -p 6006 -s public",
     "build": "react-scripts build",
-    "build:storybook": "build-storybook -s public",
     "test": "NODE_ICU_DATA=../node_modules/full-icu react-scripts test --env=jest-environment-jsdom-sixteen"
   },
   "browserslist": {

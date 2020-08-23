@@ -6,7 +6,7 @@ import { COLOR } from 'src/constants/colors';
 import { LogoAYNeed, Props } from 'src/components/logos/LogoAYNeed';
 
 export default {
-  title: 'Documentation/Logos',
+  title: 'Atoms/Logos',
   component: LogoAYNeed,
 } as Meta;
 

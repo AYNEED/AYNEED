@@ -63,7 +63,7 @@ import { Smile } from 'src/components/icons/messengers/Smile';
 import { Treds } from 'src/components/icons/messengers/Treds';
 
 export default {
-  title: 'Documentation/Icons',
+  title: 'Atoms/Icons',
 } as Meta;
 
 type Icons = {

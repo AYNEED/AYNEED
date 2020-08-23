@@ -5,7 +5,7 @@ import { Badge, Props } from 'src/components/ui/Badge';
 import { COLOR } from 'src/constants/colors';
 
 export default {
-  title: 'Documentation/Badges',
+  title: 'Atoms/Badges',
   component: Badge,
 } as Meta;
 

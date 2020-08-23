@@ -58,6 +58,7 @@ ch${НОМЕР_ЗАДАЧИ_В_CLUBHOUSE}_${КОТОРОТКОЕ_ПОЯСНЕН�
 
 1. `cd frontend-web`
 2. `yarn run start`
+3. `yarn run start:storybook`
 
 ## Макеты
 
