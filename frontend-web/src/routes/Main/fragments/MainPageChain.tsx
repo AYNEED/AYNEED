@@ -3,7 +3,7 @@ import { FelaComponent } from 'react-fela';
 
 import { Styles, PropsStyle } from 'src/utils/fela';
 import { MsgProps } from 'src/i18n/Msg';
-import { Idea } from 'src/components/icons/statuses/Idea';
+import { Idea } from 'src/components/icons/projects/Idea';
 import { Command } from 'src/components/icons/old_design/Command';
 import { Investments } from 'src/components/icons/old_design/Investments';
 import { Rocket } from 'src/components/icons/old_design/Rocket';
@@ -32,7 +32,7 @@ const styles: Styles<
     top: '-75px',
     width: '63px',
     height: '64px',
-    display: 'flex !important',
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',

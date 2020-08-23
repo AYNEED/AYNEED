@@ -19,7 +19,7 @@ export const base = {
   'web.components.ui.CardProject.problem': 'Проблема',
   'web.components.ui.CardProject.solution': 'Решение',
 
-  'web.components.ui.Logo.title': 'AY Need',
+  'web.components.ui.Logo.title': 'AYNeed',
 
   'web.routes.Error404.title': '404 Не найдено',
 
@@ -39,7 +39,7 @@ export const base = {
 
   'web.routes.Main.button_start': 'Start',
   'web.routes.Main.description': 'Объединяет людей для создания IT-продуктов',
-  'web.routes.Main.title': 'AY Need',
+  'web.routes.Main.title': 'AYNeed',
   'web.routes.Main.fragments.MainPageChain.command': 'Команда',
   'web.routes.Main.fragments.MainPageChain.idea': 'Идея',
   'web.routes.Main.fragments.MainPageChain.investments': 'Инвестиции',

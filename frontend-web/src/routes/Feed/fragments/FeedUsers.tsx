@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 
+import { LazyList } from 'src/components/wrappers/LazyList';
 import {
   GetUsersDocument,
   GetUsersQuery,
@@ -8,10 +9,10 @@ import {
   OnUserAddedSubscription,
   OnUserUpdatedDocument,
   OnUserUpdatedSubscription,
+  CommonUserFieldsFragment,
 } from 'src/__generated__';
 import { Msg } from 'src/i18n/Msg';
-
-const CardUser = React.lazy(() => import('src/components/ui/CardUser'));
+import { CardUser } from 'src/components/ui/CardUser';
 
 export const FeedUsers: React.FC = () => {
   const { error, data, fetchMore, subscribeToMore } = useQuery<GetUsersQuery>(
@@ -83,16 +84,11 @@ export const FeedUsers: React.FC = () => {
 
       {error && <p>Error</p>}
 
-      {data.users.items.map((user) => (
-        <div key={user.id}>
-          <CardUser {...user} />
-
-          <hr />
-        </div>
-      ))}
-
-      {/* TODO: use auto-loading */}
-      <div onClick={loadMore}>load more</div>
+      <LazyList<CommonUserFieldsFragment>
+        callback={loadMore}
+        data={data.users.items}
+        children={CardUser}
+      />
     </>
   );
 };

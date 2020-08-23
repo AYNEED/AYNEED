@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Avatar } from 'src/components/ui/Avatar';
-import { CommouUserFieldsFragment } from 'src/__generated__';
+import { CommonUserFieldsFragment } from 'src/__generated__';
 
-type Props = CommouUserFieldsFragment;
+type Props = CommonUserFieldsFragment;
 
-const CardUser: React.FC<Props> = ({ id, network, about, personal }) => (
+export const CardUser: React.FC<Props> = ({ id, network, about, personal }) => (
   <>
     <Avatar
       id={id}
@@ -27,5 +27,3 @@ const CardUser: React.FC<Props> = ({ id, network, about, personal }) => (
     </ul>
   </>
 );
-
-export default CardUser;

@@ -392,12 +392,12 @@ export type UserSkillRecord = {
   primary: Scalars['Boolean'];
 };
 
-export type CommouProjectFieldsFragment = Pick<
+export type CommonProjectFieldsFragment = Pick<
   Project,
   'id' | 'title' | 'problem' | 'solution'
 >;
 
-export type CommouUserFieldsFragment = Pick<User, 'id'> & {
+export type CommonUserFieldsFragment = Pick<User, 'id'> & {
   network: Pick<UserNetwotkData, 'isOnline' | 'client'>;
   about: { skills: Array<Pick<UserSkillRecord, 'title' | 'primary'>> };
   personal: Pick<UserPersonalData, 'firstName' | 'lastName' | 'photo'>;
@@ -409,7 +409,7 @@ export type GetProjectsQueryVariables = Exact<{
 
 export type GetProjectsQuery = {
   projects: Pick<ProjectFeed, 'hasMore'> & {
-    items: Array<CommouProjectFieldsFragment>;
+    items: Array<CommonProjectFieldsFragment>;
   };
 };
 
@@ -418,7 +418,7 @@ export type GetUsersQueryVariables = Exact<{
 }>;
 
 export type GetUsersQuery = {
-  users: Pick<UserFeed, 'hasMore'> & { items: Array<CommouUserFieldsFragment> };
+  users: Pick<UserFeed, 'hasMore'> & { items: Array<CommonUserFieldsFragment> };
 };
 
 export type OnProjectAddedSubscriptionVariables = Exact<{
@@ -426,7 +426,7 @@ export type OnProjectAddedSubscriptionVariables = Exact<{
 }>;
 
 export type OnProjectAddedSubscription = {
-  projectAdded: CommouProjectFieldsFragment;
+  projectAdded: CommonProjectFieldsFragment;
 };
 
 export type OnProjectUpdatedSubscriptionVariables = Exact<{
@@ -434,19 +434,19 @@ export type OnProjectUpdatedSubscriptionVariables = Exact<{
 }>;
 
 export type OnProjectUpdatedSubscription = {
-  projectUpdated: CommouProjectFieldsFragment;
+  projectUpdated: CommonProjectFieldsFragment;
 };
 
 export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
-export type OnUserAddedSubscription = { userAdded: CommouUserFieldsFragment };
+export type OnUserAddedSubscription = { userAdded: CommonUserFieldsFragment };
 
 export type OnUserUpdatedSubscriptionVariables = Exact<{
   [key: string]: never;
 }>;
 
 export type OnUserUpdatedSubscription = {
-  userUpdated: CommouUserFieldsFragment;
+  userUpdated: CommonUserFieldsFragment;
 };
 
 export type ForgotPasswordMutationVariables = Exact<{
@@ -461,7 +461,7 @@ export type SignInEmailMutationVariables = Exact<{
   client: UserClient;
 }>;
 
-export type SignInEmailMutation = { signInEmail: CommouUserFieldsFragment };
+export type SignInEmailMutation = { signInEmail: CommonUserFieldsFragment };
 
 export type SignUpEmailMutationVariables = Exact<{
   email: Scalars['String'];
@@ -473,18 +473,18 @@ export type SignUpEmailMutationVariables = Exact<{
   client: UserClient;
 }>;
 
-export type SignUpEmailMutation = { signUpEmail: CommouUserFieldsFragment };
+export type SignUpEmailMutation = { signUpEmail: CommonUserFieldsFragment };
 
-export const CommouProjectFieldsFragmentDoc = gql`
-  fragment commouProjectFields on Project {
+export const CommonProjectFieldsFragmentDoc = gql`
+  fragment commonProjectFields on Project {
     id
     title
     problem
     solution
   }
 `;
-export const CommouUserFieldsFragmentDoc = gql`
-  fragment commouUserFields on User {
+export const CommonUserFieldsFragmentDoc = gql`
+  fragment commonUserFields on User {
     id
     network {
       isOnline
@@ -507,12 +507,12 @@ export const GetProjectsDocument = gql`
   query GetProjects($cursor: ID) {
     projects(cursor: $cursor) {
       items {
-        ...commouProjectFields
+        ...commonProjectFields
       }
       hasMore
     }
   }
-  ${CommouProjectFieldsFragmentDoc}
+  ${CommonProjectFieldsFragmentDoc}
 `;
 export type GetProjectsQueryResult = Apollo.QueryResult<
   GetProjectsQuery,
@@ -522,12 +522,12 @@ export const GetUsersDocument = gql`
   query GetUsers($cursor: ID) {
     users(cursor: $cursor) {
       items {
-        ...commouUserFields
+        ...commonUserFields
       }
       hasMore
     }
   }
-  ${CommouUserFieldsFragmentDoc}
+  ${CommonUserFieldsFragmentDoc}
 `;
 export type GetUsersQueryResult = Apollo.QueryResult<
   GetUsersQuery,
@@ -536,10 +536,10 @@ export type GetUsersQueryResult = Apollo.QueryResult<
 export const OnProjectAddedDocument = gql`
   subscription onProjectAdded {
     projectAdded {
-      ...commouProjectFields
+      ...commonProjectFields
     }
   }
-  ${CommouProjectFieldsFragmentDoc}
+  ${CommonProjectFieldsFragmentDoc}
 `;
 export type OnProjectAddedSubscriptionResult = Apollo.SubscriptionResult<
   OnProjectAddedSubscription
@@ -547,10 +547,10 @@ export type OnProjectAddedSubscriptionResult = Apollo.SubscriptionResult<
 export const OnProjectUpdatedDocument = gql`
   subscription onProjectUpdated {
     projectUpdated {
-      ...commouProjectFields
+      ...commonProjectFields
     }
   }
-  ${CommouProjectFieldsFragmentDoc}
+  ${CommonProjectFieldsFragmentDoc}
 `;
 export type OnProjectUpdatedSubscriptionResult = Apollo.SubscriptionResult<
   OnProjectUpdatedSubscription
@@ -558,10 +558,10 @@ export type OnProjectUpdatedSubscriptionResult = Apollo.SubscriptionResult<
 export const OnUserAddedDocument = gql`
   subscription onUserAdded {
     userAdded {
-      ...commouUserFields
+      ...commonUserFields
     }
   }
-  ${CommouUserFieldsFragmentDoc}
+  ${CommonUserFieldsFragmentDoc}
 `;
 export type OnUserAddedSubscriptionResult = Apollo.SubscriptionResult<
   OnUserAddedSubscription
@@ -569,10 +569,10 @@ export type OnUserAddedSubscriptionResult = Apollo.SubscriptionResult<
 export const OnUserUpdatedDocument = gql`
   subscription onUserUpdated {
     userUpdated {
-      ...commouUserFields
+      ...commonUserFields
     }
   }
-  ${CommouUserFieldsFragmentDoc}
+  ${CommonUserFieldsFragmentDoc}
 `;
 export type OnUserUpdatedSubscriptionResult = Apollo.SubscriptionResult<
   OnUserUpdatedSubscription
@@ -600,10 +600,10 @@ export const SignInEmailDocument = gql`
     $client: USER_CLIENT!
   ) {
     signInEmail(email: $email, password: $password, client: $client) {
-      ...commouUserFields
+      ...commonUserFields
     }
   }
-  ${CommouUserFieldsFragmentDoc}
+  ${CommonUserFieldsFragmentDoc}
 `;
 export type SignInEmailMutationFn = Apollo.MutationFunction<
   SignInEmailMutation,
@@ -635,10 +635,10 @@ export const SignUpEmailDocument = gql`
       isAgree: $isAgree
       client: $client
     ) {
-      ...commouUserFields
+      ...commonUserFields
     }
   }
-  ${CommouUserFieldsFragmentDoc}
+  ${CommonUserFieldsFragmentDoc}
 `;
 export type SignUpEmailMutationFn = Apollo.MutationFunction<
   SignUpEmailMutation,

@@ -23,8 +23,8 @@ export const client = window.matchMedia(
 export const renderer = createRenderer({
   plugins: [
     typescript(),
-    fallbackValue(),
     prefixer(),
+    fallbackValue(),
     unit(),
     namedKeys(mediaQueries),
   ],
@@ -122,33 +122,7 @@ renderer.renderStatic(`
   }
 `);
 
-renderer.renderStatic(`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body, html {
-    width: 100%;
-    height: 100%;
-  }
-
-  #root{
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-`);
-
-interface AugmentedStyle extends IStyle {
-  ':hover'?: IStyle;
-  '> a'?: IStyle;
-  '> input'?: IStyle;
-  '> label'?: IStyle;
-}
-
-type FelaSheet = AugmentedStyle;
+type FelaSheet = IStyle;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FelaSheetFunction = (props: any) => FelaSheet;
 export type PropsStyle = FelaSheet | FelaSheetFunction;

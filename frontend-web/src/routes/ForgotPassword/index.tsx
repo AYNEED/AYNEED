@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
 import { useMutation } from '@apollo/client';
 
+import { COLOR } from 'src/constants/colors';
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import { InputEmail } from 'src/components/ui/forms/Input';
@@ -14,11 +15,7 @@ import {
   ForgotPasswordMutationResult,
   ForgotPasswordMutationVariables,
 } from 'src/__generated__';
-
-const Logo = React.lazy(() => import('src/components/ui/Logo'));
-const EnterThrough = React.lazy(() =>
-  import('src/components/blocks/EnterThrough')
-);
+import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
 const ForgotPassword: React.FC = () => {
   const [forgotPassword, result] = useMutation<
@@ -36,13 +33,8 @@ const ForgotPassword: React.FC = () => {
   });
 
   return (
-    <Page>
-      <Logo />
+    <Page layout="entry" withTitle>
       <EnterThrough />
-
-      <h1>
-        <Msg id="web.routes.ForgotPassword.title" />
-      </h1>
 
       <p>
         <Msg id="web.routes.ForgotPassword.description" />
@@ -65,13 +57,19 @@ const ForgotPassword: React.FC = () => {
       </form>
 
       <p>
-        <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }}>
+        <Link
+          url={{ scheme: ROUTES.SIGN_IN_EMAIL }}
+          color={COLOR.SECONDARY_200}
+        >
           <Msg id="web.routes.ForgotPassword.link_sign_in" />
         </Link>
       </p>
 
       <p>
-        <Link url={{ scheme: ROUTES.SIGN_UP_EMAIL }}>
+        <Link
+          url={{ scheme: ROUTES.SIGN_UP_EMAIL }}
+          color={COLOR.SECONDARY_200}
+        >
           <Msg id="web.routes.ForgotPassword.link_sign_up" />
         </Link>
       </p>
