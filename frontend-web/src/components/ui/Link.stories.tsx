@@ -54,7 +54,7 @@ ActiveTextLink.args = {
   mode: 'text',
   url: { scheme: ROUTES.MAIN },
   children: 'Active text link',
-  isActive: true,
+  active: true,
 };
 
 export const DisabledTextLink = Template.bind({});
@@ -62,7 +62,7 @@ DisabledTextLink.args = {
   mode: 'text',
   url: { scheme: ROUTES.MAIN },
   children: 'Disabled text link',
-  isDisabled: true,
+  disabled: true,
 };
 
 export const DefaultBlockLink = Template.bind({});
@@ -106,7 +106,7 @@ ActiveBlockLink.args = {
       </FelaComponent>
     </FelaComponent>
   ),
-  isActive: true,
+  active: true,
 };
 
 export const DisabledBlockLink = Template.bind({});
@@ -121,5 +121,5 @@ DisabledBlockLink.args = {
       </FelaComponent>
     </FelaComponent>
   ),
-  isDisabled: true,
+  disabled: true,
 };

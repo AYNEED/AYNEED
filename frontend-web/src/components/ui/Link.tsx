@@ -10,8 +10,8 @@ export interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   url: Scheme;
   mode?: 'text' | 'block' | 'wrapper';
   theme?: Theme;
-  isActive?: boolean;
-  isDisabled?: boolean;
+  active?: boolean;
+  disabled?: boolean;
 }
 
 const style: Styles<'disabled' | 'gradient' | 'text' | 'block' | 'wrapper'> = {
@@ -63,7 +63,7 @@ const style: Styles<'disabled' | 'gradient' | 'text' | 'block' | 'wrapper'> = {
 };
 
 export const Link: React.FC<Props> = (props) => {
-  if (props.isDisabled) {
+  if (props.disabled) {
     return (
       <FelaComponent style={style.disabled} as="span">
         {props.children}
@@ -82,15 +82,15 @@ export const Link: React.FC<Props> = (props) => {
     url: undefined,
     mode: undefined,
     theme: undefined,
-    isActive: undefined,
-    isDisabled: undefined,
+    active: undefined,
+    disabled: undefined,
   };
 
   return (
     <FelaComponent
       style={[
         props.mode === 'wrapper' ? style.wrapper : style.text,
-        props.isActive ? style.gradient : {},
+        props.active ? style.gradient : {},
       ]}
       t={props.theme}
     >
