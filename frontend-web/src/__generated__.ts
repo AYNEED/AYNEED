@@ -211,7 +211,7 @@ export enum UserRole {
   Support = 'support',
 }
 
-export type SearchResult = MessageFeed | ProjectFeed | UserFeed;
+export type SearchResult = ProjectFeed | UserFeed;
 
 export type MessageFeed = {
   items: Array<Message>;

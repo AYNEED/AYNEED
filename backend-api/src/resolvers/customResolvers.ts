@@ -7,13 +7,27 @@ import {
   SubscriptionStatus,
   SubscriptionTargetModel,
   CommentTargetModel,
+  SearchTargetModel,
 } from 'src/__generated__';
 
-// -------------------------- Feeds ---------------------------
+// ------------------------- Unions ---------------------------
+
+const searchModeToFeed: {
+  [key in SearchTargetModel]: 'UserFeed' | 'ProjectFeed';
+} = {
+  [SearchTargetModel.Users]: 'UserFeed',
+  [SearchTargetModel.Candidates]: 'UserFeed',
+  [SearchTargetModel.Concepts]: 'ProjectFeed',
+  [SearchTargetModel.Ideas]: 'ProjectFeed',
+  [SearchTargetModel.Mvps]: 'ProjectFeed',
+};
 
 export const resolveSearchResult: Resolvers['SearchResult'] = {
-  //
+  __resolveType: (obj, context, info) =>
+    searchModeToFeed[info.variableValues.targetModel as SearchTargetModel],
 };
+
+// -------------------------- Feeds ---------------------------
 
 export const resolveMessageFeed: Resolvers['MessageFeed'] = {
   items: (parent) => parent.items,

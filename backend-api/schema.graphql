@@ -151,7 +151,9 @@ enum USER_ROLE {
   support
 }
 
-union SearchResult = MessageFeed | ProjectFeed | UserFeed
+# ########################## unions ###########################
+
+union SearchResult = ProjectFeed | UserFeed
 
 # ########################### feeds ###########################
 

@@ -218,7 +218,7 @@ export enum UserRole {
   Support = 'support',
 }
 
-export type SearchResult = MessageFeed | ProjectFeed | UserFeed;
+export type SearchResult = ProjectFeed | UserFeed;
 
 export type MessageFeed = {
   items: Array<Message>;
@@ -532,10 +532,7 @@ export type ResolversTypes = {
   USER_LANGUAGE_LEVEL: UserLanguageLevel;
   USER_CLIENT: UserClient;
   USER_ROLE: UserRole;
-  SearchResult:
-    | ResolversTypes['MessageFeed']
-    | ResolversTypes['ProjectFeed']
-    | ResolversTypes['UserFeed'];
+  SearchResult: ResolversTypes['ProjectFeed'] | ResolversTypes['UserFeed'];
   MessageFeed: ResolverTypeWrapper<MessageFeed>;
   ProjectFeed: ResolverTypeWrapper<ProjectFeed>;
   UserFeed: ResolverTypeWrapper<UserFeed>;
@@ -573,7 +570,6 @@ export type ResolversParentTypes = {
   Query: {};
   Subscription: {};
   SearchResult:
-    | ResolversParentTypes['MessageFeed']
     | ResolversParentTypes['ProjectFeed']
     | ResolversParentTypes['UserFeed'];
   MessageFeed: MessageFeed;
@@ -788,7 +784,7 @@ export type SearchResultResolvers<
   ParentType extends ResolversParentTypes['SearchResult'] = ResolversParentTypes['SearchResult']
 > = {
   __resolveType: TypeResolveFn<
-    'MessageFeed' | 'ProjectFeed' | 'UserFeed',
+    'ProjectFeed' | 'UserFeed',
     ParentType,
     ContextType
   >;
