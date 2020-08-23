@@ -31,7 +31,7 @@ const styles: Styles<
     alignItems: 'flex-start',
   },
   leftContent: {
-    height: '97%',
+    height: '100%',
     width: '206px',
     display: 'flex',
     flexDirection: 'column',

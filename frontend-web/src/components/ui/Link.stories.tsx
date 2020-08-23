@@ -4,7 +4,6 @@ import { RendererProvider, FelaComponent } from 'react-fela';
 import { Router as ReactRouter } from 'react-router-dom';
 
 import { ROUTES } from 'shared';
-import { COLOR } from 'src/constants/colors';
 import { history } from 'src/navigation/store';
 import { renderer, Styles } from 'src/utils/fela';
 import { Link, Props } from 'src/components/ui/Link';
@@ -42,12 +41,12 @@ DefaultTextLink.args = {
   children: 'Default text link',
 };
 
-export const ColorizedTextLink = Template.bind({});
-ColorizedTextLink.args = {
+export const NegativeTextLink = Template.bind({});
+NegativeTextLink.args = {
   mode: 'text',
   url: { scheme: ROUTES.MAIN },
-  children: 'Colorized text link',
-  color: COLOR.SECONDARY_200,
+  children: 'Negative text link',
+  theme: 'negative',
 };
 
 export const ActiveTextLink = Template.bind({});
@@ -80,19 +79,19 @@ DefaultBlockLink.args = {
   ),
 };
 
-export const ColorizedBlockLink = Template.bind({});
-ColorizedBlockLink.args = {
+export const NegativeBlockLink = Template.bind({});
+NegativeBlockLink.args = {
   mode: 'block',
   url: { scheme: ROUTES.MAIN },
   children: (
     <FelaComponent style={style.block}>
       <Favourites filled />
       <FelaComponent style={style.blockText} as="span">
-        Colorized block link
+        Negative block link
       </FelaComponent>
     </FelaComponent>
   ),
-  color: COLOR.SECONDARY_200,
+  theme: 'negative',
 };
 
 export const ActiveBlockLink = Template.bind({});

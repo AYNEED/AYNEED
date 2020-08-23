@@ -3,7 +3,6 @@ import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
 import { useMutation } from '@apollo/client';
 
-import { COLOR } from 'src/constants/colors';
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import {
@@ -105,7 +104,7 @@ const SignUpEmail: React.FC = () => {
       <p>
         <Link
           url={{ scheme: ROUTES.SIGN_IN_EMAIL }}
-          color={COLOR.SECONDARY_200}
+          theme="negative"
         >
           <Msg id="web.routes.SignUpEmail.link_sign_in" />
         </Link>

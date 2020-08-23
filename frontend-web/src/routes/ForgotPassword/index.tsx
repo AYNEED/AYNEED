@@ -3,7 +3,6 @@ import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
 import { useMutation } from '@apollo/client';
 
-import { COLOR } from 'src/constants/colors';
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import { InputEmail } from 'src/components/ui/forms/Input';
@@ -59,7 +58,7 @@ const ForgotPassword: React.FC = () => {
       <p>
         <Link
           url={{ scheme: ROUTES.SIGN_IN_EMAIL }}
-          color={COLOR.SECONDARY_200}
+          theme="negative"
         >
           <Msg id="web.routes.ForgotPassword.link_sign_in" />
         </Link>
@@ -68,7 +67,7 @@ const ForgotPassword: React.FC = () => {
       <p>
         <Link
           url={{ scheme: ROUTES.SIGN_UP_EMAIL }}
-          color={COLOR.SECONDARY_200}
+          theme="negative"
         >
           <Msg id="web.routes.ForgotPassword.link_sign_up" />
         </Link>
