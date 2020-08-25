@@ -40,6 +40,9 @@ const ProjectSchema = new Schema<ProjectReq>(
       enum: Object.values(ProjectStatus),
       required: true,
     },
+    archivedAt: {
+      type: Date,
+    },
   },
   schemaOptions
 );
