@@ -33,5 +33,5 @@ export const createProject = async ({
     likesCount: 0,
     status: ProjectStatus.Idea,
     commentsCount: 0,
-    archivedAt: null
+    archivedAt: null,
   });
