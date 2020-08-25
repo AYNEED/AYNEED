@@ -34,6 +34,7 @@ export type Mutation = {
   messageAdd: Message;
   projectAdd: Project;
   projectRemove: Scalars['Boolean'];
+  projectArchive: Scalars['Boolean'];
   subscriptionAdd: SubscribedUser;
   subscriptionRemove: Scalars['Boolean'];
 };
@@ -97,6 +98,10 @@ export type MutationProjectAddArgs = {
 };
 
 export type MutationProjectRemoveArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationProjectArchiveArgs = {
   id: Scalars['ID'];
 };
 
@@ -262,6 +267,7 @@ export type Project = {
   comments: Array<Comment>;
   commentsCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
+  archivedAt: Maybe<Scalars['DateTime']>;
 };
 
 export type User = {
@@ -681,6 +687,12 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationProjectRemoveArgs, 'id'>
   >;
+  projectArchive: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType,
+    RequireFields<MutationProjectArchiveArgs, 'id'>
+  >;
   subscriptionAdd: Resolver<
     ResolversTypes['SubscribedUser'],
     ParentType,
@@ -852,6 +864,11 @@ export type ProjectResolvers<
   comments: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType>;
   commentsCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  archivedAt: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 

@@ -27,6 +27,7 @@ export type Mutation = {
   messageAdd: Message;
   projectAdd: Project;
   projectRemove: Scalars['Boolean'];
+  projectArchive: Scalars['Boolean'];
   subscriptionAdd: SubscribedUser;
   subscriptionRemove: Scalars['Boolean'];
 };
@@ -90,6 +91,10 @@ export type MutationProjectAddArgs = {
 };
 
 export type MutationProjectRemoveArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationProjectArchiveArgs = {
   id: Scalars['ID'];
 };
 
@@ -255,6 +260,7 @@ export type Project = {
   comments: Array<Comment>;
   commentsCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
+  archivedAt: Maybe<Scalars['DateTime']>;
 };
 
 export type User = {
