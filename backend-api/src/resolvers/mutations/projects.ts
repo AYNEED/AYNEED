@@ -39,3 +39,11 @@ export const projectRemove: Resolvers['Mutation']['projectRemove'] = async (
   // TODO: remove project from db
   return true;
 };
+
+export const projectArchive: Resolvers['Mutation']['projectArchive'] = async (
+  parent,
+  { id }
+) => {
+  // TODO: archive project
+  return true;
+};
