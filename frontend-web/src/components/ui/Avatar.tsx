@@ -4,43 +4,24 @@ import { useRouteMatch } from 'react-router-dom';
 import { Badge } from 'src/components/ui/Badge';
 import { Desktop } from 'src/components/icons/old_design/Desktop';
 import { Mobile } from 'src/components/icons/old_design/Mobile';
-import { NoPhoto } from 'src/components/icons/old_design/NoPhoto';
-import { Msg } from 'src/i18n/Msg';
 import { COLOR } from 'src/constants/colors';
+import { SHADOW } from 'src/constants/effects';
 import { User, UserClient } from 'src/__generated__';
 import { Link } from 'src/components/ui/Link';
 import { ROUTES } from 'shared';
 
-type Props = {
+export type Props = {
   id: User['id'];
   photo?: string;
   isOnline: boolean;
-  isCurrent: boolean;
   client: UserClient;
-  size: '36px' | '50px' | '76px' | '100px' | '262px' | '100%';
+  size: '30px' | '50px' | '90px' | '140px' | '100%';
 };
 
 const clientToIcon: { [TKey in Props['client']]: React.FC } = {
   mobile: Mobile,
   desktop: Desktop,
 };
-
-const EmptyPhoto: React.FC<{ withText: boolean }> = ({ withText }) => (
-  <div
-    style={{
-      backgroundColor: COLOR.SECONDARY_200,
-      color: COLOR.SECONDARY_400,
-    }}
-  >
-    <NoPhoto />
-
-    {withText && (
-      <span>
-        <Msg id="web.components.ui.Avatar.upload_photo" />
-      </span>
-    )}
-  </div>
-);
 
 const Badged: React.FC<{ client: Props['client']; withBadge: boolean }> = ({
   client,
@@ -83,17 +64,34 @@ export const Avatar: React.FC<Props> = ({
   id,
   photo,
   isOnline,
-  isCurrent,
   client,
   size,
 }) => (
   <Linked id={id}>
     <Badged client={client} withBadge={isOnline}>
-      <div style={{ width: size, height: size }}>
-        {photo ? (
-          <img src={photo} alt="" />
-        ) : (
-          <EmptyPhoto withText={isCurrent} />
+      <div
+        style={{
+          backgroundColor: COLOR.TRANSPARENT,
+          borderRadius: '50%',
+          border: `2px solid ${COLOR.WHITE}`,
+          boxShadow: `${SHADOW.AVATAR}`,
+          width: size,
+          height: size,
+        }}
+      >
+        {photo && (
+          <div
+            style={{
+              backgroundColor: COLOR.TRANSPARENT,
+              borderRadius: '50%',
+              width: '100%',
+              height: '100%',
+              backgroundImage: `url(${photo})`,
+              backgroundSize: 'cover',
+              backgroundPosition: '50% 50%',
+              backgroundRepeat: 'no-repeat',
+            }}
+          ></div>
         )}
       </div>
     </Badged>
