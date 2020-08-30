@@ -52,8 +52,6 @@ type Mutation {
 
   projectRemove(id: ID!): Boolean!
 
-  projectArchive(id: ID!): Boolean!
-
   subscriptionAdd(
     targetId: ID!
     targetModel: SUBSCRIPTION_TARGET_MODEL!

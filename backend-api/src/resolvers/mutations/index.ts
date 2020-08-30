@@ -5,7 +5,6 @@ import { messageAdd } from 'src/resolvers/mutations/messages';
 import {
   projectAdd,
   projectRemove,
-  projectArchive,
 } from 'src/resolvers/mutations/projects';
 import {
   subscriptionAdd,
@@ -32,7 +31,6 @@ export const mutation: Resolvers['Mutation'] = {
   messageAdd,
   projectAdd,
   projectRemove,
-  projectArchive,
   subscriptionAdd,
   subscriptionRemove,
 };

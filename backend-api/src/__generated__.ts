@@ -34,7 +34,6 @@ export type Mutation = {
   messageAdd: Message;
   projectAdd: Project;
   projectRemove: Scalars['Boolean'];
-  projectArchive: Scalars['Boolean'];
   subscriptionAdd: SubscribedUser;
   subscriptionRemove: Scalars['Boolean'];
 };
@@ -98,10 +97,6 @@ export type MutationProjectAddArgs = {
 };
 
 export type MutationProjectRemoveArgs = {
-  id: Scalars['ID'];
-};
-
-export type MutationProjectArchiveArgs = {
   id: Scalars['ID'];
 };
 
@@ -686,12 +681,6 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationProjectRemoveArgs, 'id'>
-  >;
-  projectArchive: Resolver<
-    ResolversTypes['Boolean'],
-    ParentType,
-    ContextType,
-    RequireFields<MutationProjectArchiveArgs, 'id'>
   >;
   subscriptionAdd: Resolver<
     ResolversTypes['SubscribedUser'],
