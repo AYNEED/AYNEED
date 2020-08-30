@@ -96,16 +96,14 @@ const SignUpEmail: React.FC = () => {
           onChange={formik.handleChange}
         />
 
-        <ButtonSubmit disabled={!formik.values.isAgree}>
-          <Msg id="web.routes.SignUpEmail.form_submit" />
-        </ButtonSubmit>
+        <ButtonSubmit
+          disabled={!formik.values.isAgree}
+          text={{ id: 'web.routes.SignUpEmail.form_submit' }}
+        />
       </form>
 
       <p>
-        <Link
-          url={{ scheme: ROUTES.SIGN_IN_EMAIL }}
-          theme="negative"
-        >
+        <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }} theme="negative">
           <Msg id="web.routes.SignUpEmail.link_sign_in" />
         </Link>
       </p>

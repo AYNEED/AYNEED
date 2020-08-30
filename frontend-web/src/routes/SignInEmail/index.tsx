@@ -57,25 +57,17 @@ const SignInEmail: React.FC = () => {
           placeholder={{ id: 'web.routes.SignInEmail.form_password' }}
         />
 
-        <ButtonSubmit>
-          <Msg id="web.routes.SignInEmail.form_submit" />
-        </ButtonSubmit>
+        <ButtonSubmit text={{ id: 'web.routes.SignInEmail.form_submit' }} />
       </form>
 
       <p>
-        <Link
-          url={{ scheme: ROUTES.FORGOT_PASSWORD }}
-          theme="negative"
-        >
+        <Link url={{ scheme: ROUTES.FORGOT_PASSWORD }} theme="negative">
           <Msg id="web.routes.SignInEmail.link_forgot_password" />
         </Link>
       </p>
 
       <p>
-        <Link
-          url={{ scheme: ROUTES.SIGN_UP_EMAIL }}
-          theme="negative"
-        >
+        <Link url={{ scheme: ROUTES.SIGN_UP_EMAIL }} theme="negative">
           <Msg id="web.routes.SignInEmail.link_sign_up" />
         </Link>
       </p>

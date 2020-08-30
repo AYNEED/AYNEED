@@ -50,25 +50,17 @@ const ForgotPassword: React.FC = () => {
           placeholder={{ id: 'web.routes.ForgotPassword.form_email' }}
         />
 
-        <ButtonSubmit>
-          <Msg id="web.routes.ForgotPassword.form_submit" />
-        </ButtonSubmit>
+        <ButtonSubmit text={{ id: 'web.routes.ForgotPassword.form_submit' }} />
       </form>
 
       <p>
-        <Link
-          url={{ scheme: ROUTES.SIGN_IN_EMAIL }}
-          theme="negative"
-        >
+        <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }} theme="negative">
           <Msg id="web.routes.ForgotPassword.link_sign_in" />
         </Link>
       </p>
 
       <p>
-        <Link
-          url={{ scheme: ROUTES.SIGN_UP_EMAIL }}
-          theme="negative"
-        >
+        <Link url={{ scheme: ROUTES.SIGN_UP_EMAIL }} theme="negative">
           <Msg id="web.routes.ForgotPassword.link_sign_up" />
         </Link>
       </p>

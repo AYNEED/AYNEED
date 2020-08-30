@@ -42,36 +42,23 @@ const styles: Styles<
   },
 };
 
-const Title: React.FC = () => (
-  <FelaComponent style={styles.title}>
-    <Msg id="web.routes.Main.description" />
-  </FelaComponent>
-);
-
-const StartButton: React.FC = () => (
-  <ButtonLink url={{ scheme: ROUTES.FEED }}>
-    <Msg id="web.routes.Main.button_start" />
-  </ButtonLink>
-);
-
-const LeftContent: React.FC = () => (
-  <FelaComponent style={styles.leftContent}>
-    <Title />
-    <StartButton />
-  </FelaComponent>
-);
-
-const Content: React.FC = () => (
-  <FelaComponent style={styles.content}>
-    <LeftContent />
-    <MainPageChain />
-  </FelaComponent>
-);
-
 const Main: React.FC = () => (
   <Page layout="entry">
     <FelaComponent style={styles.root}>
-      <Content />
+      <FelaComponent style={styles.content}>
+        <FelaComponent style={styles.leftContent}>
+          <FelaComponent style={styles.title}>
+            <Msg id="web.routes.Main.description" />
+          </FelaComponent>
+
+          <ButtonLink
+            url={{ scheme: ROUTES.FEED }}
+            text={{ id: 'web.routes.Main.button_start' }}
+          />
+        </FelaComponent>
+
+        <MainPageChain />
+      </FelaComponent>
 
       <MainPageNetworks style={styles.network} />
     </FelaComponent>
