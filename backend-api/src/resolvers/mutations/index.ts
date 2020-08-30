@@ -2,10 +2,7 @@ import { Resolvers } from 'src/__generated__';
 import { commentAdd, commentRemove } from 'src/resolvers/mutations/comments';
 import { likeAdd, likeRemove } from 'src/resolvers/mutations/likes';
 import { messageAdd } from 'src/resolvers/mutations/messages';
-import {
-  projectAdd,
-  projectRemove,
-} from 'src/resolvers/mutations/projects';
+import { projectAdd, projectRemove } from 'src/resolvers/mutations/projects';
 import {
   subscriptionAdd,
   subscriptionRemove,
