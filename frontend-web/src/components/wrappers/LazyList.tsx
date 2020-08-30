@@ -10,7 +10,7 @@ type ListItem = {
 type Props<T extends ListItem> = {
   data: T[];
   callback: () => void;
-  children: React.LazyExoticComponent<React.FC<T>>;
+  children: React.FC<T>;
 };
 
 export const LazyList = <T extends ListItem>({

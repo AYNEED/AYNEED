@@ -12,8 +12,7 @@ import {
   CommonProjectFieldsFragment,
 } from 'src/__generated__';
 import { Msg } from 'src/i18n/Msg';
-
-const CardProject = React.lazy(() => import('src/components/ui/CardProject'));
+import { CardProject } from 'src/components/ui/CardProject';
 
 export const FeedProjects: React.FC = () => {
   const { error, data, fetchMore, subscribeToMore } = useQuery<

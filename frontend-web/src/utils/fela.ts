@@ -122,25 +122,6 @@ renderer.renderStatic(`
   }
 `);
 
-renderer.renderStatic(`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body, html {
-    width: 100%;
-    height: 100%;
-  }
-
-  #root{
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-`);
-
 type FelaSheet = IStyle;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FelaSheetFunction = (props: any) => FelaSheet;

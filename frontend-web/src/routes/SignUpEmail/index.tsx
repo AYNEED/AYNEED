@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
 import { useMutation } from '@apollo/client';
 
+import { COLOR } from 'src/constants/colors';
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import {
@@ -21,10 +22,7 @@ import {
   SignUpEmailMutationResult,
   SignUpEmailMutationVariables,
 } from 'src/__generated__';
-
-const EnterThrough = React.lazy(() =>
-  import('src/components/blocks/EnterThrough')
-);
+import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
 const SignUpEmail: React.FC = () => {
   const [signUpEmail, result] = useMutation<
@@ -105,7 +103,10 @@ const SignUpEmail: React.FC = () => {
       </form>
 
       <p>
-        <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }}>
+        <Link
+          url={{ scheme: ROUTES.SIGN_IN_EMAIL }}
+          color={COLOR.SECONDARY_200}
+        >
           <Msg id="web.routes.SignUpEmail.link_sign_in" />
         </Link>
       </p>
