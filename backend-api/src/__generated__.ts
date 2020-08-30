@@ -262,6 +262,7 @@ export type Project = {
   comments: Array<Comment>;
   commentsCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
+  archivedAt: Maybe<Scalars['DateTime']>;
 };
 
 export type User = {
@@ -852,6 +853,11 @@ export type ProjectResolvers<
   comments: Resolver<Array<ResolversTypes['Comment']>, ParentType, ContextType>;
   commentsCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  archivedAt: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
