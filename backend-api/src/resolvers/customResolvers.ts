@@ -84,6 +84,7 @@ export const resolveProject: Resolvers['Project'] = {
     }),
   commentsCount: (parent) => parent.commentsCount,
   createdAt: (parent) => parent.createdAt,
+  archivedAt: (parent) => parent.archivedAt,
 };
 
 export const resolveUser: Resolvers['User'] = {

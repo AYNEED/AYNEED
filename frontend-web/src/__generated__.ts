@@ -257,6 +257,7 @@ export type Project = {
   comments: Array<Comment>;
   commentsCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
+  archivedAt: Maybe<Scalars['DateTime']>;
 };
 
 export type User = {

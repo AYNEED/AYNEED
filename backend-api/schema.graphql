@@ -203,6 +203,7 @@ type Project {
   comments: [Comment!]!
   commentsCount: Int!
   createdAt: DateTime!
+  archivedAt: DateTime
 }
 
 type User {
