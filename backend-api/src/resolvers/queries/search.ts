@@ -8,7 +8,7 @@ import {
 } from 'src/__generated__';
 import { ProjectModel } from 'src/models/project';
 import { UserModel } from 'src/models/user';
-import { FEED_LIMIT, SEARCH_RESULT_LIMIT } from 'src/constants';
+import { FEED_LIMIT } from 'src/constants';
 import { userDriver } from 'src/resolvers/drivers';
 
 const searchModeToHandler: {
@@ -51,11 +51,19 @@ const searchModeToHandler: {
 
   [SearchTargetModel.Candidates]: async () => ({ items: [], hasMore: false }),
 
-  [SearchTargetModel.Concepts]: async ({ query }) => {
+  [SearchTargetModel.Concepts]: async ({ query, cursor }) => {
     const data = await ProjectModel.find(
-      { title: /query/i, status: ProjectStatus.Concept },
+      {
+        $and: [
+          cursor ? { _id: { $lt: cursor } } : {},
+          {
+            title: { $regex: '/' + query + '/i' },
+            status: ProjectStatus.Concept,
+          },
+        ],
+      },
       null,
-      { sort: { createdAt: 'desc' }, limit: SEARCH_RESULT_LIMIT }
+      { sort: { createdAt: 'desc' }, limit: FEED_LIMIT }
     );
 
     const last = data[data.length - 1];
@@ -64,22 +72,32 @@ const searchModeToHandler: {
 
     if (last) {
       count = await ProjectModel.count({
-        title: /query/i,
-        status: ProjectStatus.Concept,
+        $and: [
+          { _id: { $lt: last.id } },
+          {
+            title: { $regex: '/' + query + '/i' },
+            status: ProjectStatus.Concept,
+          },
+        ],
       });
     }
 
     return { items: data, hasMore: !!count };
   },
 
-  [SearchTargetModel.Ideas]: async ({ query }) => {
+  [SearchTargetModel.Ideas]: async ({ query, cursor }) => {
     const data = await ProjectModel.find(
       {
-        title: /query/i,
-        status: ProjectStatus.Idea,
+        $and: [
+          cursor ? { _id: { $lt: cursor } } : {},
+          {
+            title: { $regex: '/' + query + '/i' },
+            status: ProjectStatus.Idea,
+          },
+        ],
       },
       null,
-      { sort: { createdAt: 'desc' }, limit: SEARCH_RESULT_LIMIT }
+      { sort: { createdAt: 'desc' }, limit: FEED_LIMIT }
     );
 
     const last = data[data.length - 1];
@@ -88,22 +106,32 @@ const searchModeToHandler: {
 
     if (last) {
       count = await ProjectModel.count({
-        title: /query/i,
-        status: ProjectStatus.Idea,
+        $and: [
+          { _id: { $lt: last.id } },
+          {
+            title: { $regex: '/' + query + '/i' },
+            status: ProjectStatus.Idea,
+          },
+        ],
       });
     }
 
     return { items: data, hasMore: !!count };
   },
 
-  [SearchTargetModel.Mvps]: async ({ query }) => {
+  [SearchTargetModel.Mvps]: async ({ query, cursor }) => {
     const data = await ProjectModel.find(
       {
-        title: /query/i,
-        status: ProjectStatus.Mvp,
+        $and: [
+          cursor ? { _id: { $lt: cursor } } : {},
+          {
+            title: { $regex: '/' + query + '/i' },
+            status: ProjectStatus.Mvp,
+          },
+        ],
       },
       null,
-      { sort: { createdAt: 'desc' }, limit: SEARCH_RESULT_LIMIT }
+      { sort: { createdAt: 'desc' }, limit: FEED_LIMIT }
     );
 
     const last = data[data.length - 1];
@@ -112,8 +140,13 @@ const searchModeToHandler: {
 
     if (last) {
       count = await ProjectModel.count({
-        title: /query/i,
-        status: ProjectStatus.Mvp,
+        $and: [
+          { _id: { $lt: last.id } },
+          {
+            title: { $regex: '/' + query + '/i' },
+            status: ProjectStatus.Mvp,
+          },
+        ],
       });
     }
 
