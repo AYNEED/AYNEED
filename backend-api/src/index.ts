@@ -32,14 +32,14 @@ const server = new ApolloServer({
     const token = req?.headers?.authorization;
 
     if (!token) {
-      return {};
+      return { req };
     }
 
     try {
       const user = await findUserByToken(token);
       return { user };
     } catch (e) {
-      return {};
+      return { req };
     }
   },
 });

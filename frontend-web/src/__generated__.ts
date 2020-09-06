@@ -1,9 +1,7 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -13,6 +11,7 @@ export type Scalars = {
   Float: number;
   DateTime: string;
 };
+
 
 export type Mutation = {
   forgotPassword: Scalars['Boolean'];
@@ -31,9 +30,11 @@ export type Mutation = {
   subscriptionRemove: Scalars['Boolean'];
 };
 
+
 export type MutationForgotPasswordArgs = {
   email: Scalars['String'];
 };
+
 
 export type MutationForgotPasswordChangeArgs = {
   password: Scalars['String'];
@@ -41,11 +42,13 @@ export type MutationForgotPasswordChangeArgs = {
   client: UserClient;
 };
 
+
 export type MutationSignInEmailArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
   client: UserClient;
 };
+
 
 export type MutationSignUpEmailArgs = {
   email: Scalars['String'];
@@ -57,6 +60,7 @@ export type MutationSignUpEmailArgs = {
   client: UserClient;
 };
 
+
 export type MutationCommentAddArgs = {
   parentId: Maybe<Scalars['ID']>;
   targetId: Scalars['ID'];
@@ -64,9 +68,11 @@ export type MutationCommentAddArgs = {
   text: Scalars['String'];
 };
 
+
 export type MutationCommentRemoveArgs = {
   id: Scalars['ID'];
 };
+
 
 export type MutationLikeAddArgs = {
   targetId: Scalars['ID'];
@@ -74,14 +80,17 @@ export type MutationLikeAddArgs = {
   status: LikeStatus;
 };
 
+
 export type MutationLikeRemoveArgs = {
   id: Scalars['ID'];
 };
+
 
 export type MutationMessageAddArgs = {
   targetId: Scalars['ID'];
   text: Scalars['String'];
 };
+
 
 export type MutationProjectAddArgs = {
   title: Scalars['String'];
@@ -89,14 +98,17 @@ export type MutationProjectAddArgs = {
   solution: Scalars['String'];
 };
 
+
 export type MutationProjectRemoveArgs = {
   id: Scalars['ID'];
 };
+
 
 export type MutationSubscriptionAddArgs = {
   targetId: Scalars['ID'];
   targetModel: SubscriptionTargetModel;
 };
+
 
 export type MutationSubscriptionRemoveArgs = {
   id: Scalars['ID'];
@@ -112,21 +124,26 @@ export type Query = {
   help: Help;
 };
 
+
 export type QueryProjectArgs = {
   id: Scalars['ID'];
 };
+
 
 export type QueryProjectsArgs = {
   cursor: Maybe<Scalars['ID']>;
 };
 
+
 export type QueryUserArgs = {
   id: Scalars['ID'];
 };
 
+
 export type QueryUsersArgs = {
   cursor: Maybe<Scalars['ID']>;
 };
+
 
 export type QuerySearchArgs = {
   query: Scalars['String'];
@@ -134,9 +151,11 @@ export type QuerySearchArgs = {
   cursor: Maybe<Scalars['ID']>;
 };
 
+
 export type QueryMessagesArgs = {
   cursor: Maybe<Scalars['ID']>;
 };
+
 
 export type QueryHelpArgs = {
   locale: UserLocale;
@@ -150,23 +169,23 @@ export type Subscription = {
 };
 
 export enum CommentTargetModel {
-  Project = 'Project',
+  Project = 'Project'
 }
 
 export enum LikeStatus {
   Like = 'like',
-  Dislike = 'dislike',
+  Dislike = 'dislike'
 }
 
 export enum LikeTargetModel {
   Comment = 'Comment',
-  Project = 'Project',
+  Project = 'Project'
 }
 
 export enum ProjectStatus {
   Idea = 'idea',
   Concept = 'concept',
-  Mvp = 'mvp',
+  Mvp = 'mvp'
 }
 
 export enum SearchTargetModel {
@@ -174,22 +193,22 @@ export enum SearchTargetModel {
   Users = 'users',
   Ideas = 'ideas',
   Concepts = 'concepts',
-  Mvps = 'mvps',
+  Mvps = 'mvps'
 }
 
 export enum SubscriptionStatus {
   Waiting = 'waiting',
   Accepted = 'accepted',
-  Rejected = 'rejected',
+  Rejected = 'rejected'
 }
 
 export enum SubscriptionTargetModel {
   User = 'User',
-  Project = 'Project',
+  Project = 'Project'
 }
 
 export enum UserLocale {
-  Rus = 'rus',
+  Rus = 'rus'
 }
 
 export enum UserLanguageLevel {
@@ -198,17 +217,17 @@ export enum UserLanguageLevel {
   Intermediate = 'intermediate',
   UpperIntermediate = 'upper_intermediate',
   Advanced = 'advanced',
-  Proficiency = 'proficiency',
+  Proficiency = 'proficiency'
 }
 
 export enum UserClient {
   Mobile = 'mobile',
-  Desktop = 'desktop',
+  Desktop = 'desktop'
 }
 
 export enum UserRole {
   User = 'user',
-  Support = 'support',
+  Support = 'support'
 }
 
 export type SearchResult = ProjectFeed | UserFeed;
@@ -393,66 +412,57 @@ export type UserSkillRecord = {
   primary: Scalars['Boolean'];
 };
 
-export type CommonProjectFieldsFragment = Pick<
-  Project,
-  'id' | 'title' | 'problem' | 'solution'
->;
+export type CommonProjectFieldsFragment = Pick<Project, 'id' | 'title' | 'problem' | 'solution'>;
 
-export type CommonUserFieldsFragment = Pick<User, 'id'> & {
-  network: Pick<UserNetwotkData, 'isOnline' | 'client'>;
-  about: { skills: Array<Pick<UserSkillRecord, 'title' | 'primary'>> };
-  personal: Pick<UserPersonalData, 'firstName' | 'lastName' | 'photo'>;
-};
+export type CommonUserFieldsFragment = (
+  Pick<User, 'id'>
+  & { network: Pick<UserNetwotkData, 'isOnline' | 'client'>, about: { skills: Array<Pick<UserSkillRecord, 'title' | 'primary'>> }, personal: Pick<UserPersonalData, 'firstName' | 'lastName' | 'photo'> }
+);
 
 export type GetProjectsQueryVariables = Exact<{
   cursor: Maybe<Scalars['ID']>;
 }>;
 
-export type GetProjectsQuery = {
-  projects: Pick<ProjectFeed, 'hasMore'> & {
-    items: Array<CommonProjectFieldsFragment>;
-  };
-};
+
+export type GetProjectsQuery = { projects: (
+    Pick<ProjectFeed, 'hasMore'>
+    & { items: Array<CommonProjectFieldsFragment> }
+  ) };
 
 export type GetUsersQueryVariables = Exact<{
   cursor: Maybe<Scalars['ID']>;
 }>;
 
-export type GetUsersQuery = {
-  users: Pick<UserFeed, 'hasMore'> & { items: Array<CommonUserFieldsFragment> };
-};
 
-export type OnProjectAddedSubscriptionVariables = Exact<{
-  [key: string]: never;
-}>;
+export type GetUsersQuery = { users: (
+    Pick<UserFeed, 'hasMore'>
+    & { items: Array<CommonUserFieldsFragment> }
+  ) };
 
-export type OnProjectAddedSubscription = {
-  projectAdded: CommonProjectFieldsFragment;
-};
+export type OnProjectAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
-export type OnProjectUpdatedSubscriptionVariables = Exact<{
-  [key: string]: never;
-}>;
 
-export type OnProjectUpdatedSubscription = {
-  projectUpdated: CommonProjectFieldsFragment;
-};
+export type OnProjectAddedSubscription = { projectAdded: CommonProjectFieldsFragment };
 
-export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never }>;
+export type OnProjectUpdatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type OnProjectUpdatedSubscription = { projectUpdated: CommonProjectFieldsFragment };
+
+export type OnUserAddedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
 
 export type OnUserAddedSubscription = { userAdded: CommonUserFieldsFragment };
 
-export type OnUserUpdatedSubscriptionVariables = Exact<{
-  [key: string]: never;
-}>;
+export type OnUserUpdatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
-export type OnUserUpdatedSubscription = {
-  userUpdated: CommonUserFieldsFragment;
-};
+
+export type OnUserUpdatedSubscription = { userUpdated: CommonUserFieldsFragment };
 
 export type ForgotPasswordMutationVariables = Exact<{
   email: Scalars['String'];
 }>;
+
 
 export type ForgotPasswordMutation = Pick<Mutation, 'forgotPassword'>;
 
@@ -461,6 +471,7 @@ export type SignInEmailMutationVariables = Exact<{
   password: Scalars['String'];
   client: UserClient;
 }>;
+
 
 export type SignInEmailMutation = { signInEmail: CommonUserFieldsFragment };
 
@@ -474,181 +485,116 @@ export type SignUpEmailMutationVariables = Exact<{
   client: UserClient;
 }>;
 
+
 export type SignUpEmailMutation = { signUpEmail: CommonUserFieldsFragment };
 
 export const CommonProjectFieldsFragmentDoc = gql`
-  fragment commonProjectFields on Project {
-    id
-    title
-    problem
-    solution
-  }
-`;
+    fragment commonProjectFields on Project {
+  id
+  title
+  problem
+  solution
+}
+    `;
 export const CommonUserFieldsFragmentDoc = gql`
-  fragment commonUserFields on User {
-    id
-    network {
-      isOnline
-      client
-    }
-    about {
-      skills {
-        title
-        primary
-      }
-    }
-    personal {
-      firstName
-      lastName
-      photo
+    fragment commonUserFields on User {
+  id
+  network {
+    isOnline
+    client
+  }
+  about {
+    skills {
+      title
+      primary
     }
   }
-`;
+  personal {
+    firstName
+    lastName
+    photo
+  }
+}
+    `;
 export const GetProjectsDocument = gql`
-  query GetProjects($cursor: ID) {
-    projects(cursor: $cursor) {
-      items {
-        ...commonProjectFields
-      }
-      hasMore
+    query GetProjects($cursor: ID) {
+  projects(cursor: $cursor) {
+    items {
+      ...commonProjectFields
     }
+    hasMore
   }
-  ${CommonProjectFieldsFragmentDoc}
-`;
-export type GetProjectsQueryResult = Apollo.QueryResult<
-  GetProjectsQuery,
-  GetProjectsQueryVariables
->;
+}
+    ${CommonProjectFieldsFragmentDoc}`;
+export type GetProjectsQueryResult = Apollo.QueryResult<GetProjectsQuery, GetProjectsQueryVariables>;
 export const GetUsersDocument = gql`
-  query GetUsers($cursor: ID) {
-    users(cursor: $cursor) {
-      items {
-        ...commonUserFields
-      }
-      hasMore
+    query GetUsers($cursor: ID) {
+  users(cursor: $cursor) {
+    items {
+      ...commonUserFields
     }
+    hasMore
   }
-  ${CommonUserFieldsFragmentDoc}
-`;
-export type GetUsersQueryResult = Apollo.QueryResult<
-  GetUsersQuery,
-  GetUsersQueryVariables
->;
+}
+    ${CommonUserFieldsFragmentDoc}`;
+export type GetUsersQueryResult = Apollo.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const OnProjectAddedDocument = gql`
-  subscription onProjectAdded {
-    projectAdded {
-      ...commonProjectFields
-    }
+    subscription onProjectAdded {
+  projectAdded {
+    ...commonProjectFields
   }
-  ${CommonProjectFieldsFragmentDoc}
-`;
-export type OnProjectAddedSubscriptionResult = Apollo.SubscriptionResult<
-  OnProjectAddedSubscription
->;
+}
+    ${CommonProjectFieldsFragmentDoc}`;
+export type OnProjectAddedSubscriptionResult = Apollo.SubscriptionResult<OnProjectAddedSubscription>;
 export const OnProjectUpdatedDocument = gql`
-  subscription onProjectUpdated {
-    projectUpdated {
-      ...commonProjectFields
-    }
+    subscription onProjectUpdated {
+  projectUpdated {
+    ...commonProjectFields
   }
-  ${CommonProjectFieldsFragmentDoc}
-`;
-export type OnProjectUpdatedSubscriptionResult = Apollo.SubscriptionResult<
-  OnProjectUpdatedSubscription
->;
+}
+    ${CommonProjectFieldsFragmentDoc}`;
+export type OnProjectUpdatedSubscriptionResult = Apollo.SubscriptionResult<OnProjectUpdatedSubscription>;
 export const OnUserAddedDocument = gql`
-  subscription onUserAdded {
-    userAdded {
-      ...commonUserFields
-    }
+    subscription onUserAdded {
+  userAdded {
+    ...commonUserFields
   }
-  ${CommonUserFieldsFragmentDoc}
-`;
-export type OnUserAddedSubscriptionResult = Apollo.SubscriptionResult<
-  OnUserAddedSubscription
->;
+}
+    ${CommonUserFieldsFragmentDoc}`;
+export type OnUserAddedSubscriptionResult = Apollo.SubscriptionResult<OnUserAddedSubscription>;
 export const OnUserUpdatedDocument = gql`
-  subscription onUserUpdated {
-    userUpdated {
-      ...commonUserFields
-    }
+    subscription onUserUpdated {
+  userUpdated {
+    ...commonUserFields
   }
-  ${CommonUserFieldsFragmentDoc}
-`;
-export type OnUserUpdatedSubscriptionResult = Apollo.SubscriptionResult<
-  OnUserUpdatedSubscription
->;
+}
+    ${CommonUserFieldsFragmentDoc}`;
+export type OnUserUpdatedSubscriptionResult = Apollo.SubscriptionResult<OnUserUpdatedSubscription>;
 export const ForgotPasswordDocument = gql`
-  mutation ForgotPassword($email: String!) {
-    forgotPassword(email: $email)
-  }
-`;
-export type ForgotPasswordMutationFn = Apollo.MutationFunction<
-  ForgotPasswordMutation,
-  ForgotPasswordMutationVariables
->;
-export type ForgotPasswordMutationResult = Apollo.MutationResult<
-  ForgotPasswordMutation
->;
-export type ForgotPasswordMutationOptions = Apollo.BaseMutationOptions<
-  ForgotPasswordMutation,
-  ForgotPasswordMutationVariables
->;
+    mutation ForgotPassword($email: String!) {
+  forgotPassword(email: $email)
+}
+    `;
+export type ForgotPasswordMutationFn = Apollo.MutationFunction<ForgotPasswordMutation, ForgotPasswordMutationVariables>;
+export type ForgotPasswordMutationResult = Apollo.MutationResult<ForgotPasswordMutation>;
+export type ForgotPasswordMutationOptions = Apollo.BaseMutationOptions<ForgotPasswordMutation, ForgotPasswordMutationVariables>;
 export const SignInEmailDocument = gql`
-  mutation SignInEmail(
-    $email: String!
-    $password: String!
-    $client: USER_CLIENT!
-  ) {
-    signInEmail(email: $email, password: $password, client: $client) {
-      ...commonUserFields
-    }
+    mutation SignInEmail($email: String!, $password: String!, $client: USER_CLIENT!) {
+  signInEmail(email: $email, password: $password, client: $client) {
+    ...commonUserFields
   }
-  ${CommonUserFieldsFragmentDoc}
-`;
-export type SignInEmailMutationFn = Apollo.MutationFunction<
-  SignInEmailMutation,
-  SignInEmailMutationVariables
->;
-export type SignInEmailMutationResult = Apollo.MutationResult<
-  SignInEmailMutation
->;
-export type SignInEmailMutationOptions = Apollo.BaseMutationOptions<
-  SignInEmailMutation,
-  SignInEmailMutationVariables
->;
+}
+    ${CommonUserFieldsFragmentDoc}`;
+export type SignInEmailMutationFn = Apollo.MutationFunction<SignInEmailMutation, SignInEmailMutationVariables>;
+export type SignInEmailMutationResult = Apollo.MutationResult<SignInEmailMutation>;
+export type SignInEmailMutationOptions = Apollo.BaseMutationOptions<SignInEmailMutation, SignInEmailMutationVariables>;
 export const SignUpEmailDocument = gql`
-  mutation SignUpEmail(
-    $email: String!
-    $password: String!
-    $firstName: String!
-    $lastName: String!
-    $locale: USER_LOCALE!
-    $isAgree: Boolean!
-    $client: USER_CLIENT!
-  ) {
-    signUpEmail(
-      email: $email
-      password: $password
-      firstName: $firstName
-      lastName: $lastName
-      locale: $locale
-      isAgree: $isAgree
-      client: $client
-    ) {
-      ...commonUserFields
-    }
+    mutation SignUpEmail($email: String!, $password: String!, $firstName: String!, $lastName: String!, $locale: USER_LOCALE!, $isAgree: Boolean!, $client: USER_CLIENT!) {
+  signUpEmail(email: $email, password: $password, firstName: $firstName, lastName: $lastName, locale: $locale, isAgree: $isAgree, client: $client) {
+    ...commonUserFields
   }
-  ${CommonUserFieldsFragmentDoc}
-`;
-export type SignUpEmailMutationFn = Apollo.MutationFunction<
-  SignUpEmailMutation,
-  SignUpEmailMutationVariables
->;
-export type SignUpEmailMutationResult = Apollo.MutationResult<
-  SignUpEmailMutation
->;
-export type SignUpEmailMutationOptions = Apollo.BaseMutationOptions<
-  SignUpEmailMutation,
-  SignUpEmailMutationVariables
->;
+}
+    ${CommonUserFieldsFragmentDoc}`;
+export type SignUpEmailMutationFn = Apollo.MutationFunction<SignUpEmailMutation, SignUpEmailMutationVariables>;
+export type SignUpEmailMutationResult = Apollo.MutationResult<SignUpEmailMutation>;
+export type SignUpEmailMutationOptions = Apollo.BaseMutationOptions<SignUpEmailMutation, SignUpEmailMutationVariables>;

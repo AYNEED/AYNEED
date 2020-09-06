@@ -13,7 +13,8 @@ import { createUser, updateUser } from 'src/helpers/users';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
-  { email, password, client }
+  { email, password, client },
+  { req }
 ) => {
   await validators.signInEmail.validate({ email, password });
 
@@ -30,6 +31,13 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   });
 
   // TODO: create session
+  const { session } = req;
+  if (session) {
+    session.user = { id: user.id };
+    session.save((err) =>
+      err ? console.error(err) : console.log('Session saved')
+    );
+  }
 
   if (user.statistics.completeness >= 100) {
     await send.update({
@@ -43,7 +51,8 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
 export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   parent,
-  { email, password, firstName, lastName, locale, isAgree, client }
+  { email, password, firstName, lastName, locale, isAgree, client },
+  { req }
 ) => {
   await validators.signUpEmail.validate({
     firstName,
@@ -68,6 +77,13 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   });
 
   // TODO: create session
+  const { session } = req;
+  if (session) {
+    session.user = { id: user.id };
+    session.save((err) =>
+      err ? console.error(err) : console.log('Session saved')
+    );
+  }
 
   return user;
 };
@@ -107,7 +123,8 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
 
 export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange'] = async (
   parent,
-  { password, recoveryCode, client }
+  { password, recoveryCode, client },
+  { req }
 ) => {
   await validators.forgotPasswordChange.validate({ password });
 
@@ -139,6 +156,13 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
   });
 
   // TODO: create session
+  const { session } = req;
+  if (session) {
+    session.user = { id: user.id };
+    session.save((err) =>
+      err ? console.error(err) : console.log('Session saved')
+    );
+  }
 
   if (user.statistics.completeness >= 100) {
     await send.update({
@@ -150,7 +174,17 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
   return user;
 };
 
-export const signOut: Resolvers['Mutation']['signOut'] = async (parent) => {
+export const signOut: Resolvers['Mutation']['signOut'] = async (
+  parent,
+  args,
+  { req }
+) => {
   // TODO: delete session
+  const { session } = req;
+  if (session) {
+    session.destroy((err) =>
+      err ? console.error(err) : console.log('Session destroyed')
+    );
+  }
   return true;
 };
