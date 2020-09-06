@@ -260,6 +260,7 @@ export type Project = {
   solution: Scalars['String'];
   likesCount: Scalars['Int'];
   status: ProjectStatus;
+  vacancies: Array<Vacancy>;
   subscribers: Array<SubscribedUser>;
   comments: Array<Comment>;
   commentsCount: Scalars['Int'];
@@ -281,6 +282,12 @@ export type User = {
   subscribers: Array<SubscribedUser>;
   friends: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];
+};
+
+export type Vacancy = {
+  title: Scalars['String'];
+  text: Scalars['String'];
+  archivedAt: Maybe<Scalars['DateTime']>;
 };
 
 export type Comment = {
@@ -542,6 +549,7 @@ export type ResolversTypes = {
   Project: ResolverTypeWrapper<Project>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   User: ResolverTypeWrapper<User>;
+  Vacancy: ResolverTypeWrapper<Vacancy>;
   Comment: ResolverTypeWrapper<Comment>;
   HelpItem: ResolverTypeWrapper<HelpItem>;
   Like: ResolverTypeWrapper<Like>;
@@ -581,6 +589,7 @@ export type ResolversParentTypes = {
   Project: Project;
   Int: Scalars['Int'];
   User: User;
+  Vacancy: Vacancy;
   Comment: Comment;
   HelpItem: HelpItem;
   Like: Like;
@@ -862,6 +871,11 @@ export type ProjectResolvers<
   solution: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   likesCount: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   status: Resolver<ResolversTypes['PROJECT_STATUS'], ParentType, ContextType>;
+  vacancies: Resolver<
+    Array<ResolversTypes['Vacancy']>,
+    ParentType,
+    ContextType
+  >;
   subscribers: Resolver<
     Array<ResolversTypes['SubscribedUser']>,
     ParentType,
@@ -923,6 +937,20 @@ export type UserResolvers<
     ContextType
   >;
   createdAt: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType>;
+};
+
+export type VacancyResolvers<
+  ContextType = { user?: User },
+  ParentType extends ResolversParentTypes['Vacancy'] = ResolversParentTypes['Vacancy']
+> = {
+  title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  text: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  archivedAt: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType>;
 };
 
@@ -1184,6 +1212,7 @@ export type Resolvers<ContextType = { user?: User }> = {
   Message: MessageResolvers<ContextType>;
   Project: ProjectResolvers<ContextType>;
   User: UserResolvers<ContextType>;
+  Vacancy: VacancyResolvers<ContextType>;
   Comment: CommentResolvers<ContextType>;
   HelpItem: HelpItemResolvers<ContextType>;
   Like: LikeResolvers<ContextType>;
