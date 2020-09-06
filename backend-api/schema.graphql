@@ -226,9 +226,9 @@ type User {
 # #################### additional models ######################
 
 type Vacancy {
-    title: String!
-    text: String!
-    archivedAt: DateTime
+  title: String!
+  text: String!
+  archivedAt: DateTime
 }
 
 type Comment {
