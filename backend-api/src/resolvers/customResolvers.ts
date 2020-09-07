@@ -82,6 +82,7 @@ export const resolveProject: Resolvers['Project'] = {
       targetId: parent.id,
       targetModel: CommentTargetModel.Project,
     }),
+  vacancies: (parent) => parent.vacancies,
   commentsCount: (parent) => parent.commentsCount,
   createdAt: (parent) => parent.createdAt,
   archivedAt: (parent) => parent.archivedAt,
@@ -123,6 +124,12 @@ export const resolveUser: Resolvers['User'] = {
 };
 
 // -------------------- Additional models ---------------------
+
+export const resolveVacancy: Resolvers['Vacancy'] = {
+  title: (parent) => parent.title,
+  text: (parent) => parent.text,
+  archivedAt: (parent) => parent.archivedAt,
+};
 
 export const resolveComment: Resolvers['Comment'] = {
   id: (parent) => parent.id,

@@ -199,6 +199,7 @@ type Project {
   solution: String!
   likesCount: Int!
   status: PROJECT_STATUS!
+  vacancies: [Vacancy!]!
   subscribers: [SubscribedUser!]!
   comments: [Comment!]!
   commentsCount: Int!
@@ -223,6 +224,12 @@ type User {
 }
 
 # #################### additional models ######################
+
+type Vacancy {
+  title: String!
+  text: String!
+  archivedAt: DateTime
+}
 
 type Comment {
   id: ID!
