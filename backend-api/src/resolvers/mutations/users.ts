@@ -30,7 +30,7 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
     network: { isOnline: false, client },
   });
 
-  // TODO: create session
+  // create session on sign in
   const { session } = req;
   if (session) {
     session.user = { id: user.id };
@@ -76,7 +76,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
     network: { isOnline: false, client },
   });
 
-  // TODO: create session
+  // create session on sign up
   const { session } = req;
   if (session) {
     session.user = { id: user.id };
@@ -155,7 +155,7 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
     network: { isOnline: false, client },
   });
 
-  // TODO: create session
+  // create session
   const { session } = req;
   if (session) {
     session.user = { id: user.id };
@@ -179,12 +179,13 @@ export const signOut: Resolvers['Mutation']['signOut'] = async (
   args,
   { req }
 ) => {
-  // TODO: delete session
+  // delete the session on logout
   const { session } = req;
   if (session) {
     session.destroy((err) =>
       err ? console.error(err) : console.log('Session destroyed')
     );
   }
+
   return true;
 };
