@@ -27,19 +27,19 @@ const server = new ApolloServer({
       'request.credentials': 'same-origin',
     },
   },
-  context: async ({ req }) => {
+  context: async ({ req, res }) => {
     // TODO: add normal auth
     const token = req?.headers?.authorization;
 
     if (!token) {
-      return {};
+      return { req, res };
     }
 
     try {
       const user = await findUserByToken(token);
-      return { user };
+      return { user, req, res };
     } catch (e) {
-      return {};
+      return { req, res };
     }
   },
 });
