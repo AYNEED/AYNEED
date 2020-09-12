@@ -84,11 +84,13 @@ export const FeedUsers: React.FC = () => {
 
       {error && <p>Error</p>}
 
-      <LazyList<CommonUserFieldsFragment>
-        callback={loadMore}
-        data={data.users.items}
-        children={CardUser}
-      />
+      {data?.users?.items?.length && (
+        <LazyList<CommonUserFieldsFragment>
+          callback={loadMore}
+          data={data.users.items}
+          children={CardUser}
+        />
+      )}
     </>
   );
 };
