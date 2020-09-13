@@ -59,7 +59,9 @@ const style: Styles<'disabled' | 'gradient' | 'text' | 'block' | 'wrapper'> = {
     },
   }),
   block: {},
-  wrapper: {},
+  wrapper: {
+    textDecoration: 'none',
+  },
 };
 
 export const Link: React.FC<Props> = (props) => {
