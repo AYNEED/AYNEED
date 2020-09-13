@@ -62,8 +62,7 @@ ch${НОМЕР_ЗАДАЧИ_В_CLUBHOUSE}_${КОТОРОТКОЕ_ПОЯСНЕН�
 
 ## Макеты
 
-- [старые](https://www.figma.com/file/fLwqztpbSxl0h2a9kHFFBw)
-- [новые](https://www.figma.com/file/m66qSWtTekjLhWo1Dqho9b)
+- [текущий](https://www.figma.com/file/By4beBwCU2EEmoqFTOzqKv)
 - [карта проекта](https://www.mindmeister.com/1568671214)
 
 ## Требования к архитектуре
