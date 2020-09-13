@@ -6,7 +6,7 @@ import { useMutation } from '@apollo/client';
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import { InputEmail, InputPassword } from 'src/components/ui/forms/Input';
-import { ButtonSubmit } from 'src/components/ui/forms/Button';
+import { Button } from 'src/components/ui/forms/Button';
 import { ROUTES, validators } from 'shared';
 import { Link } from 'src/components/ui/Link';
 import { client } from 'src/utils/fela';
@@ -57,7 +57,7 @@ const SignInEmail: React.FC = () => {
           placeholder={{ id: 'web.routes.SignInEmail.form_password' }}
         />
 
-        <ButtonSubmit text={{ id: 'web.routes.SignInEmail.form_submit' }} />
+        <Button text={{ id: 'web.routes.SignInEmail.form_submit' }} type='submit' mode='origin'/>
       </form>
 
       <p>

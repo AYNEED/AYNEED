@@ -54,6 +54,7 @@ const Main: React.FC = () => (
           <ButtonLink
             url={{ scheme: ROUTES.FEED }}
             text={{ id: 'web.routes.Main.button_start' }}
+            mode='link'
           />
         </FelaComponent>
 
