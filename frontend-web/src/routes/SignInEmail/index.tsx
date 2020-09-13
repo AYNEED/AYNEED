@@ -21,8 +21,8 @@ import {
 } from 'src/__generated__';
 import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
-const styles: Styles<'root' | 'buttonSubmit' | 'link'> = {
-  root: () => ({
+const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
+  form: () => ({
     nested: {
       '> input': {
         display: 'block',
@@ -75,7 +75,7 @@ const SignInEmail: React.FC = () => {
       <EnterThrough />
 
       <form onSubmit={formik.handleSubmit}>
-        <FelaComponent style={styles.root}>
+        <FelaComponent style={styles.form}>
           <Notification error={result.error} />
 
           <InputEmail
