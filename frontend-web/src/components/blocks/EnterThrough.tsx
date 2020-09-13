@@ -1,10 +1,10 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { FelaComponent } from 'react-fela'
+import { FelaComponent } from 'react-fela';
 
-import { Styles } from 'src/utils/fela'
-import { COLOR } from 'src/constants/colors'
-import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts'
+import { Styles } from 'src/utils/fela';
+import { COLOR } from 'src/constants/colors';
+import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 import { Msg, msg } from 'src/i18n/Msg';
 import { Google } from 'src/components/icons/networks/Google';
 import { Facebook } from 'src/components/icons/networks/Facebook';
@@ -18,19 +18,19 @@ const styles: Styles<'root' | 'message' | 'list'> = {
     nested: {
       '> ul': {
         display: 'flex',
-        listStyleType: 'none'
+        listStyleType: 'none',
       },
     },
   },
   message: {
     marginRight: 10,
     color: COLOR.SECONDARY_200,
-    ...font(FONT_SIZE.M, FONT_WEIGHT.SEMIBOLD)
+    ...font(FONT_SIZE.M, FONT_WEIGHT.SEMIBOLD),
   },
   list: {
-    marginLeft: 10
-  }
-}
+    marginLeft: 10,
+  },
+};
 
 export const EnterThrough: React.FC = () => {
   const intl = useIntl();

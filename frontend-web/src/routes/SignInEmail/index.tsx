@@ -2,10 +2,10 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
 import { useMutation } from '@apollo/client';
-import { FelaComponent } from 'react-fela'
+import { FelaComponent } from 'react-fela';
 
-import { Styles } from 'src/utils/fela'
-import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts'
+import { Styles } from 'src/utils/fela';
+import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 import { COLOR } from 'src/constants/colors';
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
@@ -41,17 +41,17 @@ const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
           borderColor: COLOR.SECONDARY_300,
         },
       },
-    }
+    },
   }),
   buttonSubmit: {
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: 40
+    marginBottom: 40,
   },
   link: {
-    marginBottom: 10
-  }
-}
+    marginBottom: 10,
+  },
+};
 
 const SignInEmail: React.FC = () => {
   const [signInEmail, result] = useMutation<
