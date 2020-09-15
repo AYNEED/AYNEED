@@ -7,6 +7,7 @@ export const options: ConnectionOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  authSource: 'admin',
 };
 
 export const schemaOptions: SchemaOptions = {
@@ -16,5 +17,9 @@ export const schemaOptions: SchemaOptions = {
 };
 
 export const connect = async (): Promise<void> => {
-  await mongoose.connect(`mongodb://${host}/${name}`, options);
+  try {
+    await mongoose.connect(`mongodb://${host}/${name}`, options);
+  } catch (error) {
+    console.error(error);
+  }
 };

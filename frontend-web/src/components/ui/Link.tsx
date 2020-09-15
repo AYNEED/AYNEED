@@ -79,15 +79,6 @@ export const Link: React.FC<Props> = (props) => {
     return null;
   }
 
-  const newProps = {
-    ...props,
-    url: undefined,
-    mode: undefined,
-    theme: undefined,
-    active: undefined,
-    disabled: undefined,
-  };
-
   return (
     <FelaComponent
       style={[
@@ -97,7 +88,7 @@ export const Link: React.FC<Props> = (props) => {
       t={props.theme}
     >
       {({ className }) => (
-        <RouterLink to={to} className={className} {...newProps}>
+        <RouterLink to={to} className={className} {...props}>
           {props.children}
         </RouterLink>
       )}

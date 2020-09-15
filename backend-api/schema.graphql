@@ -71,7 +71,7 @@ type Query {
     query: String!
     targetModel: SEARCH_TARGET_MODEL!
     cursor: ID
-  ): UserFeed!
+  ): SearchResult!
 
   messages(cursor: ID): MessageFeed!
 
@@ -151,6 +151,10 @@ enum USER_ROLE {
   support
 }
 
+# ########################## unions ###########################
+
+union SearchResult = ProjectFeed | UserFeed
+
 # ########################### feeds ###########################
 
 type MessageFeed {
@@ -195,6 +199,7 @@ type Project {
   solution: String!
   likesCount: Int!
   status: PROJECT_STATUS!
+  vacancies: [Vacancy!]!
   subscribers: [SubscribedUser!]!
   comments: [Comment!]!
   commentsCount: Int!
@@ -219,6 +224,12 @@ type User {
 }
 
 # #################### additional models ######################
+
+type Vacancy {
+  title: String!
+  text: String!
+  archivedAt: DateTime
+}
 
 type Comment {
   id: ID!

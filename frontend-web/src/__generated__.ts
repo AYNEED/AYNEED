@@ -107,7 +107,7 @@ export type Query = {
   projects: ProjectFeed;
   user: User;
   users: UserFeed;
-  search: UserFeed;
+  search: SearchResult;
   messages: MessageFeed;
   help: Help;
 };
@@ -211,6 +211,8 @@ export enum UserRole {
   Support = 'support',
 }
 
+export type SearchResult = ProjectFeed | UserFeed;
+
 export type MessageFeed = {
   items: Array<Message>;
   hasMore: Scalars['Boolean'];
@@ -251,6 +253,7 @@ export type Project = {
   solution: Scalars['String'];
   likesCount: Scalars['Int'];
   status: ProjectStatus;
+  vacancies: Array<Vacancy>;
   subscribers: Array<SubscribedUser>;
   comments: Array<Comment>;
   commentsCount: Scalars['Int'];
@@ -272,6 +275,12 @@ export type User = {
   subscribers: Array<SubscribedUser>;
   friends: Array<SubscribedUser>;
   createdAt: Scalars['DateTime'];
+};
+
+export type Vacancy = {
+  title: Scalars['String'];
+  text: Scalars['String'];
+  archivedAt: Maybe<Scalars['DateTime']>;
 };
 
 export type Comment = {

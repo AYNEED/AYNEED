@@ -87,11 +87,13 @@ export const FeedProjects: React.FC = () => {
 
       {error && <p>Error</p>}
 
-      <LazyList<CommonProjectFieldsFragment>
-        callback={loadMore}
-        data={data.projects.items}
-        children={CardProject}
-      />
+      {data?.projects?.items?.length && (
+        <LazyList<CommonProjectFieldsFragment>
+          callback={loadMore}
+          data={data.projects.items}
+          children={CardProject}
+        />
+      )}
     </>
   );
 };
