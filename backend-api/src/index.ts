@@ -9,6 +9,7 @@ import { resolvers, typeDefs } from 'src/resolvers';
 import { expressServer } from 'src/express';
 import { connect } from 'src/utils/mongodb';
 import { version } from 'package.json';
+import { checkTokens } from 'src/authJwt';
 
 const theme = process.env.AYNEED_BACKEND_PLAYGROUND_THEME as Theme;
 const port = process.env.AYNEED_BACKEND_API_PORT;
@@ -28,16 +29,21 @@ const server = new ApolloServer({
     },
   },
   context: async ({ req, res }) => {
-    // TODO: add normal auth
-    const token = req?.headers?.authorization;
-
-    if (!token) {
+    let access = undefined;
+    if (req.cookies) {
+      access = req.cookies.authorization?.split('|');
+    }
+    if (!access) {
       return { req, res };
     }
-
     try {
-      const user = await findUserByToken(token);
-      return { user, req, res };
+      const allow = await checkTokens(req, res);
+      if (allow === true) {
+        const user = await findUserByToken(access[0]);
+        return { user, req, res };
+      } else {
+        return { req, res };
+      }
     } catch (e) {
       return { req, res };
     }

@@ -10,11 +10,12 @@ import { EVENTS, UPDATES } from 'src/notifications/events';
 import { send } from 'src/notifications';
 import { validators, ValidationError } from 'shared';
 import { createUser, updateUser } from 'src/helpers/users';
+import { generateTokens } from 'src/authJwt';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
   { email, password, client },
-  { req }
+  { req, res }
 ) => {
   await validators.signInEmail.validate({ email, password });
 
@@ -31,12 +32,25 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   });
 
   // create session on sign in
+  const tokens = await generateTokens({ auth: user.id });
+  res.cookie('authorization', tokens.access + '|' + tokens.refresh);
+  await UserModel.findByIdAndUpdate(
+    { _id: data.id },
+    {
+      'private.tokens.access': tokens.access,
+      'private.tokens.refresh': tokens.refresh,
+    }
+  );
+
   const { session } = req;
+
   if (session) {
     session.user = { id: user.id };
-    session.save((err) =>
-      err ? console.error(err) : console.log('Session saved')
-    );
+
+    session.save((err) => {
+      err ? console.error(err) : console.log('Session saved');
+      return res.send();
+    });
   }
 
   if (user.statistics.completeness >= 100) {
@@ -77,6 +91,7 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   });
 
   // create session on sign up
+
   const { session } = req;
   if (session) {
     session.user = { id: user.id };

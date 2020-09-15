@@ -63,15 +63,21 @@ export const createUser = async ({
         salt,
       },
       recovery: null,
+      tokens: {
+        access: '',
+        refresh: '',
+      },
     },
   });
 };
 
 export const findUserByToken = async (
   token: string
-): Promise<UserRes | undefined> => {
-  // TODO: drop this line and get user from session
-  return findUserById(token);
+): Promise<UserRes | null> => {
+  const data = await UserModel.findOne({
+    'private.tokens.access': token,
+  });
+  return data;
 };
 
 export const findUserById = async (id: User['id']): Promise<UserRes> => {
