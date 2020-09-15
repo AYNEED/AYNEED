@@ -3,7 +3,6 @@ import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
 import { useMutation } from '@apollo/client';
 
-import { COLOR } from 'src/constants/colors';
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import {
@@ -12,7 +11,7 @@ import {
   InputPassword,
   InputCheckbox,
 } from 'src/components/ui/forms/Input';
-import { ButtonSubmit } from 'src/components/ui/forms/Button';
+import { Button } from 'src/components/ui/forms/Button';
 import { ROUTES, validators } from 'shared';
 import { Link } from 'src/components/ui/Link';
 import { client } from 'src/utils/fela';
@@ -97,16 +96,16 @@ const SignUpEmail: React.FC = () => {
           onChange={formik.handleChange}
         />
 
-        <ButtonSubmit disabled={!formik.values.isAgree}>
-          <Msg id="web.routes.SignUpEmail.form_submit" />
-        </ButtonSubmit>
+        <Button
+          disabled={!formik.values.isAgree}
+          text={{ id: 'web.routes.SignUpEmail.form_submit' }}
+          type="submit"
+          mode="origin"
+        />
       </form>
 
       <p>
-        <Link
-          url={{ scheme: ROUTES.SIGN_IN_EMAIL }}
-          color={COLOR.SECONDARY_200}
-        >
+        <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }} theme="negative">
           <Msg id="web.routes.SignUpEmail.link_sign_in" />
         </Link>
       </p>

@@ -942,7 +942,7 @@ export type UserResolvers<
 };
 
 export type VacancyResolvers<
-  ContextType = { user?: User },
+  ContextType = IContext,
   ParentType extends ResolversParentTypes['Vacancy'] = ResolversParentTypes['Vacancy']
 > = {
   title: Resolver<ResolversTypes['String'], ParentType, ContextType>;
