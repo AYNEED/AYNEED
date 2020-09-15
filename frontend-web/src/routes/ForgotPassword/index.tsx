@@ -50,7 +50,11 @@ const ForgotPassword: React.FC = () => {
           placeholder={{ id: 'web.routes.ForgotPassword.form_email' }}
         />
 
-        <Button text={{ id: 'web.routes.ForgotPassword.form_submit' }} type='submit' mode='origin'/>
+        <Button
+          text={{ id: 'web.routes.ForgotPassword.form_submit' }}
+          type="submit"
+          mode="origin"
+        />
       </form>
 
       <p>

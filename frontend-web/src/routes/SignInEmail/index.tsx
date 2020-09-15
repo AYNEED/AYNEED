@@ -57,7 +57,11 @@ const SignInEmail: React.FC = () => {
           placeholder={{ id: 'web.routes.SignInEmail.form_password' }}
         />
 
-        <Button text={{ id: 'web.routes.SignInEmail.form_submit' }} type='submit' mode='origin'/>
+        <Button
+          text={{ id: 'web.routes.SignInEmail.form_submit' }}
+          type="submit"
+          mode="origin"
+        />
       </form>
 
       <p>
