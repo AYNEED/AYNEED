@@ -10,7 +10,7 @@ import { COLOR } from 'src/constants/colors';
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import { InputEmail, InputPassword } from 'src/components/ui/forms/Input';
-import { ButtonSubmit } from 'src/components/ui/forms/Button';
+import { Button } from 'src/components/ui/forms/Button';
 import { ROUTES, validators } from 'shared';
 import { Link } from 'src/components/ui/Link';
 import { client } from 'src/utils/fela';
@@ -26,7 +26,7 @@ const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
     nested: {
       '> input': {
         display: 'block',
-        width: 260,
+        width: 255,
         marginBottom: 40,
         paddingBottom: 5,
         border: 0,
@@ -95,9 +95,11 @@ const SignInEmail: React.FC = () => {
           />
 
           <FelaComponent style={styles.buttonSubmit}>
-            <ButtonSubmit>
-              <Msg id="web.routes.SignInEmail.form_submit" />
-            </ButtonSubmit>
+            <Button
+              text={{ id: 'web.routes.SignInEmail.form_submit' }}
+              mode="origin"
+              type="submit"
+            />
           </FelaComponent>
         </FelaComponent>
       </form>
