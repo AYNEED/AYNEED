@@ -22,7 +22,7 @@ import {
 import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
 const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
-  form: () => ({
+  form: {
     nested: {
       '> input': {
         display: 'block',
@@ -32,24 +32,26 @@ const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
         border: 0,
         borderBottom: `2px solid ${COLOR.SECONDARY_200}`,
 
-        '::placeholder': {
-          color: COLOR.SECONDARY_200,
-          ...font(FONT_SIZE.M, FONT_WEIGHT.REGULAR),
-        },
+        nested: {
+          ':hover': {
+            borderColor: COLOR.SECONDARY_300,
+          },
 
-        ':hover': {
-          borderColor: COLOR.SECONDARY_300,
+          '::placeholder': {
+            color: COLOR.SECONDARY_200,
+            ...font(FONT_SIZE.M, FONT_WEIGHT.REGULAR),
+          },
         },
       },
     },
-  }),
+  },
   buttonSubmit: {
     display: 'flex',
     justifyContent: 'center',
     marginBottom: 40,
   },
   link: {
-    marginBottom: 10,
+    marginBottom: 15,
   },
 };
 
@@ -104,27 +106,23 @@ const SignInEmail: React.FC = () => {
         </FelaComponent>
       </form>
 
-      <p>
-        <FelaComponent style={styles.link}>
-          <Link
-            url={{ scheme: ROUTES.FORGOT_PASSWORD }}
-            color={COLOR.SECONDARY_200}
-          >
-            <Msg id="web.routes.SignInEmail.link_forgot_password" />
-          </Link>
-        </FelaComponent>
-      </p>
+      <FelaComponent style={styles.link}>
+        <Link
+          url={{ scheme: ROUTES.FORGOT_PASSWORD }}
+          color={COLOR.SECONDARY_200}
+        >
+          <Msg id="web.routes.SignInEmail.link_forgot_password" />
+        </Link>
+      </FelaComponent>
 
-      <p>
-        <FelaComponent style={styles.link}>
-          <Link
-            url={{ scheme: ROUTES.SIGN_UP_EMAIL }}
-            color={COLOR.SECONDARY_200}
-          >
-            <Msg id="web.routes.SignInEmail.link_sign_up" />
-          </Link>
-        </FelaComponent>
-      </p>
+      <FelaComponent style={styles.link}>
+        <Link
+          url={{ scheme: ROUTES.SIGN_UP_EMAIL }}
+          color={COLOR.SECONDARY_200}
+        >
+          <Msg id="web.routes.SignInEmail.link_sign_up" />
+        </Link>
+      </FelaComponent>
     </Page>
   );
 };
