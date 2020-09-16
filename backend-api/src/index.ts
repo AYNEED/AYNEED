@@ -4,12 +4,12 @@ import http from 'http';
 import { ApolloServer } from 'apollo-server-express';
 import { Theme } from '@apollographql/graphql-playground-html/dist/render-playground-page';
 
-import { findUserByToken } from 'src/helpers/users';
 import { resolvers, typeDefs } from 'src/resolvers';
 import { expressServer } from 'src/express';
 import { connect } from 'src/utils/mongodb';
 import { version } from 'package.json';
-import { checkTokens } from 'src/authJwt';
+import { findUserByToken } from 'src/helpers/users';
+import { checkTokens } from 'src/middleware/authJwt';
 
 const theme = process.env.AYNEED_BACKEND_PLAYGROUND_THEME as Theme;
 const port = process.env.AYNEED_BACKEND_API_PORT;

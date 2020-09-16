@@ -10,7 +10,7 @@ import { EVENTS, UPDATES } from 'src/notifications/events';
 import { send } from 'src/notifications';
 import { validators, ValidationError } from 'shared';
 import { createUser, updateUser } from 'src/helpers/users';
-import { generateTokens } from 'src/authJwt';
+import { generateTokens } from 'src/middleware/authJwt';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
@@ -31,9 +31,10 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
     network: { isOnline: false, client },
   });
 
-  // create session on sign in
   const tokens = await generateTokens({ auth: user.id });
-  res.cookie('authorization', tokens.access + '|' + tokens.refresh);
+  res.cookie('authorization', tokens.access + '|' + tokens.refresh, {
+    expires: new Date(Date.now() + 9999999999),
+  });
   await UserModel.findByIdAndUpdate(
     { _id: data.id },
     {
