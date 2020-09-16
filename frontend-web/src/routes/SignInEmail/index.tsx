@@ -3,11 +3,10 @@ import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
 import { useMutation } from '@apollo/client';
 
-import { COLOR } from 'src/constants/colors';
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import { InputEmail, InputPassword } from 'src/components/ui/forms/Input';
-import { ButtonSubmit } from 'src/components/ui/forms/Button';
+import { Button } from 'src/components/ui/forms/Button';
 import { ROUTES, validators } from 'shared';
 import { Link } from 'src/components/ui/Link';
 import { client } from 'src/utils/fela';
@@ -58,25 +57,21 @@ const SignInEmail: React.FC = () => {
           placeholder={{ id: 'web.routes.SignInEmail.form_password' }}
         />
 
-        <ButtonSubmit>
-          <Msg id="web.routes.SignInEmail.form_submit" />
-        </ButtonSubmit>
+        <Button
+          text={{ id: 'web.routes.SignInEmail.form_submit' }}
+          type="submit"
+          mode="origin"
+        />
       </form>
 
       <p>
-        <Link
-          url={{ scheme: ROUTES.FORGOT_PASSWORD }}
-          color={COLOR.SECONDARY_200}
-        >
+        <Link url={{ scheme: ROUTES.FORGOT_PASSWORD }} theme="negative">
           <Msg id="web.routes.SignInEmail.link_forgot_password" />
         </Link>
       </p>
 
       <p>
-        <Link
-          url={{ scheme: ROUTES.SIGN_UP_EMAIL }}
-          color={COLOR.SECONDARY_200}
-        >
+        <Link url={{ scheme: ROUTES.SIGN_UP_EMAIL }} theme="negative">
           <Msg id="web.routes.SignInEmail.link_sign_up" />
         </Link>
       </p>
