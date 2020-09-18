@@ -7,9 +7,9 @@ import { MsgProps, Msg, msg } from 'src/i18n/Msg';
 import { Tooltip } from 'src/components/ui/Tooltip';
 import { ExclamationPoint } from 'src/components/icons/old_design/ExclamationPoint';
 import { CheckPoint } from 'src/components/icons/interactions/CheckPoint';
-import { Styles } from '../../../utils/fela';
-import { font, FONT_SIZE, FONT_WEIGHT } from '../../../constants/fonts';
-import { COLOR } from '../../../constants/colors';
+import { Styles } from 'src/utils/fela';
+import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
+import { COLOR } from 'src/constants/colors';
 
 interface CommonProps {
   name: string;
