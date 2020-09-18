@@ -2,7 +2,7 @@ import React from 'react';
 
 type Props = {
   text: JSX.Element | string;
-  children: JSX.Element;
+  children?: JSX.Element;
 };
 
 export const Tooltip: React.FC<Props> = ({ text, children }) => (
