@@ -1,4 +1,4 @@
-import { UserRes, UserComplete, UserModel } from 'src/models/user';
+import { UserRes, UserComplete, UserModel, UserToken } from 'src/models/user';
 import { createPasswordHash, createRandomString } from 'src/utils/password';
 import { profileCompleteness } from 'src/utils/profileCompleteness';
 import { MutationSignUpEmailArgs, User, UserRole } from 'src/__generated__';
@@ -62,23 +62,18 @@ export const createUser = async ({
         hash,
         salt,
       },
-      recovery: null,
-      tokens: {
+      token: {
         access: '',
         refresh: '',
       },
+      recovery: null,
     },
   });
 };
 
 export const findUserByToken = async (
-  token: string
-): Promise<UserRes | null> => {
-  const data = await UserModel.findOne({
-    'private.tokens.access': token,
-  });
-  return data;
-};
+  token: UserToken
+): Promise<UserRes | null> => await UserModel.findOne({ private: { token } });
 
 export const findUserById = async (id: User['id']): Promise<UserRes> => {
   const user = await UserModel.findById(id);
@@ -123,6 +118,26 @@ export const updateUser = async (
         completeness: profileCompleteness(newUser),
       },
     }
+  );
+
+  if (!user) {
+    throw new ValidationError('error.user.notFound');
+  }
+
+  return user;
+};
+
+export const updateUserToken = async (
+  id: User['id'],
+  token: UserToken
+): Promise<UserRes> => {
+  const {
+    private: { password },
+  } = await findUserById(id);
+
+  const user = await UserModel.findOneAndUpdate(
+    { _id: id },
+    { private: { password, token, recovery: null } }
   );
 
   if (!user) {

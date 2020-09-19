@@ -4,12 +4,12 @@ import http from 'http';
 import { ApolloServer } from 'apollo-server-express';
 import { Theme } from '@apollographql/graphql-playground-html/dist/render-playground-page';
 
+import { authentication } from 'src/middleware/authorization';
 import { resolvers, typeDefs } from 'src/resolvers';
 import { expressServer } from 'src/express';
 import { connect } from 'src/utils/mongodb';
 import { version } from 'package.json';
-import { findUserByToken } from 'src/helpers/users';
-import { checkTokens } from 'src/middleware/authJwt';
+import { findUserById } from './helpers/users';
 
 const theme = process.env.AYNEED_BACKEND_PLAYGROUND_THEME as Theme;
 const port = process.env.AYNEED_BACKEND_API_PORT;
@@ -29,24 +29,14 @@ const server = new ApolloServer({
     },
   },
   context: async ({ req, res }) => {
-    let access = undefined;
-    if (req.cookies) {
-      access = req.cookies.authorization?.split('|');
+    await authentication({ req, res });
+
+    if (req.user?.id) {
+      const user = findUserById(req.user.id);
+      return { user, req, res };
     }
-    if (!access) {
-      return { req, res };
-    }
-    try {
-      const allow = await checkTokens(req, res);
-      if (allow === true) {
-        const user = await findUserByToken(access[0]);
-        return { user, req, res };
-      } else {
-        return { req, res };
-      }
-    } catch (e) {
-      return { req, res };
-    }
+
+    return { req, res };
   },
 });
 
