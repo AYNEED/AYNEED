@@ -1,9 +1,10 @@
 import React from 'react';
+import { COLOR } from 'src/constants/colors';
 
 import { IconBaseProps } from 'src/types';
 
 export const VK: React.FC<IconBaseProps> = ({
-  fill,
+  fill = COLOR.PRIMARY_200,
   width = 24,
   height = 24,
 }) => (

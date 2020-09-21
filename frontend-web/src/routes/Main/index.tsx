@@ -18,7 +18,7 @@ const styles: Styles<
   },
   title: {
     width: '95px',
-    color: COLOR.SECONDARY_400,
+    color: COLOR.SECONDARY_200,
     lineHeight: '17px',
     fontSize: '14px',
     wordSpacing: '35px',

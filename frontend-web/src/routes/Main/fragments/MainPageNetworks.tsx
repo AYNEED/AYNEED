@@ -24,7 +24,7 @@ const styles: Styles<'title' | 'linksWrapper'> = {
   title: {
     fontSize: '16px',
     lineHeight: '20px',
-    color: COLOR.PRIMARY_500,
+    color: COLOR.PRIMARY_200,
   },
   linksWrapper: {
     width: '90px',
@@ -39,7 +39,7 @@ const networks: Array<NetworkProps> = [
   {
     id: 'networks.vk',
     href: 'https://vk.com/ayneed',
-    childNode: VK,
+    childNode: VK
   },
   {
     id: 'networks.telegram',
