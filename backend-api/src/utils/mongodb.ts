@@ -7,6 +7,7 @@ export const options: ConnectionOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  useFindAndModify: false,
   authSource: 'admin',
 };
 
