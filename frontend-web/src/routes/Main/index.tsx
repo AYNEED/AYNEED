@@ -3,6 +3,7 @@ import { FelaComponent } from 'react-fela';
 
 import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
+import { FONT_SIZE } from 'src/constants/fonts';
 import { Page } from 'src/components/wrappers/Page';
 import { ButtonLink } from 'src/components/ui/forms/Button';
 import { Msg } from 'src/i18n/Msg';
@@ -20,7 +21,7 @@ const styles: Styles<
     width: '95px',
     color: COLOR.SECONDARY_200,
     lineHeight: '17px',
-    fontSize: '14px',
+    fontSize: FONT_SIZE.L,
     wordSpacing: '35px',
   },
   content: {
