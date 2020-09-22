@@ -5,7 +5,7 @@ import { FelaComponent } from 'react-fela';
 import { Styles, PropsStyle } from 'src/utils/fela';
 import { MsgProps } from 'src/i18n/Msg';
 import { COLOR } from 'src/constants/colors';
-import { FONT_SIZE } from 'src/constants/fonts';
+import { FONT_SIZE, FONT_WEIGHT, font } from 'src/constants/fonts';
 import { Msg, msg } from 'src/i18n/Msg';
 import { VK } from 'src/components/icons/networks/VK';
 import { Telegram } from 'src/components/icons/networks/Telegram';
@@ -23,8 +23,7 @@ interface NetworkProps {
 
 const styles: Styles<'title' | 'linksWrapper'> = {
   title: {
-    fontSize: FONT_SIZE.L,
-    lineHeight: '20px',
+    ...font(FONT_SIZE.L, FONT_WEIGHT.REGULAR),
     color: COLOR.PRIMARY_200,
   },
   linksWrapper: {
