@@ -39,7 +39,7 @@ const networks: Array<NetworkProps> = [
   {
     id: 'networks.vk',
     href: 'https://vk.com/ayneed',
-    childNode: VK
+    childNode: VK,
   },
   {
     id: 'networks.telegram',
