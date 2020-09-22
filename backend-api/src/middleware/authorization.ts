@@ -51,7 +51,7 @@ export const verifyRefreshToken = (refresh: string): Promise<AuthToken> => {
 export const authentication = async ({
   req,
   res,
-}: IAuthorization): Promise<void> => {
+}: IAuthorization): Promise<undefined | string> => {
   const { access, refresh } = req.cookies;
 
   if (!access || !refresh) {
@@ -62,7 +62,6 @@ export const authentication = async ({
 
     res.clearCookie('access');
     res.clearCookie('refresh');
-    delete req.user?.id;
 
     return;
   }
@@ -81,7 +80,6 @@ export const authentication = async ({
 
     res.clearCookie('access');
     res.clearCookie('refresh');
-    delete req.user?.id;
 
     return;
   }
@@ -99,22 +97,19 @@ export const authentication = async ({
 
       res.cookie('access', renewAccess);
       res.cookie('refresh', renewRefresh);
-      req.user = { id: updated.id };
 
-      return;
+      return updated.id;
     }
 
     res.clearCookie('access');
     res.clearCookie('refresh');
-    delete req.user?.id;
 
     return;
   }
 
   if (!checkedAccess.expired && !checkedRefresh.expired) {
     const user = await findUserById(checkedAccess.id);
-    req.user = { id: user.id };
 
-    return;
+    return user.id;
   }
 };

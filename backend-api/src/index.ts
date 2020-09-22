@@ -29,10 +29,10 @@ const server = new ApolloServer({
     },
   },
   context: async ({ req, res }) => {
-    await authentication({ req, res });
+    const userId = await authentication({ req, res });
 
-    if (req.user?.id) {
-      const user = findUserById(req.user.id);
+    if (userId) {
+      const user = findUserById(userId);
       return { user, req, res };
     }
 

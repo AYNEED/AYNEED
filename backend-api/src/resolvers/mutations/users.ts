@@ -51,7 +51,6 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
 
   res.cookie('access', access);
   res.cookie('refresh', refresh);
-  req.user = { id: user.id };
 
   return user;
 };
@@ -90,7 +89,6 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
 
   res.cookie('access', access);
   res.cookie('refresh', refresh);
-  req.user = { id: user.id };
 
   return user;
 };
@@ -178,7 +176,6 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
 
   res.cookie('access', access);
   res.cookie('refresh', refresh);
-  req.user = { id: user.id };
 
   return user;
 };
@@ -186,11 +183,10 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
 export const signOut: Resolvers['Mutation']['signOut'] = async (
   parent,
   args,
-  { req, res }
+  { req, res, user }
 ) => {
-  if (req.user?.id) {
-    await updateUserToken(req.user.id, { access: '', refresh: '' });
-    delete req.user.id;
+  if (user) {
+    await updateUserToken(user.id, { access: '', refresh: '' });
   }
 
   res.clearCookie('access');
