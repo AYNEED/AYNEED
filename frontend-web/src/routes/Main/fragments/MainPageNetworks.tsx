@@ -17,7 +17,7 @@ type Props = {
 interface NetworkProps {
   id: MsgProps['id'];
   href: string;
-  childNode: React.FC;
+  childNode: any;
 }
 
 const styles: Styles<'title' | 'linksWrapper'> = {
@@ -39,17 +39,17 @@ const networks: Array<NetworkProps> = [
   {
     id: 'networks.vk',
     href: 'https://vk.com/ayneed',
-    childNode: VK,
+    childNode: <Instagram fill={COLOR.PRIMARY_300} />,
   },
   {
     id: 'networks.telegram',
     href: 'https://t.me/ayndme',
-    childNode: Telegram,
+    childNode: <VK fill={COLOR.PRIMARY_300} />,
   },
   {
     id: 'networks.instagram',
     href: 'https://www.instagram.com/aynd.ru/',
-    childNode: Instagram,
+    childNode: <Telegram fill={COLOR.PRIMARY_300} />,
   },
 ];
 
@@ -66,7 +66,7 @@ const Links: React.FC = () => {
     <FelaComponent style={styles.linksWrapper}>
       {networks.map(({ id, href, childNode }) => (
         <a key={id} href={href} title={msg(intl, { id })}>
-          {React.createElement(childNode)}
+          {childNode}
         </a>
       ))}
     </FelaComponent>

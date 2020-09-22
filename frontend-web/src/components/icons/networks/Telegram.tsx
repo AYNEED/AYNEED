@@ -1,10 +1,9 @@
 import React from 'react';
-import { COLOR } from 'src/constants/colors';
 
 import { IconBaseProps } from 'src/types';
 
 export const Telegram: React.FC<IconBaseProps> = ({
-  fill = COLOR.PRIMARY_200,
+  fill,
   width = 24,
   height = 24,
 }) => (
