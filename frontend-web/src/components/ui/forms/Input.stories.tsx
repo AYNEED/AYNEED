@@ -12,6 +12,8 @@ import {
   InputCheckbox,
   InputRadio,
   InputSwitch,
+  InputTextArea,
+  InputTextProps,
   InputCheckabeProps,
 } from 'src/components/ui/forms/Input';
 
@@ -85,6 +87,18 @@ const InputSwitchTemplate: Story<InputCheckabeProps> = (args) => {
   );
 };
 
+const InputTextAreaTemplate: Story<InputTextProps> = (args) => {
+  return (
+    <IntlProvider>
+      <RendererProvider renderer={renderer}>
+        <ReactRouter history={history}>
+          <InputTextArea {...args} />
+        </ReactRouter>
+      </RendererProvider>
+    </IntlProvider>
+  );
+};
+
 export const General = InputTemplate.bind({});
 General.args = {
   placeholder: { id: 'web.routes.Main.button_start' },
@@ -95,5 +109,18 @@ Checkable.args = {};
 
 export const Radio = InputRadioTemplate.bind({});
 Radio.args = {};
+
 export const Switch = InputSwitchTemplate.bind({});
 Switch.args = {};
+
+export const Text = InputTextAreaTemplate.bind({});
+Text.args = {
+  mode: 'orig',
+  placeholder: { id: 'web.routes.Main.description' },
+};
+
+export const TextDisplay = InputTextAreaTemplate.bind({});
+TextDisplay.args = {
+  mode: 'display',
+  placeholder: { id: 'web.routes.Main.description' },
+};

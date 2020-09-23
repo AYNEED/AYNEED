@@ -26,13 +26,24 @@ export interface InputProps extends CommonProps {
   maxLength?: number;
 }
 
+export interface InputTextProps extends InputProps {
+  mode: 'display' | 'orig';
+}
+
 export interface InputCheckabeProps extends CommonProps {
   value: string;
   label: MsgProps;
   checked?: boolean;
 }
 
-const style: Styles<'inputOrig' | 'inputCheckable' | 'inputSwitch'> = {
+const style: Styles<
+  'inputOrig' | 'inputCheckable' | 'inputSwitch' | 'inputText' | 'inputSearch'
+> = {
+  inputSearch: {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: 2,
+  },
   inputOrig: ({
     error,
     disabled,
@@ -86,6 +97,63 @@ const style: Styles<'inputOrig' | 'inputCheckable' | 'inputSwitch'> = {
       },
     },
   }),
+  inputText: ({
+    disabled,
+    mode,
+  }: {
+    disabled?: boolean;
+    mode?: 'orig' | 'display';
+  }) => ({
+    '-webkit-transition': 'border 0.5s ease',
+    '-moz-transition': 'border 0.5s ease',
+    '-o-transition': 'border 0.5s ease',
+    transition: 'border 0.5s ease',
+
+    display: 'flex',
+    width: '505px',
+    height: '131px',
+    border: !disabled
+      ? mode !== 'display'
+        ? `1px solid ${COLOR.SECONDARY_200}`
+        : 'none'
+      : 'none',
+    boxSizing: 'border-box',
+    nested: {
+      '> textarea': {
+        ...font(FONT_SIZE.M, FONT_WEIGHT.REGULAR),
+        padding: !disabled ? (mode !== 'display' ? '5px' : 'none') : 'none',
+        flex: 2,
+        cursor: 'pointer',
+        border: 'none',
+        outline: 'none',
+        resize: 'none',
+        color: !disabled ? COLOR.SECONDARY_100 : COLOR.SECONDARY_400,
+        background: !disabled ? 'none' : COLOR.WHITE,
+      },
+      '> textarea::placeholder': {
+        color: COLOR.SECONDARY_200,
+      },
+      '> textarea:hover::placeholder':
+        mode !== 'display'
+          ? {
+              color: COLOR.SECONDARY_300,
+            }
+          : {},
+      ':hover':
+        mode !== 'display'
+          ? {
+              color: COLOR.SECONDARY_300,
+              borderColor: COLOR.SECONDARY_300,
+            }
+          : {},
+      ':focus':
+        mode !== 'display'
+          ? {
+              borderBottom: `2px solid ${COLOR.SECONDARY_400}`,
+            }
+          : {},
+    },
+  }),
   inputSwitch: ({ disabled }: { disabled?: boolean }) => ({
     disabledOrig: {
       borderColor: COLOR.SECONDARY_400 + ' !important',
@@ -131,8 +199,8 @@ const style: Styles<'inputOrig' | 'inputCheckable' | 'inputSwitch'> = {
     type,
     disabled,
   }: {
-    type?: 'checkbox' | 'radio' | 'switch';
     disabled?: boolean;
+    type?: 'checkbox' | 'radio' | 'switch';
   }) => ({
     nested: {
       '>label>input': {
@@ -209,7 +277,7 @@ const style: Styles<'inputOrig' | 'inputCheckable' | 'inputSwitch'> = {
 
 const Input: React.FC<
   InputProps & {
-    type: 'password' | 'text';
+    type: 'password' | 'text' | 'search';
   }
 > = ({
   name,
@@ -223,13 +291,19 @@ const Input: React.FC<
   className,
   disabled,
 }) => {
-  console.log(error);
   const intl = useIntl();
+
   return (
     <FelaComponent
       disabled={disabled}
       error={error}
-      style={!className ? [style.inputOrig] : {}}
+      style={
+        !className
+          ? type === 'search'
+            ? style.inputSearch
+            : style.inputOrig
+          : {}
+      }
     >
       {icon}
       <input
@@ -250,7 +324,7 @@ const Input: React.FC<
 
 const InputChecable: React.FC<
   InputCheckabeProps & {
-    type: 'checkbox' | 'radio' | 'switch';
+    type: 'checkbox' | 'radio' | 'switch' | 'search';
   }
 > = ({ name, type, value, label, checked, onChange, className, disabled }) => {
   return (
@@ -280,11 +354,47 @@ const InputChecable: React.FC<
   );
 };
 
+export const InputTextArea: React.FC<InputTextProps> = ({
+  name,
+  mode,
+  value,
+  error,
+  onChange,
+  placeholder,
+  maxLength,
+  disabled,
+}) => {
+  const intl = useIntl();
+  return (
+    <FelaComponent
+      mode={mode}
+      disabled={disabled}
+      error={error}
+      style={style.inputText}
+    >
+      <textarea
+        disabled={disabled}
+        name={name}
+        value={value}
+        onChange={onChange}
+        maxLength={maxLength}
+        placeholder={msg(intl, placeholder)}
+      />
+    </FelaComponent>
+  );
+};
+
+export const InputSearch: React.FC<InputProps> = (props) => (
+  <Input {...props} type="search" />
+);
+
 export const InputText: React.FC<InputProps> = (props) => (
   <Input {...props} type="text" />
 );
 
-export const InputEmail: React.FC<InputProps> = InputText;
+export const InputEmail: React.FC<InputProps> = (props) => (
+  <Input {...props} type="text" />
+);
 
 export const InputPassword: React.FC<InputProps> = (props) => (
   <Input {...props} type="password" />
