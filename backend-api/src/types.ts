@@ -5,7 +5,7 @@ export type WithSenderId<T> = T & {
   senderId: User['id'];
 };
 
-export interface IContext {
+export interface IApolloContext {
   req: Request;
   res: Response;
   user?: User;
