@@ -3,20 +3,20 @@ import { FelaComponent } from 'react-fela';
 import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
-import { Close } from '../icons/interactions/Close';
+import { Close } from 'src/components/icons/interactions/Close';
 
 export interface ITag {
   isActive: boolean;
   tagText: string;
 }
 
-const style: Styles<'tag' | 'tagActive' | 'tagText' | 'cross'> = {
+const style: Styles<'tag' | 'tagActive' | 'tagText'> = {
   tag: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 'max-content',
-    height: 'max-content',
+    width: 'auto',
+    height: 'auto',
     padding: '5px 9px',
     border: `2px ${COLOR.SECONDARY_400} solid`,
     borderRadius: '50px',
@@ -26,8 +26,8 @@ const style: Styles<'tag' | 'tagActive' | 'tagText' | 'cross'> = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 'max-content',
-    height: 'max-content',
+    width: 'auto',
+    height: 'auto',
     padding: '5px 9px',
     border: `2px ${COLOR.SECONDARY_300} solid`,
     borderRadius: '50px',
@@ -38,8 +38,6 @@ const style: Styles<'tag' | 'tagActive' | 'tagText' | 'cross'> = {
     ...font(FONT_SIZE.S, FONT_WEIGHT.MEDIUM),
     color: COLOR.SECONDARY_100,
   },
-
-  cross: {},
 };
 
 export const Tag: React.FC<ITag> = (props) => {
