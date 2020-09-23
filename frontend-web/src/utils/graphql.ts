@@ -27,7 +27,7 @@ export const storage = localForage as PersistentStorage<PersistedData<any>>;
 
 const httpLink = new HttpLink({
   uri: getAPIUrl('http'),
-  credentials: 'same-origin',
+  credentials: 'include',
 });
 
 const wsLink = new WebSocketLink({

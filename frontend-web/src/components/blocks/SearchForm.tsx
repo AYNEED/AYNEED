@@ -11,7 +11,7 @@ import { useGetParams } from 'src/hooks/useGetParams';
 import { MsgProps } from 'src/i18n/Msg';
 import { updateHistory } from 'src/navigation';
 import { Search } from 'src/components/icons/interactions/Search';
-import { InputText, InputRadio } from 'src/components/ui/forms/Input';
+import { InputSearch, InputRadio } from 'src/components/ui/forms/Input';
 import { SearchTargetModel } from 'src/__generated__';
 
 export type Props = {
@@ -37,7 +37,7 @@ const modelToItem: {
 
 const models = Object.values(SearchTargetModel);
 
-const style: Styles<'container' | 'icon' | 'checked'> = {
+const style: Styles<'container' | 'checked'> = {
   container: () => ({
     position: 'relative',
     display: 'flex',
@@ -55,15 +55,16 @@ const style: Styles<'container' | 'icon' | 'checked'> = {
       ':hover': {
         borderColor: COLOR.SECONDARY_300,
       },
-
-      '> input': {
+      '>div': {
+        padding: '16px',
+      },
+      '>div> input': {
         cursor: 'text',
         fontSize: '18px',
         lineHeight: '150%',
         backgroundColor: 'transparent',
         color: COLOR.SECONDARY_100,
         outline: '0',
-        flex: 1,
         width: '100%',
         height: '100%',
         border: 'none',
@@ -71,23 +72,17 @@ const style: Styles<'container' | 'icon' | 'checked'> = {
           color: COLOR.SECONDARY_300,
         },
       },
-
-      '> label': {
+      '>div> label': {
         cursor: 'pointer',
-        padding: '16px',
         fontSize: '18px',
         lineHeight: '150%',
         color: COLOR.SECONDARY_300,
-
         '> input[type="radio"]': {
           display: 'none',
         },
       },
     },
   }),
-  icon: {
-    padding: '16.5px',
-  },
   checked: {
     color: COLOR.PRIMARY_300 + ' !important',
   },
@@ -133,13 +128,11 @@ export const SearchForm: React.FC<Props> = ({
       onMouseLeave={() => setIsFocused(false)}
     >
       <FelaComponent style={style.container}>
-        <InputText
+        <InputSearch
           icon={
-            <FelaComponent style={style.icon}>
-              <Search
-                fill={isFocused ? COLOR.PRIMARY_500 : COLOR.SECONDARY_400}
-              />
-            </FelaComponent>
+            <Search
+              fill={isFocused ? COLOR.PRIMARY_500 : COLOR.SECONDARY_400}
+            />
           }
           name="query"
           value={formik.values.query}

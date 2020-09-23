@@ -4,11 +4,12 @@ import http from 'http';
 import { ApolloServer } from 'apollo-server-express';
 import { Theme } from '@apollographql/graphql-playground-html/dist/render-playground-page';
 
-import { findUserByToken } from 'src/helpers/users';
+import { authentication } from 'src/middleware/authorization';
 import { resolvers, typeDefs } from 'src/resolvers';
 import { expressServer } from 'src/express';
 import { connect } from 'src/utils/mongodb';
 import { version } from 'package.json';
+import { findUserById } from './helpers/users';
 
 const theme = process.env.AYNEED_BACKEND_PLAYGROUND_THEME as Theme;
 const port = process.env.AYNEED_BACKEND_API_PORT;
@@ -28,19 +29,14 @@ const server = new ApolloServer({
     },
   },
   context: async ({ req, res }) => {
-    // TODO: add normal auth
-    const token = req?.headers?.authorization;
+    const userId = await authentication({ req, res });
 
-    if (!token) {
-      return { req, res };
-    }
-
-    try {
-      const user = await findUserByToken(token);
+    if (userId) {
+      const user = findUserById(userId);
       return { user, req, res };
-    } catch (e) {
-      return { req, res };
     }
+
+    return { req, res };
   },
 });
 

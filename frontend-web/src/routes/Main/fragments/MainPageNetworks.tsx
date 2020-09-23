@@ -5,6 +5,7 @@ import { FelaComponent } from 'react-fela';
 import { Styles, PropsStyle } from 'src/utils/fela';
 import { MsgProps } from 'src/i18n/Msg';
 import { COLOR } from 'src/constants/colors';
+import { FONT_SIZE, FONT_WEIGHT, font } from 'src/constants/fonts';
 import { Msg, msg } from 'src/i18n/Msg';
 import { VK } from 'src/components/icons/networks/VK';
 import { Telegram } from 'src/components/icons/networks/Telegram';
@@ -17,14 +18,13 @@ type Props = {
 interface NetworkProps {
   id: MsgProps['id'];
   href: string;
-  childNode: React.FC;
+  childNode: JSX.Element;
 }
 
 const styles: Styles<'title' | 'linksWrapper'> = {
   title: {
-    fontSize: '16px',
-    lineHeight: '20px',
-    color: COLOR.PRIMARY_500,
+    ...font(FONT_SIZE.L, FONT_WEIGHT.REGULAR),
+    color: COLOR.PRIMARY_200,
   },
   linksWrapper: {
     width: '90px',
@@ -39,17 +39,17 @@ const networks: Array<NetworkProps> = [
   {
     id: 'networks.vk',
     href: 'https://vk.com/ayneed',
-    childNode: VK,
+    childNode: <Instagram fill={COLOR.PRIMARY_300} />,
   },
   {
     id: 'networks.telegram',
     href: 'https://t.me/ayndme',
-    childNode: Telegram,
+    childNode: <VK fill={COLOR.PRIMARY_300} />,
   },
   {
     id: 'networks.instagram',
     href: 'https://www.instagram.com/aynd.ru/',
-    childNode: Instagram,
+    childNode: <Telegram fill={COLOR.PRIMARY_300} />,
   },
 ];
 
@@ -66,7 +66,7 @@ const Links: React.FC = () => {
     <FelaComponent style={styles.linksWrapper}>
       {networks.map(({ id, href, childNode }) => (
         <a key={id} href={href} title={msg(intl, { id })}>
-          {React.createElement(childNode)}
+          {childNode}
         </a>
       ))}
     </FelaComponent>
