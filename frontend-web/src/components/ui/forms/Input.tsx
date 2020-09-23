@@ -59,9 +59,10 @@ const style: Styles<
     width: '250px',
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottom: !!error
-      ? `2px solid ${COLOR.RED} !important`
-      : `2px solid ${!disabled ? COLOR.SECONDARY_200 : COLOR.SECONDARY_400}`,
+    borderBottom:
+      !!error === true
+        ? `2px solid ${COLOR.RED} !important`
+        : `2px solid ${!disabled ? COLOR.SECONDARY_200 : COLOR.SECONDARY_400}`,
     userSelect: disabled ? 'none' : 'auto',
     nested: {
       '> input': {

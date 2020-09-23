@@ -31,7 +31,9 @@ const InputTemplate: Story<InputProps> = (args) => {
     },
     validateOnChange: false,
     validationSchema: validators.forgotPassword,
-    onSubmit: () => {},
+    onSubmit: () => {
+      // do nothing.
+    },
   });
   args.name = 'email';
   args.value = formik.values.email;
