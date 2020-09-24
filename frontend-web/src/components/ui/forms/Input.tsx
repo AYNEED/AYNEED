@@ -55,6 +55,7 @@ const style: Styles<
     '-moz-transition': 'border 0.5s ease',
     '-o-transition': 'border 0.5s ease',
     transition: 'border 0.5s ease',
+    position: 'relative',
     display: 'flex',
     width: '250px',
     flexDirection: 'row',
@@ -71,7 +72,7 @@ const style: Styles<
         height: '25px',
         border: 'none',
         outline: 'none',
-        background: COLOR.WHITE,
+        background: COLOR.TRANSPARENT,
         color: COLOR.SECONDARY_200,
       },
       ':hover': {
@@ -129,7 +130,7 @@ const style: Styles<
         outline: 'none',
         resize: 'none',
         color: !disabled ? COLOR.SECONDARY_100 : COLOR.SECONDARY_400,
-        background: !disabled ? 'none' : COLOR.WHITE,
+        background: !disabled ? 'none' : COLOR.TRANSPARENT,
       },
       '> textarea::placeholder': {
         color: COLOR.SECONDARY_200,
@@ -318,7 +319,12 @@ const Input: React.FC<
         placeholder={msg(intl, placeholder)}
       />
       {!!error && <ExclamationPoint />}
-      {!!error && <Tooltip text={msg(intl, { id: error as MsgProps['id'] })} />}
+      {!!error && (
+        <Tooltip
+          text={msg(intl, { id: error as MsgProps['id'] })}
+          type="right"
+        />
+      )}
     </FelaComponent>
   );
 };

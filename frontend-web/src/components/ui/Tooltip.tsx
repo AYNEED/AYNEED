@@ -21,7 +21,6 @@ const style: Styles<'origTooltip' | 'up' | 'down' | 'right' | 'left'> = {
     padding: '5px',
     borderRadius: '5px',
     background: COLOR.SECONDARY_100,
-    transition: 'all 0.5s ease',
     nested: {
       ':after': {
         content: 'no-close-quote',
@@ -87,6 +86,7 @@ const style: Styles<'origTooltip' | 'up' | 'down' | 'right' | 'left'> = {
     },
   },
 };
+
 export const Tooltip: React.FC<Props> = ({ text, children, type }) => (
   <FelaComponent style={[style.origTooltip, type ? style[type] : {}]}>
     {text}
