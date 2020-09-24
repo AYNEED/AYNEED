@@ -8,7 +8,7 @@ import { CloseMini } from 'src/components/icons/interactions/CloseMini';
 export interface ITag {
   isActive: boolean;
   tagText: string;
-  closeCallback?: never;
+  closeCallback?: VoidFunction;
 }
 
 const style: Styles<'tag' | 'tagActive' | 'tagText'> = {
