@@ -22,7 +22,6 @@ const style: Styles<'scrollbar' | 'scrollThumb'> = {
 };
 
 export const Scrollbar: React.FC = () => {
-
   return (
     <>
       <FelaComponent style={style.scrollbar} as="div">
