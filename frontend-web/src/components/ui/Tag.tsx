@@ -21,7 +21,7 @@ const style: Styles<'tag' | 'tagActive' | 'tagText'> = {
     padding: '5px 9px',
     border: `2px ${COLOR.SECONDARY_400} solid`,
     borderRadius: '50px',
-    color: COLOR.PRIMARY_100,
+    color: COLOR.SECONDARY_100,
   },
 
   tagActive: {
@@ -35,7 +35,7 @@ const style: Styles<'tag' | 'tagActive' | 'tagText'> = {
     borderRadius: '50px',
     columnGap: '8px',
     cursor: 'pointer',
-    color: COLOR.PRIMARY_100,
+    color: COLOR.SECONDARY_100,
     transition: 'all .2s ease',
     nested: {
       ':hover': {
