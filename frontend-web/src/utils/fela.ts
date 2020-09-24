@@ -122,6 +122,18 @@ renderer.renderStatic(`
   }
 `);
 
+renderer.renderStatic(`
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
+  html {
+    -ms-overflow-style: none;  /* IE 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+`);
+
 export type Theme = 'default' | 'negative';
 
 type FelaSheet = IStyle;
