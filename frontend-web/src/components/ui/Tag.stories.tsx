@@ -5,7 +5,7 @@ import { renderer } from 'src/utils/fela';
 import { Tag, ITag } from 'src/components/ui/Tag';
 
 export default {
-  title: 'Atoms/Tag',
+  title: 'Molecules/Tag',
   component: Tag,
 } as Meta;
 
