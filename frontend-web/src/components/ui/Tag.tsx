@@ -12,7 +12,7 @@ export interface ITag {
 }
 
 const style: Styles<
-  'tag' | 'tagActive' | 'tagTap' | 'tagText' | 'hoverBlock' | 'closeButton'
+  'tag' | 'tagActive' | 'tagTap' | 'tagText' | 'hoverBlock'
 > = {
   tag: {
     display: 'flex',
@@ -26,17 +26,8 @@ const style: Styles<
   },
 
   tagActive: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '25px',
-    padding: '5px 9px',
-    border: `1px ${COLOR.SECONDARY_300} solid`,
-    borderRadius: '50px',
     columnGap: '8px',
     cursor: 'pointer',
-    color: COLOR.SECONDARY_100,
-    transition: 'all .2s ease',
     nested: {
       ':hover': {
         borderColor: COLOR.PRIMARY_300,
@@ -47,7 +38,6 @@ const style: Styles<
 
   tagTap: {
     borderColor: `${COLOR.PRIMARY_200} !important`,
-    transition: 'all .2s ease',
     nested: {
       '>p': {
         color: `${COLOR.SECONDARY_100} !important`,
@@ -55,7 +45,7 @@ const style: Styles<
       ':hover': {
         border: `1px ${COLOR.SECONDARY_300} solid`,
         nested: {
-          '>p': {
+          '>div>p': {
             color: `${COLOR.SECONDARY_100} !important`,
           },
         },
@@ -76,18 +66,6 @@ const style: Styles<
       },
     },
   },
-
-  closeButton: {
-    nested: {
-      ':hover': {
-        nested: {
-          '>div>svg>path': {
-            fill: COLOR.PRIMARY_300,
-          },
-        },
-      },
-    },
-  },
 };
 
 export const Tag: React.FC<ITag> = (props) => {
@@ -97,25 +75,30 @@ export const Tag: React.FC<ITag> = (props) => {
   return (
     <FelaComponent
       style={[
-        props.isActive === true ? style.tagActive : style.tag,
-        isTap === true ? style.tagTap : {},
-        isCloseButtonOnHover === true ? style.hoverBlock : {},
+        style.tag,
+        props.isActive ? style.tagActive : {},
+        isTap ? style.tagTap : {},
+        isCloseButtonOnHover ? style.hoverBlock : {},
       ]}
       as="div"
     >
-      <p onClick={() => setIsTap(!isTap)} style={{ ...style.tagText }}>
-        {props.tagText}
-      </p>
-      {props.isActive === true ? (
-        <FelaComponent style={style.closeButton}>
-          <div
-            onMouseOut={() => setIsCloseButtonOnHover(false)}
-            onMouseOver={() => setIsCloseButtonOnHover(true)}
-            onClick={props.closeCallback}
-          >
-            <CloseMini fill={COLOR.SECONDARY_300}></CloseMini>
-          </div>
+      <div onClick={() => setIsTap(!isTap)}>
+        <FelaComponent style={style.tagText} as="p">
+          {props.tagText}
         </FelaComponent>
+      </div>
+      {props.isActive === true ? (
+        <div
+          onMouseOut={() => setIsCloseButtonOnHover(false)}
+          onMouseOver={() => setIsCloseButtonOnHover(true)}
+          onClick={props.closeCallback}
+        >
+          <CloseMini
+            fill={
+              isCloseButtonOnHover ? COLOR.PRIMARY_300 : COLOR.SECONDARY_300
+            }
+          ></CloseMini>
+        </div>
       ) : null}
     </FelaComponent>
   );
