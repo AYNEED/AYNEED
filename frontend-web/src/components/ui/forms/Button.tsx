@@ -1,12 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { FelaComponent } from 'react-fela';
 
 import { Styles, Theme } from 'src/utils/fela';
+import { COLOR, gradient, GRADIENT } from 'src/constants/colors';
+import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 import { Link } from 'src/components/ui/Link';
 import { Scheme } from 'src/navigation';
 import { MsgProps, Msg } from 'src/i18n/Msg';
-import { COLOR, gradient, GRADIENT } from 'src/constants/colors';
-import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
-import { FelaComponent } from 'react-fela';
 
 interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   text: MsgProps;
