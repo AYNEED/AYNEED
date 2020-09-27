@@ -14,6 +14,7 @@ import {
   ButtonLinkProps,
 } from 'src/components/ui/forms/Button';
 import { Idea } from 'src/components/icons/projects/Idea';
+import { ProjectsStatus } from 'src/components/icons/projects/ProjectsStatus';
 
 export default {
   title: 'Molecules/Button',
@@ -80,4 +81,17 @@ LinkButton.args = {
   url: { scheme: ROUTES.MAIN },
   text: { id: 'web.routes.Main.button_start' },
   children: <Idea />,
+};
+
+export const NavigationButton = ButtonTemplate.bind({});
+NavigationButton.args = {
+  mode: 'navigation',
+  text: { id: 'web.routes.Main.button_start' },
+  children: <ProjectsStatus />,
+};
+
+export const NavigationIconButton = ButtonTemplate.bind({});
+NavigationIconButton.args = {
+  mode: 'navigation',
+  children: <ProjectsStatus />,
 };
