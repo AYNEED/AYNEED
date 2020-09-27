@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FelaComponent } from 'react-fela';
+
 import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
@@ -11,17 +12,16 @@ export interface ITag {
   closeCallback?: VoidFunction;
 }
 
-const style: Styles<
-  'tag' | 'tagActive' | 'tagTap' | 'tagText' | 'hoverBlock'
-> = {
+const style: Styles<'tag' | 'tagActive' | 'tagTap' | 'buttonCloseOnHover'> = {
   tag: {
+    ...font(FONT_SIZE.S, FONT_WEIGHT.MEDIUM),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     height: '25px',
     padding: '5px 9px',
     border: `1px ${COLOR.SECONDARY_400} solid`,
-    borderRadius: '50px',
+    borderRadius: '14px',
     color: COLOR.SECONDARY_100,
   },
 
@@ -37,40 +37,23 @@ const style: Styles<
   },
 
   tagTap: {
-    borderColor: `${COLOR.PRIMARY_200} !important`,
-    nested: {
-      '>p': {
-        color: `${COLOR.SECONDARY_100} !important`,
-      },
-      ':hover': {
-        border: `1px ${COLOR.SECONDARY_300} solid`,
-        nested: {
-          '>div>p': {
-            color: `${COLOR.SECONDARY_100} !important`,
-          },
-        },
-      },
-    },
+    borderColor: COLOR.PRIMARY_200,
+    color: COLOR.PRIMARY_200,
   },
 
-  tagText: {
-    ...font(FONT_SIZE.S, FONT_WEIGHT.MEDIUM),
-    color: 'inherit',
-  },
-
-  hoverBlock: {
+  buttonCloseOnHover: {
     nested: {
       ':hover': {
-        color: COLOR.SECONDARY_100,
-        border: `1px ${COLOR.SECONDARY_300} solid`,
+        color: COLOR.SECONDARY_200,
+        borderColor: COLOR.SECONDARY_400,
       },
     },
   },
 };
 
 export const Tag: React.FC<ITag> = (props) => {
-  const [isTap, setIsTap] = React.useState(false);
-  const [isCloseButtonOnHover, setIsCloseButtonOnHover] = React.useState(false);
+  const [isTap, setIsTap] = useState(false);
+  const [buttonCloseOnHover, setHover] = useState(false);
 
   return (
     <FelaComponent
@@ -78,25 +61,20 @@ export const Tag: React.FC<ITag> = (props) => {
         style.tag,
         props.isActive ? style.tagActive : {},
         isTap ? style.tagTap : {},
-        isCloseButtonOnHover ? style.hoverBlock : {},
+        buttonCloseOnHover ? style.buttonCloseOnHover : {},
       ]}
-      as="div"
     >
-      <div onClick={() => setIsTap(!isTap)}>
-        <FelaComponent style={style.tagText} as="p">
-          {props.tagText}
-        </FelaComponent>
-      </div>
+      <p onClick={() => (props.isActive ? setIsTap(!isTap) : null)}>
+        {props.tagText}
+      </p>
       {props.isActive === true ? (
         <div
-          onMouseOut={() => setIsCloseButtonOnHover(false)}
-          onMouseOver={() => setIsCloseButtonOnHover(true)}
+          onMouseOut={() => setHover(false)}
+          onMouseOver={() => setHover(true)}
           onClick={props.closeCallback}
         >
           <CloseMini
-            fill={
-              isCloseButtonOnHover ? COLOR.PRIMARY_300 : COLOR.SECONDARY_300
-            }
+            fill={buttonCloseOnHover ? COLOR.PRIMARY_300 : COLOR.SECONDARY_300}
           ></CloseMini>
         </div>
       ) : null}
