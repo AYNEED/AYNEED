@@ -1,17 +1,24 @@
 import React from 'react';
 import { FelaComponent } from 'react-fela';
 import { Styles } from 'src/utils/fela';
-import { COLOR } from 'src/constants/colors';
+import { COLOR, gradient, GRADIENT } from 'src/constants/colors';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 import { SHADOW } from 'src/constants/effects';
 import { Lamp } from 'src/components/icons/interactions/Lamp';
 
 export interface IFirstCard {
   disabled: boolean;
+  firstStart: boolean;
 }
 
 const style: Styles<
-  'firstCard' | 'disabled' | 'firstCardText' | 'textEnabled' | 'textDisabled'
+  | 'firstCard'
+  | 'disabled'
+  | 'firstStart'
+  | 'firstCardText'
+  | 'textEnabled'
+  | 'textDisabled'
+  | 'textFirstStart'
 > = {
   firstCard: {
     width: '330px',
@@ -50,6 +57,17 @@ const style: Styles<
     },
   },
 
+  firstStart: {
+    ...gradient(GRADIENT.VERTICAL_SUNSET),
+    backgroundClip: 'border-box !important',
+    WebkitTextFillColor: COLOR.WHITE,
+    nested: {
+      ':hover': {
+        border: `1px ${COLOR.SECONDARY_400} solid`,
+      },
+    },
+  },
+
   firstCardText: {
     ...font(FONT_SIZE.M, FONT_WEIGHT.MEDIUM),
     marginTop: '20px',
@@ -62,6 +80,10 @@ const style: Styles<
   textEnabled: {
     color: COLOR.SECONDARY_200,
   },
+
+  textFirstStart: {
+    color: COLOR.WHITE,
+  },
 };
 
 export const FirstCard: React.FC<IFirstCard> = (props) => {
@@ -73,7 +95,14 @@ export const FirstCard: React.FC<IFirstCard> = (props) => {
       onMouseOut={() => setIsHover(false)}
     >
       <FelaComponent
-        style={[style.firstCard, props.disabled ? style.disabled : {}]}
+        style={[
+          style.firstCard,
+          props.disabled
+            ? style.disabled
+            : props.firstStart
+            ? style.firstStart
+            : {},
+        ]}
         as="div"
       >
         <Lamp
@@ -81,16 +110,24 @@ export const FirstCard: React.FC<IFirstCard> = (props) => {
             isHover
               ? props.disabled
                 ? COLOR.SECONDARY_500
+                : props.firstStart
+                ? COLOR.WHITE
                 : 'url(#paint0_linear)'
               : props.disabled
               ? COLOR.SECONDARY_500
+              : props.firstStart
+              ? COLOR.WHITE
               : COLOR.SECONDARY_400
           }
         ></Lamp>
         <FelaComponent
           style={[
             style.firstCardText,
-            props.disabled ? style.textDisabled : style.textEnabled,
+            props.disabled
+              ? style.textDisabled
+              : props.firstStart
+              ? style.textFirstStart
+              : style.textEnabled,
           ]}
           as="p"
         >

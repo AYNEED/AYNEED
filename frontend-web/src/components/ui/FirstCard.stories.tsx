@@ -18,9 +18,17 @@ const Tamplate: Story<IFirstCard> = (args) => (
 export const Example = Tamplate.bind({});
 Example.args = {
   disabled: false,
+  firstStart: false,
 };
 
 export const Disabled = Tamplate.bind({});
 Disabled.args = {
   disabled: true,
+  firstStart: false,
+};
+
+export const FirstStart = Tamplate.bind({});
+FirstStart.args = {
+  disabled: false,
+  firstStart: true,
 };
