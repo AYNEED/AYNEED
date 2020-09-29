@@ -7,12 +7,12 @@ import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 export interface IProgressBar {
   percent: number;
   progressBarTitle: string;
-  disable: boolean;
+  negative: boolean;
 }
 
 const style: Styles<
   | 'progressBar'
-  | 'disabled'
+  | 'negatived'
   | 'progressBarTextInfo'
   | 'titleText'
   | 'percentText'
@@ -24,7 +24,7 @@ const style: Styles<
     width: '250px',
   },
 
-  disabled: {
+  negatived: {
     filter: 'grayscale(0.6)',
     opacity: '0.5',
   },
@@ -44,32 +44,33 @@ const style: Styles<
     ...gradient(GRADIENT.VERTICAL_SUNSET),
   },
 
-  progressBarLine: {
+  progressBarLine: ({ percent }: { percent: number }) => ({
     ...gradient(GRADIENT.HORIZONTAL),
     width: '100%',
     height: '8px',
     borderRadius: '10px',
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'flex-end',
+    marginTop: '10px',
     nested: {
       '::after': {
         content: '" "',
         display: 'block',
         height: '8px',
+        width: `${percent}%`,
         borderRadius: '0px 10px 10px 0px',
         backgroundColor: COLOR.SECONDARY_400,
       },
     },
-  },
+  }),
 };
 
 export const ProgressBar: React.FC<IProgressBar> = (props) => {
   return (
     <FelaComponent
-      style={[style.progressBar, props.disable ? style.disabled : {}]}
-      as="div"
+      style={[style.progressBar, props.negative ? style.negatived : {}]}
     >
-      <FelaComponent style={style.progressBarTextInfo} as="div">
+      <FelaComponent style={style.progressBarTextInfo}>
         <FelaComponent style={style.titleText} as="p">
           {props.progressBarTitle}
         </FelaComponent>
@@ -80,11 +81,8 @@ export const ProgressBar: React.FC<IProgressBar> = (props) => {
       </FelaComponent>
       <div>
         <FelaComponent
-          style={[
-            style.progressBarLine,
-            { nested: { '::after': { width: `${100 - props.percent}%` } } },
-          ]}
-          as="div"
+          percent={100 - props.percent}
+          style={style.progressBarLine}
         ></FelaComponent>
       </div>
     </FelaComponent>

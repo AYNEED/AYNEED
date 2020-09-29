@@ -19,12 +19,12 @@ export const Normaly = Tamplate.bind({});
 Normaly.args = {
   percent: 35,
   progressBarTitle: 'Example',
-  disable: false,
+  negative: false,
 };
 
-export const Disable = Tamplate.bind({});
-Disable.args = {
+export const Negative = Tamplate.bind({});
+Negative.args = {
   percent: 35,
   progressBarTitle: 'Example',
-  disable: true,
+  negative: true,
 };
