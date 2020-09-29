@@ -8,32 +8,20 @@ import {
   LayoutProps,
   LayoutStyleProps,
 } from 'src/components/wrappers/layouts/types';
-import { Logo } from 'src/components/ui/Logo';
+import { NavigationPanel } from 'src/components/blocks/NavigationPanel';
 
-const style: Styles<'root' | 'nav' | 'main' | 'logo' | 'title'> = {
+const style: Styles<'root' | 'main' | 'title'> = {
   root: ({ backgroundColor }: LayoutStyleProps) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
     minHeight: '100vh',
+    width: '100%',
     backgroundColor,
-  }),
-  nav: ({ width }: { width: number }) => ({
-    width,
-    backgroundColor: COLOR.WHITE,
-    borderRightWidth: 1,
-    borderRightStyle: 'solid',
-    borderRightColor: COLOR.SECONDARY_400,
-    position: 'sticky',
-    top: 0,
-    minHeight: '100vh',
   }),
   main: {
     padding: 30,
     minHeight: '100vh',
-  },
-  logo: {
-    margin: 20,
   },
   title: {
     ...font(FONT_SIZE.XL, FONT_WEIGHT.SEMIBOLD),
@@ -49,19 +37,13 @@ export const DefaultLayout: React.FC<LayoutProps> = ({
   <FelaComponent style={style.root} backgroundColor={backgroundColor}>
     {({ className }) => (
       <div data-testid="page" className={className}>
-        <FelaComponent style={style.nav} as="nav" width={256}>
-          <FelaComponent style={style.logo}>
-            <Logo />
-          </FelaComponent>
-        </FelaComponent>
-
+        <NavigationPanel expanded={true} logged={false} />
         <FelaComponent style={style.main} as="main">
           {title && (
             <FelaComponent style={style.title} as="h1">
               {title}
             </FelaComponent>
           )}
-
           {children}
         </FelaComponent>
       </div>

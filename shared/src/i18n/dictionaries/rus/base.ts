@@ -14,6 +14,14 @@ export const base = {
   'web.components.blocks.SearchForm.model_mvps': 'MVP',
   'web.components.blocks.SearchForm.model_users': 'Люди',
 
+  'web.components.blocks.NavigationPanel.beginnings': 'Мои начинания',
+  'web.components.blocks.NavigationPanel.subscriptions': 'Подписки',
+  'web.components.blocks.NavigationPanel.friends': 'Друзья',
+  'web.components.blocks.NavigationPanel.team': 'В команду',
+  'web.components.blocks.NavigationPanel.ideas': 'Идеи',
+  'web.components.blocks.NavigationPanel.concepts': 'Концепты',
+  'web.components.blocks.NavigationPanel.mvp': 'MVP',
+
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
 
   'web.components.ui.CardProject.problem': 'Проблема',
