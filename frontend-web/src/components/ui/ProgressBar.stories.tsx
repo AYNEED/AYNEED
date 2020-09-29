@@ -5,24 +5,24 @@ import { renderer } from 'src/utils/fela';
 import { ProgressBar, IProgressBar } from 'src/components/ui/ProgressBar';
 
 export default {
-  title: 'Atoms/ProgressBar',
+  title: 'Organisms/ProgressBar',
   component: ProgressBar,
 } as Meta;
 
-const Tamplate: Story<IProgressBar> = (args) => (
+const Template: Story<IProgressBar> = (args) => (
   <RendererProvider renderer={renderer}>
     <ProgressBar {...args}></ProgressBar>
   </RendererProvider>
 );
 
-export const Normaly = Tamplate.bind({});
-Normaly.args = {
+export const Normal = Template.bind({});
+Normal.args = {
   percent: 35,
   progressBarTitle: 'Example',
   negative: false,
 };
 
-export const Negative = Tamplate.bind({});
+export const Negative = Template.bind({});
 Negative.args = {
   percent: 35,
   progressBarTitle: 'Example',

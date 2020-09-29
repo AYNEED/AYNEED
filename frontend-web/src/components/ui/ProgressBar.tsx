@@ -58,7 +58,7 @@ const style: Styles<
         display: 'block',
         height: '8px',
         width: `${percent}%`,
-        borderRadius: '0px 10px 10px 0px',
+        borderRadius: `${percent === 100 ? '10px' : '0px 10px 10px 0px'}`,
         backgroundColor: COLOR.SECONDARY_400,
       },
     },
