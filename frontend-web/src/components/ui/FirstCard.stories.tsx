@@ -9,25 +9,25 @@ export default {
   component: FirstCard,
 } as Meta;
 
-const Tamplate: Story<IFirstCard> = (args) => (
+const Template: Story<IFirstCard> = (args) => (
   <RendererProvider renderer={renderer}>
     <FirstCard {...args}></FirstCard>
   </RendererProvider>
 );
 
-export const Example = Tamplate.bind({});
+export const Example = Template.bind({});
 Example.args = {
   disabled: false,
   firstStart: false,
 };
 
-export const Disabled = Tamplate.bind({});
+export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
   firstStart: false,
 };
 
-export const FirstStart = Tamplate.bind({});
+export const FirstStart = Template.bind({});
 FirstStart.args = {
   disabled: false,
   firstStart: true,
