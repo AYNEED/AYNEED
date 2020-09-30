@@ -9,7 +9,7 @@ import { Scheme } from 'src/navigation';
 import { MsgProps, Msg } from 'src/i18n/Msg';
 
 interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  text: MsgProps;
+  text?: MsgProps;
   mode: 'origin' | 'text' | 'social' | 'icon' | 'link' | 'navigation';
   disabled?: boolean;
   theme?: Theme;
@@ -53,7 +53,7 @@ const style: Styles<
     outline: 'none',
     background: COLOR.TRANSPARENT,
     color: COLOR.SECONDARY_200,
-    fill: COLOR.PRIMARY_300,
+    fill: COLOR.SECONDARY_200,
     cursor: 'pointer',
     nested: {
       ':hover': {
@@ -98,13 +98,13 @@ const style: Styles<
     nested:
       mode === 'text' || mode === 'navigation'
         ? {
-            '> *': {
-              margin: '0 10px',
+            '> span': {
+              marginLeft: '20px',
             },
           }
         : {
-            '> *': {
-              margin: '0 7px',
+            '> span': {
+              marginLeft: '14px',
             },
           },
   }),
@@ -140,6 +140,7 @@ const style: Styles<
     height: '24px',
     width: '4px',
     marginLeft: 'auto',
+    marginRight: '0px',
     background: `${COLOR.PRIMARY_300} !important`,
     borderRadius: '3px 0px 0px 3px',
   },
@@ -169,7 +170,9 @@ export const Button: React.FC<ButtonProps> = (props) => {
       style={[
         props.mode === 'origin'
           ? style.origButton
-          : props.mode === 'text' || props.mode === 'navigation'
+          : props.mode === 'text' ||
+            props.mode === 'navigation' ||
+            props.mode === 'icon'
           ? style.textButton
           : {},
         props.children ? style.block : {},
