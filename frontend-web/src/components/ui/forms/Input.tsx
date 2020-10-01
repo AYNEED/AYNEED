@@ -36,8 +36,18 @@ export interface InputCheckabeProps extends CommonProps {
   checked?: boolean;
 }
 
+export interface InputDisplayProps {
+  value: string;
+  disabled?: boolean;
+}
+
 const style: Styles<
-  'inputOrig' | 'inputCheckable' | 'inputSwitch' | 'inputText' | 'inputSearch'
+  | 'inputOrig'
+  | 'inputDisplay'
+  | 'inputCheckable'
+  | 'inputSwitch'
+  | 'inputText'
+  | 'inputSearch'
 > = {
   inputSearch: {
     display: 'flex',
@@ -113,7 +123,7 @@ const style: Styles<
 
     display: 'flex',
     width: '505px',
-    height: '131px',
+    height: mode === 'orig' ? '131px' : 'auto',
     border: !disabled
       ? mode !== 'display'
         ? `1px solid ${COLOR.SECONDARY_200}`
@@ -154,6 +164,22 @@ const style: Styles<
               borderBottom: `2px solid ${COLOR.SECONDARY_400}`,
             }
           : {},
+    },
+  }),
+  inputDisplay: ({ disabled }: { disabled?: boolean }) => ({
+    display: 'flex',
+    width: '250px',
+    height: '24px',
+    flexDirection: 'row',
+    alignItems: 'center',
+    nested: {
+      '> input': {
+        ...font(FONT_SIZE.M, FONT_WEIGHT.REGULAR),
+        flex: 2,
+        border: 'none',
+        outline: 'none',
+        color: disabled ? COLOR.SECONDARY_400 : COLOR.SECONDARY_100,
+      },
     },
   }),
   inputSwitch: ({ disabled }: { disabled?: boolean }) => ({
@@ -357,6 +383,17 @@ const InputChecable: React.FC<
         />
         {label && <Msg id={label.id} values={label.values} />}
       </label>
+    </FelaComponent>
+  );
+};
+
+export const InputDisplay: React.FC<InputDisplayProps> = ({
+  value,
+  disabled,
+}) => {
+  return (
+    <FelaComponent disabled={disabled} style={style.inputDisplay}>
+      <input type="text" readOnly={true} value={value} />
     </FelaComponent>
   );
 };
