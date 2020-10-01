@@ -6,4 +6,5 @@ export type LayoutStyleProps = {
 
 export type LayoutProps = LayoutStyleProps & {
   title: JSX.Element | null;
+  navExpanded?: boolean;
 };

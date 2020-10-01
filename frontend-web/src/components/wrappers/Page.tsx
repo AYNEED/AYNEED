@@ -12,6 +12,7 @@ type Props = {
   title?: string;
   withTitle?: boolean;
   layout?: Layout;
+  navExpanded?: boolean;
 };
 
 export const Page: React.FC<Props> = ({
@@ -19,6 +20,7 @@ export const Page: React.FC<Props> = ({
   title,
   withTitle,
   layout = 'default',
+  navExpanded,
 }) => {
   const intl = useIntl();
   const match = useRouteMatch();
@@ -47,7 +49,11 @@ export const Page: React.FC<Props> = ({
       : COLOR.WHITE;
 
   return (
-    <LayoutComponent title={renderedTitle} backgroundColor={backgroundColor}>
+    <LayoutComponent
+      title={renderedTitle}
+      backgroundColor={backgroundColor}
+      navExpanded={navExpanded}
+    >
       {children}
     </LayoutComponent>
   );
