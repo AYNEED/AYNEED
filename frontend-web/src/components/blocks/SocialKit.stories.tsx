@@ -11,10 +11,9 @@ export default {
 } as Meta;
 
 const Template: Story = (args) => (
-
-    <RendererProvider renderer={renderer}>
-      <SocialKit {...args} />
-    </RendererProvider>
+  <RendererProvider renderer={renderer}>
+    <SocialKit {...args} />
+  </RendererProvider>
 );
 
 export const General = Template.bind({});
