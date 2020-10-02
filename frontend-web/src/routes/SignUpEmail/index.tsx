@@ -5,6 +5,8 @@ import { useMutation } from '@apollo/client';
 import { FelaComponent } from 'react-fela';
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Styles } from 'src/utils/fela';
+import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
+import { COLOR } from 'src/constants/colors';
 import { Page } from 'src/components/wrappers/Page';
 import {
   InputText,
@@ -50,17 +52,29 @@ const SignUpEmail: React.FC = () => {
       }),
   });
 
-  const style: Styles<'container' | 'socialNetworksContainer'> = {
+  const style: Styles<'container' | 'socialNetworksContainer' | 'checkbox'> = {
     container: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      rowGap: '40px',
+      rowGap: '30px',
       marginTop: '30px',
     },
 
     socialNetworksContainer: {
       marginTop: '20px',
+    },
+
+    checkbox: {
+      nested: {
+        '>div>label': {
+          ...font(FONT_SIZE.S, FONT_WEIGHT.REGULAR),
+          color: COLOR.SECONDARY_300,
+          display: 'flex',
+          alignItems: 'center',
+          columnGap: '10px',
+        },
+      },
     },
   };
 
@@ -101,14 +115,15 @@ const SignUpEmail: React.FC = () => {
             onChange={formik.handleChange}
             placeholder={{ id: 'web.routes.SignUpEmail.form_password' }}
           />
-
-          <InputCheckbox
-            name="isAgree"
-            label={{ id: 'web.routes.SignUpEmail.form_is_agree' }}
-            value=""
-            checked={formik.values.isAgree}
-            onChange={formik.handleChange}
-          />
+          <FelaComponent style={style.checkbox}>
+            <InputCheckbox
+              name="isAgree"
+              label={{ id: 'web.routes.SignUpEmail.form_is_agree' }}
+              value=""
+              checked={formik.values.isAgree}
+              onChange={formik.handleChange}
+            />
+          </FelaComponent>
 
           <Button
             disabled={!formik.values.isAgree}
