@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { RendererProvider } from 'react-fela';
 
 import { renderer } from 'src/utils/fela';
-import { TabBars } from 'src/components/blocks/TabBars';
+import { TabBars, Props } from 'src/components/blocks/TabBars';
 import { IntlProvider } from 'src/i18n/IntlProvider';
 
 export default {
@@ -11,7 +11,7 @@ export default {
   component: TabBars,
 } as Meta;
 
-const Template: Story = (args) => (
+const Template: Story<Props> = (args) => (
   <IntlProvider>
     <RendererProvider renderer={renderer}>
       <TabBars {...args} />
