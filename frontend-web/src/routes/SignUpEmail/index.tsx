@@ -1,12 +1,15 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Msg } from 'src/i18n/Msg';
-import { useMutation } from '@apollo/client';
 import { FelaComponent } from 'react-fela';
-import { Notification } from 'src/components/ui/forms/Notification';
+import { ROUTES, validators } from 'shared';
+
 import { Styles } from 'src/utils/fela';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 import { COLOR } from 'src/constants/colors';
+
+import { useMutation } from '@apollo/client';
+import { Msg } from 'src/i18n/Msg';
+import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import {
   InputText,
@@ -15,7 +18,6 @@ import {
   InputCheckbox,
 } from 'src/components/ui/forms/Input';
 import { Button } from 'src/components/ui/forms/Button';
-import { ROUTES, validators } from 'shared';
 import { Link } from 'src/components/ui/Link';
 import { client } from 'src/utils/fela';
 import {
@@ -73,6 +75,12 @@ const SignUpEmail: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           columnGap: '10px',
+          width: '250px',
+          nested: {
+            '>input': {
+              display: 'inline-table',
+            },
+          },
         },
       },
     },
