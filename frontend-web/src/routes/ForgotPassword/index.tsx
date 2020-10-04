@@ -14,7 +14,6 @@ import {
   ForgotPasswordMutationResult,
   ForgotPasswordMutationVariables,
 } from 'src/__generated__';
-import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
 const ForgotPassword: React.FC = () => {
   const [forgotPassword, result] = useMutation<
@@ -33,7 +32,6 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <Page layout="entry" withTitle>
-      <EnterThrough />
 
       <p>
         <Msg id="web.routes.ForgotPassword.description" />
