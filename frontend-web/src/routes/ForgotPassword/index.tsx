@@ -2,8 +2,8 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
 import { useMutation } from '@apollo/client';
-
 import { FelaComponent } from 'react-fela';
+
 import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
