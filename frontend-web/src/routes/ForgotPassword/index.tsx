@@ -3,6 +3,11 @@ import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
 import { useMutation } from '@apollo/client';
 
+import { FelaComponent } from 'react-fela';
+import { Styles } from 'src/utils/fela';
+import { COLOR } from 'src/constants/colors';
+import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
+
 import { Notification } from 'src/components/ui/forms/Notification';
 import { Page } from 'src/components/wrappers/Page';
 import { InputEmail } from 'src/components/ui/forms/Input';
@@ -30,36 +35,55 @@ const ForgotPassword: React.FC = () => {
     onSubmit: (variables) => forgotPassword({ variables }),
   });
 
+  const style: Styles<'subtitleText' | 'formContainer'> = {
+    subtitleText: {
+      ...font(FONT_SIZE.L, FONT_WEIGHT.REGULAR),
+      color: COLOR.SECONDARY_200,
+      width: '320px',
+      textAlign: 'center',
+      marginTop: '10px',
+    },
+
+    formContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      rowGap: '50px',
+      flexDirection: 'column',
+      margin: '30px 0px',
+    },
+  };
+
   return (
     <Page layout="entry" withTitle>
-
-      <p>
+      <FelaComponent style={style.subtitleText} as="p">
         <Msg id="web.routes.ForgotPassword.description" />
-      </p>
+      </FelaComponent>
 
       <form onSubmit={formik.handleSubmit}>
-        <Notification error={result.error} />
+        <FelaComponent style={style.formContainer}>
+          <Notification error={result.error} />
 
-        <InputEmail
-          name="email"
-          value={formik.values.email}
-          error={formik.errors.email}
-          onChange={formik.handleChange}
-          placeholder={{ id: 'web.routes.ForgotPassword.form_email' }}
-        />
+          <InputEmail
+            name="email"
+            value={formik.values.email}
+            error={formik.errors.email}
+            onChange={formik.handleChange}
+            placeholder={{ id: 'web.routes.ForgotPassword.form_email' }}
+          />
 
-        <Button
-          text={{ id: 'web.routes.ForgotPassword.form_submit' }}
-          type="submit"
-          mode="origin"
-        />
+          <Button
+            text={{ id: 'web.routes.ForgotPassword.form_submit' }}
+            type="submit"
+            mode="origin"
+          />
+        </FelaComponent>
       </form>
 
-      <p>
+      <FelaComponent style={{ marginBottom: '10px' }} as="p">
         <Link url={{ scheme: ROUTES.SIGN_IN_EMAIL }} theme="negative">
           <Msg id="web.routes.ForgotPassword.link_sign_in" />
         </Link>
-      </p>
+      </FelaComponent>
 
       <p>
         <Link url={{ scheme: ROUTES.SIGN_UP_EMAIL }} theme="negative">
