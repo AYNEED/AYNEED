@@ -23,13 +23,15 @@ const ForgotPasswordChange: React.FC = () => {
           onChange={() => null}
           name="password"
           value={''}
-          placeholder={{ id: 'web.routes.SignInEmail.form_password' }}
+          placeholder={{ id: 'web.routes.ForgotPassword.form_newPassword' }}
         ></InputPassword>
         <InputPassword
           onChange={() => null}
           name="passwordRepeat"
           value={''}
-          placeholder={{ id: 'web.routes.SignInEmail.form_password' }}
+          placeholder={{
+            id: 'web.routes.ForgotPassword.form_newPasswordRepeat',
+          }}
         ></InputPassword>
         <Button
           mode="origin"
