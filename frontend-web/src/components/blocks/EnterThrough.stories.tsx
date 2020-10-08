@@ -7,7 +7,7 @@ import { renderer } from 'src/utils/fela';
 import { EnterThrough as EnterThroughImpl } from 'src/components/blocks/EnterThrough';
 
 export default {
-  title: 'Organisms',
+  title: 'Organisms/EnterThrough',
   component: EnterThroughImpl,
 } as Meta;
 
