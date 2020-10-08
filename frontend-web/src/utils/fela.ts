@@ -123,14 +123,23 @@ renderer.renderStatic(`
 `);
 
 renderer.renderStatic(`
-  ::-webkit-scrollbar {
-    width: 0px;
-    background: transparent;
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #09BCCF #FAFBFC;
   }
 
-  html {
-    -ms-overflow-style: none;  /* IE 10+ */
-    scrollbar-width: none; /* Firefox */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #FAFBFC;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #09BCCF;
+    border-radius: 100px;
+    border: 3px solid #FAFBFC;
   }
 `);
 
