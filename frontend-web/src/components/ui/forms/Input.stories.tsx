@@ -15,6 +15,8 @@ import {
   InputTextArea,
   InputTextProps,
   InputCheckabeProps,
+  InputDisplay,
+  InputDisplayProps,
 } from 'src/components/ui/forms/Input';
 
 import { useFormik } from 'formik';
@@ -101,6 +103,18 @@ const InputTextAreaTemplate: Story<InputTextProps> = (args) => {
   );
 };
 
+const InputDisplayTemplate: Story<InputDisplayProps> = (args) => {
+  return (
+    <IntlProvider>
+      <RendererProvider renderer={renderer}>
+        <ReactRouter history={history}>
+          <InputDisplay {...args} />
+        </ReactRouter>
+      </RendererProvider>
+    </IntlProvider>
+  );
+};
+
 export const General = InputTemplate.bind({});
 General.args = {
   placeholder: { id: 'web.routes.Main.button_start' },
@@ -125,4 +139,9 @@ export const TextDisplay = InputTextAreaTemplate.bind({});
 TextDisplay.args = {
   mode: 'display',
   placeholder: { id: 'web.routes.Main.description' },
+};
+
+export const InputTextDisplay = InputDisplayTemplate.bind({});
+InputTextDisplay.args = {
+  value: 'Ивановна',
 };
