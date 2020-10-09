@@ -5,6 +5,7 @@ import { COLOR, gradient, GRADIENT } from 'src/constants/colors';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 import { SHADOW } from 'src/constants/effects';
 import { Lamp } from 'src/components/icons/interactions/Lamp';
+import { Msg } from 'src/i18n/Msg';
 
 export interface IFirstCard {
   disabled: boolean;
@@ -71,6 +72,7 @@ const style: Styles<
   firstCardText: {
     ...font(FONT_SIZE.M, FONT_WEIGHT.MEDIUM),
     marginTop: '20px',
+    width:'140px'
   },
 
   textDisabled: {
@@ -130,11 +132,7 @@ export const FirstCard: React.FC<IFirstCard> = (props) => {
               : style.textEnabled,
           ]}
           as="p"
-        >
-          Создать
-          <br />
-          начинание
-        </FelaComponent>
+        ><Msg id={props.firstStart ? "web.components.ui.CardProject.firstUndertaking" : "web.components.ui.CardProject.undertaking"} /></FelaComponent>
       </FelaComponent>
     </div>
   );

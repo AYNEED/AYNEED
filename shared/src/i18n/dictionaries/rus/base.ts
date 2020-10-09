@@ -39,6 +39,8 @@ export const base = {
 
   'web.components.ui.CardProject.problem': 'Проблема',
   'web.components.ui.CardProject.solution': 'Решение',
+  'web.components.ui.CardProject.firstUndertaking': 'Создать первое начинание',
+  'web.components.ui.CardProject.undertaking': 'Создать начинание',
 
   'web.components.ui.Logo.title': 'AYNeed',
 
