@@ -24,10 +24,6 @@ const styles: Styles<'container'> = {
   },
 };
 
-type Props = {
-  tabType: tabKeys;
-};
-
 enum tabKeys {
   profile = 'profile',
   subscriptions = 'subscriptions',
@@ -79,6 +75,10 @@ const tabs: {
   friend: [tabTitles.friends, tabTitles.searchFriends],
   mvp_concepts: [tabTitles.team, tabTitles.needInTeam, tabTitles.reports],
   idea: [tabTitles.participants, tabTitles.needInTeam, tabTitles.reports],
+};
+
+export type Props = {
+  tabType: keyof typeof tabKeys;
 };
 
 export const TabBars: React.FC<Props> = ({ tabType }) => {
