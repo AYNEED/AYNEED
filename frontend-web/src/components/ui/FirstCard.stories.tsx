@@ -15,8 +15,8 @@ const Template: Story<IFirstCard> = (args) => (
   </RendererProvider>
 );
 
-export const Example = Template.bind({});
-Example.args = {
+export const General = Template.bind({});
+General.args = {
   disabled: false,
   firstStart: false,
 };
