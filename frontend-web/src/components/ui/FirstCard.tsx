@@ -72,7 +72,7 @@ const style: Styles<
   firstCardText: {
     ...font(FONT_SIZE.M, FONT_WEIGHT.MEDIUM),
     marginTop: '20px',
-    width:'140px'
+    width: '140px',
   },
 
   textDisabled: {
@@ -132,7 +132,15 @@ export const FirstCard: React.FC<IFirstCard> = (props) => {
               : style.textEnabled,
           ]}
           as="p"
-        ><Msg id={props.firstStart ? "web.components.ui.CardProject.firstUndertaking" : "web.components.ui.CardProject.undertaking"} /></FelaComponent>
+        >
+          <Msg
+            id={
+              props.firstStart
+                ? 'web.components.ui.CardProject.firstUndertaking'
+                : 'web.components.ui.CardProject.undertaking'
+            }
+          />
+        </FelaComponent>
       </FelaComponent>
     </div>
   );

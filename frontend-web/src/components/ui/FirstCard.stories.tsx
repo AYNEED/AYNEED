@@ -12,9 +12,9 @@ export default {
 
 const Template: Story<IFirstCard> = (args) => (
   <IntlProvider>
-  <RendererProvider renderer={renderer}>
-    <FirstCard {...args}></FirstCard>
-  </RendererProvider>
+    <RendererProvider renderer={renderer}>
+      <FirstCard {...args}></FirstCard>
+    </RendererProvider>
   </IntlProvider>
 );
 
