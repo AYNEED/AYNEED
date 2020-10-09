@@ -6,16 +6,16 @@ import { Page } from 'src/components/wrappers/Page';
 import { InputPassword } from 'src/components/ui/forms/Input';
 import { Button } from 'src/components/ui/forms/Button';
 
-const ForgotPasswordChange: React.FC = () => {
-  const style: Styles<'formContainer'> = {
-    formContainer: {
-      display: 'flex',
-      flexDirection: 'column',
-      rowGap: '40px',
-      marginTop: '30px',
-    },
-  };
+const style: Styles<'formContainer'> = {
+  formContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: '40px',
+    marginTop: '30px',
+  },
+};
 
+const ForgotPasswordChange: React.FC = () => {
   return (
     <Page layout="entry" withTitle>
       <FelaComponent style={style.formContainer}>
