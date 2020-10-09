@@ -5,7 +5,7 @@ import { renderer } from 'src/utils/fela';
 import { FirstCard, IFirstCard } from 'src/components/ui/FirstCard';
 
 export default {
-  title: 'Atoms/FirstCard',
+  title: 'Organisms/FirstCard',
   component: FirstCard,
 } as Meta;
 
