@@ -7,10 +7,10 @@ import { SHADOW } from 'src/constants/effects';
 import { Lamp } from 'src/components/icons/interactions/Lamp';
 import { Msg } from 'src/i18n/Msg';
 
-export interface IFirstCard {
+export type Props = {
   disabled: boolean;
   firstStart: boolean;
-}
+};
 
 const style: Styles<
   | 'firstCard'

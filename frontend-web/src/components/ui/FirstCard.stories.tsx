@@ -2,7 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { RendererProvider } from 'react-fela';
 import { renderer } from 'src/utils/fela';
-import { FirstCard, IFirstCard } from 'src/components/ui/FirstCard';
+import { FirstCard, Props } from 'src/components/ui/FirstCard';
 import { IntlProvider } from 'src/i18n/IntlProvider';
 
 export default {
@@ -10,7 +10,7 @@ export default {
   component: FirstCard,
 } as Meta;
 
-const Template: Story<IFirstCard> = (args) => (
+const Template: Story<Props> = (args) => (
   <IntlProvider>
     <RendererProvider renderer={renderer}>
       <FirstCard {...args}></FirstCard>
