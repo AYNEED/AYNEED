@@ -20,6 +20,24 @@ import {
   ForgotPasswordMutationVariables,
 } from 'src/__generated__';
 
+const style: Styles<'subtitleText' | 'formContainer'> = {
+  subtitleText: {
+    ...font(FONT_SIZE.L, FONT_WEIGHT.REGULAR),
+    color: COLOR.SECONDARY_200,
+    width: '320px',
+    textAlign: 'center',
+    marginTop: '10px',
+  },
+
+  formContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    rowGap: '50px',
+    flexDirection: 'column',
+    margin: '30px 0px',
+  },
+};
+
 const ForgotPassword: React.FC = () => {
   const [forgotPassword, result] = useMutation<
     ForgotPasswordMutationResult,
@@ -34,24 +52,6 @@ const ForgotPassword: React.FC = () => {
     validationSchema: validators.forgotPassword,
     onSubmit: (variables) => forgotPassword({ variables }),
   });
-
-  const style: Styles<'subtitleText' | 'formContainer'> = {
-    subtitleText: {
-      ...font(FONT_SIZE.L, FONT_WEIGHT.REGULAR),
-      color: COLOR.SECONDARY_200,
-      width: '320px',
-      textAlign: 'center',
-      marginTop: '10px',
-    },
-
-    formContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-      rowGap: '50px',
-      flexDirection: 'column',
-      margin: '30px 0px',
-    },
-  };
 
   return (
     <Page layout="entry" withTitle>
