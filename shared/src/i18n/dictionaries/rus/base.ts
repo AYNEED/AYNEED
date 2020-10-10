@@ -45,7 +45,7 @@ export const base = {
   'web.components.ui.Notification.accept': 'Принял(а) заявку в друзья',
   'web.components.ui.Notification.reject': 'Отклонил(а) заявку в друзья',
   'web.components.ui.Notification.correspondence': 'Переписка',
- 
+
   'web.routes.Error404.title': '404 Не найдено',
 
   'web.routes.Feed.title': 'Лента активности',
