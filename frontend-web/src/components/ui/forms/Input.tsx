@@ -306,6 +306,7 @@ const style: Styles<
 const Input: React.FC<
   InputProps & {
     type: 'password' | 'text' | 'search';
+    styleProps?: React.CSSProperties;
   }
 > = ({
   name,
@@ -318,6 +319,7 @@ const Input: React.FC<
   maxLength,
   className,
   disabled,
+  styleProps,
 }) => {
   const intl = useIntl();
 
@@ -343,6 +345,7 @@ const Input: React.FC<
         onChange={onChange}
         maxLength={maxLength}
         placeholder={msg(intl, placeholder)}
+        style={styleProps}
       />
       {!!error && <ExclamationPoint />}
       {!!error && (
@@ -433,15 +436,15 @@ export const InputSearch: React.FC<InputProps> = (props) => (
 );
 
 export const InputText: React.FC<InputProps> = (props) => (
-  <Input {...props} type="text" />
+  <Input {...props} type="text" styleProps={{ fontWeight: 500 }} />
 );
 
 export const InputEmail: React.FC<InputProps> = (props) => (
-  <Input {...props} type="text" />
+  <Input {...props} type="text" styleProps={{ fontWeight: 500 }} />
 );
 
 export const InputPassword: React.FC<InputProps> = (props) => (
-  <Input {...props} type="password" />
+  <Input {...props} type="password" styleProps={{ fontWeight: 500 }} />
 );
 
 export const InputCheckbox: React.FC<InputCheckabeProps> = (props) => (
