@@ -88,7 +88,7 @@ const style: Styles<
   },
 };
 
-export const FirstCard: React.FC<IFirstCard> = (props) => {
+export const FirstCard: React.FC<Props> = (props) => {
   const [isHover, setIsHover] = React.useState(false);
 
   return (
