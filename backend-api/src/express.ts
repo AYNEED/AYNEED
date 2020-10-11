@@ -1,5 +1,6 @@
 import express from 'express';
 import session from 'express-session';
+import cookeParser from 'cookie-parser';
 import passport from 'passport';
 import { GraphQLLocalStrategy } from 'graphql-passport';
 
@@ -31,5 +32,6 @@ app.use(sessionParser);
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookeParser());
 
 export const expressServer = app;

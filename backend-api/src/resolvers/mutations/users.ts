@@ -9,11 +9,16 @@ import {
 import { EVENTS, UPDATES } from 'src/notifications/events';
 import { send } from 'src/notifications';
 import { validators, ValidationError } from 'shared';
-import { createUser, updateUser } from 'src/helpers/users';
+import { createUser, updateUser, updateUserToken } from 'src/helpers/users';
+import {
+  createAccessToken,
+  createRefreshToken,
+} from 'src/middleware/authorization';
 
 export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
   parent,
-  { email, password, client }
+  { email, password, client },
+  { req, res }
 ) => {
   await validators.signInEmail.validate({ email, password });
 
@@ -21,15 +26,21 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
     'contacts.email.value': email,
   });
 
-  if (!data || !verifyPassword(password, data.private.password)) {
+  if (
+    !data ||
+    (data.private.password && !verifyPassword(password, data.private.password))
+  ) {
     throw new ValidationError('error.emailOrPassword.incorrect');
   }
 
-  const user = userDriver(data, {
+  const access = createAccessToken({ id: data.id });
+  const refresh = createRefreshToken({ id: data.id });
+
+  const updated = await updateUserToken(data.id, { access, refresh });
+
+  const user = userDriver(updated, {
     network: { isOnline: false, client },
   });
-
-  // TODO: create session
 
   if (user.statistics.completeness >= 100) {
     await send.update({
@@ -38,12 +49,16 @@ export const signInEmail: Resolvers['Mutation']['signInEmail'] = async (
     });
   }
 
+  res.cookie('access', access);
+  res.cookie('refresh', refresh);
+
   return user;
 };
 
 export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
   parent,
-  { email, password, firstName, lastName, locale, isAgree, client }
+  { email, password, firstName, lastName, locale, isAgree, client },
+  { req, res }
 ) => {
   await validators.signUpEmail.validate({
     firstName,
@@ -63,11 +78,17 @@ export const signUpEmail: Resolvers['Mutation']['signUpEmail'] = async (
     isAgree,
   });
 
-  const user = userDriver(data, {
+  const access = createAccessToken({ id: data.id });
+  const refresh = createRefreshToken({ id: data.id });
+
+  const updated = await updateUserToken(data.id, { access, refresh });
+
+  const user = userDriver(updated, {
     network: { isOnline: false, client },
   });
 
-  // TODO: create session
+  res.cookie('access', access);
+  res.cookie('refresh', refresh);
 
   return user;
 };
@@ -107,7 +128,8 @@ export const forgotPassword: Resolvers['Mutation']['forgotPassword'] = async (
 
 export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange'] = async (
   parent,
-  { password, recoveryCode, client }
+  { password, recoveryCode, client },
+  { req, res }
 ) => {
   await validators.forgotPasswordChange.validate({ password });
 
@@ -124,11 +146,18 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
   const salt = createRandomString();
   const hash = createPasswordHash(password, salt);
 
+  const access = createAccessToken({ id: data.id });
+  const refresh = createRefreshToken({ id: data.id });
+
   const updated = await updateUser(data.id, {
     private: {
       password: {
         hash,
         salt,
+      },
+      token: {
+        access,
+        refresh,
       },
       recovery: null,
     },
@@ -138,8 +167,6 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
     network: { isOnline: false, client },
   });
 
-  // TODO: create session
-
   if (user.statistics.completeness >= 100) {
     await send.update({
       event: UPDATES.USER_UPDATED,
@@ -147,10 +174,23 @@ export const forgotPasswordChange: Resolvers['Mutation']['forgotPasswordChange']
     });
   }
 
+  res.cookie('access', access);
+  res.cookie('refresh', refresh);
+
   return user;
 };
 
-export const signOut: Resolvers['Mutation']['signOut'] = async (parent) => {
-  // TODO: delete session
+export const signOut: Resolvers['Mutation']['signOut'] = async (
+  parent,
+  args,
+  { req, res, user }
+) => {
+  if (user) {
+    await updateUserToken(user.id, { access: '', refresh: '' });
+  }
+
+  res.clearCookie('access');
+  res.clearCookie('refresh');
+
   return true;
 };

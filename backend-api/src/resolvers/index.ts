@@ -6,9 +6,10 @@ import { subscription } from 'src/resolvers/subscriptions';
 import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';
 import {
+  resolveVacancy,
+  resolveComment,
   resolveHelp,
   resolveHelpItem,
-  resolveComment,
   resolveLike,
   resolveMessage,
   resolveMessageFeed,
@@ -16,6 +17,7 @@ import {
   resolveMessageVisibleData,
   resolveProject,
   resolveProjectFeed,
+  resolveSearchResult,
   resolveSubscribedUser,
   resolveUser,
   resolveUserAboutData,
@@ -46,6 +48,9 @@ export const resolvers: Resolvers = {
   // Custom scalars:
   DateTime: scalarDateTime,
 
+  // Unions
+  SearchResult: resolveSearchResult,
+
   // Feeds:
   MessageFeed: resolveMessageFeed,
   ProjectFeed: resolveProjectFeed,
@@ -57,6 +62,7 @@ export const resolvers: Resolvers = {
   User: resolveUser,
 
   // Additional models:
+  Vacancy: resolveVacancy,
   Comment: resolveComment,
   Like: resolveLike,
   SubscribedUser: resolveSubscribedUser,

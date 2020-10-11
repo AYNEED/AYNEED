@@ -20,6 +20,7 @@ export const events = {
   'error.user.notFound': 'Пользователь не найден',
   'error.user.incompleteProfile':
     'Профиль заполнен не полностью. Заполните и повторите попытку',
+  'error.user.emptyTokens': 'Токены авторизации отсутствуют',
 
   'error.comment.notFound': 'Комментарий не найден',
   'error.comment.targetNotExists':

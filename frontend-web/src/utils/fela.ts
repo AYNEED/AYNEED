@@ -122,6 +122,8 @@ renderer.renderStatic(`
   }
 `);
 
+export type Theme = 'default' | 'negative';
+
 type FelaSheet = IStyle;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type FelaSheetFunction = (props: any) => FelaSheet;

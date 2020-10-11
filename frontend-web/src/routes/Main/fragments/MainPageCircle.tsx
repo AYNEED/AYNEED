@@ -32,7 +32,7 @@ const styles: Styles<'circle' | 'icon' | 'text'> = {
   },
   text: {
     marginTop: '15px',
-    color: COLOR.PRIMARY_500,
+    color: COLOR.PRIMARY_300,
   },
 };
 

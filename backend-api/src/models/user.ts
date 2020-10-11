@@ -19,6 +19,17 @@ export type UserPassword = {
   salt: string;
 };
 
+export type UserToken = {
+  access: string;
+  refresh: string;
+};
+
+export type UserPrivate = {
+  password?: UserPassword;
+  token?: UserToken;
+  recovery?: Maybe<UserRecovery>;
+};
+
 type UserRecovery = {
   date: string;
   code: string;
@@ -40,12 +51,7 @@ export type UserRes = Document &
   Omit<
     User,
     'projects' | 'subscriptions' | 'subscribers' | 'friends' | 'network'
-  > & {
-    private: {
-      password: UserPassword;
-      recovery: Maybe<UserRecovery>;
-    };
-  };
+  > & { private: UserPrivate };
 
 type UserReq = Omit<UserRes, 'id' | 'createdAt'>;
 
@@ -227,6 +233,14 @@ const UserSchema = new Schema<UserReq>(
       },
       recovery: {
         type: UserRecoverySchema,
+      },
+      token: {
+        access: {
+          type: String,
+        },
+        refresh: {
+          type: String,
+        },
       },
     },
   },
