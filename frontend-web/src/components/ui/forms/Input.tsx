@@ -436,15 +436,27 @@ export const InputSearch: React.FC<InputProps> = (props) => (
 );
 
 export const InputText: React.FC<InputProps> = (props) => (
-  <Input {...props} type="text" styleProps={{ fontWeight: 500 }} />
+  <Input
+    {...props}
+    type="text"
+    styleProps={font(FONT_SIZE.S, FONT_WEIGHT.MEDIUM)}
+  />
 );
 
 export const InputEmail: React.FC<InputProps> = (props) => (
-  <Input {...props} type="text" styleProps={{ fontWeight: 500 }} />
+  <Input
+    {...props}
+    type="text"
+    styleProps={font(FONT_SIZE.S, FONT_WEIGHT.MEDIUM)}
+  />
 );
 
 export const InputPassword: React.FC<InputProps> = (props) => (
-  <Input {...props} type="password" styleProps={{ fontWeight: 500 }} />
+  <Input
+    {...props}
+    type="password"
+    styleProps={font(FONT_SIZE.S, FONT_WEIGHT.MEDIUM)}
+  />
 );
 
 export const InputCheckbox: React.FC<InputCheckabeProps> = (props) => (
