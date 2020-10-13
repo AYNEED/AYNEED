@@ -36,6 +36,7 @@ export const base = {
   'web.components.blocks.NavigationPanel.mvp': 'MVP',
 
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
+  'web.components.ui.Avatar.online': 'Online',
 
   'web.components.ui.CardProject.problem': 'Проблема',
   'web.components.ui.CardProject.solution': 'Решение',
