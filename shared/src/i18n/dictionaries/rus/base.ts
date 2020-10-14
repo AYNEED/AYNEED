@@ -55,6 +55,9 @@ export const base = {
   'web.routes.ForgotPassword.title': 'Восстановление пароля',
   'web.routes.ForgotPassword.description':
     'На ваш e-mail будет отправленна ссылка для смены пароля',
+  'web.routes.ForgotPassword.form_newPassword': 'Введите новый пароль',
+  'web.routes.ForgotPassword.form_newPasswordRepeat':
+    'Введите новый пароль еще раз',
 
   'web.routes.ForgotPasswordChange.title': 'Смена пароля',
 
