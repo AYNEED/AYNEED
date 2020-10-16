@@ -5,7 +5,7 @@ import { renderer } from 'src/utils/fela';
 import { ScrollBarPreviewOnly } from 'src/components/ui/ScrollbarPreviewOnly';
 
 export default {
-  title: 'Atoms/ScrollBar',
+  title: 'Molecules/ScrollBar',
   component: ScrollBarPreviewOnly,
 } as Meta;
 
