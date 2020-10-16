@@ -125,11 +125,12 @@ renderer.renderStatic(`
 renderer.renderStatic(`
   * {
     scrollbar-width: thin;
-    scrollbar-color: #09BCCF #FAFBFC;
+    scrollbar-color: #E4E9F0 #FAFBFC;
   }
 
   ::-webkit-scrollbar {
-    width: 12px;
+    width: 7px;
+    height: 7px;
   }
 
   ::-webkit-scrollbar-track {
@@ -137,10 +138,17 @@ renderer.renderStatic(`
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #09BCCF;
+    background-color: #E4E9F0;
     border-radius: 100px;
-    border: 3px solid #FAFBFC;
   }
+
+  ::-webkit-scrollbar-thumb:vertical:hover{ 
+    background-color: #09BCCF;
+   }
+
+   ::-webkit-scrollbar-thumb:horizontal:hover{ 
+    background-color: #09BCCF;
+   }
 `);
 
 export type Theme = 'default' | 'negative';
