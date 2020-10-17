@@ -20,7 +20,7 @@ export enum COLOR {
   TRANSPARENT = 'transparent',
 
   // SVG Gradient links
-  DEFAULT = 'url(#paint0_linear)'
+  DEFAULT = 'url(#paint0_linear)',
 }
 
 // gradient colors
