@@ -114,7 +114,7 @@ export const FirstCard: React.FC<Props> = (props) => {
                 ? COLOR.SECONDARY_500
                 : props.firstStart
                 ? COLOR.WHITE
-                : 'url(#paint0_linear)'
+                : COLOR.DEFAULT
               : props.disabled
               ? COLOR.SECONDARY_500
               : props.firstStart
