@@ -5,6 +5,7 @@ import { FelaComponent } from 'react-fela';
 import { COLOR, GRADIENT, gradient } from 'src/constants/colors';
 import { Styles, Theme } from 'src/utils/fela';
 import { makeURL, Scheme } from 'src/navigation';
+import { FONT_SIZE } from 'src/constants/fonts';
 
 export interface Props extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   url: Scheme;
@@ -41,6 +42,7 @@ const style: Styles<'disabled' | 'gradient' | 'text' | 'block' | 'wrapper'> = {
     color: t === 'negative' ? COLOR.SECONDARY_200 : COLOR.PRIMARY_100,
     fill: t === 'negative' ? COLOR.SECONDARY_200 : COLOR.PRIMARY_100,
     transition: 'color 0.4s, fill 0.4s',
+    fontSize: FONT_SIZE.M,
 
     nested: {
       ':hover': {
@@ -61,6 +63,7 @@ const style: Styles<'disabled' | 'gradient' | 'text' | 'block' | 'wrapper'> = {
   block: {},
   wrapper: {
     textDecoration: 'none',
+    fontSize: FONT_SIZE.M,
   },
 };
 
