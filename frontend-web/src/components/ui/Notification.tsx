@@ -5,7 +5,8 @@ import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
 import { Msg } from 'src/i18n/Msg';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
-// import {font, FONT_SIZE, FONT_WEIGHT} from 'src/constants/fonts'
+import { Avatar } from 'src/components/ui/Avatar';
+import { User, UserClient } from 'src/__generated__';
 
 export type Props = {
   accept: boolean;
@@ -15,6 +16,10 @@ export type Props = {
   skill: string;
   time: string;
   date: string;
+  id: User['id'];
+  photo?: string;
+  isOnline: boolean;
+  client: UserClient;
 };
 
 const style: Styles<
@@ -121,7 +126,12 @@ export const Notification: React.FC<Props> = (props) => {
       style={style.notificarion}
     >
       <FelaComponent style={style.userInfoContainet}>
-        <FelaComponent style={style.avatar}></FelaComponent>
+        <Avatar
+          size={'50px'}
+          id={props.id}
+          client={props.client}
+          isOnline={props.isOnline}
+        />
         <FelaComponent style={style.userTextContainer}>
           <FelaComponent style={style.nameText} as={'p'}>
             {props.name}
