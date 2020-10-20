@@ -33,6 +33,13 @@ const User = {
     photo:
       'https://get.pxhere.com/photo/person-girl-woman-hair-photography-portrait-model-youth-fashion-blue-lady-hairstyle-smile-long-hair-face-dress-eye-head-skin-beauty-blond-photo-shoot-brown-hair-portrait-photography-108386.jpg',
   },
+  network: {
+    isOnline: 'true',
+    client: UserClient.Desktop,
+  },
+  about: {
+    skill: 'Skill',
+  },
 };
 
 export const Accept = Template.bind({});
@@ -40,14 +47,9 @@ Accept.args = {
   accept: true,
   isNew: false,
   align: 'leftTop',
-  name: User.personal.firstName,
-  skill: 'Make Burrito',
   time: '12:00',
   date: '20.11.2020',
-  id: User.id,
-  client: UserClient.Desktop,
-  isOnline: true,
-  photo: User.personal.photo,
+  user: User,
 };
 
 export const Reject = Template.bind({});
@@ -55,14 +57,9 @@ Reject.args = {
   accept: false,
   isNew: false,
   align: 'leftTop',
-  name: User.personal.firstName,
-  skill: 'Make Burrito',
   time: '12:00',
   date: '20.11.2020',
-  id: User.id,
-  client: UserClient.Desktop,
-  isOnline: true,
-  photo: User.personal.photo,
+  user: User,
 };
 
 export const New = Template.bind({});
@@ -70,12 +67,7 @@ New.args = {
   accept: true,
   isNew: true,
   align: 'leftTop',
-  name: User.personal.firstName,
-  skill: 'Make Burrito',
   time: '12:00',
   date: '20.11.2020',
-  id: User.id,
-  client: UserClient.Desktop,
-  isOnline: true,
-  photo: User.personal.photo,
+  user: User,
 };
