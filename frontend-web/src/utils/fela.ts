@@ -6,6 +6,7 @@ import prefixer from 'fela-plugin-prefixer';
 import unit from 'fela-plugin-unit';
 
 import { UserClient } from 'src/__generated__';
+import { COLOR } from '../constants/colors';
 
 const mediaQueries = {
   desktop: '@media (min-width: 1024px)',
@@ -125,7 +126,7 @@ renderer.renderStatic(`
 renderer.renderStatic(`
   * {
     scrollbar-width: thin;
-    scrollbar-color: #E4E9F0 #FAFBFC;
+    scrollbar-color: ${COLOR.SECONDARY_400} ${COLOR.SECONDARY_300};
   }
 
   ::-webkit-scrollbar {
@@ -134,20 +135,20 @@ renderer.renderStatic(`
   }
 
   ::-webkit-scrollbar-track {
-    background: #FAFBFC;
+    background: ${COLOR.SECONDARY_500};
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #E4E9F0;
+    background-color: ${COLOR.SECONDARY_400};
     border-radius: 100px;
   }
 
   ::-webkit-scrollbar-thumb:vertical:hover{ 
-    background-color: #09BCCF;
+    background-color: ${COLOR.PRIMARY_300};
    }
 
    ::-webkit-scrollbar-thumb:horizontal:hover{ 
-    background-color: #09BCCF;
+    background-color: ${COLOR.PRIMARY_300};
    }
 `);
 
