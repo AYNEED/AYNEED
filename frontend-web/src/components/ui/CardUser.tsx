@@ -11,9 +11,8 @@ export const CardUser: React.FC<Props> = ({ id, network, about, personal }) => (
       id={id}
       photo={personal.photo[0]}
       isOnline={network.isOnline}
-      isCurrent={false}
       client={network.client}
-      size="76px"
+      size="90px"
     />
 
     <h3>
