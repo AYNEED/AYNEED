@@ -18,6 +18,9 @@ export enum COLOR {
   PURPLE = '#9668CF',
   WHITE = '#FFFFFF',
   TRANSPARENT = 'transparent',
+
+  // SVG Gradient links
+  DEFAULT = 'url(#paint0_linear)',
 }
 
 // gradient colors
