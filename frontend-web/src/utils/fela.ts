@@ -6,6 +6,7 @@ import prefixer from 'fela-plugin-prefixer';
 import unit from 'fela-plugin-unit';
 
 import { UserClient } from 'src/__generated__';
+import { COLOR } from '../constants/colors';
 
 const mediaQueries = {
   desktop: '@media (min-width: 1024px)',
@@ -120,6 +121,35 @@ renderer.renderStatic(`
     font-family: "Montserrat";
     font-weight: 400;
   }
+`);
+
+renderer.renderStatic(`
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: ${COLOR.SECONDARY_400} ${COLOR.SECONDARY_300};
+  }
+
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${COLOR.SECONDARY_500};
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${COLOR.SECONDARY_400};
+    border-radius: 100px;
+  }
+
+  ::-webkit-scrollbar-thumb:vertical:hover{ 
+    background-color: ${COLOR.PRIMARY_300};
+   }
+
+   ::-webkit-scrollbar-thumb:horizontal:hover{ 
+    background-color: ${COLOR.PRIMARY_300};
+   }
 `);
 
 export type Theme = 'default' | 'negative';

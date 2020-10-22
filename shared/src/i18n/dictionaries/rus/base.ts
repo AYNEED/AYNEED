@@ -36,6 +36,7 @@ export const base = {
   'web.components.blocks.NavigationPanel.mvp': 'MVP',
 
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
+  'web.components.ui.Avatar.online': 'Online',
 
   'web.components.ui.CardProject.problem': 'Проблема',
   'web.components.ui.CardProject.solution': 'Решение',
@@ -57,6 +58,9 @@ export const base = {
   'web.routes.ForgotPassword.title': 'Восстановление пароля',
   'web.routes.ForgotPassword.description':
     'На ваш e-mail будет отправленна ссылка для смены пароля',
+  'web.routes.ForgotPassword.form_newPassword': 'Введите новый пароль',
+  'web.routes.ForgotPassword.form_newPasswordRepeat':
+    'Введите новый пароль еще раз',
 
   'web.routes.ForgotPasswordChange.title': 'Смена пароля',
 
