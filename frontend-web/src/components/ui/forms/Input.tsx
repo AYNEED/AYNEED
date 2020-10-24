@@ -123,7 +123,7 @@ const style: Styles<
 
     display: 'flex',
     width: '505px',
-    height: mode === 'orig' ? '131px' : 'auto',
+    height: mode === 'orig' ? '131px' : '103px',
     border: !disabled
       ? mode !== 'display'
         ? `1px solid ${COLOR.SECONDARY_200}`
