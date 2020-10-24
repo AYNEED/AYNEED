@@ -30,7 +30,7 @@ export const config: { [TKey in ROUTES]: Route } = {
   },
 
   [ROUTES.PROFILE_FILLING]: {
-    access: 'authorized',
+    access: 'unauthorized',
     title: 'web.routes.ProfileFilling.title',
     component: () => import('src/routes/ProfileFilling'),
   },
