@@ -94,4 +94,5 @@ export const base = {
   'web.routes.SignUpEmail.title': 'Регистрация',
 
   'web.routes.User.title': 'Профиль',
+  'web.components.ui.ButtonBack.back': 'Кнопка назад',
 };
