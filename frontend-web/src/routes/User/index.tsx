@@ -1,5 +1,6 @@
 import React from 'react';
 import { FelaComponent } from 'react-fela';
+import { useIntl } from 'react-intl';
 
 import { Styles } from 'src/utils/fela';
 import { FONT_WEIGHT } from 'src/constants/fonts';
@@ -10,7 +11,6 @@ import { SocialKit } from 'src/components/blocks/SocialKit';
 import { ProfileButtonsPanel } from 'src/components/blocks/ProfileButtonsPanel';
 import { TabBars } from 'src/components/blocks/TabBars';
 import { Divider } from 'src/components/ui/Divider';
-import { useIntl } from 'react-intl';
 import { msg } from 'src/i18n/Msg';
 
 const style: Styles<
