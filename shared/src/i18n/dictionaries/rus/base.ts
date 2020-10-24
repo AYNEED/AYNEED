@@ -94,4 +94,6 @@ export const base = {
   'web.routes.SignUpEmail.title': 'Регистрация',
 
   'web.routes.User.title': 'Профиль',
+  'web.routes.User.skills': 'Навыки в сфере IT',
+  'web.routes.User.experience': 'Опыт, достижения',
 };
