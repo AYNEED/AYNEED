@@ -12,4 +12,6 @@ export enum ROUTES {
 
   FEED = '/feed',
   USER = '/u/:id([a-z0-9-]+)',
+
+  PROFILE_FILLING = '/profile-filling'
 }

@@ -55,6 +55,8 @@ export const base = {
   'web.routes.Feed.fragments.FeedProjects.title': 'Идеи',
   'web.routes.Feed.fragments.FeedUsers.title': 'Люди',
 
+  'web.routes.ProfileFilling.title': 'Заполнение профиля',
+
   'web.routes.ForgotPassword.form_email': 'E-mail',
   'web.routes.ForgotPassword.form_submit': 'Сменить пароль',
   'web.routes.ForgotPassword.link_sign_in': 'Войти',
