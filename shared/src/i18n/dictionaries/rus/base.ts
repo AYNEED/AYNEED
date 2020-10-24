@@ -93,7 +93,7 @@ export const base = {
   'web.routes.SignUpEmail.link_sign_in': 'Войти',
   'web.routes.SignUpEmail.title': 'Регистрация',
 
-  'web.components.ui.ButtonBack.back': 'Кнопка назад',
+  'web.components.ui.ButtonBack.back': 'Назад',
 
   'web.routes.User.title': 'Профиль',
   'web.routes.User.skills': 'Навыки в сфере IT',
