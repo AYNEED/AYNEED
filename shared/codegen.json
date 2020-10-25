@@ -1,13 +1,14 @@
 {
-  "schema": "../backend-api/schema.graphql",
   "generates": {
     "../backend-api/src/__generated__.ts": {
+      "schema": "../backend-api/schema.graphql",
       "plugins": ["typescript", "typescript-resolvers"],
       "config": {
         "contextType": "./types#IApolloContext"
       }
     },
     "../frontend-web/src/__generated__.ts": {
+      "schema": "../backend-api/schema.graphql",
       "plugins": [
         "typescript",
         "typescript-operations",
@@ -19,7 +20,22 @@
         "withHOC": false,
         "withHooks": false
       },
-      "documents": ["../frontend-web/client.graphql"]
+      "documents": ["../frontend-web/src/graphql/client.documents.graphql"]
+    },
+    "../frontend-web/src/__generated-state__.ts": {
+      "schema": ["../frontend-web/src/graphql/state.graphql"],
+      "plugins": [
+        "typescript",
+        "typescript-operations",
+        "typescript-react-apollo"
+      ],
+      "config": {
+        "reactApolloVersion": 3,
+        "withComponent": false,
+        "withHOC": false,
+        "withHooks": false
+      },
+      "documents": ["../frontend-web/src/graphql/state.documents.graphql"]
     }
   },
   "config": {
