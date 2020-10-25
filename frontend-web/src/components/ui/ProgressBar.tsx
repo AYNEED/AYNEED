@@ -45,7 +45,7 @@ const style: Styles<
   },
 
   progressBarLine: ({ percent }: { percent: number }) => ({
-    ...gradient(GRADIENT.HORIZONTAL),
+    background: GRADIENT.HORIZONTAL,
     width: '100%',
     height: '8px',
     borderRadius: '10px',
