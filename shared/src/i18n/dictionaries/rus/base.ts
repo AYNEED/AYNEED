@@ -42,6 +42,7 @@ export const base = {
   'web.components.ui.ProfileLine.cancel': 'Отмена',
   'web.components.ui.ProfileLine.attention': 'Внимательно отнеситесь к заполнению своего профиля. От качества заполненного профиля зависит первое желание работать с вами в команде.',
   'web.components.ui.ProfileLine.required': 'Обязательные поля (*)',
+  'web.components.ui.ProfileLine.progress': 'До первых начинаний',
 
   'web.components.ui.CardProject.problem': 'Проблема',
   'web.components.ui.CardProject.solution': 'Решение',

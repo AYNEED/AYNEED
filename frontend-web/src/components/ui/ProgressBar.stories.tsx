@@ -21,13 +21,13 @@ const Template: Story<IProgressBar> = (args) => (
 export const Normal = Template.bind({});
 Normal.args = {
   percent: 35,
-  progressBarTitleId: 'web.components.ui.Logo.title',
+  progressBarTitle:{id: 'web.components.ui.Logo.title'},
   negative: false,
 };
 
 export const Negative = Template.bind({});
 Negative.args = {
   percent: 35,
-  progressBarTitleId: 'web.components.ui.Logo.title',
+  progressBarTitle:{id: 'web.components.ui.Logo.title'},
   negative: true,
 };

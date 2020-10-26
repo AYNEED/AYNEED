@@ -65,7 +65,7 @@ export const ProfileLine: React.FC = () => {
             <FelaComponent style={style.dateContainer}>
                 <FelaComponent style={style.dateText} as='p'>00.00.0000</FelaComponent>
             </FelaComponent>
-            <Avatar id={'1'} isOnline={true} client={UserClient.Desktop} size={'140px'}></Avatar>
+                <Avatar id={'1'} isOnline={true} client={UserClient.Desktop} size={'140px'}></Avatar>
             <FelaComponent style={style.pencilIconContainer}>
                 <Edit fill={COLOR.SECONDARY_200}></Edit>
             </FelaComponent>
@@ -73,7 +73,7 @@ export const ProfileLine: React.FC = () => {
                 <FelaComponent style={style.attentionText} as='p'><Msg id={'web.components.ui.ProfileLine.attention'}></Msg></FelaComponent>
                 <FelaComponent style={style.requireText} as='p'><Msg id={'web.components.ui.ProfileLine.required'}></Msg></FelaComponent>
             </FelaComponent>
-            <ProgressBar percent={60} progressBarTitle={'До первых начинаний'} negative={false}></ProgressBar>
+            <ProgressBar percent={60} progressBarTitle={{id: "web.components.ui.ProfileLine.progress"}} negative={false}></ProgressBar>
             <FelaComponent style={style.buttonContaier}>
                 <Button mode={'origin'} text={{id: 'web.components.ui.ProfileLine.send'}}></Button>
                 <Button mode={'origin'} text={{id: 'web.components.ui.ProfileLine.cancel'}}></Button>
