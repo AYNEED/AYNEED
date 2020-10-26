@@ -62,6 +62,9 @@ export const base = {
   'web.routes.Feed.fragments.FeedUsers.title': 'Люди',
 
   'web.routes.ProfileFilling.title': 'Заполнение профиля',
+  'web.routes.ProfileFilling.phone': '+7 (000) 000-00-00',
+  'web.routes.ProfileFilling.country': 'Страна / Область / Город *',
+  'web.routes.ProfileFilling.socialNetwork': 'Ссылка на вас в соц. сети',
 
   'web.routes.ForgotPassword.form_email': 'E-mail',
   'web.routes.ForgotPassword.form_submit': 'Сменить пароль',

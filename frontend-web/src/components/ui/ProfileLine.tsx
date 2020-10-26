@@ -21,6 +21,7 @@ const style: Styles< 'container' | 'textContainer' | 'pencilIconContainer' | 'bu
         height: '100%',
         backgroundColor: COLOR.WHITE,
         left: '0px',
+        top: '0px',
         padding: '30px' 
     },
     textContainer:{
