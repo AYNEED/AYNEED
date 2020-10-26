@@ -40,7 +40,8 @@ export const base = {
 
   'web.components.ui.ProfileLine.send': 'Отправить',
   'web.components.ui.ProfileLine.cancel': 'Отмена',
-  'web.components.ui.ProfileLine.attention': 'Внимательно отнеситесь к заполнению своего профиля. От качества заполненного профиля зависит первое желание работать с вами в команде.',
+  'web.components.ui.ProfileLine.attention':
+    'Внимательно отнеситесь к заполнению своего профиля. От качества заполненного профиля зависит первое желание работать с вами в команде.',
   'web.components.ui.ProfileLine.required': 'Обязательные поля (*)',
   'web.components.ui.ProfileLine.progress': 'До первых начинаний',
 
@@ -65,8 +66,8 @@ export const base = {
   'web.routes.ProfileFilling.phone': '+7 (000) 000-00-00',
   'web.routes.ProfileFilling.country': 'Страна / Область / Город *',
   'web.routes.ProfileFilling.socialNetwork': 'Ссылка на вас в соц. сети',
-  'web.routes.ProfileFilling.exp': 'Кратко опишите свой опыт и достижения в IT индустрии',
-  
+  'web.routes.ProfileFilling.exp':
+    'Кратко опишите свой опыт и достижения в IT индустрии',
 
   'web.routes.ForgotPassword.form_email': 'E-mail',
   'web.routes.ForgotPassword.form_submit': 'Сменить пароль',
