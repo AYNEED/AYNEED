@@ -4,24 +4,37 @@ import { useFormik } from 'formik';
 import { validators } from 'shared';
 
 import {ProfileLine} from 'src/components/ui/ProfileLine'
-import { InputEmail, InputText } from 'src/components/ui/forms/Input';
+import { InputEmail, InputText, InputTextArea } from 'src/components/ui/forms/Input';
 import {CalendarInput} from 'src/components/ui/CalendarInput'
 import { Styles } from 'src/utils/fela';
+import { COLOR } from 'src/constants/colors';
+import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
+import { Msg} from 'src/i18n/Msg';
 
-const style: Styles<'container' | 'formContainer'> = {
+const style: Styles<'container' | 'formContainer' | 'textAreaContainer' | 'textAreaTitle'> = {
     container:{
         display: 'flex',
         position: 'relative',
         width: '100%',
         height: '100%',
         left: '310px',
-        top: '0px'
+        top: '0px',
+        columnGap: '120px'
     },
     formContainer:{
         display: 'flex',
         flexDirection: 'column',
         rowGap: '50px',
         marginBottom: '225px'
+    },
+    textAreaContainer: {
+        display: 'flex',
+        rowGap: '65px',
+        flexDirection: 'column'
+    },
+    textAreaTitle: {
+        color: COLOR.SECONDARY_100,
+        ...font(FONT_SIZE.M, FONT_WEIGHT.SEMIBOLD)
     }
 }
 
@@ -35,7 +48,9 @@ const ProfileFilling: React.FC = () => {
           email: '',
           phone: '',
           country: '',
-          socialNetwork: ''
+          socialNetwork: '',
+          exp: '',
+          tag: ''
         },
         validateOnChange: false,
         validationSchema: validators.signUpEmail,
@@ -92,6 +107,18 @@ const ProfileFilling: React.FC = () => {
                             placeholder={{ id: 'web.routes.ProfileFilling.socialNetwork' }}
                         />
                     </FelaComponent>
+                    </form>
+                <form onSubmit={formik.handleSubmit}>
+                <FelaComponent style={style.textAreaContainer}>
+                    <div>
+                        <FelaComponent style={style.textAreaTitle} as='p'><Msg id={'web.routes.User.skills'} ></Msg></FelaComponent>
+                        <InputTextArea onChange={formik.handleChange} name='exp' mode={'orig'} placeholder={{id: 'web.routes.ProfileFilling.exp'}} value={formik.values.exp} ></InputTextArea>
+                    </div>
+                    <div>
+                        <FelaComponent style={style.textAreaTitle} as='p'><Msg id={'web.routes.User.experience'} ></Msg></FelaComponent>
+                        <InputTextArea onChange={formik.handleChange} name='tag' mode={'orig'} placeholder={{id: 'web.routes.ProfileFilling.exp'}} value={formik.values.tag} ></InputTextArea>
+                    </div>
+                </FelaComponent>
                 </form>
             </FelaComponent>
         </>
