@@ -77,13 +77,18 @@ const style: Styles<
     userSelect: disabled ? 'none' : 'auto',
     nested: {
       '> input': {
-        ...font(FONT_SIZE.S, FONT_WEIGHT.REGULAR),
+        ...font(FONT_SIZE.M, FONT_WEIGHT.REGULAR),
         flex: 2,
         height: '25px',
         border: 'none',
         outline: 'none',
         background: COLOR.TRANSPARENT,
-        color: COLOR.SECONDARY_200,
+        color: COLOR.SECONDARY_100,
+        nested: {
+          '::placeholder': {
+            color: COLOR.SECONDARY_200,
+          },
+        },
       },
       ':hover': {
         color: COLOR.SECONDARY_300,
@@ -306,7 +311,6 @@ const style: Styles<
 const Input: React.FC<
   InputProps & {
     type: 'password' | 'text' | 'search';
-    styleProps?: React.CSSProperties;
   }
 > = ({
   name,
@@ -319,7 +323,6 @@ const Input: React.FC<
   maxLength,
   className,
   disabled,
-  styleProps,
 }) => {
   const intl = useIntl();
 
@@ -345,7 +348,6 @@ const Input: React.FC<
         onChange={onChange}
         maxLength={maxLength}
         placeholder={msg(intl, placeholder)}
-        style={styleProps}
       />
       {!!error && <ExclamationPoint />}
       {!!error && (
@@ -436,27 +438,15 @@ export const InputSearch: React.FC<InputProps> = (props) => (
 );
 
 export const InputText: React.FC<InputProps> = (props) => (
-  <Input
-    {...props}
-    type="text"
-    styleProps={font(FONT_SIZE.S, FONT_WEIGHT.MEDIUM)}
-  />
+  <Input {...props} type="text" />
 );
 
 export const InputEmail: React.FC<InputProps> = (props) => (
-  <Input
-    {...props}
-    type="text"
-    styleProps={font(FONT_SIZE.S, FONT_WEIGHT.MEDIUM)}
-  />
+  <Input {...props} type="text" />
 );
 
 export const InputPassword: React.FC<InputProps> = (props) => (
-  <Input
-    {...props}
-    type="password"
-    styleProps={font(FONT_SIZE.S, FONT_WEIGHT.MEDIUM)}
-  />
+  <Input {...props} type="password" />
 );
 
 export const InputCheckbox: React.FC<InputCheckabeProps> = (props) => (
