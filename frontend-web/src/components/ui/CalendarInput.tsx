@@ -16,6 +16,7 @@ const style: Styles<'container'> = {
     flexDirection: 'column',
     nested: {
       '>div>input': {
+        flex: 1,
         border: 'none',
         outline: 'none',
         ...font(FONT_SIZE.L, FONT_WEIGHT.REGULAR),
