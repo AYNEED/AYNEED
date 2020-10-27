@@ -18,6 +18,7 @@ const style: Styles<'container'> = {
       '>div>input': {
         border: 'none',
         outline: 'none',
+        width: '90%',
         ...font(FONT_SIZE.L, FONT_WEIGHT.REGULAR),
         color: COLOR.SECONDARY_200,
         backgroundColor: COLOR.WHITE,
