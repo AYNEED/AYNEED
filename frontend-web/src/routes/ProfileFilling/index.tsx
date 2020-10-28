@@ -20,10 +20,9 @@ const style: Styles<
 > = {
   container: {
     display: 'flex',
-    position: 'relative',
     width: '100%',
     height: '100%',
-    left: '310px',
+    marginLeft: '310px',
     top: '0px',
     columnGap: '120px',
   },
