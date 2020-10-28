@@ -19,21 +19,25 @@ const style: Styles<
   'container' | 'formContainer' | 'textAreaContainer' | 'textAreaTitle'
 > = {
   container: {
+    marginLeft: '30px',
+    marginTop: '19px',
     display: 'flex',
-    width: '100%',
-    height: '100%',
-    marginLeft: '310px',
-    columnGap: '120px',
+    flex: 'auto',
+    flexDirection: 'row',
   },
   formContainer: {
+    marginTop: '51px',
+    marginLeft: '30px',
+    marginBottom: '225px',
     display: 'flex',
     flexDirection: 'column',
-    rowGap: '50px',
-    marginBottom: '225px',
+    rowGap: '40px',
   },
   textAreaContainer: {
+    marginTop: '51px',
+    marginLeft: '120px',
     display: 'flex',
-    rowGap: '65px',
+    rowGap: '40px',
     flexDirection: 'column',
   },
   textAreaTitle: {
