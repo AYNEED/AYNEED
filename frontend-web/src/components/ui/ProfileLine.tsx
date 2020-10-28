@@ -27,18 +27,16 @@ const style: Styles<
 > = {
   container: {
     display: 'flex',
+    top: 0,
+    left:0,
+    marginLeft: 0,
     flexDirection: 'column',
     alignItems: 'center',
-    width: '310px',
-    position: 'fixed',
-    height: '100%',
+    width: '250px',
     backgroundColor: COLOR.WHITE,
-    left: '0px',
-    top: '0px',
-    padding: '30px',
   },
   textContainer: {
-    marginBottom: '50px',
+    marginBottom: '34px',
   },
   pencilIconContainer: {
     width: '100%',
