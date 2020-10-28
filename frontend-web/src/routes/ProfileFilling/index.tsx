@@ -23,7 +23,6 @@ const style: Styles<
     width: '100%',
     height: '100%',
     marginLeft: '310px',
-    top: '0px',
     columnGap: '120px',
   },
   formContainer: {
@@ -66,7 +65,7 @@ const ProfileFilling: React.FC = () => {
   return (
     <>
       <FelaComponent style={style.container}>
-        <ProfileLine></ProfileLine>
+        <ProfileLine edit={false}></ProfileLine>
         <form onSubmit={formik.handleSubmit}>
           <FelaComponent style={style.formContainer}>
             <InputText

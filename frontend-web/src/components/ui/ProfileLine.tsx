@@ -11,6 +11,10 @@ import { COLOR } from 'src/constants/colors';
 import { Edit } from 'src/components/icons/interactions/Edit';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 
+type Props = {
+  edit: boolean
+}
+
 const style: Styles<
   | 'container'
   | 'textContainer'
@@ -69,7 +73,7 @@ const style: Styles<
   },
 };
 
-export const ProfileLine: React.FC = () => {
+export const ProfileLine: React.FC<Props> = (props) => {
   return (
     <FelaComponent style={style.container}>
       <FelaComponent style={style.dateContainer}>
@@ -83,9 +87,11 @@ export const ProfileLine: React.FC = () => {
         client={UserClient.Desktop}
         size={'140px'}
       ></Avatar>
-      <FelaComponent style={style.pencilIconContainer}>
-        <Edit fill={COLOR.SECONDARY_200}></Edit>
-      </FelaComponent>
+        <FelaComponent style={style.pencilIconContainer}>
+          {
+            props.edit ? <Edit fill={COLOR.SECONDARY_200}></Edit> : ''
+          }
+        </FelaComponent>
       <FelaComponent style={style.textContainer}>
         <FelaComponent style={style.attentionText} as="p">
           <Msg id={'web.components.ui.ProfileLine.attention'}></Msg>
