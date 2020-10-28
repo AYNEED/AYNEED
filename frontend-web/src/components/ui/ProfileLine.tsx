@@ -12,8 +12,8 @@ import { Edit } from 'src/components/icons/interactions/Edit';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 
 type Props = {
-  edit: boolean
-}
+  edit: boolean;
+};
 
 const style: Styles<
   | 'container'
@@ -57,7 +57,7 @@ const style: Styles<
     ...font(FONT_SIZE.M, FONT_WEIGHT.REGULAR),
     marginBottom: '10px',
     lineHeight: '24px',
-    textAlign: 'justify'
+    textAlign: 'justify',
   },
   requireText: {
     color: COLOR.SECONDARY_200,
@@ -89,11 +89,9 @@ export const ProfileLine: React.FC<Props> = (props) => {
         client={UserClient.Desktop}
         size={'140px'}
       ></Avatar>
-        <FelaComponent style={style.pencilIconContainer}>
-          {
-            props.edit ? <Edit fill={COLOR.SECONDARY_200}></Edit> : ''
-          }
-        </FelaComponent>
+      <FelaComponent style={style.pencilIconContainer}>
+        {props.edit ? <Edit fill={COLOR.SECONDARY_200}></Edit> : ''}
+      </FelaComponent>
       <FelaComponent style={style.textContainer}>
         <FelaComponent style={style.attentionText} as="p">
           <Msg id={'web.components.ui.ProfileLine.attention'}></Msg>
