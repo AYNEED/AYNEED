@@ -28,7 +28,7 @@ const style: Styles<
   container: {
     display: 'flex',
     top: 0,
-    left:0,
+    left: 0,
     marginLeft: 0,
     flexDirection: 'column',
     alignItems: 'center',
