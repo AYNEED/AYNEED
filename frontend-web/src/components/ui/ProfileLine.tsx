@@ -56,6 +56,8 @@ const style: Styles<
     color: COLOR.RED,
     ...font(FONT_SIZE.M, FONT_WEIGHT.REGULAR),
     marginBottom: '10px',
+    lineHeight: '24px',
+    textAlign: 'justify'
   },
   requireText: {
     color: COLOR.SECONDARY_200,
