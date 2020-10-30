@@ -10,7 +10,7 @@ export interface ITag {
   isActive: boolean;
   tagText: string;
   closeCallback?: any;
-  index: number;
+  index?: number;
 }
 
 const style: Styles<'tag' | 'tagActive' | 'tagTap' | 'buttonCloseOnHover'> = {
@@ -73,7 +73,7 @@ export const Tag: React.FC<ITag> = (props) => {
           onMouseOut={() => setHover(false)}
           onMouseOver={() => setHover(true)}
           onClick={props.closeCallback}
-          id={props.index.toString()}
+          id={props.index === undefined ? '' : props.index.toString()}
         >
           <CloseMini
             fill={buttonCloseOnHover ? COLOR.PRIMARY_300 : COLOR.SECONDARY_300}

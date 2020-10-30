@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { SetStateAction } from 'react';
 import { FelaComponent } from 'react-fela';
 
 import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 import { Tag } from 'src/components/ui/Tag';
+
+export type Props = {
+  tags: string[];
+  setTags: React.Dispatch<SetStateAction<string[]>>;
+};
 
 const style: Styles<'container'> = {
   container: ({ inputWidth }: { inputWidth: number }) => ({
@@ -32,9 +37,8 @@ const style: Styles<'container'> = {
   }),
 };
 
-export const TagTextArea: React.FC = () => {
+export const TagTextArea: React.FC<Props> = (props) => {
   const [inputValue, setInputValue] = React.useState('');
-  const [tags, setTags] = React.useState<string[]>([]);
   const [inputWidth, setInputWidth] = React.useState<number>();
 
   const handleInputChange = (
@@ -43,7 +47,7 @@ export const TagTextArea: React.FC = () => {
     const value = event.currentTarget.value;
 
     if (value.length > 0 && value[value.length - 1] === ' ') {
-      setTags([...tags, value.trim()]);
+      props.setTags([...props.tags, value.trim()]);
       setInputValue('');
       setInputWidth(7);
     } else {
@@ -53,15 +57,15 @@ export const TagTextArea: React.FC = () => {
   };
 
   const handleRemoveTag = (event: React.FormEvent): void => {
-    const newTagList = tags.filter(
+    const newTagList = props.tags.filter(
       (_, index) => index.toString() !== event.currentTarget.id
     );
-    setTags([...newTagList]);
+    props.setTags([...newTagList]);
   };
 
   return (
     <FelaComponent inputWidth={inputWidth} style={style.container}>
-      {tags.map((tag, index) => (
+      {props.tags.map((tag, index) => (
         <Tag
           closeCallback={(event: React.FormEvent) => handleRemoveTag(event)}
           index={index}

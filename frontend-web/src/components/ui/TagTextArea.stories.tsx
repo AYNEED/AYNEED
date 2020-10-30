@@ -9,9 +9,14 @@ export default {
   component: TagTextArea,
 } as Meta;
 
+const TestWrapper: React.FC = () => {
+  const [tags, setTags] = React.useState<string[]>([]);
+  return <TagTextArea tags={tags} setTags={setTags}></TagTextArea>;
+};
+
 const Tamplate: Story = (args) => (
   <RendererProvider renderer={renderer}>
-    <TagTextArea {...args}></TagTextArea>
+    <TestWrapper {...args}></TestWrapper>
   </RendererProvider>
 );
 
