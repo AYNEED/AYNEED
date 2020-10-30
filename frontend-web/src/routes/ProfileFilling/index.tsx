@@ -14,6 +14,7 @@ import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 import { Msg } from 'src/i18n/Msg';
+import {TagTextArea} from 'src/components/ui/TagTextArea'
 
 const style: Styles<
   'container' | 'formContainer' | 'textAreaContainer' | 'textAreaTitle'
@@ -47,6 +48,9 @@ const style: Styles<
 };
 
 const ProfileFilling: React.FC = () => {
+
+  const [tags, setTags] = React.useState<string[]>([])
+
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -57,7 +61,7 @@ const ProfileFilling: React.FC = () => {
       country: '',
       socialNetwork: '',
       exp: '',
-      tag: '',
+      tags,
     },
     validateOnChange: false,
     validationSchema: validators.signUpEmail,
@@ -123,13 +127,7 @@ const ProfileFilling: React.FC = () => {
               <FelaComponent style={style.textAreaTitle} as="p">
                 <Msg id={'web.routes.User.skills'}></Msg>
               </FelaComponent>
-              <InputTextArea
-                onChange={formik.handleChange}
-                name="exp"
-                mode={'orig'}
-                placeholder={{ id: 'web.routes.ProfileFilling.exp' }}
-                value={formik.values.exp}
-              ></InputTextArea>
+              <TagTextArea tags={tags} setTags={setTags}></TagTextArea>
             </div>
             <div>
               <FelaComponent style={style.textAreaTitle} as="p">
@@ -140,7 +138,7 @@ const ProfileFilling: React.FC = () => {
                 name="tag"
                 mode={'orig'}
                 placeholder={{ id: 'web.routes.ProfileFilling.exp' }}
-                value={formik.values.tag}
+                value={formik.values.exp}
               ></InputTextArea>
             </div>
           </FelaComponent>
