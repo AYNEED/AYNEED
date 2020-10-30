@@ -14,7 +14,7 @@ import { Styles } from 'src/utils/fela';
 import { COLOR } from 'src/constants/colors';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 import { Msg } from 'src/i18n/Msg';
-import {TagTextArea} from 'src/components/ui/TagTextArea'
+import { TagTextArea } from 'src/components/ui/TagTextArea';
 
 const style: Styles<
   'container' | 'formContainer' | 'textAreaContainer' | 'textAreaTitle'
@@ -48,8 +48,7 @@ const style: Styles<
 };
 
 const ProfileFilling: React.FC = () => {
-
-  const [tags, setTags] = React.useState<string[]>([])
+  const [tags, setTags] = React.useState<string[]>([]);
 
   const formik = useFormik({
     initialValues: {
