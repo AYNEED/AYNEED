@@ -25,6 +25,7 @@ const style: Styles<'container'> = {
     flexWrap: 'wrap',
     alignContent: 'baseline',
     overflowX: 'auto',
+    cursor: 'text',
     nested: {
       '>input': {
         width: `${inputWidth}px`,
@@ -38,8 +39,16 @@ const style: Styles<'container'> = {
 };
 
 export const TagTextArea: React.FC<Props> = (props) => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
   const [inputValue, setInputValue] = React.useState('');
   const [inputWidth, setInputWidth] = React.useState<number>();
+
+  const handleTagTextAreaClick = (): void => {
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
 
   const handleInputChange = (
     event: React.FormEvent<HTMLInputElement>
@@ -64,20 +73,23 @@ export const TagTextArea: React.FC<Props> = (props) => {
   };
 
   return (
-    <FelaComponent inputWidth={inputWidth} style={style.container}>
-      {props.tags.map((tag, index) => (
-        <Tag
-          closeCallback={(event: React.FormEvent) => handleRemoveTag(event)}
-          index={index}
-          key={index}
-          isActive={true}
-          tagText={tag}
-        ></Tag>
-      ))}
-      <input
-        onChange={(event) => handleInputChange(event)}
-        value={inputValue}
-      ></input>
-    </FelaComponent>
+    <div onClick={handleTagTextAreaClick}>
+      <FelaComponent inputWidth={inputWidth} style={style.container}>
+        {props.tags.map((tag, index) => (
+          <Tag
+            closeCallback={(event: React.FormEvent) => handleRemoveTag(event)}
+            index={index}
+            key={index}
+            isActive={true}
+            tagText={tag}
+          ></Tag>
+        ))}
+        <input
+          ref={inputRef}
+          onChange={(event) => handleInputChange(event)}
+          value={inputValue}
+        ></input>
+      </FelaComponent>
+    </div>
   );
 };
