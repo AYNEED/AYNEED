@@ -42,7 +42,7 @@ const style: Styles<'container' | 'checked'> = {
     position: 'relative',
     display: 'flex',
     flexDirection: 'row',
-    width: '80vw',
+    width: '100%',
     height: '59px',
     borderWidth: '1px',
     borderStyle: 'solid',

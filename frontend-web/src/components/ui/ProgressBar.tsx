@@ -73,7 +73,7 @@ export const ProgressBar: React.FC<IProgressBar> = (props) => {
     >
       <FelaComponent style={style.progressBarTextInfo}>
         <FelaComponent style={style.titleText} as="p">
-          <Msg id='web.components.blocks.progressBar.profile'></Msg>
+          <Msg id="web.components.blocks.progressBar.profile"></Msg>
         </FelaComponent>
         <FelaComponent
           style={style.percentText}

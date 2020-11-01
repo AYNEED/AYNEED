@@ -22,6 +22,7 @@ const style: Styles<'root' | 'main' | 'title'> = {
   main: {
     padding: 30,
     minHeight: '100vh',
+    width: '100%',
   },
   title: {
     ...font(FONT_SIZE.XL, FONT_WEIGHT.SEMIBOLD),
