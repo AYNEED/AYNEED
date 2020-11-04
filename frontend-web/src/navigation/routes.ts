@@ -29,6 +29,12 @@ export const config: { [TKey in ROUTES]: Route } = {
     component: () => import('src/routes/ForgotPasswordChange'),
   },
 
+  [ROUTES.PROFILE_FILLING]: {
+    access: 'authorized',
+    title: 'web.routes.ProfileFilling.title',
+    component: () => import('src/routes/ProfileFilling'),
+  },
+
   [ROUTES.SIGN_IN_EMAIL]: {
     access: 'unauthorized',
     title: 'web.routes.SignInEmail.title',

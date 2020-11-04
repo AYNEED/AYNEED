@@ -3,11 +3,11 @@ import { FelaComponent } from 'react-fela';
 import { Styles } from 'src/utils/fela';
 import { COLOR, GRADIENT, gradient } from 'src/constants/colors';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
-import { Msg } from 'src/i18n/Msg';
+import { Msg, MsgProps } from 'src/i18n/Msg';
 
 export interface IProgressBar {
   percent: number;
-  progressBarTitleId: string;
+  progressBarTitle: MsgProps;
   negative: boolean;
 }
 
@@ -73,7 +73,7 @@ export const ProgressBar: React.FC<IProgressBar> = (props) => {
     >
       <FelaComponent style={style.progressBarTextInfo}>
         <FelaComponent style={style.titleText} as="p">
-          <Msg id="web.components.blocks.progressBar.profile"></Msg>
+          <Msg id={props.progressBarTitle.id}></Msg>
         </FelaComponent>
         <FelaComponent
           style={style.percentText}
