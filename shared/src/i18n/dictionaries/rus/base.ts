@@ -35,6 +35,8 @@ export const base = {
   'web.components.blocks.NavigationPanel.concepts': 'Концепты',
   'web.components.blocks.NavigationPanel.mvp': 'MVP',
 
+  'web.components.blocks.progressBar.profile': 'До первых начинаний',
+
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
   'web.components.ui.Avatar.online': 'Online',
 

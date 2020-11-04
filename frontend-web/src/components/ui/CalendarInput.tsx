@@ -60,15 +60,29 @@ export const CalendarInput: React.FC<Props> = (props) => {
 
   const inputOnChange = (event: any) => {
     if (event.target.value.length <= 8) {
-      setInputValue(
-        parseInt(event.target.value.replace(/(\d{2})(\d)/g, '$1/$2'))
-          .toString()
-          .match(/[0-9/]/g)
-          ? event.target.value.replace(/(\d{2})(\d)/g, '$1 / $2')
-          : ''
-      );
+      if (event.target.value.length <= 3) {
+        setInputValue(
+          parseInt(event.target.value.replace(/(\d{2})(\d)/g, '$1 $2'))
+            .toString()
+            .match(/[0-9/]/g)
+            ? parseInt(event.target.value[0] + event.target.value[1]) <= 12
+              ? event.target.value.replace(/(\d{2})(\d)/g, '$1  $2')
+              : inputValue
+            : ''
+        );
+      } else {
+        setInputValue(
+          parseInt(event.target.value.replace(/(\d{2})(\d)/g, '$1 $2'))
+            .toString()
+            .match(/[0-9/]/g)
+            ? parseInt(event.target.value[4] + event.target.value[5]) <= 12
+              ? event.target.value.replace(/(\d{2})(\d)/g, '$1  $2')
+              : inputValue
+            : ''
+        );
+      }
     } else {
-      setInputValue(event.target.value.replace(/(\d{4})(\d)/g, '$1 / $2'));
+      setInputValue(event.target.value.replace(/(\d{4})(\d)/g, '$1  $2'));
     }
   };
 
@@ -83,7 +97,7 @@ export const CalendarInput: React.FC<Props> = (props) => {
             placeholder="00 / 00 / 0000"
             type="text"
             disabled={props.disabled}
-            maxLength={14}
+            maxLength={12}
             value={inputValue}
             onChange={inputOnChange}
           />
