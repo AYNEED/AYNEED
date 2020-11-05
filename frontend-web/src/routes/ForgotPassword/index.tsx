@@ -18,7 +18,7 @@ import {
   ForgotPasswordDocument,
   ForgotPasswordMutationResult,
   ForgotPasswordMutationVariables,
-} from 'src/__generated__';
+} from 'src/generated';
 
 const style: Styles<'subtitleText' | 'formContainer'> = {
   subtitleText: {

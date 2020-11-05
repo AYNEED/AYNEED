@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Msg } from 'src/i18n/Msg';
-import { CommonProjectFieldsFragment } from 'src/__generated__';
+import { CommonProjectFieldsFragment } from 'src/generated';
 
 type Props = CommonProjectFieldsFragment;
 

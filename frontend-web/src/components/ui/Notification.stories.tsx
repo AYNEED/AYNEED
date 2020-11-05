@@ -7,7 +7,7 @@ import { history } from 'src/navigation/store';
 import { renderer } from 'src/utils/fela';
 import { IntlProvider } from 'src/i18n/IntlProvider';
 import { Notification, Props } from 'src/components/ui/Notification';
-import { UserClient } from 'src/__generated__';
+import { UserClient } from 'src/generated';
 
 export default {
   title: 'Organisms/Notification',

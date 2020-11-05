@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers } from 'src/generated';
 import { UserModel } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import {

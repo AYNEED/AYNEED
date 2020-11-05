@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import { Project, ProjectStatus, Vacancy } from 'src/__generated__';
+import { Project, ProjectStatus, Vacancy } from 'src/generated';
 
 export type ProjectRes = Document & Project;
 type ProjectReq = Omit<ProjectRes, 'createdAt' | 'subscribers' | 'comments'>;

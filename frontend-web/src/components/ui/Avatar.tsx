@@ -7,7 +7,7 @@ import { Styles } from 'src/utils/fela';
 import { font, FONT_SIZE, FONT_WEIGHT } from 'src/constants/fonts';
 import { COLOR } from 'src/constants/colors';
 import { SHADOW } from 'src/constants/effects';
-import { User, UserClient } from 'src/__generated__';
+import { User, UserClient } from 'src/generated';
 import { Link } from 'src/components/ui/Link';
 import { Msg } from 'src/i18n/Msg';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Avatar } from 'src/components/ui/Avatar';
-import { CommonUserFieldsFragment } from 'src/__generated__';
+import { CommonUserFieldsFragment } from 'src/generated';
 
 type Props = CommonUserFieldsFragment;
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UModel, Document } from 'mongoose';
 
-import { Resolvers, LikeTargetModel, LikeStatus } from 'src/__generated__';
+import { Resolvers, LikeTargetModel, LikeStatus } from 'src/generated';
 import { ValidationError } from 'shared';
 import { createLike, deleteLike, updateLike } from 'src/helpers/likes';
 import { LikeModel } from 'src/models/like';

@@ -1,4 +1,4 @@
-import { Resolvers, UserClient } from 'src/__generated__';
+import { Resolvers, UserClient } from 'src/generated';
 import { UserModel } from 'src/models/user';
 import { userDriver } from 'src/resolvers/drivers';
 import { FEED_LIMIT } from 'src/constants';

@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers } from 'src/generated';
 import { findHelpByLocale } from 'src/helpers/helps';
 
 export const getHelp: Resolvers['Query']['help'] = async (parent, query) =>

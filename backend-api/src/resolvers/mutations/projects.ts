@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers } from 'src/generated';
 import { createProject } from 'src/helpers/projects';
 import { ValidationError } from 'shared';
 import { UPDATES } from 'src/notifications/events';

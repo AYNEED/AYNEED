@@ -4,7 +4,7 @@ import cookeParser from 'cookie-parser';
 import passport from 'passport';
 import { GraphQLLocalStrategy } from 'graphql-passport';
 
-import { User } from 'src/__generated__';
+import { User } from 'src/generated';
 
 export const app = express();
 

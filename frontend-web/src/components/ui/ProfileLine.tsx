@@ -3,7 +3,7 @@ import { FelaComponent } from 'react-fela';
 
 import { Styles } from 'src/utils/fela';
 import { Avatar } from 'src/components/ui/Avatar';
-import { UserClient } from 'src/__generated__';
+import { UserClient } from 'src/generated';
 import { ProgressBar } from 'src/components/ui/ProgressBar';
 import { Button } from 'src/components/ui/forms/Button';
 import { Msg } from 'src/i18n/Msg';

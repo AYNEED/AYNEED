@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers } from 'src/generated';
 import { getProjectById, getProjects } from 'src/resolvers/queries/projects';
 import { getUserById, getUsers } from 'src/resolvers/queries/users';
 import { getHelp } from 'src/resolvers/queries/helps';

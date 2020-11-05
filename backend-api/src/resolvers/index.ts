@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { gql } from 'apollo-server-express';
 
-import { Resolvers } from 'src/__generated__';
+import { Resolvers } from 'src/generated';
 import { subscription } from 'src/resolvers/subscriptions';
 import { mutation } from 'src/resolvers/mutations';
 import { query } from 'src/resolvers/queries';

@@ -10,7 +10,7 @@ import {
   OnProjectUpdatedDocument,
   OnProjectUpdatedSubscription,
   CommonProjectFieldsFragment,
-} from 'src/__generated__';
+} from 'src/generated';
 import { Msg } from 'src/i18n/Msg';
 import { CardProject } from 'src/components/ui/CardProject';
 

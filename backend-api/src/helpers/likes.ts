@@ -1,5 +1,5 @@
 import { LikeModel, LikeRes } from 'src/models/like';
-import { MutationLikeAddArgs } from 'src/__generated__';
+import { MutationLikeAddArgs } from 'src/generated';
 import { WithSenderId } from 'src/types';
 
 export const createLike = async ({

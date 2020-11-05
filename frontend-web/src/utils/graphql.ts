@@ -6,6 +6,8 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import localForage from 'localforage';
 
 import { getAPIUrl } from 'src/utils/lib';
+import { GetIsLoggedInDocument } from 'src/generated/state';
+import { typePolicies } from 'src/utils/typePolicies';
 
 const driver = [
   localForage.INDEXEDDB,
@@ -21,7 +23,9 @@ localForage.config({
   storeName: process.env.REACT_APP_VERSION,
 });
 
-export const cache = new InMemoryCache({});
+export const cache = new InMemoryCache({
+  typePolicies,
+});
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const storage = localForage as PersistentStorage<PersistedData<any>>;
 
@@ -60,4 +64,11 @@ export const client = new ApolloClient({
   cache,
   link,
   defaultOptions,
+});
+
+cache.writeQuery({
+  query: GetIsLoggedInDocument,
+  data: {
+    isLoggedIn: false,
+  },
 });

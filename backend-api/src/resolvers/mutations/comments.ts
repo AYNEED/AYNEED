@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UModel, Document } from 'mongoose';
 
-import { Resolvers, CommentTargetModel } from 'src/__generated__';
+import { Resolvers, CommentTargetModel } from 'src/generated';
 import { createComment } from 'src/helpers/comments';
 import { ValidationError } from 'shared';
 import { ProjectModel } from 'src/models/project';

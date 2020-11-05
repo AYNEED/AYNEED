@@ -1,0 +1,3 @@
+query GetIsLoggedIn {
+  isLoggedIn @client
+}

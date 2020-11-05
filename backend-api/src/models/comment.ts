@@ -1,7 +1,7 @@
 import { Schema, Document, model } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import { Comment, CommentTargetModel } from 'src/__generated__';
+import { Comment, CommentTargetModel } from 'src/generated';
 
 export type CommentRes = Document & Comment;
 type CommentReq = Omit<CommentRes, 'createdAt'>;

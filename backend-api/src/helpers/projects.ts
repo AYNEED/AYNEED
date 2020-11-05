@@ -1,9 +1,5 @@
 import { ProjectRes, ProjectModel } from 'src/models/project';
-import {
-  Project,
-  ProjectStatus,
-  MutationProjectAddArgs,
-} from 'src/__generated__';
+import { Project, ProjectStatus, MutationProjectAddArgs } from 'src/generated';
 import { ValidationError } from 'shared';
 import { WithSenderId } from 'src/types';
 

@@ -5,7 +5,7 @@ import {
   SubscribedUser,
   SubscriptionTargetModel,
   SubscriptionStatus,
-} from 'src/__generated__';
+} from 'src/generated';
 
 export type SubscriptionRes = Document & SubscribedUser;
 type SubscriptionReq = Omit<SubscriptionRes, 'createdAt'>;
