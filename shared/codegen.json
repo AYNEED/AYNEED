@@ -4,7 +4,7 @@
       "schema": "../backend-api/schema.graphql",
       "plugins": ["typescript", "typescript-resolvers"],
       "config": {
-        "contextType": "./types#IApolloContext"
+        "contextType": "./../types#IApolloContext"
       }
     },
     "../frontend-web/src/generated/index.ts": {
