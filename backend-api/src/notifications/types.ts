@@ -3,7 +3,7 @@ import {
   USER_UPDATES,
   PROJECT_UPDATES,
 } from 'src/notifications/events';
-import { User, Project } from 'src/__generated__';
+import { User, Project } from 'src/generated';
 
 export type Event = keyof typeof EVENTS;
 

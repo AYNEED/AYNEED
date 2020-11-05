@@ -12,7 +12,7 @@ import { MsgProps } from 'src/i18n/Msg';
 import { updateHistory } from 'src/navigation';
 import { Search } from 'src/components/icons/interactions/Search';
 import { InputSearch, InputRadio } from 'src/components/ui/forms/Input';
-import { SearchTargetModel } from 'src/__generated__';
+import { SearchTargetModel } from 'src/generated';
 
 export type Props = {
   mode: 'general' | 'single';
@@ -42,7 +42,7 @@ const style: Styles<'container' | 'checked'> = {
     position: 'relative',
     display: 'flex',
     flexDirection: 'row',
-    width: '80vw',
+    width: '100%',
     height: '59px',
     borderWidth: '1px',
     borderStyle: 'solid',

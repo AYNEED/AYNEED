@@ -12,7 +12,7 @@ import {
   UserLocale,
   UserRole,
   UserSkillRecord,
-} from 'src/__generated__';
+} from 'src/generated';
 
 export type UserPassword = {
   hash: string;

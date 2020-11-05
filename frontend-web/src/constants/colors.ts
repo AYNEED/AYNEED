@@ -18,6 +18,9 @@ export enum COLOR {
   PURPLE = '#9668CF',
   WHITE = '#FFFFFF',
   TRANSPARENT = 'transparent',
+
+  // SVG Gradient links
+  DEFAULT = 'url(#paint0_linear)',
 }
 
 // gradient colors
@@ -31,7 +34,7 @@ export const GRADIENT = {
 
 export const gradient = (background?: string): {} => ({
   background: background || COLOR.TRANSPARENT,
-  backgroundClip: background ? 'text' : 'border-box',
-  '-webkit-background-clip': background ? 'text' : 'border-box',
+  backgroundClip: background ? 'text !important' : 'border-box',
+  '-webkit-background-clip': background ? 'text !important' : 'border-box',
   '-webkit-text-fill-color': background ? COLOR.TRANSPARENT : 'currentcolor',
 });

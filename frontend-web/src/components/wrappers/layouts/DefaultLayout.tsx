@@ -22,6 +22,7 @@ const style: Styles<'root' | 'main' | 'title'> = {
   main: {
     padding: 30,
     minHeight: '100vh',
+    width: '100%',
   },
   title: {
     ...font(FONT_SIZE.XL, FONT_WEIGHT.SEMIBOLD),
@@ -33,11 +34,12 @@ export const DefaultLayout: React.FC<LayoutProps> = ({
   title,
   children,
   backgroundColor,
+  navExpanded = true,
 }) => (
   <FelaComponent style={style.root} backgroundColor={backgroundColor}>
     {({ className }) => (
       <div data-testid="page" className={className}>
-        <NavigationPanel expanded={true} logged={false} />
+        <NavigationPanel expanded={navExpanded} logged={false} />
         <FelaComponent style={style.main} as="main">
           {title && (
             <FelaComponent style={style.title} as="h1">

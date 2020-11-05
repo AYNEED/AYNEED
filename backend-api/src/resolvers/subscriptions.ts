@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { PubSub } from 'apollo-server-express';
 
-import { Resolvers, Project, User } from 'src/__generated__';
+import { Resolvers, Project, User } from 'src/generated';
 import { UPDATES } from 'src/notifications/events';
 
 export const pubsub = new PubSub();

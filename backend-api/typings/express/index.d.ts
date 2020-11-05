@@ -1,4 +1,4 @@
-import { User } from 'src/__generated__';
+import { User } from 'src/generated';
 
 declare module 'express' {
   export interface Request {

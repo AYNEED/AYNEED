@@ -5,7 +5,7 @@ import {
   SearchTargetModel,
   SearchResult,
   QuerySearchArgs,
-} from 'src/__generated__';
+} from 'src/generated';
 import { ProjectModel } from 'src/models/project';
 import { UserModel } from 'src/models/user';
 import { FEED_LIMIT } from 'src/constants';

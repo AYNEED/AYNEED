@@ -3,7 +3,7 @@ import {
   SubscribedUser,
   SubscriptionStatus,
   MutationSubscriptionAddArgs,
-} from 'src/__generated__';
+} from 'src/generated';
 import { ValidationError } from 'shared';
 import { WithSenderId } from 'src/types';
 

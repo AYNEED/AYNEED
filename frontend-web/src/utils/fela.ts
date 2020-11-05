@@ -5,7 +5,7 @@ import namedKeys from 'fela-plugin-named-keys';
 import prefixer from 'fela-plugin-prefixer';
 import unit from 'fela-plugin-unit';
 
-import { UserClient } from 'src/__generated__';
+import { UserClient } from 'src/generated';
 import { COLOR } from '../constants/colors';
 
 const mediaQueries = {

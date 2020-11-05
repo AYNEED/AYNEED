@@ -1,5 +1,5 @@
 import { MessageRes, MessageModel } from 'src/models/message';
-import { MutationMessageAddArgs } from 'src/__generated__';
+import { MutationMessageAddArgs } from 'src/generated';
 import { WithSenderId } from 'src/types';
 
 export const createMessage = async ({

@@ -18,7 +18,7 @@ import {
   SignInEmailDocument,
   SignInEmailMutationResult,
   SignInEmailMutationVariables,
-} from 'src/__generated__';
+} from 'src/generated';
 import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
 const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {

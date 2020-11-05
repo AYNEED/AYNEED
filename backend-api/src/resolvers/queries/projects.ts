@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers } from 'src/generated';
 import { ProjectModel } from 'src/models/project';
 import { FEED_LIMIT } from 'src/constants';
 import { findProjectById } from 'src/helpers/projects';

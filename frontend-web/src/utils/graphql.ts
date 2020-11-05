@@ -6,8 +6,8 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import localForage from 'localforage';
 
 import { getAPIUrl } from 'src/utils/lib';
-import { GetIsLoggedInDocument } from '../__generated-state__';
-import { typePolicies } from './typePolicies';
+import { GetIsLoggedInDocument } from 'src/generated/state';
+import { typePolicies } from 'src/utils/typePolicies';
 
 const driver = [
   localForage.INDEXEDDB,

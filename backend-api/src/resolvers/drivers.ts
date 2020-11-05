@@ -1,5 +1,5 @@
 import { UserRes } from 'src/models/user';
-import { User } from 'src/__generated__';
+import { User } from 'src/generated';
 
 type UserDriverAdditional = {
   network: User['network'];

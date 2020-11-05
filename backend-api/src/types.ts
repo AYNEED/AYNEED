@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { User } from 'src/__generated__';
+import { User } from 'src/generated';
 
 export type WithSenderId<T> = T & {
   senderId: User['id'];

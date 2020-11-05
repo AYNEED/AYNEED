@@ -4,7 +4,7 @@ import { RendererProvider } from 'react-fela';
 import { Router as ReactRouter } from 'react-router-dom';
 
 import { IntlProvider } from 'src/i18n/IntlProvider';
-import { UserClient } from 'src/__generated__';
+import { UserClient } from 'src/generated';
 import { history } from 'src/navigation/store';
 import { renderer } from 'src/utils/fela';
 import { Avatar, Props, PropSize } from 'src/components/ui/Avatar';

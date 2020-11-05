@@ -1,13 +1,13 @@
 {
   "generates": {
-    "../backend-api/src/__generated__.ts": {
+    "../backend-api/src/generated/index.ts": {
       "schema": "../backend-api/schema.graphql",
       "plugins": ["typescript", "typescript-resolvers"],
       "config": {
         "contextType": "./types#IApolloContext"
       }
     },
-    "../frontend-web/src/__generated__.ts": {
+    "../frontend-web/src/generated/index.ts": {
       "schema": "../backend-api/schema.graphql",
       "plugins": [
         "typescript",
@@ -22,7 +22,7 @@
       },
       "documents": ["../frontend-web/src/graphql/client.documents.graphql"]
     },
-    "../frontend-web/src/__generated-state__.ts": {
+    "../frontend-web/src/generated/state.ts": {
       "schema": ["../frontend-web/src/graphql/state.graphql"],
       "plugins": [
         "typescript",

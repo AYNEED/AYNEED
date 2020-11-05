@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers } from 'src/generated';
 import { commentAdd, commentRemove } from 'src/resolvers/mutations/comments';
 import { likeAdd, likeRemove } from 'src/resolvers/mutations/likes';
 import { messageAdd } from 'src/resolvers/mutations/messages';

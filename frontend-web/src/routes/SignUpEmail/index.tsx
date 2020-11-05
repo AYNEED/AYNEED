@@ -25,7 +25,7 @@ import {
   SignUpEmailDocument,
   SignUpEmailMutationResult,
   SignUpEmailMutationVariables,
-} from 'src/__generated__';
+} from 'src/generated';
 import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
 const SignUpEmail: React.FC = () => {

@@ -1,7 +1,7 @@
 import { Schema, Document, model } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import { Help, HelpItem, UserLocale } from 'src/__generated__';
+import { Help, HelpItem, UserLocale } from 'src/generated';
 
 export type HelpItemRes = Document & HelpItem;
 type HelpItemReq = Omit<HelpItemRes, 'createdAt'>;

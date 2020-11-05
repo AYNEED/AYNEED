@@ -1,4 +1,4 @@
-import { Resolvers } from 'src/__generated__';
+import { Resolvers } from 'src/generated';
 import { ValidationError } from 'shared';
 import { createMessage } from 'src/helpers/messages';
 import { findUserById } from 'src/helpers/users';

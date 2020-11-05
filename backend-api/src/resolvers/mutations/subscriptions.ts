@@ -1,4 +1,4 @@
-import { Resolvers, SubscriptionTargetModel } from 'src/__generated__';
+import { Resolvers, SubscriptionTargetModel } from 'src/generated';
 import { findUserById } from 'src/helpers/users';
 import { SubscriptionModel } from 'src/models/subscription';
 import { findSubscriptionById } from 'src/helpers/subscriptions';

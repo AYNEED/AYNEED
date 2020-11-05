@@ -35,19 +35,41 @@ export const base = {
   'web.components.blocks.NavigationPanel.concepts': 'Концепты',
   'web.components.blocks.NavigationPanel.mvp': 'MVP',
 
+  'web.components.blocks.progressBar.profile': 'До первых начинаний',
+
   'web.components.ui.Avatar.upload_photo': 'Загрузите свое фото',
   'web.components.ui.Avatar.online': 'Online',
 
+  'web.components.ui.ProfileLine.send': 'Отправить',
+  'web.components.ui.ProfileLine.cancel': 'Отмена',
+  'web.components.ui.ProfileLine.attention':
+    'Внимательно отнеситесь к заполнению своего профиля. От качества заполненного профиля зависит первое желание работать с вами в команде.',
+  'web.components.ui.ProfileLine.required': 'Обязательные поля (*)',
+  'web.components.ui.ProfileLine.progress': 'До первых начинаний',
+
   'web.components.ui.CardProject.problem': 'Проблема',
   'web.components.ui.CardProject.solution': 'Решение',
+  'web.components.ui.CardProject.firstUndertaking': 'Создать первое начинание',
+  'web.components.ui.CardProject.undertaking': 'Создать начинание',
 
   'web.components.ui.Logo.title': 'AYNeed',
+
+  'web.components.ui.Notification.accept': 'Принял(а) заявку в друзья',
+  'web.components.ui.Notification.reject': 'Отклонил(а) заявку в друзья',
+  'web.components.ui.Notification.correspondence': 'Переписка',
 
   'web.routes.Error404.title': '404 Не найдено',
 
   'web.routes.Feed.title': 'Лента активности',
   'web.routes.Feed.fragments.FeedProjects.title': 'Идеи',
   'web.routes.Feed.fragments.FeedUsers.title': 'Люди',
+
+  'web.routes.ProfileFilling.title': 'Заполнение профиля',
+  'web.routes.ProfileFilling.phone': '+7 (000) 000-00-00',
+  'web.routes.ProfileFilling.country': 'Страна / Область / Город *',
+  'web.routes.ProfileFilling.socialNetwork': 'Ссылка на вас в соц. сети',
+  'web.routes.ProfileFilling.exp':
+    'Кратко опишите свой опыт и достижения в IT индустрии',
 
   'web.routes.ForgotPassword.form_email': 'E-mail',
   'web.routes.ForgotPassword.form_submit': 'Сменить пароль',
@@ -87,5 +109,9 @@ export const base = {
   'web.routes.SignUpEmail.link_sign_in': 'Войти',
   'web.routes.SignUpEmail.title': 'Регистрация',
 
+  'web.components.ui.ButtonBack.back': 'Назад',
+
   'web.routes.User.title': 'Профиль',
+  'web.routes.User.skills': 'Навыки в сфере IT',
+  'web.routes.User.experience': 'Опыт, достижения',
 };

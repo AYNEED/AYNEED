@@ -10,7 +10,7 @@ import {
   OnUserUpdatedDocument,
   OnUserUpdatedSubscription,
   CommonUserFieldsFragment,
-} from 'src/__generated__';
+} from 'src/generated';
 import { Msg } from 'src/i18n/Msg';
 import { CardUser } from 'src/components/ui/CardUser';
 

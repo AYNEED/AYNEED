@@ -1,11 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import {
-  Message,
-  MessageInfoData,
-  MessageVisibleData,
-} from 'src/__generated__';
+import { Message, MessageInfoData, MessageVisibleData } from 'src/generated';
 
 export type MessageRes = Document & Message;
 type MessageReq = Omit<MessageRes, 'id' | 'createdAt'>;

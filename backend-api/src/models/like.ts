@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 import { schemaOptions } from 'src/utils/mongodb';
-import { Like, LikeTargetModel, LikeStatus } from 'src/__generated__';
+import { Like, LikeTargetModel, LikeStatus } from 'src/generated';
 
 export type LikeRes = Document & Like;
 type LikeReq = Omit<LikeRes, 'createdAt'>;

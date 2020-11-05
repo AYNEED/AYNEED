@@ -1,4 +1,4 @@
-import { Query } from 'src/__generated-state__';
+import { Query } from 'src/generated/state';
 
 export const isLoggedInResolver = {
   read(isLoggedIn: Query['isLoggedIn']): Query['isLoggedIn'] {

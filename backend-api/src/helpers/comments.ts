@@ -1,5 +1,5 @@
 import { CommentRes, CommentModel } from 'src/models/comment';
-import { MutationCommentAddArgs, Comment } from 'src/__generated__';
+import { MutationCommentAddArgs, Comment } from 'src/generated';
 import { ValidationError } from 'shared';
 import { WithSenderId } from 'src/types';
 

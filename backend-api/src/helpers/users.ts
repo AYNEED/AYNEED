@@ -1,7 +1,7 @@
 import { UserRes, UserComplete, UserModel, UserToken } from 'src/models/user';
 import { createPasswordHash, createRandomString } from 'src/utils/password';
 import { profileCompleteness } from 'src/utils/profileCompleteness';
-import { MutationSignUpEmailArgs, User, UserRole } from 'src/__generated__';
+import { MutationSignUpEmailArgs, User, UserRole } from 'src/generated';
 import { ValidationError } from 'shared';
 
 export const createUser = async ({

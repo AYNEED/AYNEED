@@ -8,7 +8,7 @@ import {
   SubscriptionTargetModel,
   CommentTargetModel,
   SearchTargetModel,
-} from 'src/__generated__';
+} from 'src/generated';
 
 // ------------------------- Unions ---------------------------
 
