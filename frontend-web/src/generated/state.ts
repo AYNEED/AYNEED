@@ -16,6 +16,7 @@ export type Scalars = {
 export type Query = {
   isLoggedIn: Scalars['Boolean'];
   token: Maybe<Scalars['String']>;
+  user: any;
 };
 
 export type GetIsLoggedInQueryVariables = Exact<{ [key: string]: never }>;
@@ -31,3 +32,9 @@ export type GetIsLoggedInQueryResult = Apollo.QueryResult<
   GetIsLoggedInQuery,
   GetIsLoggedInQueryVariables
 >;
+
+export const GetUser = gql`
+  query GetUser {
+    user @client
+  }
+`;

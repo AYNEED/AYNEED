@@ -19,6 +19,7 @@ import {
   SignInEmailMutationResult,
   SignInEmailMutationVariables,
 } from 'src/generated';
+import { GetUser } from 'src/generated/state';
 import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
 const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
@@ -55,6 +56,15 @@ const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
   },
 };
 
+const pushUserInLocalState = (result: any): void => {
+  result.client.writeQuery({
+    query: GetUser,
+    data: {
+      user: result.data?.data?.signInEmail,
+    },
+  });
+};
+
 const SignInEmail: React.FC = () => {
   const [signInEmail, result] = useMutation<
     SignInEmailMutationResult,
@@ -68,8 +78,10 @@ const SignInEmail: React.FC = () => {
     },
     validateOnChange: false,
     validationSchema: validators.signInEmail,
-    onSubmit: (variables) =>
-      signInEmail({ variables: { ...variables, client } }),
+    onSubmit: (variables) => {
+      signInEmail({ variables: { ...variables, client } });
+      pushUserInLocalState(result);
+    },
   });
 
   return (
