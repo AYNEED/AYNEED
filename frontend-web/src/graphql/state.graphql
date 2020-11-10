@@ -1,4 +1,179 @@
+scalar DateTime
+
+enum USER_CLIENT {
+  mobile
+  desktop
+}
+
+enum PROJECT_STATUS {
+  idea
+  concept
+  mvp
+}
+
+enum USER_ROLE {
+  user
+  support
+}
+
+enum USER_LOCALE {
+  rus
+}
+
+enum USER_LANGUAGE_LEVEL {
+  beginner
+  elementary
+  intermediate
+  upper_intermediate
+  advanced
+  proficiency
+}
+
+enum COMMENT_TARGET_MODEL {
+  Project
+}
+
+enum SUBSCRIPTION_STATUS {
+  waiting
+  accepted
+  rejected
+}
+
+enum SUBSCRIPTION_TARGET_MODEL {
+  User
+  Project
+}
+
+type Vacancy {
+  title: String!
+  text: String!
+  archivedAt: DateTime
+}
+
+type UserNetwotkData {
+  isOnline: Boolean!
+  client: USER_CLIENT!
+}
+
+type SubscribedUser {
+  id: ID!
+  senderId: ID!
+  targetId: ID!
+  targetModel: SUBSCRIPTION_TARGET_MODEL! # TODO: hide this field
+  status: SUBSCRIPTION_STATUS!
+  createdAt: DateTime!
+}
+
+type Comment {
+  id: ID!
+  parentId: ID
+  senderId: ID!
+  targetId: ID!
+  targetModel: COMMENT_TARGET_MODEL!
+  text: String!
+  likesCount: Int!
+  dislikesCount: Int!
+  commentsCount: Int!
+  createdAt: DateTime!
+}
+
+type UserSkillRecord {
+  title: String!
+  primary: Boolean!
+}
+
+type UserCareerRecord {
+  title: String!
+  description: String!
+}
+
+type UserEducationRecord {
+  title: String!
+  description: String!
+}
+
+type UserLanguageRecord {
+  code: String!
+  level: USER_LANGUAGE_LEVEL!
+}
+
+type UserContactRecord {
+  value: String!
+  isVisible: Boolean!
+  isVerified: Boolean!
+}
+
+type UserAboutData {
+  bio: String
+  skills: [UserSkillRecord!]!
+  career: [UserCareerRecord!]!
+  education: [UserEducationRecord!]!
+}
+
+type UserPersonalData {
+  firstName: String!
+  lastName: String!
+  isAgree: Boolean!
+  bornAt: DateTime
+  photo: [String!]!
+}
+
+type UserRegionalData {
+  city: String
+  state: String
+  country: String
+  locale: USER_LOCALE!
+  languages: [UserLanguageRecord!]!
+}
+
+type UserContactsData {
+  email: UserContactRecord!
+  phone: UserContactRecord
+  vkontakte: UserContactRecord
+  facebook: UserContactRecord
+  instagram: UserContactRecord
+  telegram: UserContactRecord
+  linkedin: UserContactRecord
+}
+
+type UserStatisticsData {
+  completeness: Int!
+}
+
+type Project {
+  id: ID!
+  senderId: ID!
+  title: String!
+  problem: String!
+  solution: String!
+  likesCount: Int!
+  status: PROJECT_STATUS!
+  vacancies: [Vacancy!]!
+  subscribers: [SubscribedUser!]!
+  comments: [Comment!]!
+  commentsCount: Int!
+  createdAt: DateTime!
+  archivedAt: DateTime
+}
+
+type User {
+  id: ID!
+  role: USER_ROLE!
+  network: UserNetwotkData!
+  about: UserAboutData!
+  personal: UserPersonalData!
+  regional: UserRegionalData!
+  contacts: UserContactsData!
+  statistics: UserStatisticsData!
+  projects: [Project!]!
+  subscriptions: [SubscribedUser!]!
+  subscribers: [SubscribedUser!]!
+  friends: [SubscribedUser!]!
+  createdAt: DateTime!
+}
+
 type Query {
   isLoggedIn: Boolean!
   token: String
+  user: [User]
 }

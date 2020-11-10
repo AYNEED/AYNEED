@@ -19,7 +19,7 @@ import {
   SignInEmailMutationResult,
   SignInEmailMutationVariables,
 } from 'src/generated';
-import { GetUser } from 'src/generated/state';
+import { GetUserDocument } from 'src/generated/state';
 import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
 const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
@@ -58,7 +58,7 @@ const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
 
 const pushUserInLocalState = (result: any): void => {
   result.client.writeQuery({
-    query: GetUser,
+    query: GetUserDocument,
     data: {
       user: result.data?.data?.signInEmail,
     },
