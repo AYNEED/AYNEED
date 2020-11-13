@@ -8,3 +8,12 @@ export const isLoggedInResolver = {
     return isLoggedIn;
   },
 };
+
+export const userResolver = {
+  read(user: Query['user']): Query['user'] {
+    return user;
+  },
+  merge(user: Query['user']): Query['user'] {
+    return user;
+  },
+};
