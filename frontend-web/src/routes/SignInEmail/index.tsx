@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Msg } from 'src/i18n/Msg';
-import { useMutation } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 import { FelaComponent } from 'react-fela';
 
 import { Styles } from 'src/utils/fela';
@@ -19,7 +19,6 @@ import {
   SignInEmailMutationResult,
   SignInEmailMutationVariables,
 } from 'src/generated';
-import { GetUserDocument } from 'src/generated/state';
 import { EnterThrough } from 'src/components/blocks/EnterThrough';
 
 const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
@@ -58,7 +57,11 @@ const styles: Styles<'form' | 'buttonSubmit' | 'link'> = {
 
 const pushUserInLocalState = (result: any): void => {
   result.client.writeQuery({
-    query: GetUserDocument,
+    query: gql`
+      query {
+        user @client
+      }
+    `,
     data: {
       user: result.data?.data?.signInEmail,
     },
